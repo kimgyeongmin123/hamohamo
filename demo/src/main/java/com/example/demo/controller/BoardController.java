@@ -3,10 +3,14 @@ package com.example.demo.controller;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
+import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +31,33 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/list")
     public List<Board> list(Model model){
         log.info("GET /list");
+
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // UserDto 객체 생성
+        UserDto dto = new UserDto();
+
+        // UserRepository를 사용하여 사용자 정보 가져오기
+        User user = userRepository.findByEmail(email);
+
+        // 사용자 정보에서 닉네임을 가져와서 설정
+        if (user != null) {
+            dto.setNickname(user.getNickname());
+            dto.setPassword(user.getPassword());
+            dto.setBirth(user.getBirth());
+            dto.setPhone(user.getPhone());
+            dto.setAddr(user.getAddr());
+        }
+
+        model.addAttribute("dto", dto);
 
         List<Board> list = boardRepository.findAll();
         model.addAttribute("board", list);
