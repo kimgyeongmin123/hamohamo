@@ -6,38 +6,67 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            height: 860px;
+            max-height: 860px;
+            overflow: auto;
         }
 
         h1 {
             text-align: center;
         }
 
-        table {
+        .board-container {
             width: 80%;
             margin: 0 auto;
-            border-collapse: collapse;
         }
 
-        table, th, td {
+        .board-item {
             border: 1px solid #ccc;
-        }
-
-        th, td {
             padding: 10px;
             text-align: center;
+            background-color: #f2f2f2;
+            margin-bottom: 20px;
         }
 
-        th {
-            background-color: #f2f2f2;
+        /* contents 크기 조정 */
+        .contents {
+            font-size: 16px;
+            padding: 20px;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        /* 이미지 크기 조정 */
+        .thumbnail {
+            width: 200px;
+            height: auto;
         }
+        .scroll::-webkit-scrollbar{
+            display: none;
+        }
+
+        #board_id{
+            border: 1px solid black;
+            text-align: left;
+        }
+        #board_contents{
+            border: 1px solid black;
+            height:100px;
+        }
+        #board_img{
+            border: 1px solid black;
+            height: 200px;
+        }
+        div{
+            margin: 10px;
+            border: 1px solid black;
+        }
+        #board_hits_like{
+            display: flex;
+            justify-content:center;
+        }
+
     </style>
-
 </head>
-<body>
+<body class="scroll">
 <div>
     <a href="/mypage">Mypage</a>
 </div>
@@ -48,31 +77,27 @@ PRINCIPAL : <span sec:authentication="principal"></span>
 <hr>
 <h1>게시판</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>작성자</th>
-        <th>내용</th>
-        <th>날짜</th>
-        <th>조회수</th>
-        <th>좋아요 수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- 게시판 내용을 반복해서 표시합니다. -->
+<div class="board-container">
     <th:block th:each="board : ${boardList}">
-        <tr>
-            <td th:text="${board.number}"></td>
-            <td th:text="${board.id}"></td>
-            <td th:text="${board.contents}"></td>
-            <td th:text="${board.date}"></td>
-            <td th:text="${board.hits}"></td>
-            <td th:text="${board.like_count}"></td>
-        </tr>
+        <div class="board-item">
+            <div id = board_id th:text="${board.id}">id</div>
+            <div id = board_img>
+                <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+                <img th:if="${not #strings.isEmpty(board.filename)}"
+                     th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
+                     alt="Thumbnail" width="200" height="auto" class="thumbnail">
+            </div>
+            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+            <div th:text="${board.date}">date</div>
+            <div id="board_hits_like">
+                <div th:text="${board.hits}">hits</div>
+                <div th:text="${board.like_count}">like</div>
+            </div>
+        </div>
     </th:block>
-    </tbody>
-</table>
+
+</div>
+
 <form method="post" action="/logout">
     <button >일반 로그아웃</button><br/>
 </form>

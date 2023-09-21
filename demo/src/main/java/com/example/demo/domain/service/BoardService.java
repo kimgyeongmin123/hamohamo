@@ -6,7 +6,6 @@ import com.example.demo.domain.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,7 +25,7 @@ public class BoardService {
     private BoardRepository boardRepository;
 
     @Transactional(rollbackFor = SQLException.class)
-    public boolean addBoard(@ModelAttribute("boardDto") BoardDto dto) throws IOException {
+    public boolean addBoard(BoardDto dto, MultipartFile[] imageFiles) throws IOException {
 
         Board board = new Board();
         board.setId(dto.getId());
@@ -36,53 +35,40 @@ public class BoardService {
         board.setLike_count(0L);
 
         board = boardRepository.save(board);
-        System.out.println("board : "+board);
+        System.out.println("board : " + board);
 
-        //MultipartFile 업로드한 파일을 배열로 가져옴.
-        MultipartFile [] files = dto.getFiles();
+        List<String> filenames = new ArrayList<>();
+        List<String> filesizes = new ArrayList<>();
 
-        List<String> filenames = new ArrayList<String>();
-        List<String> filesizes = new ArrayList<String>();
-
-        System.out.println("filenames : "+filenames);
-        System.out.println("filesizes : "+filesizes);
-
-        if(dto.getFiles().length>=1 && dto.getFiles()[0].getSize()!=0L){
-            //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getId()+File.separator+ UUID.randomUUID();
+        if (imageFiles != null && imageFiles.length > 0) {
+            String path = uploadDir + File.separator + dto.getId() + File.separator + UUID.randomUUID();
             File dir = new File(path);
-            if(!dir.exists()) {
+            if (!dir.exists()) {
                 dir.mkdirs();
             }
-            //board에 경로 추가
             board.setDirpath(dir.toString());
 
-            for(MultipartFile file  : dto.getFiles())
-            {
-                System.out.println("--------------------");
-                System.out.println("FILE NAME : " + file.getOriginalFilename());
-                System.out.println("FILE SIZE : " + file.getSize() + " Byte");
-                System.out.println("--------------------");
+            for (MultipartFile imageFile : imageFiles) {
+                if (!imageFile.isEmpty()) {
+                    System.out.println("--------------------");
+                    System.out.println("FILE NAME : " + imageFile.getOriginalFilename());
+                    System.out.println("FILE SIZE : " + imageFile.getSize() + " Byte");
+                    System.out.println("--------------------");
 
-                //파일명 추출
-                String filename = file.getOriginalFilename();
-                //파일객체 생성
-                File fileobj = new File(path,filename);
-                //업로드
-                file.transferTo(fileobj);
+                    String filename = imageFile.getOriginalFilename();
+                    File fileobj = new File(path, filename);
+                    imageFile.transferTo(fileobj);
 
-                //filenames 저장
-                filenames.add(filename);
-                filesizes.add(file.getSize()+"");
+                    filenames.add(filename);
+                    filesizes.add(imageFile.getSize() + "");
+                }
             }
             board.setFilename(filenames.toString());
             board.setFilesize(filesizes.toString());
         }
 
-
-        boolean issaved =  boardRepository.existsByNumber(board.getNumber());
-        System.out.println("issaved : "+issaved);
+        boolean issaved = boardRepository.existsByNumber(board.getNumber());
+        System.out.println("issaved : " + issaved);
         return issaved;
     }
-
 }
