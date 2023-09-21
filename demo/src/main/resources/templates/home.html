@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>HOME</h1>
+<br/>
+<br/>
+<br/>
+
+<div>
+    <a href="/mypage">Mypage</a>
+</div>
+
+<br/>
+
+PRINCIPAL : <span sec:authentication="principal"></span>
+<hr>
+
+<form method="post" action="/logout">
+    <button >일반 로그아웃</button><br/>
+</form>
+
+
+<form method="post" action="/logout">
+    <button onclick="logout()">카카오 로그아웃</button><br/>
+</form>
+
+<button onclick="logoutAndRedirect()">네이버 로그아웃</button><br/>
+<button onclick="logoutAndRedirect()">구글 로그아웃</button><br/>
+
+
+<script>
+    function logoutAndRedirect() {
+          // 새 창 열기
+       var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+       setTimeout(function() {
+         // 1.5초후 창닫기
+          newWindow.close();
+
+         // 특정 지점으로 리다이렉션
+     window.location.href = '/login';
+   }, 1500);
+
+     }
+</script>
+</body>
+</html>

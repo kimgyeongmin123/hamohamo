@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+*{
+	font-family: 'Gothic A1', sans-serif;
+}
+body {
+	width: 1024px;
+	height: 860px;
+	margin: 50px auto;
+	overflow: auto;
+	max-height: 860px;
+}
+
+header{
+
+}
+
+.top-header{
+    display : flex;
+    padding-left : 50px;
+}
+
+.top-header > img{
+    align-self : center;
+}
+
+.top-header > h2 {
+    margin-left : 30px;
+}
+
+header > nav{
+    width : 100%;
+    height : 200px;
+    border : 1px solid black;
+    display: flex;
+    align-items : center;
+}
+
+.profile{
+    height : 150px;
+    width : 150px;
+    margin-left : 40px;
+    margin-right : 60px;
+}
+
+.profileimg{
+    height : 150px;
+    width : 150px;
+    border : 1px solid gray;
+    border-radius: 50%;
+}
+
+.profile-menu{
+    display:flex;
+    margin-top : 20px;
+}
+
+.profileupdate-btn{
+    position : relative;
+    bottom:40px;
+    left : 110px;
+}
+
+.follow-box{
+    display : flex;
+    width : 500px;
+    height : 150px;
+    justify-content : space-around;
+}
+
+.follow{
+    line-height: 100px;
+}
+
+.no{
+    line-height: 0px;
+    text-align: center;
+}
+
+.update-btn{
+
+}
+
+main{
+    width : 80% auto;
+    height : 1000px;
+    text-align : center;
+    border : 1px solid gray;
+    line-height : 300px;
+    margin-top : 80px;
+}
+    </style>
+
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <img src="/images/logo.png" max-width="100%" height="40"/>
+        <h2><span th:text="${dto.nickname}"></span>'s Page</h2>
+    </div>
+    <nav>
+        <div class="profile">
+            <div class="profileimg">프로필사진</div>
+            <div class="profile-menu">
+                <button class="profileupdate-btn"><a href="">◎</a></button>
+            </div>
+        </div>
+        <div class="follow-box">
+            <div class="follow">팔로워
+                <div class="no">100</div>
+            </div>
+            <div class="follow">팔로잉
+                <div class="no">100</div>
+            </div>
+        </div>
+        <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
+    </nav>
+</header>
+<main>
+    여기에 내가 쓴 글 표시
+</main>
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<hr/>
+
+</body>
+</html>

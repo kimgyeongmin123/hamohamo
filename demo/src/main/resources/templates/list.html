@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <a href="/mypage">Mypage</a>
+</div>
+
+<br/>
+
+PRINCIPAL : <span sec:authentication="principal"></span>
+<hr>
+<h1>게시판</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>작성자</th>
+        <th>내용</th>
+        <th>날짜</th>
+        <th>조회수</th>
+        <th>좋아요 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 게시판 내용을 반복해서 표시합니다. -->
+    <th:block th:each="board : ${boardList}">
+        <tr>
+            <td th:text="${board.number}"></td>
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.contents}"></td>
+            <td th:text="${board.date}"></td>
+            <td th:text="${board.hits}"></td>
+            <td th:text="${board.like_count}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<form method="post" action="/logout">
+    <button >일반 로그아웃</button><br/>
+</form>
+
+
+<form method="post" action="/logout">
+    <button onclick="logout()">카카오 로그아웃</button><br/>
+</form>
+
+<button onclick="logoutAndRedirect()">네이버 로그아웃</button><br/>
+<button onclick="logoutAndRedirect()">구글 로그아웃</button><br/>
+
+
+<script>
+    function logoutAndRedirect() {
+          // 새 창 열기
+       var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+       setTimeout(function() {
+         // 1.5초후 창닫기
+          newWindow.close();
+
+         // 특정 지점으로 리다이렉션
+     window.location.href = '/login';
+   }, 1500);
+
+     }
+</script>
+</body>
+</html>
