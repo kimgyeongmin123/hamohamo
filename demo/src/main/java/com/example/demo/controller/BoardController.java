@@ -54,7 +54,7 @@ public class BoardController {
             dto.setPassword(user.getPassword());
             dto.setBirth(user.getBirth());
             dto.setPhone(user.getPhone());
-            dto.setAddr(user.getAddr());
+            dto.setAddr1(user.getAddr1());
         }
 
         model.addAttribute("dto", dto);

@@ -57,7 +57,9 @@ public class UserController {
 
 		user.setNickname(dto.getNickname());
 		user.setName(dto.getName());
-		user.setAddr(dto.getAddr());
+		user.setZipcode(dto.getZipcode());
+		user.setAddr1(dto.getAddr1());
+		user.setAddr2(dto.getAddr2());
 		user.setBirth(dto.getBirth());
 		user.setPhone(dto.getPhone());
 
@@ -88,11 +90,12 @@ public class UserController {
 		// 사용자 정보에서 닉네임을 가져와서 설정
 		if (user != null) {
 			dto.setNickname(user.getNickname());
-			dto.setName(user.getName());
 			dto.setPassword(user.getPassword());
 			dto.setBirth(user.getBirth());
 			dto.setPhone(user.getPhone());
-			dto.setAddr(user.getAddr());
+			dto.setZipcode(user.getZipcode());
+			dto.setAddr1(user.getAddr1());
+			dto.setAddr2(user.getAddr2());
 		}
 
 		model.addAttribute("dto", dto);
