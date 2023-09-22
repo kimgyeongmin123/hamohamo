@@ -58,16 +58,20 @@ main{
         <br/>
         비밀번호 : <a href="/leave">비밀번호 변경하기</a>
         <br/>
-        <label for="nickname">닉네임 :</label>
-        <input type="text" id="nickname" name="name" th:value="${dto.nickname}">
+        <label for="nickname">이름 :</label>
+        <input type="text" id="name" name="newname" th:value="${dto.name}">
         <br/>
+        <label for="nickname">닉네임 :</label>
+        <input type="text" id="nickname" name="newNickname" th:value="${dto.nickname}">
+        <br/>
+
         생년월일 : <span th:text="${dto.birth}"></span>
         <br/>
         <label>휴대폰 :</label>
-        <input type="text" id="phone" name="name" th:value="${dto.phone}">
+        <input type="text" id="phone" name="phone" th:value="${dto.phone}">
         <br/>
         <label>주소 :</label>
-        <input type="text" id="addr" name="name" th:value="${dto.addr}">
+        <input type="text" id="addr" name="addr" th:value="${dto.addr}">
         <br/>
         <button type="submit">수정</button>
     </form>

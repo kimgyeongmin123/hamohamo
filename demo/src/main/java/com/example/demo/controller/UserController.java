@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.UserRepository;
+import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
@@ -26,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/join")
 	public void join_get() {
@@ -82,6 +88,7 @@ public class UserController {
 		// 사용자 정보에서 닉네임을 가져와서 설정
 		if (user != null) {
 			dto.setNickname(user.getNickname());
+			dto.setName(user.getName());
 			dto.setPassword(user.getPassword());
 			dto.setBirth(user.getBirth());
 			dto.setPhone(user.getPhone());
@@ -94,22 +101,21 @@ public class UserController {
 	}
 
 	@PostMapping("/profile/update")
-	public String UserUpdate(Model model) {
+	public String UserUpdate(@RequestParam("newNickname") String newNickname,
+							 RedirectAttributes redirectAttributes,
+							 Model model) {
+		log.info("UserUpdate POST/ post");
+
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
 
-		// UserRepository를 사용하여 사용자 정보 가져오기
-		User user = userRepository.findByEmail(email);
+		boolean isUpdate = userService.UserUpdate(email,newNickname);
 
-		// 사용자 정보 업데이트
-		if (user != null) {
-			user.setNickname(user.getNickname());
-			user.setPhone(user.getPhone());
-			user.setAddr(user.getAddr());
-
-			// UserRepository를 사용하여 업데이트된 사용자 정보를 저장
-			userRepository.save(user);
+		if (isUpdate) {
+			redirectAttributes.addFlashAttribute("successMessage", "Nickname updated successfully.");
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
 		return "redirect:update";
