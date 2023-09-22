@@ -27,15 +27,22 @@ header{
 
 .top-header{
     display : flex;
+    justify-content: space-between;
     padding-left : 50px;
 }
 
-.top-header > a{
+.top-header > div > a{
     align-self : center;
 }
 
-.top-header > h2 {
+.top-header > div > h2 {
     margin-left : 30px;
+    color : #414e5f;
+}
+
+.logout{
+    align-self: center;
+    margin-right : 100px;
 }
 
 .middle-header{
@@ -43,13 +50,75 @@ header{
     height : 70px;
     margin-top : 20px;
     margin-bottom : 50px;
-    border-top : 3px solid gray;
-    border-bottom : 3px solid gray;
+    border-top : 7px solid #4A596D;
+    border-bottom : 4px solid #4A596D;
     justify-content : space-around;
     align-items : center;
+}
 
+.searchbox{
+    position : relative;
+    left : 70px;
+    display: flex;
+    align-items: center; /* 수직으로 중앙 정렬 */
+    border-left : 4px solid #4A596D;
+    border-right : 4px solid #4A596D;
+    padding : 15px;
+}
+
+.search{
+    height : 30px;
+    font-size: 1rem;
+    margin-right : 6px
+}
+
+.searchbox > input{
+    height : 26px;
+    font-size : 1rem;
+    margin-right : 4px;
+}
+
+.search select{
 
 }
+
+.search option {
+
+}
+
+.etcmenu > a{
+    margin-right : 18px;
+}
+
+.tooltip {
+    position: relative;
+    text-decoration: none; /* 링크의 기본 밑줄을 제거 */
+    color: #4A596D; /* 링크 색상 */
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    background-color: white; /* 말풍선 배경색 */
+    color: #4A596D; /* 말풍선 텍스트 색상 */
+    padding: 4px 8px; /* 말풍선 내부 여백 */
+    border : 3px solid #4A596D;
+    border-radius: 50px; /* 말풍선 모서리 둥글게 */
+    font-size: 14px; /* 말풍선 텍스트 크기 */
+    opacity: 0; /* 초기에는 투명하게 숨김 */
+    top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+    transform: translateX(-50%); /* 가운데 정렬 */
+    transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+    white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+    font-weight: 600;
+}
+
+.tooltip:hover::before {
+    opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+}
+
+
 
 
         .board-container {
@@ -102,25 +171,37 @@ header{
 <body class="scroll">
 <header>
     <div class="top-header">
-        <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
-        <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
-        <form method="post" action="/logout">
-            <button >로그아웃</button><br/>
-        </form>
+        <div style="display : flex;">
+            <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
+            <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
+        </div>
+        <div class="logout">
+            <form method="post" action="/logout">
+                <button class="logoutbtn">로그아웃</button><br/>
+            </form>
+        </div>
     </div>
 
     <div class="middle-header">
-        <a href="/mypage"><img src="/images/mypageicon.png" max-width="100%" height="50"/></a>
+        <div>
+            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+                <img src="/images/mypageicon.png" max-width="100%" height="50"/>
+            </a>
+        </div>
+
         <div class="searchbox">
-            <select name="search">
+            <select class="search">
                 <option value="nickname">닉네임</option>
                 <option value="content">내용</option>
-            </select><input> <button>검색</button>
+            </select>
+            <input> <img src="/images/searchicon.png" max-width="100%" height="30"/>
         </div>
-        <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
-        <a href="#"><button>알림</button></a>
-        <a href="#"><button>메세지</button></a>
 
+        <div class="etcmenu">
+            <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
+            <a href="#"><img src="/images/bellicon.png" max-width="100%" height="52"/></a>
+            <a href="#"><img src="/images/msgicon.png" max-width="100%" height="45"/></a>
+        </div>
 
     </div>
 </header>
