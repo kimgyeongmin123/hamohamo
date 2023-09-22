@@ -30,7 +30,7 @@ header{
     padding-left : 50px;
 }
 
-.top-header > img{
+.top-header > a{
     align-self : center;
 }
 
@@ -102,7 +102,7 @@ header{
 <body class="scroll">
 <header>
     <div class="top-header">
-        <img src="/images/logo.png" max-width="100%" height="40"/>
+        <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
         <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
         <form method="post" action="/logout">
             <button >로그아웃</button><br/>
@@ -110,14 +110,14 @@ header{
     </div>
 
     <div class="middle-header">
-        <a href="/mypage">Mypage</a>
+        <a href="/mypage"><img src="/images/mypageicon.png" max-width="100%" height="50"/></a>
         <div class="searchbox">
             <select name="search">
                 <option value="nickname">닉네임</option>
                 <option value="content">내용</option>
             </select><input> <button>검색</button>
         </div>
-        <a href="#"><button>글쓰기</button></a>
+        <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
         <a href="#"><button>알림</button></a>
         <a href="#"><button>메세지</button></a>
 

@@ -52,9 +52,6 @@ public class BoardController {
         if (user != null) {
             dto.setNickname(user.getNickname());
             dto.setPassword(user.getPassword());
-            dto.setBirth(user.getBirth());
-            dto.setPhone(user.getPhone());
-            dto.setAddr1(user.getAddr1());
         }
 
         model.addAttribute("dto", dto);

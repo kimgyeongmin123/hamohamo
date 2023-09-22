@@ -30,7 +30,7 @@ header{
     padding-left : 50px;
 }
 
-.top-header > img{
+.top-header > a{
     align-self : center;
 }
 
@@ -42,7 +42,7 @@ header{
 <body>
 <header>
     <div class="top-header">
-        <img src="/images/logo.png" max-width="100%" height="40"/>
+        <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
         <h2><span th:text="${dto.nickname}"></span>'s Page > 내 정보 수정 > 회원 탈퇴</h2>
     </div>
 </header>
