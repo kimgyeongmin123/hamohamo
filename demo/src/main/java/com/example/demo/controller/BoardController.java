@@ -69,10 +69,9 @@ public class BoardController {
 
     @PostMapping("/post")
     public String post_post(
-            @Valid @ModelAttribute("boardDto") BoardDto dto,
+            @Valid BoardDto dto,
             BindingResult bindingResult,
-            Model model,
-            @RequestParam("imageFiles") MultipartFile[] imageFiles
+            Model model
     ) throws IOException {
         log.info("POST /post");
 
@@ -84,7 +83,7 @@ public class BoardController {
             return "/post"; // 폼 다시 표시
         }
 
-        boolean isAdd = boardService.addBoard(dto, imageFiles);
+        boolean isAdd = boardService.addBoard(dto);
 
         if (isAdd) {
             return "redirect:/list";

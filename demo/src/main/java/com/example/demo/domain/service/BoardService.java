@@ -25,7 +25,8 @@ public class BoardService {
     private BoardRepository boardRepository;
 
     @Transactional(rollbackFor = SQLException.class)
-    public boolean addBoard(BoardDto dto, MultipartFile[] imageFiles) throws IOException {
+    public boolean addBoard(BoardDto dto) throws IOException {
+        System.out.println("upload File Count : " +dto.getFiles().length);
 
         Board board = new Board();
         board.setId(dto.getId());
@@ -34,39 +35,50 @@ public class BoardService {
         board.setHits(0L);
         board.setLike_count(0L);
 
-        board = boardRepository.save(board);
+        MultipartFile [] files = dto.getFiles();
+
         System.out.println("board : " + board);
 
-        List<String> filenames = new ArrayList<>();
-        List<String> filesizes = new ArrayList<>();
+        List<String> filenames = new ArrayList<String>();
+        List<String> filesizes = new ArrayList<String>();
 
-        if (imageFiles != null && imageFiles.length > 0) {
-            String path = uploadDir + File.separator + dto.getId() + File.separator + UUID.randomUUID();
+        if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
+        {
+            //Upload Dir 미존재시 생성
+            String path = uploadDir+ File.separator+dto.getId()+File.separator+ UUID.randomUUID();
             File dir = new File(path);
-            if (!dir.exists()) {
+            if(!dir.exists()) {
                 dir.mkdirs();
             }
+            //board에 경로 추가
             board.setDirpath(dir.toString());
 
-            for (MultipartFile imageFile : imageFiles) {
-                if (!imageFile.isEmpty()) {
-                    System.out.println("--------------------");
-                    System.out.println("FILE NAME : " + imageFile.getOriginalFilename());
-                    System.out.println("FILE SIZE : " + imageFile.getSize() + " Byte");
-                    System.out.println("--------------------");
 
-                    String filename = imageFile.getOriginalFilename();
-                    File fileobj = new File(path, filename);
-                    imageFile.transferTo(fileobj);
+            for(MultipartFile file  : dto.getFiles())
+            {
+                System.out.println("--------------------");
+                System.out.println("FILE NAME : " + file.getOriginalFilename());
+                System.out.println("FILE SIZE : " + file.getSize() + " Byte");
+                System.out.println("--------------------");
 
-                    filenames.add(filename);
-                    filesizes.add(imageFile.getSize() + "");
-                }
+                //파일명 추출
+                String filename = file.getOriginalFilename();
+                //파일객체 생성
+
+                File fileobj = new File(path,filename);
+                //업로드
+                file.transferTo(fileobj);
+
+                //filenames 저장
+                filenames.add(filename);
+                filesizes.add(file.getSize()+"");
             }
-            board.setFilename(filenames.toString());
-            board.setFilesize(filesizes.toString());
         }
 
+        board.setFilename(filenames.toString());
+        board.setFilesize(filesizes.toString());
+
+        board = boardRepository.save(board);
         boolean issaved = boardRepository.existsByNumber(board.getNumber());
         System.out.println("issaved : " + issaved);
         return issaved;
