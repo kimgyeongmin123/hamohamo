@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원 탈퇴</title>
 
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,33 +10,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
     <style>
-*{
-	font-family: 'Gothic A1', sans-serif;
-}
-body {
-	width: 1024px;
-	height: 860px;
-	margin: 50px auto;
-	overflow: auto;
-	max-height: 860px;
-}
+        * {
+            font-family: 'Gothic A1', sans-serif;
+        }
 
-header{
+        body {
+            width: 1024px;
+            height: 860px;
+            margin: 50px auto;
+            overflow: auto;
+            max-height: 860px;
+        }
 
-}
+        header {
 
-.top-header{
-    display : flex;
-    padding-left : 50px;
-}
+        }
 
-.top-header > a{
-    align-self : center;
-}
+        .top-header {
+            display: flex;
+            padding-left: 50px;
+        }
 
-.top-header > h2 {
-    margin-left : 30px;
-}
+        .top-header > a {
+            align-self: center;
+        }
+
+        .top-header > h2 {
+            margin-left: 30px;
+        }
+
+        .container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .password-input {
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -46,9 +78,18 @@ header{
         <h2><span th:text="${dto.nickname}"></span>'s Page > 내 정보 수정 > 회원 탈퇴</h2>
     </div>
 </header>
-비밀번호 확인<br/>
-아이디 : <br/>
-비밀번호 : <input type="text"/>
-<button><a href="#">탈퇴하기</a> </button>
+<div class="container">
+    <h2>회원 탈퇴</h2>
+    <p>진짜 탈퇴하실?</p>
+    <form action="/user/withdraw" method="post">
+        <div class="password-input">
+            <label for="password">비밀번호 확인:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="button-container">
+            <button type="submit">탈퇴하기</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

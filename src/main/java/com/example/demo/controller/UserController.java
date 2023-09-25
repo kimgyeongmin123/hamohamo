@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -176,8 +178,44 @@ public class UserController {
 
 		return "profile/leave_auth";
 	}
+	@GetMapping("/user/withdraw")
+	public String withdrawUser(Model model, Principal principal, HttpServletRequest request) {
+		String email = principal.getName(); // 현재 인증된 사용자의 이메일 가져오기
+		String password = request.getParameter("password"); // 사용자 입력에서 비밀번호 가져오기
+
+		boolean isWithdrawn = userService.withdrawUser(email, password);
+
+		if (isWithdrawn) {
+			// 회원 탈퇴에 성공한 경우, 로그아웃 처리 및 세션 무효화
+			SecurityContextHolder.clearContext(); // 현재 사용자의 보안 컨텍스트를 지웁니다.
+
+			return "redirect:/login?message=WithdrawnSuccessfully";
+		} else {
+			// 회원 탈퇴에 실패한 경우 에러 메시지 등을 처리합니다.
+			return "redirect:/mypage?error=WithdrawFailed";
+
+		}
+	}
 
 
+
+	@PostMapping("/user/withdraw")
+	public String withdrawUserPost(@RequestParam String password, RedirectAttributes redirectAttributes) {
+		// 현재 인증된 사용자의 이메일 가져오기
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
+
+		boolean isWithdrawn = userService.withdrawUser(email, password);
+		if (isWithdrawn) {
+			// 회원 탈퇴 성공 시 로그아웃 및 리다이렉션
+			SecurityContextHolder.getContext().setAuthentication(null);
+			return "redirect:/login?msg=withdrawn";
+		} else {
+			// 회원 탈퇴 실패 시 오류 메시지 표시
+			redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+			return "redirect:/user/withdraw";
+		}
+	}
 
 
 }
