@@ -91,10 +91,9 @@ header > nav{
 
 }
 
-        .board-table {
+.board-container {
             width: 80%;
             margin: 0 auto;
-            border : 1px solid black;
         }
 
         .board-item {
@@ -137,15 +136,6 @@ header > nav{
             justify-content:center;
         }
 
-        tr{
-            border: 1px solid black;
-            height : 100px;
-        }
-        td{
-            border: 1px solid black;
-            height : 100px;
-        }
-
     </style>
 
 </head>
@@ -173,47 +163,56 @@ header > nav{
         <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
     </nav>
 </header>
-
-
 <main>
-
-    <table class="board-table">
+    <div class="board-container">
         <th:block th:each="board : ${myBoards}">
-            <tr>
-                <td colspan="2"><div id = board_id th:text="${board.email}">id</div></td>
-                <td><button>...</button></td>
-            </tr>
-            <tr>
-                <td colspan="3"><!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+            <div class="board-item">
+
+                <div id = board_id th:text="${board.email}">id</div>
+                <div>
+                    <button class="menu-btn"><img src="/images/menuicon.png" max-width="100%" height="40"/></button>
+                    <!-- 세부 버튼 영역 (초기에는 숨김) -->
+                    <div class="sub-menu" style="display: none;">
+                        <!-- 세부 버튼들 -->
+                        <button>수정</button>
+                        <button>삭제</button>
+                    </div>
+                </div>
+
+                <div id = board_img>
+                    <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                     <img th:if="${not #strings.isEmpty(board.filename)}"
                          th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
-                         alt="Thumbnail" width="200" height="auto" class="thumbnail"></td>
-            </tr>
-            <tr>
-                <td colspan="3"><div id=board_contents class="contents" th:text="${board.contents}">contents</div></td>
-            </tr>
-            <tr>
-                <td><div th:text="${board.date}">date</div></td>
-                <td><div th:text="${board.hits}">hits</div></td>
-                <td><div th:text="${board.like_count}">like</div></td>
-            </tr>
-
-
+                         alt="Thumbnail" width="200" height="auto" class="thumbnail">
+                </div>
+                <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                <div th:text="${board.date}">date</div>
+                <div id="board_hits_like">
+                    <div th:text="${board.hits}">hits</div>
+                    <div th:text="${board.like_count}">like</div>
+                </div>
+            </div>
         </th:block>
-    </table>
-
+    </div>
 </main>
 
 
 
+<script>
+    // menu-btn을 클릭하면 세부 버튼 영역을 표시/숨김
+    var menuBtns = document.querySelectorAll(".menu-btn");
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<hr/>
+    menuBtns.forEach(function (menuBtn) {
+        menuBtn.addEventListener("click", function () {
+            var subMenu = this.nextElementSibling; // 다음 요소인 sub-menu 가져오기
+            if (subMenu.style.display === "none" || subMenu.style.display === "") {
+                subMenu.style.display = "block"; // 표시
+            } else {
+                subMenu.style.display = "none"; // 숨김
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
