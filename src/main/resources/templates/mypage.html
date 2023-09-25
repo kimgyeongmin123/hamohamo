@@ -94,14 +94,52 @@ header > nav{
 .board-container {
             width: 80%;
             margin: 0 auto;
+            margin-top : 60px;
         }
 
         .board-item {
             border: 1px solid #ccc;
+            border-radius: 10px;
             padding: 10px;
             text-align: center;
-            background-color: #f2f2f2;
             margin-bottom: 20px;
+        }
+
+        .idbox{
+            display: flex;
+            justify-content :space-between;
+            align-items : center;
+            margin-bottom : 20px;
+        }
+
+        .menu-btn{
+            all: unset;
+            cursor: pointer;
+        }
+
+        .sub-menu{
+            position : absolute;
+        }
+
+        .sub-menu > a{
+            display: flex;
+            border-bottom : 1px solid gray;
+            border-left : 1px solid gray;
+            border-right : 1px solid gray;
+            width : 110px;
+            justify-content :space-between;
+            align-items : center;
+            position: relative;
+            right : 158px;
+            bottom : 15px;
+            font-style: none;
+            background-color: white;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .update{
+            border-top : 1px solid gray;
         }
 
         /* contents 크기 조정 */
@@ -120,8 +158,7 @@ header > nav{
         }
 
         #board_id{
-            border: 1px solid black;
-            text-align: left;
+            margin-left : 40px;
         }
         #board_contents{
             border: 1px solid black;
@@ -163,19 +200,23 @@ header > nav{
         <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
     </nav>
 </header>
+
+
+
 <main>
     <div class="board-container">
         <th:block th:each="board : ${myBoards}">
             <div class="board-item">
-
-                <div id = board_id th:text="${board.email}">id</div>
-                <div>
-                    <button class="menu-btn"><img src="/images/menuicon.png" max-width="100%" height="40"/></button>
-                    <!-- 세부 버튼 영역 (초기에는 숨김) -->
-                    <div class="sub-menu" style="display: none;">
-                        <!-- 세부 버튼들 -->
-                        <button>수정</button>
-                        <button>삭제</button>
+                <div class="idbox">
+                    <div id = board_id th:text="${board.email}">id</div>
+                    <div>
+                        <button class="menu-btn"><img src="/images/menuicon.png" max-width="100%" height="40"/></button>
+                        <!-- 세부 버튼 영역 (초기에는 숨김) -->
+                        <ul class="sub-menu" style="display: none;">
+                            <!-- 세부 버튼들 -->
+                            <a href="#" class="update">수정<img src="/images/pencil.png" max-width="100%" height="40"/></a>
+                            <a href="#">삭제<img src="/images/scissors.png" max-width="100%" height="40"/></a>
+                        </ul>
                     </div>
                 </div>
 

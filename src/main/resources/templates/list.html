@@ -124,14 +124,20 @@ header{
         .board-container {
             width: 80%;
             margin: 0 auto;
+            margin-top : 60px;
         }
 
         .board-item {
             border: 1px solid #ccc;
+            border-radius: 10px;
             padding: 10px;
             text-align: center;
-            background-color: #f2f2f2;
             margin-bottom: 20px;
+        }
+
+
+        .idbox{
+            margin-bottom : 20px;
         }
 
         /* contents 크기 조정 */
@@ -150,8 +156,7 @@ header{
         }
 
         #board_id{
-            border: 1px solid black;
-            text-align: left;
+            margin-left : 40px;
         }
         #board_contents{
             border: 1px solid black;
@@ -194,7 +199,7 @@ header{
                 <option value="nickname">닉네임</option>
                 <option value="content">내용</option>
             </select>
-            <input> <img src="/images/searchicon.png" max-width="100%" height="30"/>
+            <input> <a href="#"><img src="/images/searchicon.png" max-width="100%" height="30"/></a>
         </div>
 
         <div class="etcmenu">
@@ -206,27 +211,32 @@ header{
     </div>
 </header>
 
+<main>
+
+    <div class="board-container">
+        <th:block th:each="board : ${boardList}">
+            <div class="board-item">
+                <div class="idbox">
+                    <div id = board_id th:text="${board.email}">id</div>
+                </div>
 
 
-<div class="board-container">
-    <th:block th:each="board : ${boardList}">
-        <div class="board-item">
-            <div id = board_id th:text="${board.email}">id</div>
-            <div id = board_img>
-                <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-                <img th:if="${not #strings.isEmpty(board.filename)}"
-                     th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
-                     alt="Thumbnail" width="200" height="auto" class="thumbnail">
+                <div id = board_img>
+                    <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+                    <img th:if="${not #strings.isEmpty(board.filename)}"
+                         th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
+                         alt="Thumbnail" width="200" height="auto" class="thumbnail">
+                </div>
+                <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                <div th:text="${board.date}">date</div>
+                <div id="board_hits_like">
+                    <div th:text="${board.hits}">hits</div>
+                    <div th:text="${board.like_count}">like</div>
+                </div>
             </div>
-            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
-            <div th:text="${board.date}">date</div>
-            <div id="board_hits_like">
-                <div th:text="${board.hits}">hits</div>
-                <div th:text="${board.like_count}">like</div>
-            </div>
-        </div>
-    </th:block>
-</div>
+        </th:block>
+    </div>
+</main>
 
 <script>
     function logoutAndRedirect() {
