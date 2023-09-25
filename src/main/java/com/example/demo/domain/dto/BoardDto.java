@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDto {
     private Long number;
-    private String id;
+    private String email;
     private String contents;
     private LocalDateTime date;
     private Long hits;
@@ -19,7 +19,7 @@ public class BoardDto {
     public static BoardDto Of(Board board) {
         BoardDto dto = new BoardDto();
         dto.number = board.getNumber();
-        dto.id=board.getId();
+        dto.email=board.getEmail();
         dto.contents = board.getContents();
         dto.date = board.getDate();
         dto.hits = board.getHits();

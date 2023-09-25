@@ -211,7 +211,7 @@ header{
 <div class="board-container">
     <th:block th:each="board : ${boardList}">
         <div class="board-item">
-            <div id = board_id th:text="${board.id}">id</div>
+            <div id = board_id th:text="${board.email}">id</div>
             <div id = board_img>
                 <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                 <img th:if="${not #strings.isEmpty(board.filename)}"

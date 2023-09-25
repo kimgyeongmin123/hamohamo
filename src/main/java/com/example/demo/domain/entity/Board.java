@@ -20,7 +20,8 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 생성 전략 사용
     private Long number; // 또는 다른 타입을 사용할 수 있음
-    private String id;
+
+    private String email;
     private String contents;
     private LocalDateTime date;
     private Long hits;

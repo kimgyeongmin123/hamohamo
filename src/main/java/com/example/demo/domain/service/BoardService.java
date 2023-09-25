@@ -29,7 +29,7 @@ public class BoardService {
         System.out.println("upload File Count : " +dto.getFiles().length);
 
         Board board = new Board();
-        board.setId(dto.getId());
+        board.setEmail(dto.getEmail());
         board.setContents(dto.getContents());
         board.setDate(LocalDateTime.now());
         board.setHits(0L);
@@ -45,7 +45,7 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getId()+File.separator+ UUID.randomUUID();
+            String path = uploadDir+ File.separator+dto.getEmail()+File.separator+ UUID.randomUUID();
             File dir = new File(path);
             if(!dir.exists()) {
                 dir.mkdirs();

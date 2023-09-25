@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.dto.UserDto;
+import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.User;
+import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @Slf4j
 public class UserController {
@@ -32,6 +37,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private BoardRepository boardRepository;
 
 	@GetMapping("/join")
 	public void join_get() {
@@ -140,11 +148,13 @@ public class UserController {
 		if (user != null) {
 			dto.setNickname(user.getNickname());
 		}
-
+		System.out.println("user.getEmail(): "+user.getEmail() );
+		List<Board> myBoards = boardRepository.getBoardByEmail(user.getEmail());
 		model.addAttribute("dto", dto);
-
+		model.addAttribute("myBoards", myBoards);
 		return "mypage";
 	}
+
 	@GetMapping("/profile/leave_auth")
 	public String showauth(Model model) {
 		// 현재 인증된 사용자의 이메일 가져오기

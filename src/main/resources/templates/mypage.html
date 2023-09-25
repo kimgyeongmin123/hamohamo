@@ -91,14 +91,61 @@ header > nav{
 
 }
 
-main{
-    width : 80% auto;
-    height : 1000px;
-    text-align : center;
-    border : 1px solid gray;
-    line-height : 300px;
-    margin-top : 80px;
-}
+        .board-table {
+            width: 80%;
+            margin: 0 auto;
+            border : 1px solid black;
+        }
+
+        .board-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin-bottom: 20px;
+        }
+
+        /* contents 크기 조정 */
+        .contents {
+            font-size: 16px;
+            padding: 20px;
+        }
+
+        /* 이미지 크기 조정 */
+        .thumbnail {
+            width: 200px;
+            height: auto;
+        }
+        .scroll::-webkit-scrollbar{
+            display: none;
+        }
+
+        #board_id{
+            border: 1px solid black;
+            text-align: left;
+        }
+        #board_contents{
+            border: 1px solid black;
+            height:100px;
+        }
+        #board_img{
+            border: 1px solid black;
+            height: 200px;
+        }
+        #board_hits_like{
+            display: flex;
+            justify-content:center;
+        }
+
+        tr{
+            border: 1px solid black;
+            height : 100px;
+        }
+        td{
+            border: 1px solid black;
+            height : 100px;
+        }
+
     </style>
 
 </head>
@@ -126,8 +173,35 @@ main{
         <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
     </nav>
 </header>
+
+
 <main>
-    여기에 내가 쓴 글 표시
+
+    <table class="board-table">
+        <th:block th:each="board : ${myBoards}">
+            <tr>
+                <td colspan="2"><div id = board_id th:text="${board.email}">id</div></td>
+                <td><button>...</button></td>
+            </tr>
+            <tr>
+                <td colspan="3"><!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+                    <img th:if="${not #strings.isEmpty(board.filename)}"
+                         th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
+                         alt="Thumbnail" width="200" height="auto" class="thumbnail"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><div id=board_contents class="contents" th:text="${board.contents}">contents</div></td>
+            </tr>
+            <tr>
+                <td><div th:text="${board.date}">date</div></td>
+                <td><div th:text="${board.hits}">hits</div></td>
+                <td><div th:text="${board.like_count}">like</div></td>
+            </tr>
+
+
+        </th:block>
+    </table>
+
 </main>
 
 
