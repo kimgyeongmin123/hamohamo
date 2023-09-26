@@ -10,6 +10,7 @@ import com.example.demo.config.auth.exceptionhandler.CustomAccessDeniedHandler;
 import com.example.demo.config.auth.exceptionhandler.CustomAuthenticationEntryPoint;
 import com.example.demo.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.demo.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.demo.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.demo.config.auth.logoutHandler.OAuthLogoutHandler;
 import com.example.demo.config.auth.logoutHandler.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +70,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 				.logout()
 				.logoutUrl("/logout")
 				.permitAll()
-				//.addLogoutHandler(new CustomLogoutHandler())						//세션초기화
-				.addLogoutHandler(new OAuthLogoutHandler())
+				.addLogoutHandler(new CustomLogoutHandler())						//세션초기화
+//				.addLogoutHandler(new OAuthLogoutHandler())
 				.logoutSuccessHandler(new CustomLogoutSuccessHandler())				//기본위치로 페이지이동
 
 				.and()
