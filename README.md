@@ -95,7 +95,13 @@ https://shields.io/
 
 |END POINT|METHOD|DESCRIPTION|
 |------|---|---|
-|/board/list|GET|sns의 모든 게시물 목록 표시|
-|/board/post|POST|sns의 게시물 첨부하기|
-|/board/read|GET|sns의 게시물 1건 보기|
+|/list|GET|sns의 모든 게시물 목록 표시|
+|/post|POST|sns의 게시물 첨부하기|
+|/read|GET|sns의 게시물 1건 보기|
+|/update|POST|sns의 게시물 수정하기|
+|/profile/update|POST|내 정보 수정|
+|/profile/leave_auth|GET|회원 탈퇴|
+|/login|GET|sns로그인|
+|/join|POST|sns회원가입|
+|/mypage|GET|로그인 된 사용자의 마이페이지|
 <br/>
