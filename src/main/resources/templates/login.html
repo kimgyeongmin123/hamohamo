@@ -3,34 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+*{
+ font-family: 'Gothic A1', sans-serif;
+}
+body {
+ width: 1024px;
+ height: 700px;
+ margin: 50px auto;
+ overflow: auto;
+ max-height: 860px;
+ position : relative;
+ top : 150px;
+}
+.big{
+    display : flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.loginform{
+    position : relative;
+    right : 80px;
+    border : 4px solid #4a596dd7;
+    border-radius: 60px;
+    width : 300px;
+    height : 300px;
+}
+.join{
+    position : relative;
+    left : 600px;
+}
+
+</style>
+
 </head>
 <body>
-<h1>LOGIN</h1>
 
-<form action="/login" method="post" onsubmit="return validateLoginForm()">
-    ID : <input name="username" id="username"><br/>
-    PW : <input name="password" type="password" id="password"><br/>
-    <div class="form-group">
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
-            <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
+<div class="big">
+
+    <img src="/images/loginlogo.png" max-width="100%" height="400"/>
+    <div class="loginform">
+        <form action="/login" method="post" onsubmit="return validateLoginForm()">
+            <input name="username" id="username" placeholder="EMAIL"><br/>
+            <input name="password" type="password" id="password" placeholder="PASSWORD"><br/>
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
+                    <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
+                </div>
+            </div>
+            <input type="submit" />
+        </form>
+        <div class="otherlogin">
+            <div><a href="/oauth2/authorization/kakao">카카오 로그인</a></div>
+            <div><a href="/oauth2/authorization/naver">네이버 로그인</a></div>
         </div>
     </div>
-    <input type="submit" />
-</form>
-<div>
-    <a href="/join">회원가입</a>
+
 </div>
-<div>
-    <a href="/oauth2/authorization/kakao">카카오 로그인</a>
+
+<div class="join">
+    회원이 아니시다면?&nbsp;&nbsp;<a href="/join">회원가입</a>
 </div>
-<div>
-    <a href="/oauth2/authorization/naver">네이버 로그인</a>
-</div>
-<div>
-    <a href="/oauth2/authorization/google">구글 로그인</a>
-</div>
-<hr/>
+
+
 
 <script>
     function validateLoginForm() {
