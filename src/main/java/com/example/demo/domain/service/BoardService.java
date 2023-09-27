@@ -1,5 +1,6 @@
 package com.example.demo.domain.service;
 
+import com.example.demo.controller.BoardController;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.repository.BoardRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,15 +16,20 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class BoardService {
 
+
+
     private String uploadDir = "c:\\upload";
 
     @Autowired
     private BoardRepository boardRepository;
+
+
 
     @Transactional(rollbackFor = SQLException.class)
     public boolean addBoard(BoardDto dto) throws IOException {
@@ -83,4 +90,56 @@ public class BoardService {
         System.out.println("issaved : " + issaved);
         return issaved;
     }
+
+    @Transactional(rollbackFor = SQLException.class)
+    public boolean deleteBoard(Long number){
+        System.out.println("deleteBoard할거임!!!!!!!!! : " + number);
+
+        Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        if (boardOptional.isPresent()) {
+            Board board = boardOptional.get();
+            // 게시물의 이미지 파일들을 삭제
+            deleteImageFiles(board.getDirpath());
+            // 게시물 삭제
+            boardRepository.delete(board);
+            return true;
+        }
+        return false;
+    }
+    private void deleteImageFiles(String dirPath){
+        File dir = new File(dirPath);
+        if (dir.exists() && dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    file.delete(); // 이미지 파일 삭제
+                }
+            }
+            dir.delete(); // 디렉토리 삭제
+        }
+    }
+
+    @Transactional(rollbackFor = SQLException.class)
+    public boolean updateBoard(Long number, String newContents) {
+
+        System.out.println("updateBoard!!!!!"+number);
+        // 게시물 번호로 해당 게시물 정보 가져오기
+        Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        if (boardOptional.isPresent()) {
+            Board board = boardOptional.get();
+
+            // 내용만 업데이트
+            board.setContents(newContents);
+
+            // 수정된 게시물 저장
+            boardRepository.save(board);
+
+            return true; // 수정 성공
+        } else {
+            return false; // 게시물이 존재하지 않는 경우
+        }
+    }
+
 }

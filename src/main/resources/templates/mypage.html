@@ -10,88 +10,84 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
     <style>
-*{
-	font-family: 'Gothic A1', sans-serif;
-}
-body {
-	width: 1024px;
-	height: 860px;
-	margin: 50px auto;
-	overflow: auto;
-	max-height: 860px;
-}
+        *{
+            font-family: 'Gothic A1', sans-serif;
+        }
+        body {
+            width: 1024px;
+            height: 860px;
+            margin: 50px auto;
+            overflow: auto;
+            max-height: 860px;
+        }
 
-header{
+        header{
 
-}
+        }
 
-.top-header{
-    display : flex;
-    padding-left : 50px;
-}
+        .top-header{
+            display : flex;
+            padding-left : 50px;
+        }
 
-.top-header > a{
-    align-self : center;
-}
+        .top-header > a{
+            align-self : center;
+        }
 
-.top-header > h2 {
-    margin-left : 30px;
-}
+        .top-header > h2 {
+            margin-left : 30px;
+        }
 
-header > nav{
-    width : 100%;
-    height : 200px;
-    border : 1px solid black;
-    display: flex;
-    align-items : center;
-}
+        header > nav{
+            width : 100%;
+            height : 200px;
+            border : 1px solid black;
+            display: flex;
+            align-items : center;
+        }
 
-.profile{
-    height : 150px;
-    width : 150px;
-    margin-left : 40px;
-    margin-right : 60px;
-}
+        .profile{
+            height : 150px;
+            width : 150px;
+            margin-left : 40px;
+            margin-right : 60px;
+        }
 
-.profileimg{
-    height : 150px;
-    width : 150px;
-    border : 1px solid gray;
-    border-radius: 50%;
-}
+        .profileimg{
+            height : 150px;
+            width : 150px;
+            border : 1px solid gray;
+            border-radius: 50%;
+        }
 
-.profile-menu{
-    display:flex;
-    margin-top : 20px;
-}
+        .profile-menu{
+            display:flex;
+            margin-top : 20px;
+        }
 
-.profileupdate-btn{
-    position : relative;
-    bottom:40px;
-    left : 110px;
-}
+        .profileupdate-btn{
+            position : relative;
+            bottom:40px;
+            left : 110px;
+        }
 
-.follow-box{
-    display : flex;
-    width : 500px;
-    height : 150px;
-    justify-content : space-around;
-}
+        .follow-box{
+            display : flex;
+            width : 500px;
+            height : 150px;
+            justify-content : space-around;
+        }
 
-.follow{
-    line-height: 100px;
-}
+        .follow{
+            line-height: 100px;
+        }
 
-.no{
-    line-height: 0px;
-    text-align: center;
-}
+        .no{
+            line-height: 0px;
+            text-align: center;
+        }
 
-.update-btn{
-
-}
-
-.board-container {
+       .board-container {
             width: 80%;
             margin: 0 auto;
             margin-top : 60px;
@@ -200,22 +196,21 @@ header > nav{
         <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
     </nav>
 </header>
-
-
-
 <main>
     <div class="board-container">
         <th:block th:each="board : ${myBoards}">
             <div class="board-item">
                 <div class="idbox">
-                    <div id = board_id th:text="${board.email}">id</div>
+                <div id = board_id th:text="${board.email}">id</div>
                     <div>
                         <button class="menu-btn"><img src="/images/menuicon.png" max-width="100%" height="40"/></button>
                         <!-- 세부 버튼 영역 (초기에는 숨김) -->
                         <ul class="sub-menu" style="display: none;">
                             <!-- 세부 버튼들 -->
-                            <a href="#" class="update">수정<img src="/images/pencil.png" max-width="100%" height="40"/></a>
-                            <a href="#">삭제<img src="/images/scissors.png" max-width="100%" height="40"/></a>
+                            <a th:href="@{'/update?number=' + ${board.number}}" class="update">수정<img src="/images/pencil.png" max-width="100%" height="40"/></a>
+                            <!-- 게시물 삭제 버튼 추가 -->
+                            <a class="delete_btn" data-no="${board.number}">삭제<img src="/images/scissors.png" max-width="100%" height="40"/></a>
+
                         </ul>
                     </div>
                 </div>
@@ -237,7 +232,10 @@ header > nav{
     </div>
 </main>
 
-
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- common.js   -->
+<script src="/js/common.js"></script>
 
 <script>
     // menu-btn을 클릭하면 세부 버튼 영역을 표시/숨김
@@ -253,6 +251,23 @@ header > nav{
             }
         });
     });
+
+    const delete_btn_el = document.querySelector('.delete_btn');
+    delete_btn_el.addEventListener('click', function () {
+    const number = encodeURIComponent(delete_btn_el.dataset.no); // 게시물 번호를 URL로 인코딩
+    axios.delete("/delete?number=" + number)
+        .then(
+            response => {
+                console.log(response);
+                if (response.status === 200) {
+                    location.href = "/list";
+                }
+            }
+        )
+        .catch(error => console.log(error));
+    });
+
+
 </script>
 
 </body>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물 수정</title>
+</head>
+<body>
+<h2>게시물 수정</h2>
+<form method="post" action="/update">
+  <input type="hidden" name = "number" th:value="${boardDto.number}">
+  <div>
+    <label for="newContents">새로운 내용:</label>
+    <textarea id="newContents" name="newContents" rows="4" cols="50" th:text="${boardDto.contents}"></textarea>
+  </div>
+  <div>
+    <button type="submit">수정</button>
+  </div>
+</form>
+
+</body>
+</html>

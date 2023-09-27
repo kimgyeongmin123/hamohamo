@@ -16,7 +16,13 @@ public interface BoardRepository extends JpaRepository<Board, String> {
 
     boolean existsByNumber(Long number);
 
-
     @Query("SELECT b from Board b WHERE email = :email")
     List<Board> getBoardByEmail(@Param("email") String email);
+
+    @Query("SELECT b FROM Board b WHERE number = :number")
+    List<Object> findByNumber(@Param("number") Long num);
+
+    @Query("SELECT b FROM Board b WHERE number = :number")
+    Optional<Board> findByNum(@Param("number") Long number);
+
 }

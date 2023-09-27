@@ -135,7 +135,7 @@ public class UserController {
 	}
 
 	@GetMapping("/mypage")
-	public String showMypage(Model model) {
+	public void showMypage(Model model) {
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
@@ -154,7 +154,6 @@ public class UserController {
 		List<Board> myBoards = boardRepository.getBoardByEmail(user.getEmail());
 		model.addAttribute("dto", dto);
 		model.addAttribute("myBoards", myBoards);
-		return "mypage";
 	}
 
 	@GetMapping("/profile/leave_auth")
