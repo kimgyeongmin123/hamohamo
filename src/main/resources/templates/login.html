@@ -29,10 +29,25 @@ body {
 .loginform{
     position : relative;
     right : 80px;
-    border : 4px solid #4a596dd7;
-    border-radius: 60px;
     width : 300px;
     height : 300px;
+    border : 1px solid black;
+    display: flex; /* 수직 중앙 정렬을 위해 flex 컨테이너로 설정 */
+    flex-direction: column; /* 하위 요소들을 수직으로 배치 */
+    justify-content: center; /* 수직 가운데 정렬 */
+    align-items: center;
+}
+.inputbox{
+    display: flex;
+}
+.idpw > input{
+    margin-bottom : 10px;
+    height : 30px;
+    font-size: 16px;
+}
+.inputbox > input{
+    margin-left : 10px;
+    width :60px;
 }
 .join{
     position : relative;
@@ -46,18 +61,25 @@ body {
 
 <div class="big">
 
+
     <img src="/images/nlogo.png" max-width="100%" height="400"/>
     <div class="loginform">
         <form action="/login" method="post" onsubmit="return validateLoginForm()">
-            <input name="username" id="username" placeholder="EMAIL"><br/>
-            <input name="password" type="password" id="password" placeholder="PASSWORD"><br/>
+
+            <div class="idpw">
+                <input name="username" id="username" placeholder="EMAIL"><br/>
+                <input name="password" type="password" id="password" placeholder="PASSWORD"><br/>
+            </div>
+
+            <input type="submit" />
+
             <div class="form-group">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
                     <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
                 </div>
             </div>
-            <input type="submit" />
+
         </form>
         <div class="otherlogin">
             <div><a href="/oauth2/authorization/kakao">카카오 로그인</a></div>
@@ -74,6 +96,8 @@ body {
 
 
 <script>
+
+
     function validateLoginForm() {
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
