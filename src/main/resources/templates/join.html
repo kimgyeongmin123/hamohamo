@@ -6,52 +6,119 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            font-family: 'Gothic A1', sans-serif;
+        }
+        body {
+            width: 700px;
+            height: 1000px;
+            margin: 50px auto;
+            overflow: auto;
+            position : relative;
+            top : 50px;
+        }
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header > img{
+            margin-top : 20px;
+        }
+        main{
+            margin-top : 20px;
+
+        }
+        .formbox{
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 높이를 화면 높이와 동일하게 설정 */
+        }
+        .formbox > form > div > div{
+            margin-bottom : 10px;
+            margin-left : 50px;
+        }
+        .formbox > form > div > div > input{
+            height : 25px;
+            width : 200px;
+
+        }
+        .formbox > form > div > div > h5{
+            margin-bottom : 5px;
+        }
+        .jechul > button{
+            margin-top : 30px;
+            height : 50px;
+            width : 150px;
+        }
+    </style>
 </head>
 <body>
-<h1>회원가입</h1>
-<img src="/images/nlogo.png" max-width="100%" height="400"/>
-<form name="joinform" action="/join" method="post" onsubmit="return false">
-    <div>
-        <label for="usernameInput">이메일</label><br>
-        <input name="email" id="usernameInput">
-        <button onclick="checkDuplicate('usernameInput')">중복체크</button><br/>
+<header>
+
+    <img src="/images/logo.png" class="logoimg" max-width="100%" height="50"/>
+</header>
+<main>
+    <div class="formbox">
+        <form name="joinform" action="/join" method="post" onsubmit="return false">
+            <div>
+                <div >
+                    <h5 for="usernameInput">이메일</h5>
+                    <input name="email" id="usernameInput">
+                    <button onclick="checkDuplicate('usernameInput')">중복체크</button><br/>
+                </div>
+
+                <div>
+                    <h5 for="passwordInput">비밀번호</h5>
+                    <input name="password" type="password" id="passwordInput"><br/>
+                </div>
+
+                <div>
+                    <h5 for="nnameInput">사용할 닉네임</h5>
+                    <input name="nickname" id="nnameInput">
+                    <button onclick="checkDuplicate('nnameInput')">중복체크</button><br/>
+                </div>
+
+                <div>
+                    <h5 for="nameInput">성명</h5>
+                    <input name="name" id="nameInput"><br/>
+                </div>
+
+                <div>
+                    <h5 for="birthInput">생년월일</h5>
+                    <input name="birth" id="birthInput" autocomplete="off"><br/>
+                </div>
+
+                <div>
+                    <h5 for="phoneInput">휴대폰</h5>
+                    <input name="phone" id="phoneInput" placeholder="'-'제외하고 입력하슈"><br/>
+                </div>
+
+                <div>
+                    <h5>우편번호 검색</h5>
+                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
+                    <button class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</button><br/>
+
+
+                    <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력"><br/>
+                    <input name="addr2" class="form-control" placeholder="상세주소 입력">
+                </div>
+            </div>
+            <div class="jechul">
+                <button onclick="isValid()" class="joinbtn">회원가입</button>
+                <button><a href="/login">Login Page 로</a></button>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="passwordInput">비밀번호</label><br>
-        <input name="password" type="password" id="passwordInput"><br/>
-    </div>
-    <div>
-        <label for="nnameInput">사용할 닉네임</label><br>
-        <input name="nickname" id="nnameInput">
-        <button onclick="checkDuplicate('nnameInput')">중복체크</button><br/>
-    </div>
-    <div>
-        <label for="nameInput">성명</label><br>
-        <input name="name" id="nameInput"><br/>
-    </div>
-    <div>
-        <label for="birthInput">생년월일</label><br>
-        <input name="birth" id="birthInput" autocomplete="off"><br/>
-    </div>
-    <div>
-        <label for="phoneInput">휴대폰</label><br>
-        <input name="phone" id="phoneInput" placeholder="'-'제외하고 입력하슈"><br/>
-    </div>
-    <div>
-        <label>우편번호 검색</label><br>
-        <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
-        <button class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</button>
-    </div>
-    <div>
-        <label>기본 주소</label><br>
-        <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력">
-    </div>
-    <div>
-        <label>상세 주소</label><br>
-        <input name="addr2" class="form-control" placeholder="상세주소 입력">
-    </div>
-    <button onclick="isValid()">회원가입</button>
-</form>
+</main>
 
 <script>
     <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
