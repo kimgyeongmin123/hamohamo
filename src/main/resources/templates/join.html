@@ -21,12 +21,9 @@
             height: 1000px;
             margin: 50px auto;
             overflow: auto;
-            position : relative;
-            top : 50px;
         }
         header{
             display: flex;
-            align-items: center;
             justify-content: center;
         }
         header > img{
@@ -41,10 +38,10 @@
             align-items: center;
             justify-content: center;
             height: 100%; /* 높이를 화면 높이와 동일하게 설정 */
+
         }
         .formbox > form > div > div{
             margin-bottom : 10px;
-            margin-left : 50px;
         }
         .formbox > form > div > div > input{
             height : 25px;
@@ -57,14 +54,42 @@
         .jechul > button{
             margin-top : 30px;
             height : 50px;
-            width : 150px;
+            width : 340px;
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .search_addr_btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
+        }
+        .jung-btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
 <header>
 
-    <img src="/images/logo.png" class="logoimg" max-width="100%" height="50"/>
+    <a href="/login"><img src="/images/logo.png" class="logoimg" max-width="100%" height="50"/></a>
 </header>
 <main>
     <div class="formbox">
@@ -73,7 +98,7 @@
                 <div >
                     <h5 for="usernameInput">이메일</h5>
                     <input name="email" id="usernameInput">
-                    <button onclick="checkDuplicate('usernameInput')">중복체크</button><br/>
+                    <button class="jung-btn" onclick="checkDuplicate('usernameInput')">중복체크</button><br/>
                 </div>
 
                 <div>
@@ -84,7 +109,7 @@
                 <div>
                     <h5 for="nnameInput">사용할 닉네임</h5>
                     <input name="nickname" id="nnameInput">
-                    <button onclick="checkDuplicate('nnameInput')">중복체크</button><br/>
+                    <button class="jung-btn" onclick="checkDuplicate('nnameInput')">중복체크</button><br/>
                 </div>
 
                 <div>
@@ -103,18 +128,17 @@
                 </div>
 
                 <div>
-                    <h5>우편번호 검색</h5>
-                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
-                    <button class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</button><br/>
+                    <h5>주소</h5>
+                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" disabled>
+                    <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>
 
 
-                    <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력"><br/>
-                    <input name="addr2" class="form-control" placeholder="상세주소 입력">
+                    <input name="addr1" class="form-control addr1"  placeholder="기본주소" disabled style="width : 330px; margin-top : 5px;"><br/>
+                    <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
                 </div>
             </div>
             <div class="jechul">
                 <button onclick="isValid()" class="joinbtn">회원가입</button>
-                <button><a href="/login">Login Page 로</a></button>
             </div>
         </form>
     </div>
