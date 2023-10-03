@@ -9,6 +9,7 @@ import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -141,23 +142,36 @@ public class BoardController {
         return "redirect:/list";
 
     }
-    @DeleteMapping("/delete/{number}")
-    public String delete(@PathVariable Long number, RedirectAttributes redirectAttributes) {
-        log.info("DELETE /delete/{number} number: " + number);
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestParam("number") Long number, RedirectAttributes redirectAttributes) {
+        log.info("DELETE /delete number " + number);
 
-        // 게시물 번호로 해당 게시물 정보 가져오기
+        boolean isRemoved = boardService.deleteBoard(number);
+        if (isRemoved) {
+            // 성공적으로 삭제된 경우 리다이렉트와 메시지 전달
+            redirectAttributes.addFlashAttribute("message", "게시물이 삭제되었습니다.");
+            return ResponseEntity.ok("Deleted successfully.");
+        } else {
+            // 삭제에 실패한 경우 리다이렉트와 메시지 전달
+            redirectAttributes.addFlashAttribute("error", "게시물 삭제에 실패했습니다.");
+            return ResponseEntity.ok("Deletion failed.");
+        }
+    }
+
+    @GetMapping("/read/{number}")
+    public String read(@PathVariable("number") Long number, Model model){
+        log.info("GET /read/"+number);
+
         Optional<Board> boardOptional = boardRepository.findByNum(number);
 
-        if (boardOptional.isPresent()) {
-            // 게시물을 데이터베이스에서 삭제
-            boardRepository.delete(boardOptional.get());
-            redirectAttributes.addFlashAttribute("successMessage", "게시물이 성공적으로 삭제되었습니다.");
-        } else {
-            // 게시물이 존재하지 않을 경우 예외 처리 (이 부분을 적절히 처리하세요)
-            redirectAttributes.addFlashAttribute("errorMessage", "게시물을 찾을 수 없습니다.");
+        if(boardOptional.isPresent()){
+            Board board = boardOptional.get();
+            model.addAttribute("board",board);
+            return "read";
+        }else{
+            return "error";
         }
-
-        return "redirect:/mypage"; // 삭제 후 리스트 페이지로 리다이렉트
     }
+
 
 }

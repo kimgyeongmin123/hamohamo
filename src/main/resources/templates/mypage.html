@@ -209,7 +209,7 @@
                             <!-- 세부 버튼들 -->
                             <a th:href="@{'/update?number=' + ${board.number}}" class="update">수정<img src="/images/pencil.png" max-width="100%" height="40"/></a>
                             <!-- 게시물 삭제 버튼 추가 -->
-                            <a class="delete_btn" data-no="${board.number}">삭제<img src="/images/scissors.png" max-width="100%" height="40"/></a>
+                            <a class="btn btn-warning delete_btn" th:data-no="${board.number}">삭제<img src="/images/scissors.png" max-width="100%" height="40"/></a>
 
                         </ul>
                     </div>
