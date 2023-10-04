@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -159,19 +162,26 @@ public class BoardController {
     }
 
     @GetMapping("/read/{number}")
-    public String read(@PathVariable("number") Long number, Model model){
+    public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request){
         log.info("GET /read/"+number);
 
         Optional<Board> boardOptional = boardRepository.findByNum(number);
-
+        Cookie[] cookies = request.getCookies();
+        log.info("cookies"+cookies);
         if(boardOptional.isPresent()){
             Board board = boardOptional.get();
             model.addAttribute("board",board);
+            if(cookies!=null)
+            {
+                //CountUp
+                System.out.println("COOKIE READING TRUE | COUNT UP");
+                boardService.hits_count(board.getNumber());
+
+            }
             return "read";
         }else{
             return "error";
         }
     }
-
 
 }

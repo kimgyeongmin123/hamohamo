@@ -138,6 +138,10 @@
             border-top : 1px solid gray;
         }
 
+        .delete_btn{
+            pointer : cursor;
+        }
+
         /* contents 크기 조정 */
         .contents {
             font-size: 16px;
@@ -201,7 +205,7 @@
         <th:block th:each="board : ${myBoards}">
             <div class="board-item">
                 <div class="idbox">
-                <div id = board_id th:text="${board.email}">id</div>
+                    <div id = board_id th:text="${board.email}">id</div>
                     <div>
                         <button class="menu-btn"><img src="/images/menuicon.png" max-width="100%" height="40"/></button>
                         <!-- 세부 버튼 영역 (초기에는 숨김) -->
@@ -252,22 +256,25 @@
         });
     });
 
-    const delete_btn_el = document.querySelector('.delete_btn');
-    delete_btn_el.addEventListener('click', function () {
-    const number = encodeURIComponent(delete_btn_el.dataset.no); // 게시물 번호를 URL로 인코딩
-    axios.delete("/delete?number=" + number)
-        .then(
-            response => {
+// 모든 .delete_btn 요소를 선택
+var deleteBtns = document.querySelectorAll('.delete_btn');
+
+// 모든 삭제 버튼에 이벤트 리스너 등록
+deleteBtns.forEach(function (deleteBtn) {
+    deleteBtn.addEventListener('click', function () {
+        const number = deleteBtn.getAttribute('data-no');
+        axios.delete("/delete?number=" + number)
+            .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
                     location.href = "/list";
                 }
-            }
-        )
-        .catch(error => console.log(error));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     });
-
-
+});
 </script>
 
 </body>

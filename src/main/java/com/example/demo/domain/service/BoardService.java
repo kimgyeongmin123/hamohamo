@@ -99,8 +99,9 @@ public class BoardService {
 
         if (boardOptional.isPresent()) {
             Board board = boardOptional.get();
-            // 게시물의 이미지 파일들을 삭제
-            deleteImageFiles(board.getDirpath());
+            if(board.getDirpath()!=null)
+                // 게시물의 이미지 파일들을 삭제
+                deleteImageFiles(board.getDirpath());
             // 게시물 삭제
             boardRepository.delete(board);
             return true;
@@ -140,6 +141,14 @@ public class BoardService {
         } else {
             return false; // 게시물이 존재하지 않는 경우
         }
+    }
+
+    @Transactional(rollbackFor = SQLException.class)
+    public void hits_count(Long number){
+        System.out.println("조회수 카운트 할거임!?!??!?!");
+        Board board = boardRepository.findByNum(number).get();
+        board.setHits(board.getHits()+1);
+        boardRepository.save(board);
     }
 
 }
