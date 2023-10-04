@@ -58,7 +58,6 @@ public class BoardController {
         // 사용자 정보에서 닉네임을 가져와서 설정
         if (user != null) {
             dto.setNickname(user.getNickname());
-            dto.setPassword(user.getPassword());
         }
 
         model.addAttribute("dto", dto);
@@ -70,8 +69,24 @@ public class BoardController {
     }
 
     @GetMapping("/post")
-    public void post_get(){
+    public void post_get(Model model){
         log.info("GET /post");
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // UserDto 객체 생성
+        UserDto dto = new UserDto();
+
+        // UserRepository를 사용하여 사용자 정보 가져오기
+        User user = userRepository.findByEmail(email);
+
+        // 사용자 정보에서 닉네임을 가져와서 설정
+        if (user != null) {
+            dto.setNickname(user.getNickname());
+        }
+
+        model.addAttribute("dto", dto);
     }
 
     @PostMapping("/post")

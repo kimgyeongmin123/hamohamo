@@ -1,42 +1,168 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="UTF-8">
-  <title>인스타그램 스타일 게시물 폼</title>
+
+  <!-- 구글폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
   <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+ *{
+     font-family: 'Gothic A1', sans-serif;
+ }
+ body {
+     width: 1024px;
+     height: 860px;
+     margin: 50px auto;
+     overflow: auto;
+     max-height: 860px;
+ }
+
+ header{
+
+ }
+
+ .top-header{
+     display : flex;
+     justify-content: space-between;
+     padding-left : 50px;
+ }
+
+ .top-header > div > a{
+     align-self : center;
+ }
+
+ .top-header > div > h2 {
+     margin-left : 30px;
+     color : #414e5f;
+ }
+
+ .logout{
+     align-self: center;
+     margin-right : 100px;
+ }
+
+ .middle-header{
+     display: flex;
+     height : 70px;
+     margin-top : 20px;
+     margin-bottom : 50px;
+     border-top : 7px solid #4A596D;
+     border-bottom : 4px solid #4A596D;
+     justify-content : space-around;
+     align-items : center;
+ }
+
+ .searchbox{
+     position : relative;
+     left : 70px;
+     display: flex;
+     align-items: center; /* 수직으로 중앙 정렬 */
+     border-left : 4px solid #4A596D;
+     border-right : 4px solid #4A596D;
+     padding : 15px;
+ }
+
+ .search{
+     height : 30px;
+     font-size: 1rem;
+     margin-right : 6px
+ }
+
+ .searchbox > input{
+     height : 26px;
+     font-size : 1rem;
+     margin-right : 4px;
+ }
+
+ .search select{
+
+ }
+
+ .search option {
+
+ }
+
+ .etcmenu > a{
+     margin-right : 18px;
+ }
+
+ .tooltip {
+     position: relative;
+     text-decoration: none; /* 링크의 기본 밑줄을 제거 */
+     color: #4A596D; /* 링크 색상 */
+ }
+
+ .tooltip::before {
+     content: attr(data-tooltip);
+     position: absolute;
+     background-color: white; /* 말풍선 배경색 */
+     color: #4A596D; /* 말풍선 텍스트 색상 */
+     padding: 4px 8px; /* 말풍선 내부 여백 */
+     border : 3px solid #4A596D;
+     border-radius: 50px; /* 말풍선 모서리 둥글게 */
+     font-size: 14px; /* 말풍선 텍스트 크기 */
+     opacity: 0; /* 초기에는 투명하게 숨김 */
+     top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
+     left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+     transform: translateX(-50%); /* 가운데 정렬 */
+     transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+     white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+     font-weight: 600;
+ }
+
+ .tooltip:hover::before {
+     opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+ }
+
+
+
+
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-        }
-
-        .post-form {
             border: 1px solid #ccc;
-            margin: 20px 0;
-            padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .container > h2{
+          color : #4A596D;
+          border-bottom : 3px solid #4A596D;
+          margin-bottom : 20px;
+          padding-bottom : 35px;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
+        .gongi{
+            font-size: 13px;
+            color : gray;
+            margin-bottom : 20px;
+        }
+
+        .form-group > input{
+            border-style: none;
+        }
+
         .form-group label {
             font-weight: bold;
+            color : #4A596D;
         }
 
         textarea {
-            width: 100%;
+            width: 780px;
             padding: 10px;
             border: 1px solid #ccc;
             resize: none;
+            height : 300px;
         }
 
         input[type="file"] {
@@ -44,34 +170,83 @@
         }
 
         .submit-button {
-            background-color: #0088cc;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
+            width : 183px;
+            height : 45px;
+            background-color: #4a596d;
+            border-radius: 7px;
+            color : #cfd7e0;
+            border-style: none;
+            font-size: 15px;
             cursor: pointer;
         }
-    </style>
+ </style>
+
+
+
 </head>
-<body>
-<div class="container">
-  <div class="post-form">
-    <h2>새 게시물 작성</h2>
-    <form action="/post" method="post" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="email">아이디:</label>
-        <input type="text" id="email" name="email" th:value="${#authentication.principal.username}" readonly /><br><br>
-      </div>
-      <div class="form-group">
-        <label for="contents">게시물 내용:</label>
-        <textarea id="contents" name="contents" rows="4" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="formFile" class="form-label">Default file input example</label>
-        <input class="form-control" type="file" id="formFile" name="files" multiple>
-      </div>
-      <button type="submit" class="submit-button">게시</button>
-    </form>
+<body class="scroll">
+<header>
+  <div class="top-header">
+    <div style="display : flex;">
+      <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
+      <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
+    </div>
+    <div class="logout">
+      <form method="post" action="/logout">
+        <button class="logoutbtn">로그아웃</button><br/>
+      </form>
+    </div>
   </div>
+
+  <div class="middle-header">
+    <div>
+      <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+        <img src="/images/mypageicon.png" max-width="100%" height="50"/>
+      </a>
+    </div>
+
+    <div class="searchbox">
+      <select class="search">
+        <option value="nickname">닉네임</option>
+        <option value="content">내용</option>
+      </select>
+      <input> <a href="#"><img src="/images/searchicon.png" max-width="100%" height="30"/></a>
+    </div>
+
+    <div class="etcmenu">
+      <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
+      <a href="#"><img src="/images/bellicon.png" max-width="100%" height="52"/></a>
+      <a href="#"><img src="/images/msgicon.png" max-width="100%" height="45"/></a>
+    </div>
+
+  </div>
+</header>
+
+
+<div class="container">
+  <h2>게시물 작성</h2>
+
+  <form action="/post" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label>글쓴이 닉네임 </label>
+      <span th:text="${dto.nickname}"></span><br/>
+
+      <label for="email">글쓴이 이메일 </label>
+      <input type="text" id="email" name="email" th:value="${#authentication.principal.username}" readonly />
+    </div>
+
+    <div class="gongi">욕설 또는 다른 사용자에게 피해가 되는 언어는 자제해주세요.<br/>이메일은 게시글에 공개되지 않습니다.</div>
+
+    <div class="form-group">
+      <label for="contents"></label>
+      <textarea id="contents" name="contents" rows="4" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="formFile" class="form-label" style="margin-right : 10px;">파일 첨부</label>
+      <input class="form-control" type="file" id="formFile" name="files" multiple>
+    </div>
+    <button type="submit" class="submit-button">올리기</button>
+  </form>
 </div>
 
 </body>
