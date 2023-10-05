@@ -151,4 +151,26 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    @Transactional(rollbackFor = SQLException.class)
+    public boolean likeBoard(Long number) {
+        Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        if (boardOptional.isPresent()) {
+            Board board = boardOptional.get();
+
+            // 여기에서 중복 좋아요 방지 로직을 추가할 수 있습니다.
+            // 예를 들어, 사용자가 이미 좋아요를 누른 게시물인지 확인하는 등의 작업을 수행합니다.
+
+            // 좋아요 수를 1 증가시킵니다.
+            board.setLike_count(board.getLike_count() + 1);
+
+            // 업데이트된 게시물을 저장합니다.
+            boardRepository.save(board);
+
+            return true;
+        }
+
+        return false;
+    }
+
 }
