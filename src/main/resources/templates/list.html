@@ -19,6 +19,7 @@ body {
 	margin: 50px auto;
 	overflow: auto;
 	max-height: 860px;
+    position : relative;
 }
 
 header{
@@ -42,28 +43,35 @@ header{
 
 .logout{
     align-self: center;
-    margin-right : 100px;
+    margin-right : 50px;
+    display: flex;
 }
+
+.logout-btn{
+    border-style : none;
+    background-color: white;
+    margin-left : 20px;
+    cursor: pointer;
+}
+
 
 .middle-header{
     display: flex;
     height : 70px;
-    margin-top : 20px;
     margin-bottom : 50px;
-    border-top : 7px solid #4A596D;
-    border-bottom : 4px solid #4A596D;
-    justify-content : space-around;
+    border-bottom : 3px solid #4A596D;
+    border-radius: 30px;
     align-items : center;
+    justify-content: space-between;
+    position : sticky;
+    background-color: #4a596d23;
 }
 
 .searchbox{
-    position : relative;
-    left : 70px;
     display: flex;
     align-items: center; /* 수직으로 중앙 정렬 */
-    border-left : 4px solid #4A596D;
-    border-right : 4px solid #4A596D;
-    padding : 15px;
+    position: relative;
+    right : 200px;
 }
 
 .search{
@@ -86,8 +94,12 @@ header{
 
 }
 
+.etcmenu{
+    margin-right : 35px;
+}
+
 .etcmenu > a{
-    margin-right : 18px;
+    margin-right : 30px;
 }
 
 .tooltip {
@@ -106,7 +118,7 @@ header{
     border-radius: 50px; /* 말풍선 모서리 둥글게 */
     font-size: 14px; /* 말풍선 텍스트 크기 */
     opacity: 0; /* 초기에는 투명하게 숨김 */
-    top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
+    bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
     left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
     transform: translateX(-50%); /* 가운데 정렬 */
     transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
@@ -117,6 +129,14 @@ header{
 .tooltip:hover::before {
     opacity: 1; /* 말풍선을 투명하지 않게 표시 */
 }
+
+.write{
+    position: relative;
+    left : 800px;
+    bottom : 30px;
+}
+
+
 
 
 
@@ -161,6 +181,7 @@ header{
         #board_contents{
             border-bottom: 3px solid #4A596D;
             height:100px;
+            height : 5000px;
         }
         #board_img{
             border-bottom: 1px solid #4A596D;
@@ -188,27 +209,54 @@ header{
             border-top : 1px solid #4A596D;
         }
 
+
+
+        /* 빠른 메뉴 스타일 */
+.quick-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height : 80px;
+    background-color: #4a596d85;
+    display: none; /* 초기에는 숨겨짐 */
+    border-bottom : 4px solid #4A596D;
+    padding-top : 20px;
+}
+
+.quick-sebu{
+    display: flex;
+}
+.quick-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
     </style>
 </head>
 <body class="scroll">
 <header>
     <div class="top-header">
         <div style="display : flex;">
-            <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
+            <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
             <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
         </div>
         <div class="logout">
+            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+                <img src="images/mypageicon.png" max-width="100%" height="45"/>
+            </a>
             <form method="post" action="/logout">
-                <button class="logoutbtn">로그아웃</button><br/>
+                <button class="logout-btn"><img src="images/logout.png" max-width="100%" height="45"/></button><br/>
             </form>
         </div>
     </div>
 
+
     <div class="middle-header">
         <div>
-            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-                <img src="/images/mypageicon.png" max-width="100%" height="50"/>
-            </a>
+
         </div>
 
         <div class="searchbox">
@@ -216,21 +264,50 @@ header{
                 <option value="nickname">닉네임</option>
                 <option value="content">내용</option>
             </select>
-            <input> <a href="#"><img src="/images/searchicon.png" max-width="100%" height="30"/></a>
+            <input> <a href="#"><img src="images/searchicon.png" max-width="100%" height="30"/></a>
         </div>
 
         <div class="etcmenu">
-            <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
-            <a href="#"><img src="/images/bellicon.png" max-width="100%" height="52"/></a>
-            <a href="#"><img src="/images/msgicon.png" max-width="100%" height="45"/></a>
+
+            <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
+            <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
         </div>
 
     </div>
+
+
+    <div class="quick-menu" id="quickMenu">
+        <div class="quick-sebu">
+            <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
+
+            <div class="quick-searchbox">
+                <select class="quick-search" style="height : 23px;">
+                    <option value="nickname">닉네임</option>
+                    <option value="content">내용</option>
+                </select>
+                <input> <a href="#"><img src="images/searchicon.png" max-width="100%" height="30" style="position : relative; top : 10px; right : 20px;"/></a>
+            </div>
+
+            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+                <img src="images/mypageicon.png" max-width="100%" height="45"/>
+            </a>
+
+            <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
+            <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
+
+            <form method="post" action="/logout">
+                <button class="logout-btn" style="width : 50px;">로그아웃</button><br/>
+            </form>
+
+        </div>
+    </div>
 </header>
 
-<main>
 
+
+<main>
     <div class="board-container">
+        <a href="/post" class="write">글쓰기</a>
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
                 <div class="idbox">
@@ -262,6 +339,8 @@ header{
     </div>
 </main>
 
+</body>
+
 <script>
     function logoutAndRedirect() {
           // 새 창 열기
@@ -275,6 +354,21 @@ header{
    }, 1500);
 
      }
+
+     // 빠른 메뉴 요소를 가져옵니다.
+var quickMenu = document.getElementById('quickMenu');
+
+// 스크롤 위치에 따라 빠른 메뉴를 표시/숨깁니다.
+function toggleQuickMenu() {
+    if (window.scrollY > 200) { // 스크롤 위치 기준 값을 조정하세요.
+        quickMenu.style.display = 'block';
+    } else {
+        quickMenu.style.display = 'none';
+    }
+}
+
+// 윈도우의 스크롤 이벤트에 이벤트 리스너를 추가합니다.
+window.addEventListener('scroll', toggleQuickMenu);
 </script>
 </body>
 </html>
