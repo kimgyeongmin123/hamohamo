@@ -313,15 +313,17 @@ header{
                     <div id = board_id th:text="${board.email}">id</div>
                 </div>
 
+
                 <a th:href="'/read/' + ${board.number}">
                     <div id = board_img>
                         <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                         <img th:if="${not #strings.isEmpty(board.filename)}"
-                             th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
+                             th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
                              alt="Thumbnail" width="200" height="auto" class="thumbnail">
                     </div>
                     <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                 </a>
+
                 <div class="date-box">
                     <div th:text="${board.date}">date</div>
                     <div class="hits-like">

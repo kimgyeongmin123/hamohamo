@@ -4,12 +4,15 @@ import com.example.demo.controller.BoardController;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.repository.BoardRepository;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -79,6 +82,20 @@ public class BoardService {
                 //filenames 저장
                 filenames.add(filename);
                 filesizes.add(file.getSize()+"");
+
+                //섬네일이미지 파일 만들기
+
+                File thumbnailFile = new File(path, "s_" + filename);
+
+                BufferedImage bo_img = ImageIO.read(fileobj);
+                double ratio = 3;
+                int width = (int) (bo_img.getWidth() / ratio);
+                int height = (int) (bo_img.getHeight() / ratio);
+
+                Thumbnails.of(fileobj)
+                        .size(width, height)
+                        .toFile(thumbnailFile);
+
             }
         }
 

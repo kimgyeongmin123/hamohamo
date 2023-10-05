@@ -9,6 +9,7 @@ import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,12 +50,13 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
-        // UserDto 객체 생성
-        UserDto dto = new UserDto();
+
 
         // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findById(email).get();
 
+        // UserDto 객체 생성
+        UserDto dto = UserDto.EntityToDto(user);
         // 사용자 정보에서 닉네임을 가져와서 설정
         if (user != null) {
             dto.setNickname(user.getNickname());
@@ -62,7 +64,9 @@ public class BoardController {
 
         model.addAttribute("dto", dto);
 
-        List<Board> list = boardRepository.findAll();
+
+        // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
+        List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
         model.addAttribute("board", list);
 
         return list;

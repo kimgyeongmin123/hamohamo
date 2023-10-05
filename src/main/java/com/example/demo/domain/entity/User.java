@@ -28,9 +28,10 @@ public class User {
     private String addr2;
     private String role;
 
-
     //OAuth2 Added
     private String provider;
     private String providerId;
+
+    private String profile;
 
 }
