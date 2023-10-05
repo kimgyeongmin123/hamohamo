@@ -27,7 +27,7 @@ public class BoardService {
 
 
 
-    private String uploadDir = "c:\\upload";
+    private String uploadDir = "uploadimg/";
 
     @Autowired
     private BoardRepository boardRepository;
@@ -55,7 +55,9 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getEmail()+File.separator+ UUID.randomUUID();
+            String path = uploadDir+dto.getEmail()+"/"+ UUID.randomUUID();
+
+            System.out.println("path : "+path);
             File dir = new File(path);
             if(!dir.exists()) {
                 dir.mkdirs();
@@ -73,9 +75,14 @@ public class BoardService {
 
                 //파일명 추출
                 String filename = file.getOriginalFilename();
-                //파일객체 생성
 
+                System.out.println("filename : "+filename);
+
+                //파일객체 생성
                 File fileobj = new File(path,filename);
+
+                System.out.println("fileobj : "+fileobj);
+
                 //업로드
                 file.transferTo(fileobj);
 
