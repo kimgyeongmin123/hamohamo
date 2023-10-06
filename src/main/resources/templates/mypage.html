@@ -59,7 +59,11 @@
             border : 1px solid gray;
             border-radius: 50%;
         }
-
+        .profileimg img {
+            max-width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
         .profile-menu{
             display:flex;
             margin-top : 20px;
@@ -172,8 +176,7 @@
             display: flex;
             justify-content:center;
         }
-
-        /* 모달 스타일 */
+/* 모달 스타일 */
 
 .modal {
     display: none;
@@ -210,7 +213,6 @@
 #profileUploadForm {
     margin-top: 20px;
 }
-
     </style>
 
 </head>
@@ -242,7 +244,6 @@
         </div>
         <button class="update-btn"><a href="/profile/update">내 정보 수정</a></button>
     </nav>
-
     <!-- 모달 창 -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
@@ -256,7 +257,6 @@
             </form>
         </div>
     </div>
-
 </header>
 <main>
     <div class="board-container">
@@ -323,6 +323,7 @@
     });
 
 </script>
+
 
 <script>
     // menu-btn을 클릭하면 세부 버튼 영역을 표시/숨김

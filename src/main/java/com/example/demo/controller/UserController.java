@@ -52,11 +52,6 @@ public class UserController {
 	public String join_post(UserDto dto) {
 		log.info("POST /join "+dto);
 
-		//01
-
-		//02
-
-		//03
 		dto.setRole("ROLE_USER");
 		dto.setPassword( passwordEncoder.encode(dto.getPassword()) );
 
@@ -64,7 +59,6 @@ public class UserController {
 
 		user.setEmail(dto.getEmail());
 		user.setPassword(dto.getPassword());
-
 		user.setNickname(dto.getNickname());
 		user.setName(dto.getName());
 		user.setZipcode(dto.getZipcode());
@@ -74,15 +68,16 @@ public class UserController {
 		user.setPhone(dto.getPhone());
 		user.setQuestion(dto.getQuestion());
 		user.setAnswer(dto.getAnswer());
-
 		user.setProvider(dto.getProvider());
 		user.setProviderId(dto.getProviderId());
-
 		user.setProfile("/images/basic_profile.png");
 		user.setRole(dto.getRole());
 
 		userRepository.save(user);
 
+		System.out.println("addr1 :" + user.getAddr1());
+		System.out.println("addr2 : " + user.getAddr2());
+		System.out.println("zipcode :" + user.getZipcode());
 		//04
 		return "redirect:login?msg=Join_Success!";
 

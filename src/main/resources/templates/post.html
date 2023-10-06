@@ -10,187 +10,176 @@
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
   <style>
- *{
-     font-family: 'Gothic A1', sans-serif;
- }
- body {
-     width: 1024px;
-     height: 860px;
-     margin: 50px auto;
-     overflow: auto;
-     max-height: 860px;
- }
+    *{
+        font-family: 'Gothic A1', sans-serif;
+    }
+    body {
+        width: 1024px;
+        height: 860px;
+        margin: 50px auto;
+        overflow: auto;
+        max-height: 860px;
+    }
 
- header{
+    header{
 
- }
+    }
 
- .top-header{
-     display : flex;
-     justify-content: space-between;
-     padding-left : 50px;
- }
+    .top-header{
+        display : flex;
+        justify-content: space-between;
+        padding-left : 50px;
+    }
 
- .top-header > div > a{
-     align-self : center;
- }
+    .top-header > div > a{
+        align-self : center;
+    }
 
- .top-header > div > h2 {
-     margin-left : 30px;
-     color : #414e5f;
- }
+    .top-header > div > h2 {
+        margin-left : 30px;
+        color : #414e5f;
+    }
 
- .logout{
-            align-self: center;
-            margin-right : 100px;
-        }
+    .logout{
+        align-self: center;
+        margin-right : 100px;
+    }
 
-        .logoutbtn{
-            width : 120px;
-            height : 35px;
-            background-color: #4a596d;
-            border-radius: 7px;
-            color : #cfd7e0;
-            border-style: none;
-            font-size: 15px;
-            cursor: pointer;
-        }
+    .middle-header{
+        display: flex;
+        height : 70px;
+        margin-top : 20px;
+        margin-bottom : 50px;
+        border-top : 7px solid #4A596D;
+        border-bottom : 4px solid #4A596D;
+        justify-content : space-around;
+        align-items : center;
+    }
 
- .middle-header{
-     display: flex;
-     height : 70px;
-     margin-top : 20px;
-     margin-bottom : 50px;
-     border-top : 7px solid #4A596D;
-     border-bottom : 4px solid #4A596D;
-     justify-content : space-around;
-     align-items : center;
- }
+    .searchbox{
+        position : relative;
+        left : 70px;
+        display: flex;
+        align-items: center; /* 수직으로 중앙 정렬 */
+        border-left : 4px solid #4A596D;
+        border-right : 4px solid #4A596D;
+        padding : 15px;
+    }
 
- .searchbox{
-     position : relative;
-     left : 70px;
-     display: flex;
-     align-items: center; /* 수직으로 중앙 정렬 */
-     border-left : 4px solid #4A596D;
-     border-right : 4px solid #4A596D;
-     padding : 15px;
- }
+    .search{
+        height : 30px;
+        font-size: 1rem;
+        margin-right : 6px
+    }
 
- .search{
-     height : 30px;
-     font-size: 1rem;
-     margin-right : 6px
- }
+    .searchbox > input{
+        height : 26px;
+        font-size : 1rem;
+        margin-right : 4px;
+    }
 
- .searchbox > input{
-     height : 26px;
-     font-size : 1rem;
-     margin-right : 4px;
- }
+    .search select{
 
- .search select{
+    }
 
- }
+    .search option {
 
- .search option {
+    }
 
- }
+    .etcmenu > a{
+        margin-right : 18px;
+    }
 
- .etcmenu > a{
-     margin-right : 18px;
- }
+    .tooltip {
+        position: relative;
+        text-decoration: none; /* 링크의 기본 밑줄을 제거 */
+        color: #4A596D; /* 링크 색상 */
+    }
 
- .tooltip {
-     position: relative;
-     text-decoration: none; /* 링크의 기본 밑줄을 제거 */
-     color: #4A596D; /* 링크 색상 */
- }
+    .tooltip::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        background-color: white; /* 말풍선 배경색 */
+        color: #4A596D; /* 말풍선 텍스트 색상 */
+        padding: 4px 8px; /* 말풍선 내부 여백 */
+        border : 3px solid #4A596D;
+        border-radius: 50px; /* 말풍선 모서리 둥글게 */
+        font-size: 14px; /* 말풍선 텍스트 크기 */
+        opacity: 0; /* 초기에는 투명하게 숨김 */
+        top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
+        left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+        transform: translateX(-50%); /* 가운데 정렬 */
+        transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+        white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+        font-weight: 600;
+    }
 
- .tooltip::before {
-     content: attr(data-tooltip);
-     position: absolute;
-     background-color: white; /* 말풍선 배경색 */
-     color: #4A596D; /* 말풍선 텍스트 색상 */
-     padding: 4px 8px; /* 말풍선 내부 여백 */
-     border : 3px solid #4A596D;
-     border-radius: 50px; /* 말풍선 모서리 둥글게 */
-     font-size: 14px; /* 말풍선 텍스트 크기 */
-     opacity: 0; /* 초기에는 투명하게 숨김 */
-     top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
-     left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-     transform: translateX(-50%); /* 가운데 정렬 */
-     transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-     white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-     font-weight: 600;
- }
-
- .tooltip:hover::before {
-     opacity: 1; /* 말풍선을 투명하지 않게 표시 */
- }
+    .tooltip:hover::before {
+        opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+    }
 
 
 
 
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
+           .container {
+               max-width: 800px;
+               margin: 0 auto;
+               padding: 20px;
+               border: 1px solid #ccc;
+               background-color: #fff;
+               box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+           }
 
-        .container > h2{
-          color : #4A596D;
-          border-bottom : 3px solid #4A596D;
-          margin-bottom : 20px;
-          padding-bottom : 35px;
-        }
+           .container > h2{
+             color : #4A596D;
+             border-bottom : 3px solid #4A596D;
+             margin-bottom : 20px;
+             padding-bottom : 35px;
+           }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+           .form-group {
+               margin-bottom: 20px;
+           }
 
-        .gongi{
-            font-size: 13px;
-            color : gray;
-            margin-bottom : 20px;
-        }
+           .gongi{
+               font-size: 13px;
+               color : gray;
+               margin-bottom : 20px;
+           }
 
-        .form-group > input{
-            border-style: none;
-        }
+           .form-group > input{
+               border-style: none;
+           }
 
-        .form-group label {
-            font-weight: bold;
-            color : #4A596D;
-        }
+           .form-group label {
+               font-weight: bold;
+               color : #4A596D;
+           }
 
-        textarea {
-            width: 780px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            resize: none;
-            height : 300px;
-        }
+           textarea {
+               width: 780px;
+               padding: 10px;
+               border: 1px solid #ccc;
+               resize: none;
+               height : 300px;
+           }
 
-        input[type="file"] {
-            margin-top: 10px;
-        }
+           input[type="file"] {
+               margin-top: 10px;
+           }
 
-        .submit-button {
-            width : 183px;
-            height : 45px;
-            background-color: #4a596d;
-            border-radius: 7px;
-            color : #cfd7e0;
-            border-style: none;
-            font-size: 15px;
-            cursor: pointer;
-        }
- </style>
+           .submit-button {
+               width : 183px;
+               height : 45px;
+               background-color: #4a596d;
+               border-radius: 7px;
+               color : #cfd7e0;
+               border-style: none;
+               font-size: 15px;
+               cursor: pointer;
+           }
+  </style>
 
 
 

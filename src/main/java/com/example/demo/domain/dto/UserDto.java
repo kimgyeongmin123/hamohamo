@@ -11,19 +11,13 @@ import javax.validation.constraints.Pattern;
 @Data
 public class UserDto {
 
-	@NotBlank(message = "ID를 입력하세요.")
-	@Email(message = "올바른 이메일 주소를 입력하세요")
+
 	private String email;
 
-	@NotBlank(message = "password를 입력하세요")
-//	-----------------------------패스워드 패턴은 일단 주석처리할게 우리 코드 짠 거 확인할려면 계속 로그인 해야되는데 1234가 빠르고 편해서 이거 나중에 완성되고 설정하자-------------------------------
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
 	private String password;
 	private String repassword;
-	@AssertTrue(message = "비밀번호가 같지 않습니다")
-	private boolean isValid(){
-		return password.equals(repassword);
-	}
+
+
 
 	private String nickname;
 	private String name;
@@ -47,7 +41,18 @@ public class UserDto {
 	{
 		UserDto dto  = new UserDto();
 		dto.setEmail(user.getEmail());
+		dto.setPassword(user.getPassword());
+		dto.setZipcode(user.getZipcode());
+		dto.setNickname(user.getNickname());
+		dto.setName(user.getName());
+		dto.setAddr1(user.getAddr1());
+		dto.setAddr2(user.getAddr2());
+		dto.setBirth(user.getBirth());
+		dto.setPhone(user.getPhone());
+		dto.setRole(user.getRole());
 		dto.setProfile(user.getProfile());
+		dto.setAnswer(user.getAnswer());
+		dto.setQuestion(user.getQuestion());
 
 		return dto;
 

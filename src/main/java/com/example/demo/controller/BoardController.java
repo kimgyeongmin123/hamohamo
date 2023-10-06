@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -182,22 +180,44 @@ public class BoardController {
     }
 
     @GetMapping("/read/{number}")
-    public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request){
+    public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request, HttpServletResponse response){
         log.info("GET /read/"+number);
 
         Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        //클라이언트에서 전송한 모든 쿠키 cookies에 저장
         Cookie[] cookies = request.getCookies();
         log.info("cookies"+cookies);
+
+        // "조회한 게시물"을 나타내는 쿠키의 이름
+        String cookieName = "read_" + number;
+
+        // 쿠키 확인하여 중복 조회 방지
+        boolean isAlreadyRead = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookieName.equals(cookie.getName())) {
+                    // 이미 해당 게시물을 조회한 경우
+                    isAlreadyRead = true;
+                    break;
+                }
+            }
+        }
+
+        if (!isAlreadyRead) {
+            // 조회수를 증가시키는 코드 추가
+            boardService.hits_count(number);
+
+            // 쿠키 생성 및 클라이언트에게 전송
+            Cookie readCookie = new Cookie(cookieName, "true");
+            readCookie.setPath("/"); // 쿠키의 범위 설정
+            response.addCookie(readCookie);
+        }
+
         if(boardOptional.isPresent()){
             Board board = boardOptional.get();
             model.addAttribute("board",board);
-            if(cookies!=null)
-            {
-                //CountUp
-                System.out.println("COOKIE READING TRUE | COUNT UP");
-                boardService.hits_count(board.getNumber());
 
-            }
             return "read";
         }else{
             return "error";

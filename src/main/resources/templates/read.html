@@ -10,6 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
   <style>
+
+        main {
+            display:flex;
+        }
         *{
             font-family: 'Gothic A1', sans-serif;
         }
@@ -43,17 +47,6 @@
         .logout{
             align-self: center;
             margin-right : 100px;
-        }
-
-        .logoutbtn{
-            width : 120px;
-            height : 35px;
-            background-color: #4a596d;
-            border-radius: 7px;
-            color : #cfd7e0;
-            border-style: none;
-            font-size: 15px;
-            cursor: pointer;
         }
 
         .middle-header{
@@ -129,23 +122,24 @@
             opacity: 1; /* 말풍선을 투명하지 않게 표시 */
         }
 
-
-
-
                 .board-container {
                     width: 80%;
                     margin: 0 auto;
-                    margin-top : 60px;
+                    margin-top: 50px;
+                    height: 70%;
                 }
                 .comment-container{
 
                 }
 
                 .board-item {
+                    position: relative;
                     border: 1px solid #ccc;
                     border-radius: 10px;
-                    padding: 10px;
+                    padding: 5px;
                     margin-bottom: 20px;
+                    height:600px;
+
                 }
 
 
@@ -278,21 +272,17 @@
 
   <!-- REPLY        -->
   <style>
-
-
         .reply--block{
-            top:200px;
-            left:60%;
+            position:relative;
+            top: 50px;
+            left: 1%;
+            width: 350px;
 
-            width : 500px;
-
-            border : 1px solid lightgray;
-            border-radius :10px 5px 5px 5px;
-
-            padding : 10px;
-
-
-            background-color : white;
+            height: 600px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
         }
         .reply--block  img{
             width : 35px; height : 35px;
@@ -396,30 +386,7 @@
     <div class="reply-body">
 
       <div class="items">
-        <!--
-        <div class="item">
-            <div class="header">
-                <img src="/images/account.png" alt="">
-            </div>
-            <div class="body">
-                <div>
-                    jwg8910@naver.com / 2023-01-01 11:11:11
-                </div>
-                <div class="contents">
-                    내용내용
-                </div>
-                <div>
-                    <a href="#">
-                        <span class="material-symbols-outlined">thumb_up</span>&nbsp;&nbsp;<span>1</span>
-                    </a>
-
-                    <a href="#">
-                        <span class="material-symbols-outlined">thumb_down</span>&nbsp;&nbsp;<span>3</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        -->
+        /
 
 
 
@@ -431,187 +398,187 @@
 </main>
 
 <script>
-function logoutAndRedirect() {
-  // 새 창 열기
-var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
-setTimeout(function() {
- // 1.5초후 창닫기
-  newWindow.close();
+    function logoutAndRedirect() {
+      // 새 창 열기
+    var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+    setTimeout(function() {
+     // 1.5초후 창닫기
+      newWindow.close();
 
- // 특정 지점으로 리다이렉션
-window.location.href = '/login';
-}, 1500);
+     // 특정 지점으로 리다이렉션
+    window.location.href = '/login';
+    }, 1500);
 
-}
-     //----------------------------------------------------------------
-    //댓글 리스트 가져오기
-    //----------------------------------------------------------------
-    const getReplylist = ()=>{
-
-     /*<![CDATA[*/
-            let bno = [[${board.number}]];
-     /*]]>*/
-
-        console.log("getReplylist bno :",bno);
-        axios.get("/board/reply/list?bno="+bno)
-        .then(response=>{
-            console.log(response);
-            if(response.data!=null)
-            {
-
-                //댓글 Item 만들기
-                const reply_list = response.data;
-                reply_list.forEach(
-                    reply=>{
-                        CreateItem(reply);
-                    }
-                );
-
-                //댓글 개수 가져오기
-                axios.get("/board/reply/count?bno=" + bno)
-                .then(response=>{
-                    let reply_count_el = document.querySelector('.reply--count');
-                    reply_count_el.innerHTML = response.data;
-                })
-            }
-
-        })
-        .catch(error=>console.log(error));
-    };
-    getReplylist();
-
-
-    //----------------------------------------------------------------
-    // Item 만들기
-    //----------------------------------------------------------------
-    const items_el = document.querySelector(".items");
-    const CreateItem = (reply)=>{
-        console.log("reply : ",reply);
-
-        // div 엘리먼트 생성
-        var divElement = document.createElement("div");
-        divElement.className = "item";
-
-        // header div 엘리먼트 생성
-        var headerElement = document.createElement("div");
-        headerElement.className = "header";
-
-        // img 엘리먼트 생성
-        var imgElement = document.createElement("img");
-        imgElement.src = "/images/account.png";
-        imgElement.alt = "";
-
-        // header div에 img 엘리먼트 추가
-        headerElement.appendChild(imgElement);
-
-        // body div 엘리먼트 생성
-        var bodyElement = document.createElement("div");
-        bodyElement.className = "body";
-
-        // 내용 엘리먼트 생성(계정 | 날짜 )
-        var contentDiv = document.createElement("div");
-
-        var span1 = document.createElement("span");
-        span1.className = "reply_username me-2";
-        span1.textContent = reply.username;
-        var span2 = document.createElement("span");
-        span2.className = "reply_regdate";
-        span2.textContent = formatter(reply.regdate);
-
-
-        var delete_a = document.createElement("a");
-        delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rno);       //DELETE HREF!!!!!!!!
-        var span3 = document.createElement("span");
-        span3.className = "reply_delete material-symbols-outlined";
-        span3.textContent = "remove";
-        delete_a.appendChild(span3);
-
-        contentDiv.appendChild(span1);
-        contentDiv.appendChild(span2);
-        contentDiv.appendChild(delete_a);
-
-        // 내용 엘리먼트 추가
-        bodyElement.appendChild(contentDiv);
-
-
-
-        // contents div 엘리먼트 생성
-        var contentsDiv = document.createElement("div");
-        contentsDiv.className = "contents";
-        contentsDiv.textContent = reply.content;
-
-        // contents div 엘리먼트 추가
-        bodyElement.appendChild(contentsDiv);
-
-        // 좋아요 및 싫어요 링크 엘리먼트 생성
-        var likeLink = document.createElement("a");
-        var dislikeLink = document.createElement("a");
-
-        likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rno;
-        dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rno;
-
-        // 좋아요 아이콘과 개수 엘리먼트 생성
-        var likeIcon = document.createElement("span");
-        likeIcon.className = "material-symbols-outlined me-1";
-        likeIcon.textContent = "thumb_up";
-        var likeCount = document.createElement("span");
-        likeCount.className = "me-1";
-        likeCount.textContent = reply.likecount;
-
-        // 싫어요 아이콘과 개수 엘리먼트 생성
-        var dislikeIcon = document.createElement("span");
-        dislikeIcon.className = "material-symbols-outlined me-1";
-        dislikeIcon.textContent = "thumb_down";
-        var dislikeCount = document.createElement("span");
-        dislikeCount.className = "me-1";
-        dislikeCount.textContent = reply.unlikecount;
-
-        // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
-        likeLink.appendChild(likeIcon);
-        likeLink.appendChild(document.createTextNode(" "));
-        likeLink.appendChild(likeCount);
-
-        // 좋아요와 싫어요 엘리먼트를 싫어요 링크에 추가
-        dislikeLink.appendChild(dislikeIcon);
-        dislikeLink.appendChild(document.createTextNode(" "));
-        dislikeLink.appendChild(dislikeCount);
-
-        const ThumbsDiv = document.createElement("div");
-        ThumbsDiv.append(likeLink);
-        ThumbsDiv.append(dislikeLink);
-
-
-        // 좋아요와 싫어요 링크 엘리먼트를 body div에 추가
-        bodyElement.appendChild(ThumbsDiv);
-
-        // header와 body 엘리먼트를 div에 추가
-        divElement.appendChild(headerElement);
-        divElement.appendChild(bodyElement);
-
-        // div 엘리먼트를 body에 추가
-        items_el.appendChild(divElement);
     }
+         //----------------------------------------------------------------
+        //댓글 리스트 가져오기
+        //----------------------------------------------------------------
+        const getReplylist = ()=>{
 
-//----------------------------------------------------------------
-// LocalDateTime Formatter
-//----------------------------------------------------------------
-const formatter = (regDate)=>{
-  // 분리한 정보를 사용하여 Date 객체를 생성합니다.
-  const year = parseInt(regDate[0]);
-  const month = parseInt(regDate[1]) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
-  const day = parseInt(regDate[2]);
-  const hours = parseInt(regDate[3]);
-  const minutes = parseInt(regDate[4]);
-  const seconds = parseInt(regDate[5]);
+         /*<![CDATA[*/
+                let bno = [[${board.number}]];
+         /*]]>*/
 
-  const date = new Date(year, month, day, hours, minutes, seconds);
+            console.log("getReplylist bno :",bno);
+            axios.get("/board/reply/list?bno="+bno)
+            .then(response=>{
+                console.log(response);
+                if(response.data!=null)
+                {
 
-  // Date 객체를 원하는 형식으로 포맷팅합니다.
-  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+                    //댓글 Item 만들기
+                    const reply_list = response.data;
+                    reply_list.forEach(
+                        reply=>{
+                            CreateItem(reply);
+                        }
+                    );
 
-  return formattedDate;
+                    //댓글 개수 가져오기
+                    axios.get("/board/reply/count?bno=" + bno)
+                    .then(response=>{
+                        let reply_count_el = document.querySelector('.reply--count');
+                        reply_count_el.innerHTML = response.data;
+                    })
+                }
 
-};
+            })
+            .catch(error=>console.log(error));
+        };
+        getReplylist();
+
+
+        //----------------------------------------------------------------
+        // Item 만들기
+        //----------------------------------------------------------------
+        const items_el = document.querySelector(".items");
+        const CreateItem = (reply)=>{
+            console.log("reply : ",reply);
+
+            // div 엘리먼트 생성
+            var divElement = document.createElement("div");
+            divElement.className = "item";
+
+            // header div 엘리먼트 생성
+            var headerElement = document.createElement("div");
+            headerElement.className = "header";
+
+            // img 엘리먼트 생성
+            var imgElement = document.createElement("img");
+            imgElement.src = "/images/account.png";
+            imgElement.alt = "";
+
+            // header div에 img 엘리먼트 추가
+            headerElement.appendChild(imgElement);
+
+            // body div 엘리먼트 생성
+            var bodyElement = document.createElement("div");
+            bodyElement.className = "body";
+
+            // 내용 엘리먼트 생성(계정 | 날짜 )
+            var contentDiv = document.createElement("div");
+
+            var span1 = document.createElement("span");
+            span1.className = "reply_username me-2";
+            span1.textContent = reply.username;
+            var span2 = document.createElement("span");
+            span2.className = "reply_regdate";
+            span2.textContent = formatter(reply.regdate);
+
+
+            var delete_a = document.createElement("a");
+            delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rno);       //DELETE HREF!!!!!!!!
+            var span3 = document.createElement("span");
+            span3.className = "reply_delete material-symbols-outlined";
+            span3.textContent = "remove";
+            delete_a.appendChild(span3);
+
+            contentDiv.appendChild(span1);
+            contentDiv.appendChild(span2);
+            contentDiv.appendChild(delete_a);
+
+            // 내용 엘리먼트 추가
+            bodyElement.appendChild(contentDiv);
+
+
+
+            // contents div 엘리먼트 생성
+            var contentsDiv = document.createElement("div");
+            contentsDiv.className = "contents";
+            contentsDiv.textContent = reply.content;
+
+            // contents div 엘리먼트 추가
+            bodyElement.appendChild(contentsDiv);
+
+            // 좋아요 및 싫어요 링크 엘리먼트 생성
+            var likeLink = document.createElement("a");
+            var dislikeLink = document.createElement("a");
+
+            likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rno;
+            dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rno;
+
+            // 좋아요 아이콘과 개수 엘리먼트 생성
+            var likeIcon = document.createElement("span");
+            likeIcon.className = "material-symbols-outlined me-1";
+            likeIcon.textContent = "thumb_up";
+            var likeCount = document.createElement("span");
+            likeCount.className = "me-1";
+            likeCount.textContent = reply.likecount;
+
+            // 싫어요 아이콘과 개수 엘리먼트 생성
+            var dislikeIcon = document.createElement("span");
+            dislikeIcon.className = "material-symbols-outlined me-1";
+            dislikeIcon.textContent = "thumb_down";
+            var dislikeCount = document.createElement("span");
+            dislikeCount.className = "me-1";
+            dislikeCount.textContent = reply.unlikecount;
+
+            // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
+            likeLink.appendChild(likeIcon);
+            likeLink.appendChild(document.createTextNode(" "));
+            likeLink.appendChild(likeCount);
+
+            // 좋아요와 싫어요 엘리먼트를 싫어요 링크에 추가
+            dislikeLink.appendChild(dislikeIcon);
+            dislikeLink.appendChild(document.createTextNode(" "));
+            dislikeLink.appendChild(dislikeCount);
+
+            const ThumbsDiv = document.createElement("div");
+            ThumbsDiv.append(likeLink);
+            ThumbsDiv.append(dislikeLink);
+
+
+            // 좋아요와 싫어요 링크 엘리먼트를 body div에 추가
+            bodyElement.appendChild(ThumbsDiv);
+
+            // header와 body 엘리먼트를 div에 추가
+            divElement.appendChild(headerElement);
+            divElement.appendChild(bodyElement);
+
+            // div 엘리먼트를 body에 추가
+            items_el.appendChild(divElement);
+        }
+
+    //----------------------------------------------------------------
+    // LocalDateTime Formatter
+    //----------------------------------------------------------------
+    const formatter = (regDate)=>{
+      // 분리한 정보를 사용하여 Date 객체를 생성합니다.
+      const year = parseInt(regDate[0]);
+      const month = parseInt(regDate[1]) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
+      const day = parseInt(regDate[2]);
+      const hours = parseInt(regDate[3]);
+      const minutes = parseInt(regDate[4]);
+      const seconds = parseInt(regDate[5]);
+
+      const date = new Date(year, month, day, hours, minutes, seconds);
+
+      // Date 객체를 원하는 형식으로 포맷팅합니다.
+      const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+
+      return formattedDate;
+
+    };
 
 
 

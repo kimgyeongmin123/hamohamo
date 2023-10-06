@@ -21,7 +21,6 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 생성 전략 사용
     private Long number; // 또는 다른 타입을 사용할 수 있음
-    private String nickname; // user에 nname 외래키
     private String email;
     private String contents;
 

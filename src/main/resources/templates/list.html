@@ -10,228 +10,228 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
     <style>
-*{
-	font-family: 'Gothic A1', sans-serif;
-}
-body {
-	width: 1024px;
-	height: 860px;
-	margin: 50px auto;
-	overflow: auto;
-	max-height: 860px;
-    position : relative;
-}
-
-header{
-
-}
-
-.top-header{
-    display : flex;
-    justify-content: space-between;
-    padding-left : 50px;
-}
-
-.top-header > div > a{
-    align-self : center;
-}
-
-.top-header > div > h2 {
-    margin-left : 30px;
-    color : #414e5f;
-}
-
-.logout{
-    align-self: center;
-    margin-right : 50px;
-    display: flex;
-}
-
-.logout-btn{
-    border-style : none;
-    background-color: white;
-    margin-left : 20px;
-    cursor: pointer;
-}
-
-
-.middle-header{
-    display: flex;
-    height : 70px;
-    margin-bottom : 50px;
-    border-bottom : 3px solid #4A596D;
-    border-radius: 30px;
-    align-items : center;
-    justify-content: space-between;
-    position : sticky;
-    background-color: #4a596d23;
-}
-
-.searchbox{
-    display: flex;
-    align-items: center; /* 수직으로 중앙 정렬 */
-    position: relative;
-    right : 200px;
-}
-
-.search{
-    height : 30px;
-    font-size: 1rem;
-    margin-right : 6px
-}
-
-.searchbox > input{
-    height : 26px;
-    font-size : 1rem;
-    margin-right : 4px;
-}
-
-.search select{
-
-}
-
-.search option {
-
-}
-
-.etcmenu{
-    margin-right : 35px;
-}
-
-.etcmenu > a{
-    margin-right : 30px;
-}
-
-.tooltip {
-    position: relative;
-    text-decoration: none; /* 링크의 기본 밑줄을 제거 */
-    color: #4A596D; /* 링크 색상 */
-}
-
-.tooltip::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    background-color: white; /* 말풍선 배경색 */
-    color: #4A596D; /* 말풍선 텍스트 색상 */
-    padding: 4px 8px; /* 말풍선 내부 여백 */
-    border : 3px solid #4A596D;
-    border-radius: 50px; /* 말풍선 모서리 둥글게 */
-    font-size: 14px; /* 말풍선 텍스트 크기 */
-    opacity: 0; /* 초기에는 투명하게 숨김 */
-    bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
-    left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-    transform: translateX(-50%); /* 가운데 정렬 */
-    transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-    white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-    font-weight: 600;
-}
-
-.tooltip:hover::before {
-    opacity: 1; /* 말풍선을 투명하지 않게 표시 */
-}
-
-.write{
-    position: relative;
-    left : 800px;
-    bottom : 30px;
-}
-
-
-
-
-
-
-        .board-container {
-            width: 80%;
-            margin: 0 auto;
-            margin-top : 60px;
+        *{
+            font-family: 'Gothic A1', sans-serif;
+        }
+        body {
+            width: 1024px;
+            height: 860px;
+            margin: 50px auto;
+            overflow: auto;
+            max-height: 860px;
+            position : relative;
         }
 
-        .board-item {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 20px;
+        header{
+
+        }
+
+        .top-header{
+            display : flex;
+            justify-content: space-between;
+            padding-left : 50px;
+        }
+
+        .top-header > div > a{
+            align-self : center;
+        }
+
+        .top-header > div > h2 {
+            margin-left : 30px;
+            color : #414e5f;
+        }
+
+        .logout{
+            align-self: center;
+            margin-right : 50px;
+            display: flex;
+        }
+
+        .logout-btn{
+            border-style : none;
+            background-color: white;
+            margin-left : 20px;
+            cursor: pointer;
         }
 
 
-        .idbox{
-            padding-bottom : 20px;
+        .middle-header{
+            display: flex;
+            height : 70px;
+            margin-bottom : 50px;
             border-bottom : 3px solid #4A596D;
+            border-radius: 30px;
+            align-items : center;
+            justify-content: space-between;
+            position : sticky;
+            background-color: #4a596d23;
         }
 
-        /* contents 크기 조정 */
-        .contents {
-            font-size: 16px;
-            padding: 20px;
-        }
-
-        /* 이미지 크기 조정 */
-        .thumbnail {
-            width: 200px;
-            height: auto;
-        }
-        .scroll::-webkit-scrollbar{
-            display: none;
-        }
-
-        #board_id{
-            margin-left : 40px;
-        }
-        #board_contents{
-            border-bottom: 3px solid #4A596D;
-            height:100px;
-        }
-        #board_img{
-            border-bottom: 1px solid #4A596D;
-            height: 200px;
-        }
-        .date-box{
+        .searchbox{
             display: flex;
-            justify-content : space-between;
-            padding : 30px;
+            align-items: center; /* 수직으로 중앙 정렬 */
+            position: relative;
+            right : 200px;
         }
-        .hits-like{
+
+        .search{
+            height : 30px;
+            font-size: 1rem;
+            margin-right : 6px
+        }
+
+        .searchbox > input{
+            height : 26px;
+            font-size : 1rem;
+            margin-right : 4px;
+        }
+
+        .search select{
+
+        }
+
+        .search option {
+
+        }
+
+        .etcmenu{
+            margin-right : 35px;
+        }
+
+        .etcmenu > a{
+            margin-right : 30px;
+        }
+
+        .tooltip {
+            position: relative;
+            text-decoration: none; /* 링크의 기본 밑줄을 제거 */
+            color: #4A596D; /* 링크 색상 */
+        }
+
+        .tooltip::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            background-color: white; /* 말풍선 배경색 */
+            color: #4A596D; /* 말풍선 텍스트 색상 */
+            padding: 4px 8px; /* 말풍선 내부 여백 */
+            border : 3px solid #4A596D;
+            border-radius: 50px; /* 말풍선 모서리 둥글게 */
+            font-size: 14px; /* 말풍선 텍스트 크기 */
+            opacity: 0; /* 초기에는 투명하게 숨김 */
+            bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
+            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+            transform: translateX(-50%); /* 가운데 정렬 */
+            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+            font-weight: 600;
+        }
+
+        .tooltip:hover::before {
+            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+        }
+
+        .write{
+            position: relative;
+            left : 800px;
+            bottom : 30px;
+        }
+
+
+
+
+
+
+                .board-container {
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-top : 60px;
+                }
+
+                .board-item {
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                }
+
+
+                .idbox{
+                    padding-bottom : 20px;
+                    border-bottom : 3px solid #4A596D;
+                }
+
+                /* contents 크기 조정 */
+                .contents {
+                    font-size: 16px;
+                    padding: 20px;
+                }
+
+                /* 이미지 크기 조정 */
+                .thumbnail {
+                    width: 200px;
+                    height: auto;
+                }
+                .scroll::-webkit-scrollbar{
+                    display: none;
+                }
+
+                #board_id{
+                    margin-left : 40px;
+                }
+                #board_contents{
+                    border-bottom: 3px solid #4A596D;
+                    height:100px;
+                }
+                #board_img{
+                    border-bottom: 1px solid #4A596D;
+                    height: 200px;
+                }
+                .date-box{
+                    display: flex;
+                    justify-content : space-between;
+                    padding : 30px;
+                }
+                .hits-like{
+                    display: flex;
+                }
+                .hits-like > div{
+                    margin-left : 90px;
+                }
+
+                .hits{
+                    padding-top : 10px;
+                    border-top : 1px solid #4A596D;
+                }
+
+                .like-icon{
+                    padding-top : 10px;
+                    cursor : pointer;
+                }
+
+
+
+                /* 빠른 메뉴 스타일 */
+        .quick-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height : 80px;
+            background-color: #4a596d85;
+            display: none; /* 초기에는 숨겨짐 */
+            border-bottom : 4px solid #4A596D;
+            padding-top : 20px;
+        }
+
+        .quick-sebu{
             display: flex;
         }
-        .hits-like > div{
-            margin-left : 90px;
+        .quick-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
         }
-
-        .hits{
-            padding-top : 10px;
-            border-top : 1px solid #4A596D;
-        }
-
-        .like{
-            padding-top : 10px;
-            border-top : 1px solid #4A596D;
-        }
-
-
-
-        /* 빠른 메뉴 스타일 */
-.quick-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height : 80px;
-    background-color: #4a596d85;
-    display: none; /* 초기에는 숨겨짐 */
-    border-bottom : 4px solid #4A596D;
-    padding-top : 20px;
-}
-
-.quick-sebu{
-    display: flex;
-}
-.quick-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    display: inline-block;
-}
 
     </style>
 </head>
@@ -310,7 +310,7 @@ header{
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
                 <div class="idbox">
-                    <div id = board_id th:text="${board.email}">id</div>
+                    <div id = board_id th:text="${dto.nickname}">id</div>
                 </div>
 
 

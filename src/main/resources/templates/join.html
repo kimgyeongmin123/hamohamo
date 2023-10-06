@@ -133,11 +133,11 @@
 
                 <div>
                     <h5>주소</h5>
-                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" readonly>
+                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" >
                     <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>
 
 
-                    <input name="addr1" class="form-control addr1"  placeholder="기본주소" readonly style="width : 330px; margin-top : 5px;"><br/>
+                    <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;"><br/>
                     <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
                 </div>
                 <div>
@@ -178,7 +178,6 @@
             const form = document.joinform;
             const password = form.password.value.trim();
             const passwordConfirm = form.passwordConfirm.value.trim();
-
             if (form.email.value.trim() == "")
             {
                 alert("이메일을 입력하세요.");
