@@ -378,15 +378,18 @@ window.addEventListener('scroll', toggleQuickMenu);
         // 클릭한 엄지척 아이콘의 부모 요소에서 게시물 번호를 가져옵니다.
         var boardNumber = element.getAttribute("data-board-number");
 
-        // 해당 게시물의 따봉 수를 가져옵니다.
-        var likeCountElement = document.querySelector(`.like-count[data-board-number="${boardNumber}"]`);
-        var currentLikeCount = parseInt(likeCountElement.textContent);
+        // 클라이언트에서 이미 좋아요를 눌렀는지 확인하는 로직
+        var likedCookieName = "liked_" + boardNumber;
+        if (getCookie(likedCookieName)) {
+            alert("이미 좋아요를 눌렀습니다.");
+            return;
+        }
 
         // 따봉 수를 1 증가시킵니다.
-        currentLikeCount += 1;
-
-        // 따봉 수를 업데이트합니다.
-        likeCountElement.textContent = currentLikeCount;
+    var likeCountElement = document.querySelector(`.like-count[data-board-number="${boardNumber}"]`);
+    var currentLikeCount = parseInt(likeCountElement.textContent);
+    currentLikeCount += 1;
+    likeCountElement.textContent = currentLikeCount;
 
         // 클릭한 이모티콘에 'liked' 클래스를 추가하고, 다른 이모티콘에는 'liked' 클래스를 제거합니다.
         var likeIconElements = document.querySelectorAll('.like-icon');
@@ -397,6 +400,9 @@ window.addEventListener('scroll', toggleQuickMenu);
                 iconElement.classList.remove('liked');
             }
         });
+
+        // 클라이언트에서 좋아요를 눌렀다고 표시
+    document.cookie = likedCookieName + "=true; path=/";
 
         // 이후 서버로 업데이트된 따봉 수와 게시물 번호를 보내는 로직을 추가해야 합니다.
         // 서버 업데이트 로직은 원하는 방식으로 구현하셔야 합니다.
