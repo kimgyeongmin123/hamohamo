@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class BoardService {
 
 
 
-    private String uploadDir = "uploadimg/";
+    private String uploadDir = "c://";
 
     @Autowired
     private BoardRepository boardRepository;
