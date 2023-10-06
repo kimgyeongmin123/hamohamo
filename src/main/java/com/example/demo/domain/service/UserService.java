@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -59,4 +60,32 @@ public class UserService {
             return false; // 예외 발생 시 탈퇴 실패
         }
     }
+    @Transactional
+    public void updateUserProfilePicture(String email, String profilePicturePath) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setProfile(profilePicturePath);
+            userRepository.save(user);
+        }
+    }
+
+    public boolean joinMember(UserDto dto, Model model, HttpServletRequest request) {
+        //패스워드 일치여부 확인
+        if (!dto.getPassword().equals(dto.getRepassword())) {
+            model.addAttribute("repassword", "패스워드가 일치하지 않습니다.");
+            return false;
+        }
+        //=======================================
+        //Email 중복체크
+        if (isEmailAlreadyTaken(dto.getEmail())) {
+            model.addAttribute("email", "이미 사용중인 이메일입니다.");
+            return false;
+        }
+        return false;
+    }
+    public boolean isEmailAlreadyTaken (String email){
+        Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
+        return existingUser.isPresent();
+    }
+
 }

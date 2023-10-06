@@ -105,6 +105,10 @@
                     <h5 for="passwordInput">비밀번호</h5>
                     <input name="password" type="password" id="passwordInput"><br/>
                 </div>
+                <div>
+                    <label for="passwordConfirmInput">비밀번호확인</label><br>
+                    <input name="passwordConfirm" type="password" id="passwordConfirmInput"><br/>
+                </div>
 
                 <div>
                     <h5 for="nnameInput">사용할 닉네임</h5>
@@ -136,6 +140,21 @@
                     <input name="addr1" class="form-control addr1"  placeholder="기본주소" disabled style="width : 330px; margin-top : 5px;"><br/>
                     <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
                 </div>
+                <div>
+                    <label for="questionInput">질문 선택</label><br>
+                    <select name="question" id="questionInput">
+                        <option value="질문1">당신의 어린시절 별명은?</option>
+                        <option value="질문2">당신이 제일 존경하는 사람은?</option>
+                        <option value="질문3">당신의 보물 제1호는?</option>
+                        <option value="질문4">당신의 인생 좌우명은?</option>
+                        <option value="질문5">당신의 MBTI는?</option>
+                        <option value="질문6">당신이 제일 좋아하는 게임은?</option>
+                    </select><br/>
+                </div>
+                <div>
+                    <label for="answerInput">질문에 대한 답변</label><br>
+                    <input name="answer" id="answerInput" type="text"><br/>
+                </div>
             </div>
             <div class="jechul">
                 <button onclick="isValid()" class="joinbtn">회원가입</button>
@@ -157,6 +176,9 @@
 
         const isValid = () => {
             const form = document.joinform;
+            const password = form.password.value.trim();
+            const passwordConfirm = form.passwordConfirm.value.trim();
+
             if (form.email.value.trim() == "")
             {
                 alert("이메일을 입력하세요.");
@@ -165,6 +187,11 @@
             if (form.password.value.trim() == "")
             {
                 alert("비밀번호를 입력하세요.");
+                return;
+            }
+            if (password != passwordConfirm)
+            {
+                alert("비밀번호가 일치하지 않습니다.");
                 return;
             }
             form.submit();
@@ -196,8 +223,7 @@
             }).open();
 
     });
-
-
 </script>
+
 </body>
 </html>

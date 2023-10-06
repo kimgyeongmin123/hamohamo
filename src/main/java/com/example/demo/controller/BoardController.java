@@ -42,6 +42,7 @@ public class BoardController {
     @Autowired
     private UserRepository userRepository;
 
+
     @GetMapping("/list")
     public List<Board> list(Model model){
         log.info("GET /list");
@@ -202,7 +203,6 @@ public class BoardController {
             return "error";
         }
     }
-
     @PostMapping("/like/{number}")
     @ResponseBody
     public ResponseEntity<String> likeBoard(@PathVariable Long number) {

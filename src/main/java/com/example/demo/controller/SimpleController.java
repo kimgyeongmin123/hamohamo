@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class SimpleController {
-	
+
 //	@GetMapping("/list")
 //	public void home(Authentication authentication) {
 //		log.info("GET /list...");
@@ -21,13 +21,13 @@ public class SimpleController {
 //		System.out.println("credential : " + authentication.getCredentials());
 //
 //	}
-	
-	
+
+
 	@GetMapping("/member")
 	public void member() {
 		log.info("GET /member...");
 	}
-	
+
 	@GetMapping("/admin")
 	public void admin() {
 		log.info("GET /admin...");
@@ -36,7 +36,7 @@ public class SimpleController {
 	public void mylogin() {
 		log.info("GET /login...");
 	}
-	
+
 	@GetMapping("/error")
 	public void error() {
 		log.info("GET /error...");

@@ -72,6 +72,8 @@ public class UserController {
 		user.setAddr2(dto.getAddr2());
 		user.setBirth(dto.getBirth());
 		user.setPhone(dto.getPhone());
+		user.setQuestion(dto.getQuestion());
+		user.setAnswer(dto.getAnswer());
 
 		user.setProvider(dto.getProvider());
 		user.setProviderId(dto.getProviderId());
@@ -154,7 +156,7 @@ public class UserController {
 		}
 		System.out.println("MYPAGE : " + dto);
 		System.out.println("user.getEmail(): "+user.getEmail() );
-		List<Board> myBoards = boardRepository.getBoardByEmail(user.getEmail());
+		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(user.getEmail());
 
 
 		model.addAttribute("dto", dto);

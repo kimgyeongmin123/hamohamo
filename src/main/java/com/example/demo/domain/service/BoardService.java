@@ -55,9 +55,7 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+dto.getEmail()+"/"+ UUID.randomUUID();
-
-            System.out.println("path : "+path);
+            String path = uploadDir+ File.separator+dto.getEmail()+File.separator+ UUID.randomUUID();
             File dir = new File(path);
             if(!dir.exists()) {
                 dir.mkdirs();
@@ -75,14 +73,9 @@ public class BoardService {
 
                 //파일명 추출
                 String filename = file.getOriginalFilename();
-
-                System.out.println("filename : "+filename);
-
                 //파일객체 생성
+
                 File fileobj = new File(path,filename);
-
-                System.out.println("fileobj : "+fileobj);
-
                 //업로드
                 file.transferTo(fileobj);
 
@@ -102,7 +95,6 @@ public class BoardService {
                 Thumbnails.of(fileobj)
                         .size(width, height)
                         .toFile(thumbnailFile);
-
             }
         }
 
@@ -174,7 +166,6 @@ public class BoardService {
         board.setHits(board.getHits()+1);
         boardRepository.save(board);
     }
-
     @Transactional(rollbackFor = SQLException.class)
     public boolean likeBoard(Long number) {
         Optional<Board> boardOptional = boardRepository.findByNum(number);
