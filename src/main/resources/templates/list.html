@@ -374,6 +374,9 @@ function toggleQuickMenu() {
 window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
     $(document).ready(function() {
     $('.like-button').click(function(event) {
@@ -385,7 +388,7 @@ window.addEventListener('scroll', toggleQuickMenu);
             success: function(data) {
                 // 성공적으로 좋아요를 업데이트한 경우
                 console.log('좋아요 업데이트 성공');
-                // 원하는 업데이트 작업 수행
+                window.location.href = "/list";
             },
             error: function() {
                 console.error('좋아요 업데이트 실패');
