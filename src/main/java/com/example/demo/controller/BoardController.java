@@ -223,18 +223,12 @@ public class BoardController {
             return "error";
         }
     }
-    @PostMapping("/like/{number}")
-    @ResponseBody
-    public ResponseEntity<String> likeBoard(@PathVariable Long number) {
-        log.info("POST /like/" + number);
 
-        boolean isLiked = boardService.likeBoard(number);
-
-        if (isLiked) {
-            return ResponseEntity.ok("Liked successfully.");
-        } else {
-            return ResponseEntity.badRequest().body("Failed to like.");
-        }
+    @GetMapping("/like/{number}")
+    public ResponseEntity<String> like(@PathVariable("number") Long number) {
+        boardService.likeBoard(number);
+        return ResponseEntity.ok("Liked successfully.");
     }
+
 
 }

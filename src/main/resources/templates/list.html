@@ -331,7 +331,8 @@
                             <div class="hits" th:text="${board.hits}">hits</div>
                         </div>
                         <div class="like">
-                            <span class="like-icon" data-board-number="${board.number}" onclick="likeBoard(this)">👍</span>
+                            <a th:href="@{'/like/' + ${board.number}}" class="like-button">👍</a>
+<!--                            <span class="like-icon" data-board-number="${board.number}" onclick="likeBoard(this)">👍</span>-->
                             <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                         </div>
                     </div>
@@ -374,40 +375,27 @@ window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
 <script>
-    function likeBoard(element) {
-        // 클릭한 엄지척 아이콘의 부모 요소에서 게시물 번호를 가져옵니다.
-        var boardNumber = element.getAttribute("data-board-number");
-
-        // 클라이언트에서 이미 좋아요를 눌렀는지 확인하는 로직
-        var likedCookieName = "liked_" + boardNumber;
-        if (getCookie(likedCookieName)) {
-            alert("이미 좋아요를 눌렀습니다.");
-            return;
-        }
-
-        // 따봉 수를 1 증가시킵니다.
-    var likeCountElement = document.querySelector(`.like-count[data-board-number="${boardNumber}"]`);
-    var currentLikeCount = parseInt(likeCountElement.textContent);
-    currentLikeCount += 1;
-    likeCountElement.textContent = currentLikeCount;
-
-        // 클릭한 이모티콘에 'liked' 클래스를 추가하고, 다른 이모티콘에는 'liked' 클래스를 제거합니다.
-        var likeIconElements = document.querySelectorAll('.like-icon');
-        likeIconElements.forEach(function(iconElement) {
-            if (iconElement.getAttribute("data-board-number") === boardNumber) {
-                iconElement.classList.add('liked');
-            } else {
-                iconElement.classList.remove('liked');
+    $(document).ready(function() {
+    $('.like-button').click(function(event) {
+        event.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data) {
+                // 성공적으로 좋아요를 업데이트한 경우
+                console.log('좋아요 업데이트 성공');
+                // 원하는 업데이트 작업 수행
+            },
+            error: function() {
+                console.error('좋아요 업데이트 실패');
             }
         });
-
-        // 클라이언트에서 좋아요를 눌렀다고 표시
-    document.cookie = likedCookieName + "=true; path=/";
-
-        // 이후 서버로 업데이트된 따봉 수와 게시물 번호를 보내는 로직을 추가해야 합니다.
-        // 서버 업데이트 로직은 원하는 방식으로 구현하셔야 합니다.
-        }
+    });
+});
 </script>
+
+
 
 </body>
 </html>
