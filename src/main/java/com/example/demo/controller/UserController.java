@@ -25,7 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -83,6 +85,44 @@ public class UserController {
 		return "redirect:login?msg=Join_Success!";
 
 	}
+
+	//================================================================
+	@GetMapping("/checkDuplicate")
+	public void checkDuplicate_get(){
+		log.info("GET/checkDuplicate");
+	}
+
+	@PostMapping("/checkDuplicate")
+	public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestParam("field") String field, @RequestParam("value") String value) {
+
+
+		boolean isDuplicate = false;
+
+		if ("emailInput".equals(field)) {
+			isDuplicate = userRepository.existsByEmail(value);
+		}
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("duplicate", isDuplicate);
+
+		return ResponseEntity.ok(response);
+	}
+	@GetMapping("/checkNicknameDuplicate")
+	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
+	@PostMapping("/checkNicknameDuplicate")
+	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
+
+		boolean isDuplicate = false;
+
+		if("nicknameInput".equals(field)){
+			isDuplicate = userRepository.existsByNickname(value);
+		}
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("duplicate", isDuplicate);
+
+		return ResponseEntity.ok(response);
+	}
+	//================================================================
+
 
 	@GetMapping("/profile/update")
 	public String showInfo(Model model) {

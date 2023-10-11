@@ -96,9 +96,9 @@
         <form name="joinform" action="/join" method="post" onsubmit="return false">
             <div>
                 <div >
-                    <h5 for="usernameInput">이메일</h5>
-                    <input name="email" id="usernameInput">
-                    <button class="jung-btn" onclick="checkDuplicate('usernameInput')">중복체크</button><br/>
+                    <h5 for="emailInput">이메일</h5>
+                    <input name="email" id="emailInput">
+                    <button class="jung-btn" onclick="checkDuplicate('emailInput')">중복체크</button><br/>
                 </div>
 
                 <div>
@@ -106,14 +106,14 @@
                     <input name="password" type="password" id="passwordInput"><br/>
                 </div>
                 <div>
-                    <label for="passwordConfirmInput">비밀번호확인</label><br>
+                    <h5 for="passwordConfirmInput">비밀번호확인</h5>
                     <input name="passwordConfirm" type="password" id="passwordConfirmInput"><br/>
                 </div>
 
                 <div>
-                    <h5 for="nnameInput">사용할 닉네임</h5>
-                    <input name="nickname" id="nnameInput">
-                    <button class="jung-btn" onclick="checkDuplicate('nnameInput')">중복체크</button><br/>
+                    <h5 for="nicknameInput">사용할 닉네임</h5>
+                    <input name="nickname" id="nicknameInput">
+                    <button class="jung-btn" onclick="checkNicknameDuplicate('nicknameInput')">중복체크</button><br/>
                 </div>
 
                 <div>
@@ -128,7 +128,7 @@
 
                 <div>
                     <h5 for="phoneInput">휴대폰</h5>
-                    <input name="phone" id="phoneInput" placeholder="'-'제외하고 입력하슈"><br/>
+                    <input name="phone" id="phoneInput" maxlength="13"><br/>
                 </div>
 
                 <div>
@@ -141,7 +141,7 @@
                     <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
                 </div>
                 <div>
-                    <label for="questionInput">질문 선택</label><br>
+                    <h5 for="questionInput">질문 선택</h5>
                     <select name="question" id="questionInput">
                         <option value="질문1">당신의 어린시절 별명은?</option>
                         <option value="질문2">당신이 제일 존경하는 사람은?</option>
@@ -152,18 +152,88 @@
                     </select><br/>
                 </div>
                 <div>
-                    <label for="answerInput">질문에 대한 답변</label><br>
+                    <h5 for="answerInput">질문에 대한 답변</h5>
                     <input name="answer" id="answerInput" type="text"><br/>
                 </div>
             </div>
             <div class="jechul">
                 <button onclick="isValid()" class="joinbtn">회원가입</button>
             </div>
+
         </form>
     </div>
 </main>
 
 <script>
+<!-- 이메일중복체크  -->
+    let isEmailChecked = false;
+    let isNicknameChecked = false;
+
+    function checkDuplicate(emailInput) {
+        const inputValue = $("#" + emailInput).val();
+        $.ajax({
+            url: "/checkDuplicate",
+            type: "POST",
+            data: {value: inputValue, field: emailInput},
+            success: function (response) {
+                if (response.duplicate) {
+                      alert("이미 존재하는 이메일입니다.");
+                      isEmailChecked = false;
+                } else {
+                    alert("사용 가능한 이메일입니다.");
+                    isEmailChecked = true;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생 : ", error);
+                isEmailChecked = false;
+            }
+        });
+    }
+
+
+<!--닉네임 중복체크-->
+    function checkNicknameDuplicate(nicknameInput) {
+        const inputValue = $("#" + nicknameInput).val();
+        $.ajax({
+            url: "/checkNicknameDuplicate",
+            type: "POST",
+            data: {value: inputValue, field: nicknameInput},
+            success: function (response) {
+                if (response.duplicate) {
+                      alert("이미 존재하는 닉네임입니다.");
+                      isNicknameChecked = false;
+                } else {
+                    alert("사용 가능한 닉네임입니다.");
+                    isNicknameChecked = true;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생 : ", error);
+                isNicknameChecked = false;
+            }
+        });
+    }
+<!--휴대폰 번호 입력 제한-->
+    const phoneInput = document.getElementById("phoneInput");
+
+    phoneInput.addEventListener("input", function(){
+        const inputValue = phoneInput.value.replace(/\D/g, "");
+<!--   입력시 숫자제외 입력 불가-->
+        phoneInput.value = inputValue;
+
+ if (inputValue.length >= 7) {
+        phoneInput.value =
+            inputValue.slice(0, 3) +
+            "-" +
+            inputValue.slice(3, 7) +
+            "-" +
+            inputValue.slice(7);
+    }
+
+});
+
+
     <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
         $(function() {
             $("#birthInput").datepicker({
@@ -173,14 +243,20 @@
                 yearRange: "c-100:c+10" // 년도 선택 범위 설정
             });
         });
-
+<!--회원가입 버튼누를시 빈칸이나 중복체크를 안했을때-->
         const isValid = () => {
             const form = document.joinform;
             const password = form.password.value.trim();
             const passwordConfirm = form.passwordConfirm.value.trim();
-            if (form.email.value.trim() == "")
+            const phoneInput = form.phoneInput.value.trim();
+
+            if (form.email.value.trim() ==  "")
             {
                 alert("이메일을 입력하세요.");
+                return;
+            }
+            if (!isEmailChecked){
+                alert("이메일 중복 체크를 해주세요.");
                 return;
             }
             if (form.password.value.trim() == "")
@@ -188,12 +264,62 @@
                 alert("비밀번호를 입력하세요.");
                 return;
             }
+            if (form.passwordConfirm.value.trim() == "")
+            {
+                alert("비밀번호를 다시입력하세요.");
+                return;
+            }
             if (password != passwordConfirm)
             {
                 alert("비밀번호가 일치하지 않습니다.");
                 return;
             }
-            form.submit();
+            if (form.nickname.value.trim() == "")
+            {
+                alert("닉네임을 입력하세요.");
+                return;
+            }
+            if (!isNicknameChecked) {
+                alert("닉네임 중복 체크를 해주세요.");
+                return;
+            }
+             if (form.name.value.trim() == "")
+            {
+                alert("이름을 입력하세요.");
+                return;
+            }
+            if (form.birth.value.trim() == "")
+            {
+                alert("생년월일을 입력하세요.");
+                return;
+            }
+            if (form.phone.value.trim() == "")
+            {
+                alert("휴대폰번호를 입력하세요.");
+                return;
+            }
+            const pattern = /^010-\d{4}-\d{4}$/;
+            if (!pattern.test(phoneInput)){
+                alert("올바른 휴대폰 번호를 입력하세요.");
+                return;
+            }
+            if (form.zipcode.value.trim() == "")
+            {
+                alert("우편번호를 입력하세요.");
+                return;
+            }
+            if (form.addr2.value.trim() == "")
+            {
+                alert("상세주소를 입력하세요.");
+                return;
+            }
+            if (form.answer.value.trim() == "")
+            {
+                alert("질문의 답을 입력하세요.");
+                return;
+            }
+
+       form.submit();
         }
 </script>
 

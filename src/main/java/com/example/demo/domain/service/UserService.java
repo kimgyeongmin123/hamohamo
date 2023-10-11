@@ -70,11 +70,7 @@ public class UserService {
     }
 
     public boolean joinMember(UserDto dto, Model model, HttpServletRequest request) {
-        //패스워드 일치여부 확인
-        if (!dto.getPassword().equals(dto.getRepassword())) {
-            model.addAttribute("repassword", "패스워드가 일치하지 않습니다.");
-            return false;
-        }
+
         //=======================================
         //Email 중복체크
         if (isEmailAlreadyTaken(dto.getEmail())) {
@@ -87,5 +83,7 @@ public class UserService {
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
         return existingUser.isPresent();
     }
+
+
 
 }
