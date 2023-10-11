@@ -232,6 +232,7 @@ public class BoardController {
 
     @GetMapping("/like/{number}")
     public ResponseEntity<String> like(@PathVariable("number") Long number) {
+        System.out.println("[보드컨트롤러]의 라이크(겟)입니다.");
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
@@ -243,7 +244,9 @@ public class BoardController {
             Board board = boardOptional.get();
             User user = userRepository.findById(email).get();
 
+            System.out.println("[보드컨트롤러]보드서비스의 에드라이크 호출할거니?");
             boolean isLiked = boardService.addLike(user, board);
+            System.out.println("[보드컨트롤러]보드서비스의 에드라이크 호출끝");
 
             if (isLiked) {
                 return ResponseEntity.ok("Liked successfully.");

@@ -260,29 +260,36 @@ public class BoardService {
 //    }
 
     public boolean addLike(User user, Board board) {
+        System.out.println("[보드서비스]에드라이크 호출완료했슴다");
         // 중복 좋아요를 방지하기 위해 이미 좋아요를 눌렀는지 확인
         if (!heartRepository.existsByUserAndBoard(user, board)) {
+            System.out.println("[보드서비스]의 에드라이크 : 좋아요를 안눌러서 등록처리합니다.");
             Heart heart = new Heart();
             heart.setUser(user);
             heart.setBoard(board);
-
             heartRepository.save(heart);
+
             board.setLike_count(board.getLike_count() + 1);//게시물의 좋아요수 증가
             boardRepository.save(board);
             return true;
-        }
-        return false; // 이미 좋아요를 누른 경우
-    }
+        }else{
+            System.out.println("이미 좋아요 눌렀어요(삭제처리드갑니데이)");
 
-    public boolean removeLike(User user, Board board) {
-        // 중복 좋아요를 방지하기 위해 이미 좋아요를 눌렀는지 확인
-        if (heartRepository.existsByUserAndBoard(user, board)) {
-            heartRepository.deleteByUserAndBoard(user, board);
-            board.setLike_count(board.getLike_count() - 1); // 게시물의 좋아요 수 감소
-            boardRepository.save(board);
-            return true;
+            // 이미 좋아요를 누른 경우, 해당 좋아요를 제거합니다.
+            Optional<Heart> existingHeart = heartRepository.findByUserAndBoard(user, board);
+            System.out.println("이미 좋아요를 눌렀습니다. 정보 : " + existingHeart);
+
+            if (existingHeart != null) {
+                System.out.println("삭제처리의 if문으로 들어왔다.");
+                heartRepository.deleteByUserAndBoard(user, board);
+                System.out.println("하트테이블에서 삭제완료(보류)");
+                board.setLike_count(board.getLike_count() - 1); // 게시물의 좋아요수 감소
+                boardRepository.save(board);
+                System.out.println("보드테이블에서 -1 완료");
+            }
+
+            return false; // 이미 좋아요를 누른 경우
         }
-        return false; // 좋아요를 누르지 않은 경우
     }
 
 }
