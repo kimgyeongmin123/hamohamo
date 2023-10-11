@@ -4,8 +4,11 @@ import com.example.demo.controller.BoardController;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.ReplyDto;
 import com.example.demo.domain.entity.Board;
+import com.example.demo.domain.entity.Heart;
 import com.example.demo.domain.entity.Reply;
+import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.ReplyRepository;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,9 @@ public class BoardService {
 
     @Autowired
     private ReplyRepository replyRepository;
+
+    @Autowired
+    private HeartRepository heartRepository;
 
     @Transactional(rollbackFor = SQLException.class)
     public boolean addBoard(BoardDto dto) throws IOException {
@@ -173,14 +179,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    @Transactional(rollbackFor = SQLException.class)
-    public void likeBoard(Long number) {
-        Board board = boardRepository.findByNum(number).orElse(null);
-        if (board != null) {
-            board.setLike_count(board.getLike_count() + 1);
-            boardRepository.save(board);
-        }
-    }
+
 
     public void addReply(Long bno,String content, String nickname){
 
@@ -249,6 +248,41 @@ public class BoardService {
     public List<Board> search_contents(String keyword){
         List<Board> boardList = boardRepository.findByContents(keyword);
         return boardList;
+    }
+
+    //    @Transactional(rollbackFor = SQLException.class)
+//    public void likeBoard(Long number) {
+//        Board board = boardRepository.findByNum(number).orElse(null);
+//        if (board != null) {
+//            board.setLike_count(board.getLike_count() + 1);
+//            boardRepository.save(board);
+//        }
+//    }
+
+    public boolean addLike(User user, Board board) {
+        // 중복 좋아요를 방지하기 위해 이미 좋아요를 눌렀는지 확인
+        if (!heartRepository.existsByUserAndBoard(user, board)) {
+            Heart heart = new Heart();
+            heart.setUser(user);
+            heart.setBoard(board);
+
+            heartRepository.save(heart);
+            board.setLike_count(board.getLike_count() + 1);//게시물의 좋아요수 증가
+            boardRepository.save(board);
+            return true;
+        }
+        return false; // 이미 좋아요를 누른 경우
+    }
+
+    public boolean removeLike(User user, Board board) {
+        // 중복 좋아요를 방지하기 위해 이미 좋아요를 눌렀는지 확인
+        if (heartRepository.existsByUserAndBoard(user, board)) {
+            heartRepository.deleteByUserAndBoard(user, board);
+            board.setLike_count(board.getLike_count() - 1); // 게시물의 좋아요 수 감소
+            boardRepository.save(board);
+            return true;
+        }
+        return false; // 좋아요를 누르지 않은 경우
     }
 
 }

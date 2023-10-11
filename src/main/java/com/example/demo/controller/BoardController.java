@@ -224,10 +224,35 @@ public class BoardController {
         }
     }
 
+//    @GetMapping("/like/{number}")
+//    public ResponseEntity<String> like(@PathVariable("number") Long number) {
+//        boardService.addLike(email,number);
+//        return ResponseEntity.ok("Liked successfully.");
+//    }
+
     @GetMapping("/like/{number}")
     public ResponseEntity<String> like(@PathVariable("number") Long number) {
-        boardService.likeBoard(number);
-        return ResponseEntity.ok("Liked successfully.");
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // 게시물 번호로 해당 게시물 정보 가져오기
+        Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        if (boardOptional.isPresent()) {
+            Board board = boardOptional.get();
+            User user = userRepository.findById(email).get();
+
+            boolean isLiked = boardService.addLike(user, board);
+
+            if (isLiked) {
+                return ResponseEntity.ok("Liked successfully.");
+            } else {
+                return ResponseEntity.ok("Already liked.");
+            }
+        } else {
+            return ResponseEntity.ok("Board not found.");
+        }
     }
 
     @GetMapping("/list/search-contents")
