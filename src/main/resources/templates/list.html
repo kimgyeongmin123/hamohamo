@@ -336,7 +336,10 @@
                             <div class="hits" th:text="${board.hits}">hits</div>
                         </div>
                         <div class="like">
-                            <a th:href="@{'/like/' + ${board.number}}" class="like-button">👍</a>
+                            <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                                <span style="border-style : none;">❤️</span>
+<!--                                <span th:unless="${isLiked}">🖤</span>-->
+                            </a>
                             <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                         </div>
                     </div>
