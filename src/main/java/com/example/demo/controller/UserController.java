@@ -7,6 +7,7 @@ import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -216,6 +217,28 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
 			return "redirect:/user/withdraw";
 		}
+	}
+
+	@GetMapping("/user/reply/add")
+	public ResponseEntity<?> addReply(@RequestParam("bno") Long bno,
+									  @RequestParam("content") String content,
+									  Model model) {
+		// 현재 인증된 사용자의 이메일 가져오기
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String nickname = SecurityContextHolder.getContext().getAuthentication().getName(); // 사용자의 닉네임을 가져옴
+
+		// UserRepository를 사용하여 사용자 정보 가져오기
+		User user = userRepository.findByEmail(nickname);
+
+		if (user != null) {
+			nickname = user.getNickname();
+			// 닉네임을 모델에 추가하여 프론트엔드로 전달
+			model.addAttribute("nickname", nickname);
+		}
+		// 닉네임을 포함한 URL을 생성하여 반환
+		String url = String.format("/board/reply/add?bno=%d&content=%s&nickname=%s", bno, content, nickname);
+
+		return ResponseEntity.ok(url);
 	}
 
 

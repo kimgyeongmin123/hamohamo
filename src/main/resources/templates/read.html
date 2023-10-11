@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <!--  BS5  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
   <!-- 구글폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
   <style>
 
@@ -128,9 +133,6 @@
                     margin-top: 50px;
                     height: 70%;
                 }
-                .comment-container{
-
-                }
 
                 .board-item {
                     position: relative;
@@ -151,8 +153,9 @@
                 /* contents 크기 조정 */
                 .contents {
                     font-size: 16px;
-                    padding: 20px;
+                    padding: 1px;
                 }
+
 
                 /* 이미지 크기 조정 */
                 .thumbnail {
@@ -272,132 +275,135 @@
 
   <!-- REPLY        -->
   <style>
-        .reply--block{
-            position:relative;
-            top: 50px;
-            left: 1%;
-            width: 350px;
 
-            height: 600px;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 10px;
-            background-color: white;
-        }
-        .reply--block  img{
-            width : 35px; height : 35px;
-        }
-        .reply--block a{
-            text-decoration : none;
-            color : gray;
-        }
-        .reply--block a:hover{
-            color : royalblue;
-        }
+    .reply--block{
+        position:relative;
+        top: 50px;
+        left: 1%;
+        width: 350px;
+
+        height: 600px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: white;
+    }
+    .reply--block  img{
+        width : 35px; height : 35px;
+    }
+    .reply--block a{
+        text-decoration : none;
+        color : gray;
+    }
+    .reply--block a:hover{
+        color : royalblue;
+    }
+
+    .reply--block>.reply-header{
+        display:flex;
+        justify-content:space-evenly;
+        align-items:center;
+        margin-bottom:25px;
+    }
+    .reply--block>.reply-header>*{
+        margin:5px;
+    }
+
+    .reply--block>.reply-header>*:nth-child(2){
+        width : 400px;
+    }
+    .reply--block>.reply-header>*:nth-child(3){
+        width : 80px;
+    }
+    .reply--block>.reply-body{
+
+         height : 410px;
+         overflow : auto;
+    }
+    .reply--block>.reply-body>.items{}
+    .reply--block>.reply-body>.items>.item{
+        display:flex;
+        margin-bottom:5px;
+    }
+    .reply--block>.reply-body>.items>.item>*{
+        margin:5px;
+    }
+    reply--block>.reply-body>.items>.item>.body{
+
+    }
+    .reply--block>.reply-body>.items>.item>.body>*{
+        margin-bottom:2px;
+
+    }
+
+     .reply--block>.reply-body>.items>.item>.body>*:nth-child(1)
+    ,.reply--block>.reply-body>.items>.item>.body>*:nth-child(3)
+    {
+       font-size : 0.8rem;
+       color : gray;
+    }
+    .reply--block>.reply-body>.items>.item>.body>*:nth-child(2){
+        font-size : 0.9rem;
+        color : #424242;
+    }
+
+    .reply--block .material-icons{
+        font-size:1rem;
+    }
 
 
-        .reply--block>.reply-header{
-            display:flex;
-            justify-content:space-evenly;
-            align-items:center;
-            margin-bottom:25px;
-        }
-        .reply--block>.reply-header>*{
-            margin:5px;
-        }
+    ::-webkit-scrollbar {
+          display: none;
+    }
 
-        .reply--block>.reply-header>*:nth-child(2){
-            width : 400px;
-        }
-        .reply--block>.reply-header>*:nth-child(3){
-            width : 80px;
-        }
-        .reply--block>.reply-body{
-
-             height : 500px;
-             overflow : auto;
-        }
-        .reply--block>.reply-body>.items{}
-        .reply--block>.reply-body>.items>.item{
-            display:flex;
-            margin-bottom:5px;
-        }
-        .reply--block>.reply-body>.items>.item>*{
-            margin:5px;
-        }
-        reply--block>.reply-body>.items>.item>.body{
-
-        }
-        .reply--block>.reply-body>.items>.item>.body>*{
-            margin-bottom:2px;
-
-        }
-
-         .reply--block>.reply-body>.items>.item>.body>*:nth-child(1)
-        ,.reply--block>.reply-body>.items>.item>.body>*:nth-child(3)
-        {
-           font-size : 0.8rem;
-           color : gray;
-        }
-        .reply--block>.reply-body>.items>.item>.body>*:nth-child(2){
-            font-size : 0.9rem;
-            color : #424242;
-        }
-
-        .reply--block .material-symbols-outlined{
-            font-size:1rem;
-        }
+    .reply--block>.reply-body>.items>.item>.body{
+        position:relative;
+    }
+    .reply_delete{
+        position:absolute;
+        left:395px;
+        text-align: right;
+    }
+    .reply_delete:hover{
+        color : red;
+    }
+    .reply_btn {
+        font-size: 14px; /* 원하는 크기로 조정 */
+        padding: 6px 7px; /* 원하는 여백 조정 */
+    }
 
 
-        ::-webkit-scrollbar {
-              display: none;
-        }
 
-        .reply--block>.reply-body>.items>.item>.body{
-            position:relative;
-        }
-        .reply_delete{
-            position:absolute;
-            left:395px;
-            text-align: right;
-        }
-        .reply_delete:hover{
-            color : red;
-        }
+}
+
     </style>
-
-  <section class="reply--block">
-    <h4>REPLY LIST</h4>
-    <div>
-      댓글 : <span class="reply--count"></span>
-    </div>
-    <div class="reply-header">
+  <div class="comment-container">
+    <section class="reply--block">
+      <h4>REPLY LIST</h4>
       <div>
-        <img src="/images/account.png" />
+        댓글 : <span class="reply--count"></span>
       </div>
-      <div>
-        <input name="contents" class="form-control reply_contents">
-      </div>
-      <div>
-        <button class="btn btn-primary reply_btn">댓글</button>
-      </div>
-    </div>
-
-    <div class="reply-body">
-
-      <div class="items">
-        /
-
-
-
+      <div class="reply-header">
+        <div>
+          <img src="/images/account.png" />
+        </div>
+        <div>
+          <input name="contents" class="form-control reply_contents">
+        </div>
+        <div>
+          <button class="btn btn-primary reply_btn">댓글</button>
+        </div>
       </div>
 
-    </div>
-
-  </section>
+      <div class="reply-body">
+        <div class="items"></div>
+      </div>
+    </section>
+  </div>
 </main>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
     function logoutAndRedirect() {
       // 새 창 열기
     var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
@@ -410,6 +416,88 @@
     }, 1500);
 
     }
+    //----------------------------------------------------------------
+    //댓글 추가
+    //----------------------------------------------------------------
+    const reply_btn_el = document.querySelector('.reply_btn');
+
+     /*<![CDATA[*/
+            var bno = [[${board.number}]];
+     /*]]>*/
+
+
+reply_btn_el.addEventListener('click', function () {
+        const reply_contents_el = document.querySelector('.reply_contents');
+        console.log("BNO : ", bno);
+
+        // 현재 로그인한 사용자의 닉네임 가져오기
+        const nickname = "[[${#httpServletRequest.remoteUser}]]";
+
+        axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
+            .then(response => {
+                console.log(response);
+
+                // 기존 list 삭제
+                const replyBody_items = document.querySelector('.reply-body .items');
+                while (replyBody_items.firstChild) {
+                    replyBody_items.firstChild.remove()
+                }
+
+                // 새로 list 불러오기
+                getReplylist();
+
+                // 댓글 개수 가져오기
+                axios.get("/board/reply/count?bno=" + bno)
+                    .then(response => {
+                        let reply_count_el = document.querySelector('.reply--count');
+                        reply_count_el.innerHTML = response.data;
+                    })
+                    .catch(error => {});
+
+                // Input Clear
+                reply_contents_el.value = "";
+
+            })
+            .catch(error => console.log(error));
+
+    });
+    //----------------------------------------------------------------
+    //엔터키 댓글 추가
+    //----------------------------------------------------------------
+    const reply_contents_el = document.querySelector('.reply_contents');
+    reply_contents_el.addEventListener('keydown',function(e){
+
+        if(e.keyCode==13){
+
+                axios.get("/board/reply/add?bno="+bno+"&content="+reply_contents_el.value + "&nickname=" + nickname)
+                .then(response=>{
+                    console.log(response);
+
+                    //기존list삭제
+                    const replyBody_items = document.querySelector('.reply-body .items');
+                    while(replyBody_items.firstChild){
+                         replyBody_items.firstChild.remove()
+                    }
+
+                    //새로list불러오기
+                    getReplylist();
+
+                    //댓글 개수 가져오기
+                    axios.get("/board/reply/count?bno=" + bno)
+                    .then(response=>{
+                        let reply_count_el = document.querySelector('.reply--count');
+                        reply_count_el.innerHTML = response.data;
+                    })
+                    .catch(error=>{});
+
+                    //Input Clear
+                    reply_contents_el.value="";
+
+                })
+                .catch(error=>console.log(error));
+
+        }
+    });
          //----------------------------------------------------------------
         //댓글 리스트 가져오기
         //----------------------------------------------------------------
@@ -480,14 +568,15 @@
 
             var span1 = document.createElement("span");
             span1.className = "reply_username me-2";
-            span1.textContent = reply.username;
+            span1.textContent = reply.nickname;
             var span2 = document.createElement("span");
-            span2.className = "reply_regdate";
-            span2.textContent = formatter(reply.regdate);
+            span2.className = "reply_date";
+            span2.textContent = formatter(reply.date);
+            span2.textContent = " | " + formatter(reply.date); // date 앞에 공백 추가
 
 
             var delete_a = document.createElement("a");
-            delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rno);       //DELETE HREF!!!!!!!!
+            delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rnumber);       //DELETE HREF!!!!!!!!
             var span3 = document.createElement("span");
             span3.className = "reply_delete material-symbols-outlined";
             span3.textContent = "remove";
@@ -514,12 +603,12 @@
             var likeLink = document.createElement("a");
             var dislikeLink = document.createElement("a");
 
-            likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rno;
-            dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rno;
+            likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rnumber;
+            dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rnumber;
 
             // 좋아요 아이콘과 개수 엘리먼트 생성
             var likeIcon = document.createElement("span");
-            likeIcon.className = "material-symbols-outlined me-1";
+            likeIcon.className = "material-icons me-1";
             likeIcon.textContent = "thumb_up";
             var likeCount = document.createElement("span");
             likeCount.className = "me-1";
@@ -527,7 +616,7 @@
 
             // 싫어요 아이콘과 개수 엘리먼트 생성
             var dislikeIcon = document.createElement("span");
-            dislikeIcon.className = "material-symbols-outlined me-1";
+            dislikeIcon.className = "material-icons me-1";
             dislikeIcon.textContent = "thumb_down";
             var dislikeCount = document.createElement("span");
             dislikeCount.className = "me-1";
@@ -563,21 +652,13 @@
     // LocalDateTime Formatter
     //----------------------------------------------------------------
     const formatter = (regDate)=>{
-      // 분리한 정보를 사용하여 Date 객체를 생성합니다.
-      const year = parseInt(regDate[0]);
-      const month = parseInt(regDate[1]) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
-      const day = parseInt(regDate[2]);
-      const hours = parseInt(regDate[3]);
-      const minutes = parseInt(regDate[4]);
-      const seconds = parseInt(regDate[5]);
-
-      const date = new Date(year, month, day, hours, minutes, seconds);
+      // JavaScript Date 객체로 변환
+      const date = new Date(regDate);
 
       // Date 객체를 원하는 형식으로 포맷팅합니다.
       const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
       return formattedDate;
-
     };
 
 

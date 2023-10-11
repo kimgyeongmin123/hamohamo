@@ -19,4 +19,7 @@ public class ReplyDto {
     private String nickname; // 댓글쓴사람의 닉네임
     private String content; // contents와 다른 댓글의 내용
     private LocalDateTime date;
+
+    private Long likecount;       //좋아요 Count
+    private Long unlikecount;     //싫어요 Count
 }

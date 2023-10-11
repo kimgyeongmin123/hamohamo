@@ -26,6 +26,8 @@ public class Reply {
     private String content;
     private LocalDateTime date;
 
+    private Long likecount;       //좋아요 Count
+    private Long unlikecount;     //싫어요 Count
 
 
 }

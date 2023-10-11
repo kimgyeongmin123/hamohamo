@@ -2,9 +2,11 @@ package com.example.demo.domain.service;
 
 import com.example.demo.controller.BoardController;
 import com.example.demo.domain.dto.BoardDto;
+import com.example.demo.domain.dto.ReplyDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.Reply;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.ReplyRepository;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional(rollbackFor = SQLException.class)
     public boolean addBoard(BoardDto dto) throws IOException {
@@ -185,6 +188,61 @@ public class BoardService {
         Board board = new Board();
         board.setNumber(bno);
 
+        reply.setBoard(board);
+        reply.setContent(content);
+        reply.setNickname(nickname);
+        reply.setDate(LocalDateTime.now());
+        reply.setLikecount(0L);
+        reply.setUnlikecount(0L);
+
+        replyRepository.save(reply);
+    }
+    public List<ReplyDto> getReplyList(Long bno) {
+        List<Reply> replyList =  replyRepository.GetReplyByBnoDesc(bno);
+
+        List<ReplyDto> returnReply  = new ArrayList();
+
+
+        if(!replyList.isEmpty()) {
+            for(int i=0;i<replyList.size();i++) {
+
+                ReplyDto dto = new ReplyDto();
+                dto.setBno(replyList.get(i).getBoard().getNumber());
+                dto.setRnumber(replyList.get(i).getRnumber());
+                dto.setNickname(replyList.get(i).getNickname());
+                dto.setContent(replyList.get(i).getContent());
+                dto.setLikecount(replyList.get(i).getLikecount());
+                dto.setUnlikecount(replyList.get(i).getUnlikecount());
+                dto.setDate(replyList.get(i).getDate());
+
+                returnReply.add(dto);
+
+            }
+            return returnReply;
+        }
+        return null;
+    }
+
+    public Long getReplyCount(Long bno) {
+        return replyRepository.GetReplyCountByBnoDesc(bno);
+
+    }
+
+
+    public void deleteReply(Long rnunmber) {
+        replyRepository.deleteById(rnunmber);
+    }
+
+    public void thumbsUp(Long rnunmber) {
+        Reply reply =  replyRepository.findById(rnunmber).get();
+        reply.setLikecount(reply.getLikecount()+1L);
+        replyRepository.save(reply);
+    }
+
+    public void thumbsDown(Long rnunmber) {
+        Reply reply =  replyRepository.findById(rnunmber).get();
+        reply.setUnlikecount(reply.getUnlikecount()+1L);
+        replyRepository.save(reply);
     }
 
     @Transactional(rollbackFor = SQLException.class)

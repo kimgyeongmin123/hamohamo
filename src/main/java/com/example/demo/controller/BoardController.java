@@ -237,5 +237,37 @@ public class BoardController {
         return "search-contents";
     }
 
+    //--------------------------------
+    // /Board/reply/delete
+    //--------------------------------
+    @GetMapping("/reply/delete/{bno}/{rno}")
+    public String delete(@PathVariable Long bno, @PathVariable Long rno){
+        log.info("GET /board/reply/delete bno,rno " + rno + " " + rno);
+
+        boardService.deleteReply(rno);
+
+        return "redirect:/board/read?no="+bno;
+    }
+
+    //--------------------------------
+    // /board/reply/thumbsup
+    //--------------------------------
+    @GetMapping("/reply/thumbsup")
+    public String thumbsup(Long bno, Long rno)
+    {
+
+        boardService.thumbsUp(rno);
+        return "redirect:/board/read?no="+bno;
+    }
+    //--------------------------------
+    // /board/reply/thumbsdown
+    //--------------------------------
+    @GetMapping("/reply/thumbsdown")
+    public String thumbsudown(Long bno, Long rno)
+    {
+        boardService.thumbsDown(rno);
+        return "redirect:/board/read?no="+bno;
+    }
+
 
 }
