@@ -3,6 +3,7 @@ package com.example.demo.domain.service;
 import com.example.demo.controller.BoardController;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.entity.Board;
+import com.example.demo.domain.entity.Reply;
 import com.example.demo.domain.repository.BoardRepository;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -176,6 +177,20 @@ public class BoardService {
             board.setLike_count(board.getLike_count() + 1);
             boardRepository.save(board);
         }
+    }
+
+    public void addReply(Long bno,String content, String nickname){
+
+        Reply reply = new Reply();
+        Board board = new Board();
+        board.setNumber(bno);
+
+    }
+
+    @Transactional(rollbackFor = SQLException.class)
+    public List<Board> search_contents(String keyword){
+        List<Board> boardList = boardRepository.findByContents(keyword);
+        return boardList;
     }
 
 }

@@ -259,11 +259,16 @@
         </div>
 
         <div class="searchbox">
-            <select class="search">
+            <form id="searchForm" action="/list/search-contents" method="GET">
+            <select class="search" id="searchOption">
                 <option value="nickname">닉네임</option>
                 <option value="content">내용</option>
             </select>
-            <input> <a href="#"><img src="images/searchicon.png" max-width="100%" height="30"/></a>
+            <input type="text" name="keyword" class="form-control" id="searchKeyword">
+                <button type="button" id="searchButton">
+                <img src="images/searchicon.png" max-width="100%" height="30"/>
+                </button>
+            </form>
         </div>
 
         <div class="etcmenu">
@@ -332,7 +337,6 @@
                         </div>
                         <div class="like">
                             <a th:href="@{'/like/' + ${board.number}}" class="like-button">👍</a>
-<!--                            <span class="like-icon" data-board-number="${board.number}" onclick="likeBoard(this)">👍</span>-->
                             <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                         </div>
                     </div>
@@ -396,6 +400,35 @@ window.addEventListener('scroll', toggleQuickMenu);
         });
     });
 });
+</script>
+
+<script>
+    // 검색 버튼 클릭 이벤트에 대한 이벤트 리스너 추가
+    document.getElementById('searchButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작을 막습니다.
+
+        // 선택된 옵션과 검색어를 가져옵니다.
+        var searchOption = document.getElementById('searchOption').value;
+        var searchKeyword = document.getElementById('searchKeyword').value;
+
+        // 폼을 가져오고, 선택된 옵션과 검색어를 폼에 추가합니다.
+        var form = document.getElementById('searchForm');
+        var optionField = document.createElement('input');
+        optionField.type = 'hidden';
+        optionField.name = 'option';
+        optionField.value = searchOption;
+        form.appendChild(optionField);
+
+        var keywordField = document.createElement('input');
+        keywordField.type = 'hidden';
+        keywordField.name = 'keyword';
+        keywordField.value = searchKeyword;
+        form.appendChild(keywordField);
+
+        // 폼을 제출합니다.
+        form.action = '/list/search-contents';
+        form.submit();
+    });
 </script>
 
 
