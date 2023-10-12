@@ -14,76 +14,26 @@
             font-family: 'Gothic A1', sans-serif;
         }
         body {
-            width: 1024px;
-            height: 860px;
-            margin: 50px auto;
-            overflow: auto;
-            max-height: 860px;
-            position : relative;
-        }
-
-        header{
-
-        }
-
-        .top-header{
-            display : flex;
-            justify-content: space-between;
-            padding-left : 50px;
-        }
-
-        .top-header > div > a{
-            align-self : center;
-        }
-
-        .top-header > div > h2 {
-            margin-left : 30px;
-            color : #414e5f;
-        }
-
-        .logout{
-            align-self: center;
-            margin-right : 50px;
-            display: flex;
-        }
-
-        .logout-btn{
-            border-style : none;
-            background-color: white;
-            margin-left : 20px;
-            cursor: pointer;
-        }
-
-
-        .middle-header{
-            display: flex;
-            height : 70px;
-            margin-bottom : 50px;
-            border-bottom : 3px solid #4A596D;
-            border-radius: 30px;
-            align-items : center;
-            justify-content: space-between;
-            position : sticky;
-            background-color: #4a596d23;
         }
 
         .searchbox{
             display: flex;
             align-items: center; /* 수직으로 중앙 정렬 */
-            position: relative;
-            right : 200px;
+        }
+        .searchbox >form{
+            display: flex;
         }
 
         .search{
             height : 30px;
-            font-size: 1rem;
-            margin-right : 6px
+            font-size: 0.5rem;
+            margin-right : 2px
         }
 
-        .searchbox > input{
-            height : 26px;
-            font-size : 1rem;
-            margin-right : 4px;
+        .searchbox input{
+            height : 23px;
+            font-size : 0.5rem;
+            width : 90px;
         }
 
         .search select{
@@ -94,57 +44,143 @@
 
         }
 
-        .etcmenu{
-            margin-right : 35px;
+
+
+        main{
+            display: flex;
+            justify-content: space-between;
         }
 
-        .etcmenu > a{
-            margin-right : 30px;
+        main .menu{
+            background-color: white;
+            position: fixed;
+            border-right : 1px solid rgb(197, 197, 197);
+            width : 220px;
+            height : 100%;
+            display: flex;
+            flex-direction: column; /* 수직으로 배치 */
+            justify-content: space-between; /* 간격을 일정하게 유지 */
         }
 
-        .tooltip {
+        main>.menu>.logo{
+            position : relative;
+            top : 40px;
+            margin-left : 10px;
+        }
+
+        main>.menu>.middle-menu{
+            display : flex;
+            flex-direction: column;
+            height : 500px;
+        }
+
+        main>.menu>.middle-menu div{
+            height : 50px;
+            margin-left: 10px;
+            margin-right : 10px;
+            font-size: 1.0rem;
+            display: flex;
+            align-items: center;
+        }
+
+        main>.menu>.middle-menu>a svg{
+            margin-right : 20px;
+            width : 22px;
+            height : 22px;
+        }
+
+        main>.menu>.middle-menu>a>.mypage>img{
+            margin-right : 20px;
+        }
+
+        main>.menu>.middle-menu>a{
+            text-decoration: none; /* 밑줄 제거 */
+            color : black;
+            height : 50px;
+            margin-right : 10px;
+            margin-top : 15px;
             position: relative;
-            text-decoration: none; /* 링크의 기본 밑줄을 제거 */
-            color: #4A596D; /* 링크 색상 */
+            bottom : 10px;
         }
 
-        .tooltip::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            background-color: white; /* 말풍선 배경색 */
-            color: #4A596D; /* 말풍선 텍스트 색상 */
-            padding: 4px 8px; /* 말풍선 내부 여백 */
-            border : 3px solid #4A596D;
-            border-radius: 50px; /* 말풍선 모서리 둥글게 */
-            font-size: 14px; /* 말풍선 텍스트 크기 */
-            opacity: 0; /* 초기에는 투명하게 숨김 */
-            bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
-            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-            transform: translateX(-50%); /* 가운데 정렬 */
-            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-            font-weight: 600;
-        }
-
-        .tooltip:hover::before {
-            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
-        }
-
-        .write{
+        main>.menu>.middle-menu>.searchbox{
+            text-decoration: none; /* 밑줄 제거 */
+            color : black;
+            height : 50px;
+            margin-right : 10px;
+            margin-top : 15px;
             position: relative;
-            left : 800px;
-            bottom : 30px;
+            bottom : 10px;
         }
 
+        main>.menu>.middle-menu>a:hover {
+            background-color: rgb(233, 233, 233);
+            border-radius: 10px;
+        }
 
+        main > .menu >.middle-menu> a:hover svg,img {
+            transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
+        }
 
+        main>.menu>.logout{
+            height : 50px;
+        }
 
+        main>.menu>.logout svg{
+            margin-right : 20px;
+            width : 22px;
+            height : 22px;
+        }
 
+        main>.menu>.logout button{
+            height : 50px;
+            margin-right : 10px;
+            margin-top : 15px;
+            cursor: pointer;
+            position : relative;
+            bottom : 60px;
+            display: flex;
+            align-items: center;
+            font-size: 1.0rem;
+            width : 210px;
+            background-color: white;
+            border-style: none;
+        }
 
-                .board-container {
+        main>.menu>.logout button:hover{
+            background-color: rgb(233, 233, 233);
+            border-radius: 10px;
+        }
+
+        main>.menu>.logout button:hover svg{
+            transform: scale(1.05);
+        }
+
+        .up{
+            position : fixed;
+            right : 20%;
+            bottom : 10%;
+            z-index:999;
+            cursor : pointer;
+        }
+
+        .up svg{
+            width : 40px;
+            height : 40px;
+        }
+
+        main .board{
+            max-width : 1500px;
+            min-width : 500px;
+            margin-right : 30%;
+            margin-left : 30%;
+            margin-top : 150px;
+        }
+
+        .board-container {
                     width: 80%;
-                    margin: 0 auto;
                     margin-top : 60px;
+                    margin-left: 50%;
                 }
 
                 .board-item {
@@ -210,58 +246,8 @@
 
 
 
-                /* 빠른 메뉴 스타일 */
-        .quick-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height : 80px;
-            background-color: #4a596d85;
-            display: none; /* 초기에는 숨겨짐 */
-            border-bottom : 4px solid #4A596D;
-            padding-top : 20px;
-        }
 
-        .quick-sebu{
-            display: flex;
-        }
-        .quick-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            display: inline-block;
-        }
 
-        .up{
-            position : fixed;
-            left : 50%;
-            bottom : 10%;
-            z-index:999;
-            cursor : pointer;
-        }
-
-        .up::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            background-color: white; /* 말풍선 배경색 */
-            color: #4A596D; /* 말풍선 텍스트 색상 */
-            padding: 4px 8px; /* 말풍선 내부 여백 */
-            border : 3px solid #4A596D;
-            border-radius: 50px; /* 말풍선 모서리 둥글게 */
-            font-size: 14px; /* 말풍선 텍스트 크기 */
-            opacity: 0; /* 초기에는 투명하게 숨김 */
-            bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
-            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-            transform: translateX(-50%); /* 가운데 정렬 */
-            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-            font-weight: 600;
-        }
-
-        .up:hover::before {
-            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
-        }
 
          /* 알림 패널 스타일 */
         .notification-panel {
@@ -309,50 +295,10 @@
     </style>
 </head>
 <body class="scroll">
+
 <header>
-    <div class="top-header">
-        <div style="display : flex;">
-            <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
-            <h2>Welcome <span th:text="${dto.nickname}"></span> !</h2>
-        </div>
-        <div class="logout">
-            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-                <img src="images/mypageicon.png" max-width="100%" height="45"/>
-            </a>
-            <form method="post" action="/logout">
-                <button class="logout-btn"><img src="images/logout.png" max-width="100%" height="45"/></button><br/>
-            </form>
-        </div>
-    </div>
 
-
-    <div class="middle-header">
-        <div>
-
-        </div>
-
-        <div class="searchbox">
-            <form id="searchForm" action="/list/search-contents" method="GET">
-                <select class="search" id="searchOption">
-                    <option value="nickname">닉네임</option>
-                    <option value="content">내용</option>
-                </select>
-                <input type="text" name="keyword" class="form-control" id="searchKeyword">
-                <button type="button" id="searchButton">
-                    <img src="images/searchicon.png" max-width="100%" height="30"/>
-                </button>
-            </form>
-        </div>
-
-        <div class="etcmenu">
-
-            <a href="#" id="notification-icon"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
-            <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
-        </div>
-
-    </div>
-
-<!--    알림 ----------------------------------------------------------------->
+    <!--    알림 ----------------------------------------------------------------->
 
     <!-- Notification Panel -->
     <div class="notification-panel" id="notificationPanel">
@@ -388,39 +334,95 @@
 
     <!--    알림 ----------------------------------------------------------------->
 
-
-    <div class="quick-menu" id="quickMenu">
-        <div class="quick-sebu">
-            <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
-
-            <div class="quick-searchbox">
-                <select class="quick-search" style="height : 23px;">
-                    <option value="nickname">닉네임</option>
-                    <option value="content">내용</option>
-                </select>
-                <input> <a href="#"><img src="images/searchicon.png" max-width="100%" height="30" style="position : relative; top : 10px; right : 20px;"/></a>
-            </div>
-
-            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-                <img src="images/mypageicon.png" max-width="100%" height="45"/>
-            </a>
-
-            <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
-            <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
-
-            <form method="post" action="/logout">
-                <button class="logout-btn" style="width : 50px;">로그아웃</button><br/>
-            </form>
-
-        </div>
-    </div>
 </header>
 
-
-
 <main>
-    <div class="board-container">
-        <a href="/post" class="write">글쓰기</a>
+    <div class="menu">
+
+        <div class="logo">
+            <a href="/list"> <img src="images/logo.png" max-width="100%" height="15"/> </a>
+            <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
+        </div>
+
+        <div class="middle-menu">
+            <a href="/list">
+                <div class="home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                    </svg>홈
+                </div>
+            </a>
+
+            <div class="searchbox">
+                <form id="searchForm" action="/list/search-contents" method="GET">
+                    <select class="search" id="searchOption">
+                        <option value="nickname">닉네임</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="keyword" class="form-control" id="searchKeyword">
+                    <button type="button" id="searchButton">
+                        <img src="images/searchicon.png" max-width="100%" height="10"/>
+                    </button>
+                </form>
+            </div>
+
+
+
+            <a href="#">
+                <div class="message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>메시지
+                </div>
+            </a>
+
+            <a href="#" id="notification-icon">
+                <div class="bell">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                    </svg>알림
+                </div>
+            </a>
+
+            <a href="/post">
+                <div class="write">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>글쓰기
+                </div>
+            </a>
+
+            <a href="/mypage" data-tooltip="내 페이지">
+                <div class="mypage">
+                    <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="logout">
+            <form method="post" action="/logout">
+                <button class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                    </svg>로그아웃
+                </button>
+            </form>
+        </div>
+
+    </div>
+    <div class="up">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
+        </svg>
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+    <div class="board">
+
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
                 <div class="idbox">
@@ -456,7 +458,7 @@
             </div>
         </th:block>
 
-        <div class="up" data-tooltip="위로가기"><img src="images/up-arrow.png" max-width="100%" height="40"/></div>
+
     </div>
 </main>
 
@@ -546,19 +548,19 @@ window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
 <script>
-        // 스크롤 위치 저장
-        window.addEventListener("scroll", function () {
-            localStorage.setItem("scrollPosition", window.scrollY);
-        });
+    // 스크롤 위치 저장
+    window.addEventListener("scroll", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    });
 
-        // 페이지 로드 시 스크롤 위치 복원
-        window.addEventListener("load", function () {
-            const scrollPosition = localStorage.getItem("scrollPosition");
-            if (scrollPosition) {
-                window.scrollTo(0, scrollPosition);
-            }
-        });
-    </script>
+    // 페이지 로드 시 스크롤 위치 복원
+    window.addEventListener("load", function () {
+        const scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+            window.scrollTo(0, scrollPosition);
+        }
+    });
+</script>
 
 <script>
     // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
