@@ -233,6 +233,36 @@
             display: inline-block;
         }
 
+        .up{
+            position : fixed;
+            left : 50%;
+            bottom : 10%;
+            z-index:999;
+            cursor : pointer;
+        }
+
+        .up::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            background-color: white; /* 말풍선 배경색 */
+            color: #4A596D; /* 말풍선 텍스트 색상 */
+            padding: 4px 8px; /* 말풍선 내부 여백 */
+            border : 3px solid #4A596D;
+            border-radius: 50px; /* 말풍선 모서리 둥글게 */
+            font-size: 14px; /* 말풍선 텍스트 크기 */
+            opacity: 0; /* 초기에는 투명하게 숨김 */
+            bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
+            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+            transform: translateX(-50%); /* 가운데 정렬 */
+            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+            font-weight: 600;
+        }
+
+        .up:hover::before {
+            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+        }
+
     </style>
 </head>
 <body class="scroll">
@@ -260,13 +290,13 @@
 
         <div class="searchbox">
             <form id="searchForm" action="/list/search-contents" method="GET">
-            <select class="search" id="searchOption">
-                <option value="nickname">닉네임</option>
-                <option value="content">내용</option>
-            </select>
-            <input type="text" name="keyword" class="form-control" id="searchKeyword">
+                <select class="search" id="searchOption">
+                    <option value="nickname">닉네임</option>
+                    <option value="content">내용</option>
+                </select>
+                <input type="text" name="keyword" class="form-control" id="searchKeyword">
                 <button type="button" id="searchButton">
-                <img src="images/searchicon.png" max-width="100%" height="30"/>
+                    <img src="images/searchicon.png" max-width="100%" height="30"/>
                 </button>
             </form>
         </div>
@@ -338,7 +368,7 @@
                         <div class="like">
                             <a th:href="@{'/like/' + ${board.number}}" class="like-button">
                                 <span style="border-style : none;">❤️</span>
-<!--                                <span th:unless="${isLiked}">🖤</span>-->
+                                <!-- <span th:unless="${isLiked}">🖤</span> -->
                             </a>
                             <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                         </div>
@@ -346,6 +376,8 @@
                 </div>
             </div>
         </th:block>
+
+        <div class="up" data-tooltip="위로가기"><img src="images/up-arrow.png" max-width="100%" height="40"/></div>
     </div>
 </main>
 
@@ -431,6 +463,31 @@ window.addEventListener('scroll', toggleQuickMenu);
         // 폼을 제출합니다.
         form.action = '/list/search-contents';
         form.submit();
+    });
+</script>
+
+<script>
+        // 스크롤 위치 저장
+        window.addEventListener("scroll", function () {
+            localStorage.setItem("scrollPosition", window.scrollY);
+        });
+
+        // 페이지 로드 시 스크롤 위치 복원
+        window.addEventListener("load", function () {
+            const scrollPosition = localStorage.getItem("scrollPosition");
+            if (scrollPosition) {
+                window.scrollTo(0, scrollPosition);
+            }
+        });
+    </script>
+
+<script>
+    // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
+    document.querySelector(".up").addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // 부드러운 스크롤 사용
+        });
     });
 </script>
 
