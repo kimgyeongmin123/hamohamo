@@ -1,10 +1,376 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+
+  <!-- 구글폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+        font-family: 'Gothic A1', sans-serif;
+    }
+    body {
+        width: 1024px;
+        height: 860px;
+        margin: 50px auto;
+        overflow: auto;
+        max-height: 860px;
+        position : relative;
+    }
+
+    header{
+
+    }
+
+    .top-header{
+        display : flex;
+        justify-content: space-between;
+        padding-left : 50px;
+    }
+
+    .top-header > div > a{
+        align-self : center;
+    }
+
+    .top-header > div > h2 {
+        margin-left : 30px;
+        color : #414e5f;
+    }
+
+    .logout{
+        align-self: center;
+        margin-right : 50px;
+        display: flex;
+    }
+
+    .logout-btn{
+        border-style : none;
+        background-color: white;
+        margin-left : 20px;
+        cursor: pointer;
+    }
+
+
+    .middle-header{
+        display: flex;
+        height : 70px;
+        margin-bottom : 50px;
+        border-bottom : 3px solid #4A596D;
+        border-radius: 30px;
+        align-items : center;
+        justify-content: space-between;
+        position : sticky;
+        background-color: #4a596d23;
+    }
+
+    .searchbox{
+        display: flex;
+        align-items: center; /* 수직으로 중앙 정렬 */
+        position: relative;
+        right : 200px;
+    }
+
+    .search{
+        height : 30px;
+        font-size: 1rem;
+        margin-right : 6px
+    }
+
+    .searchbox > input{
+        height : 26px;
+        font-size : 1rem;
+        margin-right : 4px;
+    }
+
+    .search select{
+
+    }
+
+    .search option {
+
+    }
+
+    .etcmenu{
+        margin-right : 35px;
+    }
+
+    .etcmenu > a{
+        margin-right : 30px;
+    }
+
+    .tooltip {
+        position: relative;
+        text-decoration: none; /* 링크의 기본 밑줄을 제거 */
+        color: #4A596D; /* 링크 색상 */
+    }
+
+    .tooltip::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        background-color: white; /* 말풍선 배경색 */
+        color: #4A596D; /* 말풍선 텍스트 색상 */
+        padding: 4px 8px; /* 말풍선 내부 여백 */
+        border : 3px solid #4A596D;
+        border-radius: 50px; /* 말풍선 모서리 둥글게 */
+        font-size: 14px; /* 말풍선 텍스트 크기 */
+        opacity: 0; /* 초기에는 투명하게 숨김 */
+        bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
+        left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
+        transform: translateX(-50%); /* 가운데 정렬 */
+        transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
+        white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
+        font-weight: 600;
+    }
+
+    .tooltip:hover::before {
+        opacity: 1; /* 말풍선을 투명하지 않게 표시 */
+    }
+
+    .write{
+        position: relative;
+        left : 800px;
+        bottom : 30px;
+    }
+
+    .board-container {
+                width: 80%;
+                margin: 0 auto;
+                margin-top : 60px;
+            }
+
+
+            /* 빠른 메뉴 스타일 */
+    .quick-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height : 80px;
+        background-color: #4a596d85;
+        display: none; /* 초기에는 숨겨짐 */
+        border-bottom : 4px solid #4A596D;
+        padding-top : 20px;
+    }
+
+    .quick-sebu{
+        display: flex;
+    }
+    .quick-menu a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        display: inline-block;
+    }
+
+    main{
+        height : auto;
+    }
+
+    .user{
+        display: flex;
+        height : 160px;
+        border : 2px solid #4a596d85;
+        padding : 20px;
+        padding-left : 50px;
+    }
+    .nickname{
+        margin-left : 50px;
+        margin-right : 60px;
+        line-height: 160px;
+    }
+    .email{
+        line-height: 160px;
+    }
+
+
+
+  </style>
 </head>
-<body>
+<body class="scroll">
+<header>
+  <div class="top-header">
+    <div style="display : flex;">
+      <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
+      <h2>Welcome <!--<span th:text="${boardList.email}"></span>--> !</h2>
+    </div>
+    <div class="logout">
+      <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+        <img src="images/mypageicon.png" max-width="100%" height="45"/>
+      </a>
+      <form method="post" action="/logout">
+        <button class="logout-btn"><img src="images/logout.png" max-width="100%" height="45"/></button><br/>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="middle-header">
+    <div>
+
+    </div>
+
+    <div class="searchbox">
+      <form id="searchForm" method="GET">
+        <select class="search" id="searchOption">
+          <option value="nickname">닉네임</option>
+          <option value="content">내용</option>
+        </select>
+        <input type="text" name="keyword" class="form-control" id="search">
+        <button type="submit" id="searchButton">
+          <img src="images/searchicon.png" max-width="100%" height="30"/>
+        </button>
+      </form>
+    </div>
+
+    <div class="etcmenu">
+
+      <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
+      <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
+    </div>
+
+  </div>
+
+
+  <div class="quick-menu" id="quickMenu">
+    <div class="quick-sebu">
+      <a href="/list"> <img src="images/logo.png" max-width="100%" height="40"/> </a>
+
+      <div class="quick-searchbox">
+        <select class="quick-search" style="height : 23px;">
+          <option value="nickname">닉네임</option>
+          <option value="content">내용</option>
+        </select>
+        <input><a href="#"><img src="images/searchicon.png" max-width="100%" height="30" style="position : relative; top : 10px; right : 20px;"/></a>
+      </div>
+
+      <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
+        <img src="images/mypageicon.png" max-width="100%" height="45"/>
+      </a>
+
+      <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
+      <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
+
+      <form method="post" action="/logout">
+        <button class="logout-btn" style="width : 50px;">로그아웃</button><br/>
+      </form>
+
+    </div>
+  </div>
+</header>
+
+
+
+<main>
+
+  <div class="board-container">
+
+    <a href="/post" class="write">글쓰기</a>
+
+    <th:block th:each="user : ${userList}">
+      <div class="user">
+        <div class="profileimg" style="display:flex;justify-content:center; align-items : center;">
+
+          <img th:src="${dto.profile}" style="width:100px;height:100px;border-radius:50%;" />
+        </div>
+        <div class = "nickname" th:text="${user.nickname}"> nickname</div>
+        <div class="email" th:test="${user.email}">email</div>
+      </div>
+
+    </th:block>
+
+  </div>
+
+</main>
+
+</body>
+
+<script>
+  function logoutAndRedirect() {
+        // 새 창 열기
+     var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+     setTimeout(function() {
+       // 1.5초후 창닫기
+        newWindow.close();
+
+       // 특정 지점으로 리다이렉션
+   window.location.href = '/login';
+ }, 1500);
+
+   }
+
+   // 빠른 메뉴 요소를 가져옵니다.
+var quickMenu = document.getElementById('quickMenu');
+
+// 스크롤 위치에 따라 빠른 메뉴를 표시/숨깁니다.
+function toggleQuickMenu() {
+  if (window.scrollY > 200) { // 스크롤 위치 기준 값을 조정하세요.
+      quickMenu.style.display = 'block';
+  } else {
+      quickMenu.style.display = 'none';
+  }
+}
+
+// 윈도우의 스크롤 이벤트에 이벤트 리스너를 추가합니다.
+window.addEventListener('scroll', toggleQuickMenu);
+</script>
+
+<script>
+  function likeBoard(element) {
+      // 클릭한 엄지척 아이콘의 부모 요소에서 게시물 번호를 가져옵니다.
+      var boardNumber = element.getAttribute("data-board-number");
+
+      // 해당 게시물의 따봉 수를 가져옵니다.
+      var likeCountElement = document.querySelector(`.like-count[data-board-number="${boardNumber}"]`);
+      var currentLikeCount = parseInt(likeCountElement.textContent);
+
+      // 따봉 수를 1 증가시킵니다.
+      currentLikeCount += 1;
+
+      // 따봉 수를 업데이트합니다.
+      likeCountElement.textContent = currentLikeCount;
+
+      // 클릭한 이모티콘에 'liked' 클래스를 추가하고, 다른 이모티콘에는 'liked' 클래스를 제거합니다.
+      var likeIconElements = document.querySelectorAll('.like-icon');
+      likeIconElements.forEach(function(iconElement) {
+          if (iconElement.getAttribute("data-board-number") === boardNumber) {
+              iconElement.classList.add('liked');
+          } else {
+              iconElement.classList.remove('liked');
+          }
+      });
+
+      // 이후 서버로 업데이트된 따봉 수와 게시물 번호를 보내는 로직을 추가해야 합니다.
+      // 서버 업데이트 로직은 원하는 방식으로 구현하셔야 합니다.
+      }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+       document.getElementById('searchButton').addEventListener('click', function(event) {
+       event.preventDefault(); // 기본 동작을 막습니다.
+
+       // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+       var form = document.getElementById('searchForm');
+       var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+
+       console.log('Selected Option:', selectedOption);
+       console.log('Form Action:', form); // form.action이 올바른 경로로 설정되었는지 확인
+
+
+       if (selectedOption === 'nickname') {
+           form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+       } else {
+           form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+       }
+           console.log('New Form Action:', form); // 변경된 form.action 확인
+           form.submit(); // 폼 제출
+       });
+   });
+</script>
 
 </body>
 </html>
