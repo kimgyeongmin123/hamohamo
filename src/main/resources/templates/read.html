@@ -151,7 +151,7 @@
                 }
 
                 /* contents 크기 조정 */
-                .contents {
+                .contents-a {
                     font-size: 16px;
                     padding: 1px;
                 }
@@ -224,7 +224,7 @@
     <div class="searchbox">
       <select class="search">
         <option value="nickname">닉네임</option>
-        <option value="content">내용</option>
+        <option value="contents-a">내용</option>
       </select>
       <input> <a href="#"><img src="/images/searchicon.png" max-width="100%" height="30"/></a>
     </div>
@@ -288,13 +288,16 @@
         padding: 10px;
         background-color: white;
     }
+
     .reply--block  img{
         width : 35px; height : 35px;
     }
+
     .reply--block a{
         text-decoration : none;
         color : gray;
     }
+
     .reply--block a:hover{
         color : royalblue;
     }
@@ -305,6 +308,7 @@
         align-items:center;
         margin-bottom:25px;
     }
+
     .reply--block>.reply-header>*{
         margin:5px;
     }
@@ -312,25 +316,41 @@
     .reply--block>.reply-header>*:nth-child(2){
         width : 400px;
     }
+
     .reply--block>.reply-header>*:nth-child(3){
         width : 80px;
     }
+
     .reply--block>.reply-body{
 
          height : 410px;
          overflow : auto;
+
     }
+
     .reply--block>.reply-body>.items{}
+
     .reply--block>.reply-body>.items>.item{
         display:flex;
         margin-bottom:5px;
+        width : 380px;
     }
+
+
+
     .reply--block>.reply-body>.items>.item>*{
         margin:5px;
     }
-    reply--block>.reply-body>.items>.item>.body{
 
+    reply--block>.reply-body>.items>.item>.body{
+      max-width : 300px;
     }
+    .reply--block .item .body .contents {
+    max-width: 250px; /* 최대 넓이 설정 */
+    word-wrap: break-word; /* 텍스트가 너무 길어질 때 줄 바꿈 발생 */
+    /* 다른 스타일 속성 추가 가능 */
+}
+
     .reply--block>.reply-body>.items>.item>.body>*{
         margin-bottom:2px;
 
@@ -342,6 +362,7 @@
        font-size : 0.8rem;
        color : gray;
     }
+
     .reply--block>.reply-body>.items>.item>.body>*:nth-child(2){
         font-size : 0.9rem;
         color : #424242;
@@ -351,48 +372,52 @@
         font-size:1rem;
     }
 
-
     ::-webkit-scrollbar {
-          display: none;
+        display: none;
     }
 
     .reply--block>.reply-body>.items>.item>.body{
         position:relative;
     }
+
     .reply_delete{
-        position:absolute;
-        left:395px;
-        text-align: right;
+        position:relative;
+        border : 1px solid red;
     }
+
     .reply_delete:hover{
         color : red;
     }
+
     .reply_btn {
         font-size: 14px; /* 원하는 크기로 조정 */
         padding: 6px 7px; /* 원하는 여백 조정 */
     }
 
 
-
-}
-
     </style>
   <div class="comment-container">
     <section class="reply--block">
+
       <h4>REPLY LIST</h4>
+
       <div class="reply-body">
         <div class="items"></div>
       </div>
+
       <div>
         댓글 : <span class="reply--count"></span>
       </div>
+
       <div class="reply-header">
         <div>
-          <img src="/images/account.png" />
+          <img src="/images/하모하모기본프사.png" />
         </div>
+
         <div>
           <input name="contents" class="form-control reply_contents">
         </div>
+
         <div>
           <button class="btn btn-primary reply_btn">댓글</button>
         </div>
@@ -554,7 +579,7 @@ reply_btn_el.addEventListener('click', function () {
 
             // img 엘리먼트 생성
             var imgElement = document.createElement("img");
-            imgElement.src = "/images/account.png";
+            imgElement.src = "/images/하모하모기본프사.png";
             imgElement.alt = "";
 
             // header div에 img 엘리먼트 추가
@@ -578,6 +603,7 @@ reply_btn_el.addEventListener('click', function () {
 
             var delete_a = document.createElement("a");
             delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rnumber);       //DELETE HREF!!!!!!!!
+
             var span3 = document.createElement("span");
             span3.className = "reply_delete material-symbols-outlined";
             span3.textContent = "remove";
@@ -622,6 +648,8 @@ reply_btn_el.addEventListener('click', function () {
             var dislikeCount = document.createElement("span");
             dislikeCount.className = "me-1";
             dislikeCount.textContent = reply.unlikecount;
+
+
 
             // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
             likeLink.appendChild(likeIcon);
