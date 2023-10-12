@@ -10,10 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
     <style>
+
+        /* COMMIN 구간---------------------------------- */
         *{
             font-family: 'Gothic A1', sans-serif;
         }
-        body {
+
+        .scroll::-webkit-scrollbar{
+            display: none;
         }
 
         .searchbox{
@@ -46,12 +50,12 @@
 
 
 
-        main{
+        header{
             display: flex;
             justify-content: space-between;
         }
 
-        main .menu{
+        header .menu{
             background-color: white;
             position: fixed;
             border-right : 1px solid rgb(197, 197, 197);
@@ -62,19 +66,19 @@
             justify-content: space-between; /* 간격을 일정하게 유지 */
         }
 
-        main>.menu>.logo{
+        header>.menu>.logo{
             position : relative;
             top : 40px;
             margin-left : 10px;
         }
 
-        main>.menu>.middle-menu{
+        header>.menu>.middle-menu{
             display : flex;
             flex-direction: column;
             height : 500px;
         }
 
-        main>.menu>.middle-menu div{
+        header>.menu>.middle-menu div{
             height : 50px;
             margin-left: 10px;
             margin-right : 10px;
@@ -83,17 +87,17 @@
             align-items: center;
         }
 
-        main>.menu>.middle-menu>a svg{
+        header>.menu>.middle-menu>a svg{
             margin-right : 20px;
             width : 22px;
             height : 22px;
         }
 
-        main>.menu>.middle-menu>a>.mypage>img{
+        header>.menu>.middle-menu>a>.mypage>img{
             margin-right : 20px;
         }
 
-        main>.menu>.middle-menu>a{
+        header>.menu>.middle-menu>a{
             text-decoration: none; /* 밑줄 제거 */
             color : black;
             height : 50px;
@@ -103,7 +107,7 @@
             bottom : 10px;
         }
 
-        main>.menu>.middle-menu>.searchbox{
+        header>.menu>.middle-menu>.searchbox{
             text-decoration: none; /* 밑줄 제거 */
             color : black;
             height : 50px;
@@ -113,26 +117,26 @@
             bottom : 10px;
         }
 
-        main>.menu>.middle-menu>a:hover {
+        header>.menu>.middle-menu>a:hover {
             background-color: rgb(233, 233, 233);
             border-radius: 10px;
         }
 
-        main > .menu >.middle-menu> a:hover svg,img {
+        header > .menu >.middle-menu> a:hover svg,img {
             transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
         }
 
-        main>.menu>.logout{
+        header>.menu>.logout{
             height : 50px;
         }
 
-        main>.menu>.logout svg{
+        header>.menu>.logout svg{
             margin-right : 20px;
             width : 22px;
             height : 22px;
         }
 
-        main>.menu>.logout button{
+        header>.menu>.logout button{
             height : 50px;
             margin-right : 10px;
             margin-top : 15px;
@@ -147,12 +151,12 @@
             border-style: none;
         }
 
-        main>.menu>.logout button:hover{
+        header>.menu>.logout button:hover{
             background-color: rgb(233, 233, 233);
             border-radius: 10px;
         }
 
-        main>.menu>.logout button:hover svg{
+        header>.menu>.logout button:hover svg{
             transform: scale(1.05);
         }
 
@@ -169,80 +173,103 @@
             height : 40px;
         }
 
+        body > main{
+            margin-left : 220px;
+        }
+
+        /* COMMIN 구간---------------------------------- */
+
         main .board{
-            max-width : 1500px;
-            min-width : 500px;
-            margin-right : 30%;
-            margin-left : 30%;
-            margin-top : 150px;
+            width : 450px;
+            margin-left : 16%;
+            margin-top : 50px;
         }
 
         .board-container {
-                    width: 80%;
-                    margin-top : 60px;
-                    margin-left: 50%;
-                }
+            width: 80%;
+            margin-top : 60px;
+            margin-left: 50%;
+        }
 
-                .board-item {
-                    border: 1px solid #ccc;
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin-bottom: 20px;
-                }
+        .board-item {
+            margin-bottom: 20px;
+        }
+
+        main>.board .board-item>.idbox{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        main>.board .board-item>.idbox>div{
+            display: flex;
+            padding-bottom : 20px;
+            align-items: center;
+        }
+        main>.board .board-item>.idbox>.hits-box{
+            font-size: 0.8rem;
+            margin-right : 10px;
+        }
+
+        main>.board .board-item>.idbox>.hits-box>.hits{
+            margin-left : 10px;
+        }
+
+        main>.board .board-item>.idbox>div>img{
+            margin-right : 18px;
+        }
+
+        main>.board .board-item>.idbox>div>#board_id{
+            margin-right : 10px;
+            font-size: 0.8rem;
+        }
+
+        main>.board .board-item>.idbox>div>.date{
+            margin-left : 10px;
+            color : gray;
+            font-size: 0.8rem;
+        }
+
+        /* --------------------------------------------------- */
+
+        main>.board .board-item>a{
+
+            text-decoration: none; /* 밑줄 제거 */
+        }
+
+        main>.board .board-item>a>#board_img{
+            height : 500px;
+            border : 1px solid gray;
+        }
+
+        main>.board .board-item>a>#board_img>.img{
+            height : 500px;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+        }
+
+        main>.board .board-item>a>#board_img>.contents{
+            height : 50px;
+            margin-top : 10px;
+            color : black;
+        }
 
 
-                .idbox{
-                    padding-bottom : 20px;
-                    border-bottom : 3px solid #4A596D;
-                }
+        main>.board .board-item>.like{
+            padding-bottom : 50px;
+            border-bottom:1px solid rgb(185, 185, 185);
+            position : relative;
+            top : 50px;
+            margin-bottom : 100px;
+        }
 
-                /* contents 크기 조정 */
-                .contents {
-                    font-size: 16px;
-                    padding: 20px;
-                }
+        main>.board .board-item>.like>a{
 
-                /* 이미지 크기 조정 */
-                .thumbnail {
-                    width: 200px;
-                    height: auto;
-                }
-                .scroll::-webkit-scrollbar{
-                    display: none;
-                }
+            text-decoration: none; /* 밑줄 제거 */
+        }
 
-                #board_id{
-                    margin-left : 40px;
-                }
-                #board_contents{
-                    border-bottom: 3px solid #4A596D;
-                    height:100px;
-                }
-                #board_img{
-                    border-bottom: 1px solid #4A596D;
-                    height: 200px;
-                }
-                .date-box{
-                    display: flex;
-                    justify-content : space-between;
-                    padding : 30px;
-                }
-                .hits-like{
-                    display: flex;
-                }
-                .hits-like > div{
-                    margin-left : 90px;
-                }
 
-                .hits{
-                    padding-top : 10px;
-                    border-top : 1px solid #4A596D;
-                }
 
-                .like-icon{
-                    padding-top : 10px;
-                    cursor : pointer;
-                }
 
 
 
@@ -296,47 +323,46 @@
 </head>
 <body class="scroll">
 
-<header>
 
-    <!--    알림 ----------------------------------------------------------------->
+<!--    알림 ----------------------------------------------------------------->
 
-    <!-- Notification Panel -->
-    <div class="notification-panel" id="notificationPanel">
-        <!-- 아무런 알림이 없을 때 -->
-        <div class="no-notifications">
-            <p>새로운 알림이 없습니다.</p>
-        </div>
-        <!-- 알림 목록을 표시할 곳 (댓글 또는 새로운 글) -->
-        <div class="notification-list">
-            <!-- 여기에 알림 항목 추가 -->
-        </div>
+<!-- Notification Panel -->
+<div class="notification-panel" id="notificationPanel">
+    <!-- 아무런 알림이 없을 때 -->
+    <div class="no-notifications">
+        <p>새로운 알림이 없습니다.</p>
     </div>
-    <script>
-        // "notification-icon"을 클릭하면 알림 패널 토글
-        var notificationPanel = document.getElementById('notificationPanel');
-        var notificationIcon = document.getElementById('notification-icon');
+    <!-- 알림 목록을 표시할 곳 (댓글 또는 새로운 글) -->
+    <div class="notification-list">
+        <!-- 여기에 알림 항목 추가 -->
+    </div>
+</div>
+<script>
+    // "notification-icon"을 클릭하면 알림 패널 토글
+    var notificationPanel = document.getElementById('notificationPanel');
+    var notificationIcon = document.getElementById('notification-icon');
 
-        notificationIcon.addEventListener('click', function () {
-            if (notificationPanel.style.display === 'block') {
-                notificationPanel.style.display = 'none';
-            } else {
-                notificationPanel.style.display = 'block';
-                // 알림 패널 표시 시, 여기에서 서버로부터 알림 목록을 가져오고 동적으로 추가할 수 있습니다.
-                // 예: 새로운 댓글 알림을 가져와서 알림 목록에 추가하는 코드
-                // var newNotification = document.createElement('div');
-                // newNotification.classList.add('notification-item');
-                // newNotification.textContent = '새로운 댓글이 달렸습니다.';
-                // notificationPanel.querySelector('.notification-list').appendChild(newNotification);
-                // newNotification.classList.add('slideIn'); // 애니메이션 적용
-            }
-        });
-    </script>
+    notificationIcon.addEventListener('click', function () {
+        if (notificationPanel.style.display === 'block') {
+            notificationPanel.style.display = 'none';
+        } else {
+            notificationPanel.style.display = 'block';
+            // 알림 패널 표시 시, 여기에서 서버로부터 알림 목록을 가져오고 동적으로 추가할 수 있습니다.
+            // 예: 새로운 댓글 알림을 가져와서 알림 목록에 추가하는 코드
+            // var newNotification = document.createElement('div');
+            // newNotification.classList.add('notification-item');
+            // newNotification.textContent = '새로운 댓글이 달렸습니다.';
+            // notificationPanel.querySelector('.notification-list').appendChild(newNotification);
+            // newNotification.classList.add('slideIn'); // 애니메이션 적용
+        }
+    });
+</script>
 
-    <!--    알림 ----------------------------------------------------------------->
+<!--    알림 ----------------------------------------------------------------->
 
-</header>
+<!-- /* COMMIN 구간---------------------------------- */ -->
 
-<main>
+<header>
     <div class="menu">
 
         <div class="logo">
@@ -415,46 +441,55 @@
         </div>
 
     </div>
-    <div class="up">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
-            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
-        </svg>
-    </div>
-    <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+</header>
+
+<div class="up">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
+    </svg>
+</div>
+
+<!-- /* COMMIN 구간---------------------------------- */ -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+<main>
     <div class="board">
 
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
+
                 <div class="idbox">
-                    <div id = board_id th:text="${dto.nickname}">id</div>
+                    <div>
+                        <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                        <div id = board_id th:text="${dto.nickname}">id</div>|
+                        <div class="date" th:text="${board.date}">date</div>
+                    </div>
+                    <div class="hits-box">조회
+                        <div class="hits" th:text="${board.hits}">hits</div>
+                    </div>
                 </div>
 
 
                 <a th:href="'/read/' + ${board.number}">
                     <div id = board_img>
                         <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-                        <img th:if="${not #strings.isEmpty(board.filename)}"
-                             th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
-                             alt="Thumbnail" width="200" height="auto" class="thumbnail">
+                        <div class="img">
+                            <img th:if="${not #strings.isEmpty(board.filename)}"
+                                 th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
+                                 alt="Thumbnail">
+                        </div>
+                        <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                     </div>
-                    <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                 </a>
 
-                <div class="date-box">
-                    <div th:text="${board.date}">date</div>
-                    <div class="hits-like">
-                        <div >조회수
-                            <div class="hits" th:text="${board.hits}">hits</div>
-                        </div>
-                        <div class="like">
-                            <a th:href="@{'/like/' + ${board.number}}" class="like-button">
-                                <span style="border-style : none;">❤️</span>
-                                <!-- <span th:unless="${isLiked}">🖤</span> -->
-                            </a>
-                            <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
-                        </div>
-                    </div>
+                <div class="like">
+                    <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                        <span style="border-style : none;">❤️</span>
+                        <!-- <span th:unless="${isLiked}">🖤</span> -->
+                    </a>
+                    <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                 </div>
+
             </div>
         </th:block>
 
