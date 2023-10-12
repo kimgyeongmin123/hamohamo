@@ -224,12 +224,6 @@ public class BoardController {
         }
     }
 
-//    @GetMapping("/like/{number}")
-//    public ResponseEntity<String> like(@PathVariable("number") Long number) {
-//        boardService.addLike(email,number);
-//        return ResponseEntity.ok("Liked successfully.");
-//    }
-
     @GetMapping("/like/{number}")
     public ResponseEntity<String> like(@PathVariable("number") Long number, Model model) {
         System.out.println("[보드컨트롤러]의 라이크(겟)입니다.");

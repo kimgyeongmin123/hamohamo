@@ -263,6 +263,49 @@
             opacity: 1; /* 말풍선을 투명하지 않게 표시 */
         }
 
+         /* 알림 패널 스타일 */
+        .notification-panel {
+            position: fixed;
+            top: 80px;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            border-left: 1px solid #ccc;
+            box-shadow: -1px 0 5px 0 rgba(0, 0, 0, 0.2);
+            display: none;
+            overflow-y: auto;
+        }
+
+        /* 알림 패널 내 알림 항목 스타일 */
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 알림 패널 내 알림 항목 호버 효과 */
+        .notification-item:hover {
+            background-color: #f7f7f7;
+            cursor: pointer;
+        }
+
+        /* 알림 패널 내 알림 항목에 애니메이션 추가 (예: 글자 미끄러짐 효과) */
+        .notification-item.slideIn {
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        /* 애니메이션 키프레임 정의 */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
     </style>
 </head>
 <body class="scroll">
@@ -303,11 +346,47 @@
 
         <div class="etcmenu">
 
-            <a href="#"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
+            <a href="#" id="notification-icon"><img src="images/bellicon.png" max-width="100%" height="37"/></a>
             <a href="#"><img src="images/msgicon.png" max-width="100%" height="36"/></a>
         </div>
 
     </div>
+
+<!--    알림 ----------------------------------------------------------------->
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <!-- 아무런 알림이 없을 때 -->
+        <div class="no-notifications">
+            <p>새로운 알림이 없습니다.</p>
+        </div>
+        <!-- 알림 목록을 표시할 곳 (댓글 또는 새로운 글) -->
+        <div class="notification-list">
+            <!-- 여기에 알림 항목 추가 -->
+        </div>
+    </div>
+    <script>
+        // "notification-icon"을 클릭하면 알림 패널 토글
+        var notificationPanel = document.getElementById('notificationPanel');
+        var notificationIcon = document.getElementById('notification-icon');
+
+        notificationIcon.addEventListener('click', function () {
+            if (notificationPanel.style.display === 'block') {
+                notificationPanel.style.display = 'none';
+            } else {
+                notificationPanel.style.display = 'block';
+                // 알림 패널 표시 시, 여기에서 서버로부터 알림 목록을 가져오고 동적으로 추가할 수 있습니다.
+                // 예: 새로운 댓글 알림을 가져와서 알림 목록에 추가하는 코드
+                // var newNotification = document.createElement('div');
+                // newNotification.classList.add('notification-item');
+                // newNotification.textContent = '새로운 댓글이 달렸습니다.';
+                // notificationPanel.querySelector('.notification-list').appendChild(newNotification);
+                // newNotification.classList.add('slideIn'); // 애니메이션 적용
+            }
+        });
+    </script>
+
+    <!--    알림 ----------------------------------------------------------------->
 
 
     <div class="quick-menu" id="quickMenu">

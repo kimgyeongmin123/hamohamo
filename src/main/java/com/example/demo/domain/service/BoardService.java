@@ -231,7 +231,6 @@ public class BoardService {
     public void deleteReply(Long rnunmber) {
         replyRepository.deleteById(rnunmber);
     }
-
     public void thumbsUp(Long rnunmber) {
         Reply reply =  replyRepository.findById(rnunmber).get();
         reply.setLikecount(reply.getLikecount()+1L);
@@ -249,15 +248,6 @@ public class BoardService {
         List<Board> boardList = boardRepository.findByContents(keyword);
         return boardList;
     }
-
-    //    @Transactional(rollbackFor = SQLException.class)
-//    public void likeBoard(Long number) {
-//        Board board = boardRepository.findByNum(number).orElse(null);
-//        if (board != null) {
-//            board.setLike_count(board.getLike_count() + 1);
-//            boardRepository.save(board);
-//        }
-//    }
 
     public boolean addLike(User user, Board board) {
         System.out.println("[보드서비스]에드라이크 호출완료했슴다");
@@ -282,7 +272,7 @@ public class BoardService {
             if (existingHeart != null) {
                 System.out.println("삭제처리의 if문으로 들어왔다.");
                 heartRepository.deleteByUserAndBoard(user, board);
-                System.out.println("하트테이블에서 삭제완료(보류)");
+                System.out.println("하트테이블에서 삭제완료");
                 board.setLike_count(board.getLike_count() - 1); // 게시물의 좋아요수 감소
                 boardRepository.save(board);
                 System.out.println("보드테이블에서 -1 완료");

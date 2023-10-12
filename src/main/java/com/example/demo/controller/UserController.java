@@ -220,6 +220,7 @@ public class UserController {
 
 		return "profile/leave_auth";
 	}
+
 	@GetMapping("/user/withdraw")
 	public String withdrawUser(Model model, Principal principal, HttpServletRequest request) {
 		String email = principal.getName(); // 현재 인증된 사용자의 이메일 가져오기
@@ -279,6 +280,14 @@ public class UserController {
 		String url = String.format("/board/reply/add?bno=%d&content=%s&nickname=%s", bno, content, nickname);
 
 		return ResponseEntity.ok(url);
+	}
+
+	@GetMapping("/list/search-nickname")
+	public String search(String keyword, Model model){
+		List<User> searchList = userService.search_nickname(keyword);
+		model.addAttribute("userList",searchList);
+		System.out.println("searchList : "+searchList);
+		return "search-nickname";
 	}
 
 
