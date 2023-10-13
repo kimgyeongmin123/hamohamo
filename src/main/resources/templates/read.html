@@ -449,15 +449,13 @@
 
      /*<![CDATA[*/
             var bno = [[${board.number}]];
+            let nickname = "[[${#httpServletRequest.remoteUser}]]";
      /*]]>*/
 
 
 reply_btn_el.addEventListener('click', function () {
         const reply_contents_el = document.querySelector('.reply_contents');
         console.log("BNO : ", bno);
-
-        // 현재 로그인한 사용자의 닉네임 가져오기
-        const nickname = "[[${#httpServletRequest.remoteUser}]]";
 
         axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
             .then(response => {
