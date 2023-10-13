@@ -380,14 +380,14 @@
             </a>
 
             <div class="searchbox">
-                <form id="searchForm" action="/list/search-contents" method="GET">
+                <form id="searchForm" method="GET">
                     <select class="search" id="searchOption">
                         <option value="nickname">닉네임</option>
                         <option value="content">내용</option>
                     </select>
                     <input type="text" name="keyword" class="form-control" id="searchKeyword">
-                    <button type="button" id="searchButton">
-                        <img src="images/searchicon.png" max-width="100%" height="10"/>
+                    <button type="submit" id="searchButton">
+                        <img src="images/searchicon.png" max-width="100%" height="30"/>
                     </button>
                 </form>
             </div>
@@ -554,31 +554,20 @@ window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
 <script>
-    // 검색 버튼 클릭 이벤트에 대한 이벤트 리스너 추가
-    document.getElementById('searchButton').addEventListener('click', function(event) {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('searchButton').addEventListener('click', function(event) {
         event.preventDefault(); // 기본 동작을 막습니다.
 
-        // 선택된 옵션과 검색어를 가져옵니다.
-        var searchOption = document.getElementById('searchOption').value;
-        var searchKeyword = document.getElementById('searchKeyword').value;
-
-        // 폼을 가져오고, 선택된 옵션과 검색어를 폼에 추가합니다.
+        // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
         var form = document.getElementById('searchForm');
-        var optionField = document.createElement('input');
-        optionField.type = 'hidden';
-        optionField.name = 'option';
-        optionField.value = searchOption;
-        form.appendChild(optionField);
-
-        var keywordField = document.createElement('input');
-        keywordField.type = 'hidden';
-        keywordField.name = 'keyword';
-        keywordField.value = searchKeyword;
-        form.appendChild(keywordField);
-
-        // 폼을 제출합니다.
-        form.action = '/list/search-contents';
-        form.submit();
+        var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+        if (selectedOption === 'nickname') {
+            form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+        } else {
+            form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+        }
+            form.submit(); // 폼 제출
+        });
     });
 </script>
 
