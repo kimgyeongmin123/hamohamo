@@ -8,10 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
     <style>
 *{
  font-family: 'Gothic A1', sans-serif;
 }
+
 body {
  width: 1024px;
  height: 700px;
@@ -21,44 +26,50 @@ body {
  position : relative;
  top : 80px;
 }
-.nlogoimg{
-    position : relative;
-    top : 20px;
-    left : 80px;
-}
+
 .big{
     display : flex;
     align-items: center;
     justify-content: space-around;
 }
+
 .loginform{
     position : relative;
     right : 100px;
-    width : 300px;
-    height : 300px;
+    width : 400px;
+    height : 600px;
     display: flex; /* 수직 중앙 정렬을 위해 flex 컨테이너로 설정 */
     flex-direction: column; /* 하위 요소들을 수직으로 배치 */
     justify-content: center; /* 수직 가운데 정렬 */
     align-items: center;
 }
-.inputbox{
-    display: flex;
+
+.nlogoimg{
+  position : relative;
+  left : 100px;
 }
+
 .idpw > input{
     margin-bottom : 10px;
-    height : 30px;
-    font-size: 16px;
+    height : 40px;
+    font-size: 13px;
 }
 .form-check{
+  margin-top : 10px;
+  margin-bottom : 20px;
     font-size: 14px;
+}
+
+.loginbtn{
+  padding-bottom : 20px;
+  margin-bottom : 30px;
+  border-bottom : 1px solid gray;
 }
 .jechul{
     width : 183px;
     height : 45px;
     margin-top : 10px;
     margin-bottom : 5px;
-    position : relative;
-    left : 12px;
     background-color: #4a596d;
     border-radius: 7px;
     color : #cfd7e0;
@@ -68,8 +79,12 @@ body {
 }
 .join{
     position : relative;
-    left : 550px;
-    bottom : 20px;
+    left : 515px;
+    bottom : 50px;
+}
+
+.otherlogin>div{
+  margin-bottom : 10px;
 }
 
 </style>
@@ -80,7 +95,7 @@ body {
 <div class="big">
 
 
-    <img src="/images/nlogo.png" class="nlogoimg" max-width="100%" height="400"/>
+    <img src="images/nlogo.png" class="nlogoimg" max-width="100%" height="300"/>
     <div class="loginform">
         <form action="/login" method="post" onsubmit="return validateLoginForm()">
 
@@ -94,12 +109,14 @@ body {
                 <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
             </div>
 
-            <input type="submit" class="jechul" value="HAMOHAMO 로그인"/>
+            <div class="loginbtn">
+                <input type="submit" class="jechul" value="HAMOHAMO 로그인"/>
+            </div>
 
         </form>
         <div class="otherlogin">
-            <div><a href="/oauth2/authorization/kakao"><img src="/images/kakaologin.png" width=183px height=45px/></a></div>
-            <div><a href="/oauth2/authorization/naver"><img src="/images/naverlogin.png" width=183px height=45px/></a></div>
+            <div><a href="/oauth2/authorization/kakao"><img src="images/kakaologin.png" width=183px height=45px/></a></div>
+            <div><a href="/oauth2/authorization/naver"><img src="images/naverlogin.png" width=183px height=45px/></a></div>
         </div>
     </div>
 
