@@ -80,6 +80,7 @@ public class UserService {
         }
         return false;
     }
+
     public boolean isEmailAlreadyTaken (String email){
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
         return existingUser.isPresent();

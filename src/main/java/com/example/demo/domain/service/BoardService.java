@@ -231,6 +231,7 @@ public class BoardService {
     public void deleteReply(Long rnunmber) {
         replyRepository.deleteById(rnunmber);
     }
+
     public void thumbsUp(Long rnunmber) {
         Reply reply =  replyRepository.findById(rnunmber).get();
         reply.setLikecount(reply.getLikecount()+1L);
