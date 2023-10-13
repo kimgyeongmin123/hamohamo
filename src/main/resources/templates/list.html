@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,31 +26,31 @@
         }
 
         .searchbox{
-            display: flex;
-            align-items: center; /* 수직으로 중앙 정렬 */
         }
+
         .searchbox >form{
             display: flex;
         }
 
-        .search{
+        .searchbox >form>.search{
             height : 30px;
             font-size: 0.5rem;
             margin-right : 2px
         }
 
         .searchbox input{
-            height : 23px;
-            font-size : 0.5rem;
-            width : 90px;
+            height : 40px;
+            font-size : 1.0rem;
+            width : 300px;
         }
 
-        .search select{
-
+        .form-select{
+          width : 100px;
+          font-size: 0.8rem;
         }
 
-        .search option {
-
+        .searchbox>form>.search>.form-select>option {
+          height : 40px;
         }
 
 
@@ -53,6 +58,7 @@
         header{
             display: flex;
             justify-content: space-between;
+            padding-left : 10px;
         }
 
         header .menu{
@@ -76,6 +82,31 @@
             display : flex;
             flex-direction: column;
             height : 500px;
+        }
+
+        header>.menu>.middle-menu>.btn-primary{
+          background-color: white;
+          color : black;
+          height : 50px;
+          width : 200px;
+          text-align: left;
+          border-style: none;
+        }
+
+        header>.menu>.middle-menu>.btn-primary:hover{
+          background-color: rgb(233, 233, 233);
+            border-radius: 10px;
+        }
+
+        header>.menu>.middle-menu>.btn-primary:active,button:focus{
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        header>.menu>.middle-menu>.btn-primary>svg{
+          width : 22px;
+            height : 22px;
+            margin-right : 10px;
         }
 
         header>.menu>.middle-menu div{
@@ -379,20 +410,12 @@
                 </div>
             </a>
 
-            <div class="searchbox">
-                <form id="searchForm" method="GET">
-                    <select class="search" id="searchOption">
-                        <option value="nickname">닉네임</option>
-                        <option value="content">내용</option>
-                    </select>
-                    <input type="text" name="keyword" class="form-control" id="searchKeyword">
-                    <button type="submit" id="searchButton">
-                        <img src="images/searchicon.png" max-width="100%" height="30"/>
-                    </button>
-                </form>
-            </div>
-
-
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+                검색
+            </button>
 
             <a href="#">
                 <div class="message">
@@ -454,6 +477,33 @@
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
 <main>
     <div class="board">
+
+
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">검색</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+
+                <div class="searchbox">
+                    <form id="searchForm" method="GET">
+                        <select class="form-select" aria-label="Default select example" id="searchOption">
+                            <option value="nickname">닉네임</option>
+                            <option value="content">내용</option>
+                        </select>
+                        <input type="text" name="keyword" class="form-control" id="searchKeyword">
+                        <button type="submit" class="btn btn-outline-secondary" id="searchButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
 
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
@@ -581,7 +631,7 @@ window.addEventListener('scroll', toggleQuickMenu);
     window.addEventListener("load", function () {
         const scrollPosition = localStorage.getItem("scrollPosition");
         if (scrollPosition) {
-            window.scrollTo(0, scrollPosition);
+            window.scroll(0, scrollPosition);
         }
     });
 </script>
