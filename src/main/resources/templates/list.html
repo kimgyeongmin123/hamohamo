@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/board.css">
 
     <style>
 
@@ -23,94 +24,10 @@
 
         /* COMMIN 구간---------------------------------- */
 
-        main .board{
-            width : 450px;
-            margin-left : 16%;
-            margin-top : 50px;
-        }
-
-        .board-container {
-            width: 80%;
-            margin-top : 60px;
-            margin-left: 50%;
-        }
-
-        .board-item {
-            margin-bottom: 20px;
-        }
-
-        main>.board .board-item>.idbox{
-            display: flex;
-            justify-content: space-between;
-        }
-
-        main>.board .board-item>.idbox>div{
-            display: flex;
-            padding-bottom : 20px;
-            align-items: center;
-        }
-        main>.board .board-item>.idbox>.hits-box{
-            font-size: 0.8rem;
-            margin-right : 10px;
-        }
-
-        main>.board .board-item>.idbox>.hits-box>.hits{
-            margin-left : 10px;
-        }
-
-        main>.board .board-item>.idbox>div>img{
-            margin-right : 18px;
-        }
-
-        main>.board .board-item>.idbox>div>#board_id{
-            margin-right : 10px;
-            font-size: 0.8rem;
-        }
-
-        main>.board .board-item>.idbox>div>.date{
-            margin-left : 10px;
-            color : gray;
-            font-size: 0.8rem;
-        }
-
-        /* --------------------------------------------------- */
-
-        main>.board .board-item>a{
-
-            text-decoration: none; /* 밑줄 제거 */
-        }
-
-        main>.board .board-item>a>#board_img{
-            height : 500px;
-            border : 1px solid gray;
-        }
-
-        main>.board .board-item>a>#board_img>.img{
-            height : 500px;
-            background-color: rgb(0, 0, 0);
-            display: flex;
-            align-items: center;
-        }
-
-        main>.board .board-item>a>#board_img>.contents{
-            height : 50px;
-            margin-top : 10px;
-            color : black;
-        }
+<!--        보드 스타일 구간    -->
 
 
-        main>.board .board-item>.like{
-            padding-bottom : 50px;
-            border-bottom:1px solid rgb(185, 185, 185);
-            position : relative;
-            top : 50px;
-            margin-bottom : 100px;
-        }
-
-        main>.board .board-item>.like>a{
-
-            text-decoration: none; /* 밑줄 제거 */
-        }
+        <!--        보드 스타일 구간    -->
 
 
 
@@ -171,16 +88,16 @@
 <!--    알림 ----------------------------------------------------------------->
 
 <!-- Notification Panel -->
-<div class="notification-panel" id="notificationPanel">
-    <!-- 아무런 알림이 없을 때 -->
-    <div class="no-notifications">
-        <p>새로운 알림이 없습니다.</p>
-    </div>
-    <!-- 알림 목록을 표시할 곳 (댓글 또는 새로운 글) -->
-    <div class="notification-list">
-        <!-- 여기에 알림 항목 추가 -->
-    </div>
-</div>
+<!--<div class="notification-panel" id="notificationPanel">-->
+<!--    &lt;!&ndash; 아무런 알림이 없을 때 &ndash;&gt;-->
+<!--    <div class="no-notifications">-->
+<!--        <p>새로운 알림이 없습니다.</p>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; 알림 목록을 표시할 곳 (댓글 또는 새로운 글) &ndash;&gt;-->
+<!--    <div class="notification-list">-->
+<!--        &lt;!&ndash; 여기에 알림 항목 추가 &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
 <script>
     // "notification-icon"을 클릭하면 알림 패널 토글
     var notificationPanel = document.getElementById('notificationPanel');
@@ -256,7 +173,7 @@
                 </div>
             </a>
 
-            <a href="/mypage" data-tooltip="내 페이지">
+            <a href="/mypage">
                 <div class="mypage">
                     <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
                 </div>
@@ -288,8 +205,7 @@
 <!-- /* COMMIN 구간---------------------------------- */ -->
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-<main>
-    <div class="board">
+
 
 
 
@@ -317,6 +233,9 @@
 
             </div>
         </div>
+
+<main>
+    <div class="board">
 
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
@@ -444,7 +363,10 @@ window.addEventListener('scroll', toggleQuickMenu);
     window.addEventListener("load", function () {
         const scrollPosition = localStorage.getItem("scrollPosition");
         if (scrollPosition) {
-            window.scroll(0, scrollPosition);
+            window.scroll({
+                top: scrollPosition,
+                behavior: "auto"
+            });
         }
     });
 </script>

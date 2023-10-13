@@ -1,0 +1,86 @@
+main .board{
+            width : 450px;
+            margin-left : 16%;
+            margin-top : 50px;
+        }
+
+        .board-container {
+            width: 80%;
+            margin-top : 60px;
+            margin-left: 50%;
+        }
+
+        .board-item {
+            margin-bottom: 20px;
+        }
+
+        main>.board .board-item>.idbox{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        main>.board .board-item>.idbox>div{
+            display: flex;
+            padding-bottom : 20px;
+            align-items: center;
+        }
+        main>.board .board-item>.idbox>.hits-box{
+            font-size: 0.8rem;
+            margin-right : 10px;
+        }
+
+        main>.board .board-item>.idbox>.hits-box>.hits{
+            margin-left : 10px;
+        }
+
+        main>.board .board-item>.idbox>div>img{
+            margin-right : 18px;
+        }
+
+        main>.board .board-item>.idbox>div>#board_id{
+            margin-right : 10px;
+            font-size: 0.8rem;
+        }
+
+        main>.board .board-item>.idbox>div>.date{
+            margin-left : 10px;
+            color : gray;
+            font-size: 0.8rem;
+        }
+
+        main>.board .board-item>a{
+
+            text-decoration: none; /* 밑줄 제거 */
+        }
+
+        main>.board .board-item>a>#board_img{
+            height : 500px;
+            border : 1px solid gray;
+        }
+
+        main>.board .board-item>a>#board_img>.img{
+            height : 500px;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+        }
+
+        main>.board .board-item>a>#board_img>.contents{
+            height : 50px;
+            margin-top : 10px;
+            color : black;
+        }
+
+
+        main>.board .board-item>.like{
+            padding-bottom : 50px;
+            border-bottom:1px solid rgb(185, 185, 185);
+            position : relative;
+            top : 50px;
+            margin-bottom : 100px;
+        }
+
+        main>.board .board-item>.like>a{
+
+            text-decoration: none; /* 밑줄 제거 */
+        }
