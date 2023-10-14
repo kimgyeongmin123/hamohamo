@@ -261,6 +261,23 @@ public class BoardController {
     public String search(String keyword, Model model){
         List<Board> searchList = boardService.search_contents(keyword);
         model.addAttribute("boardList",searchList);
+//-----------------------------------------------------------------------------------
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // UserRepository를 사용하여 사용자 정보 가져오기
+        User user = userRepository.findById(email).get();
+
+        // UserDto 객체 생성
+        UserDto dto = UserDto.EntityToDto(user);
+        // 사용자 정보에서 닉네임을 가져와서 설정
+        if (user != null) {
+            dto.setNickname(user.getNickname());
+        }
+
+        model.addAttribute("dto", dto);
+//--------------------------------------------------------------------------------------
         return "search-contents";
     }
 

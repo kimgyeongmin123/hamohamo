@@ -1,192 +1,200 @@
 
 
 *{
-            font-family: 'Gothic A1', sans-serif;
-        }
+    font-family: 'Gothic A1', sans-serif;
+}
 
-        .scroll::-webkit-scrollbar{
-            display: none;
-        }
+.scroll::-webkit-scrollbar{
+    display: none;
+}
 
-        .searchbox{
-        }
+.searchbox{
+}
 
-        .searchbox >form{
-            display: flex;
-        }
+.searchbox >form{
+    display: flex;
+}
 
-        .searchbox >form>.search{
-            height : 30px;
-            font-size: 0.5rem;
-            margin-right : 2px
-        }
+.searchbox >form>.search{
+    height : 30px;
+    font-size: 0.5rem;
+    margin-right : 2px
+}
 
-        .searchbox input{
-            height : 40px;
-            font-size : 1.0rem;
-            width : 300px;
-        }
+.searchbox input{
+    height : 40px;
+    font-size : 1.0rem;
+    width : 300px;
+}
 
-        .form-select{
-          width : 100px;
-          font-size: 0.8rem;
-        }
+.form-select{
+  width : 100px;
+  font-size: 0.8rem;
+}
 
-        .searchbox>form>.search>.form-select>option {
-          height : 40px;
-        }
+.searchbox>form>.search>.form-select>option {
+  height : 40px;
+}
 
 
 
-        header{
-            display: flex;
-            justify-content: space-between;
-            padding-left : 10px;
-        }
+header{
+    display: flex;
+    justify-content: space-between;
+    padding-left : 10px;
+}
 
-        header .menu{
-            background-color: white;
-            position: fixed;
-            border-right : 1px solid rgb(197, 197, 197);
-            width : 220px;
-            height : 100%;
-            display: flex;
-            flex-direction: column; /* 수직으로 배치 */
-            justify-content: space-between; /* 간격을 일정하게 유지 */
-        }
+header .menu{
+    background-color: white;
+    position: fixed;
+    border-right : 1px solid rgb(197, 197, 197);
+    width : 220px;
+    height : 100%;
+    display: flex;
+    flex-direction: column; /* 수직으로 배치 */
+    justify-content: space-between; /* 간격을 일정하게 유지 */
+}
 
-        header>.menu>.logo{
-            position : relative;
-            top : 40px;
-            margin-left : 10px;
-        }
+header>.menu>.logo{
+    position : relative;
+    top : 40px;
+    margin-left : 10px;
+}
 
-        header>.menu>.middle-menu{
-            display : flex;
-            flex-direction: column;
-            height : 500px;
-        }
+header>.menu>.middle-menu{
+    display : flex;
+    flex-direction: column;
+    height : 500px;
+}
 
-        header>.menu>.middle-menu>.btn-primary{
-          background-color: white;
-          color : black;
-          height : 50px;
-          width : 200px;
-          text-align: left;
-          border-style: none;
-        }
+header>.menu>.middle-menu>.btn-primary{
+  background-color: white;
+  color : black;
+  height : 50px;
+  width : 210px;
+  text-align: left;
+  border-style: none;
+  margin-bottom : 10px;
+  margin-top : 5px;
+}
 
-        header>.menu>.middle-menu>.btn-primary:hover{
-          background-color: rgb(233, 233, 233);
-            border-radius: 10px;
-        }
+header>.menu>.middle-menu>.btn-primary:hover{
+  background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+}
 
-        header>.menu>.middle-menu>.btn-primary:active,button:focus{
-          outline: none !important;
-          box-shadow: none !important;
-        }
+header>.menu>.middle-menu>.btn-primary:active,button:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
 
-        header>.menu>.middle-menu>.btn-primary>svg{
-          width : 22px;
-            height : 22px;
-            margin-right : 10px;
-        }
+header>.menu>.middle-menu>.btn-primary>svg{
+  width : 22px;
+    height : 22px;
+    margin-right : 10px;
+    position : relative;
+    right : 2px;
+}
 
-        header>.menu>.middle-menu div{
-            height : 50px;
-            margin-left: 10px;
-            margin-right : 10px;
-            font-size: 1.0rem;
-            display: flex;
-            align-items: center;
-        }
+header>.menu>.middle-menu>.btn-primary:hover svg{
+    transform: scale(1.05);
+}
 
-        header>.menu>.middle-menu>a svg{
-            margin-right : 20px;
-            width : 22px;
-            height : 22px;
-        }
+header>.menu>.middle-menu div{
+    height : 50px;
+    margin-left: 10px;
+    margin-right : 10px;
+    font-size: 1.0rem;
+    display: flex;
+    align-items: center;
+}
 
-        header>.menu>.middle-menu>a>.mypage>img{
-            margin-right : 20px;
-        }
+header>.menu>.middle-menu>a svg{
+    margin-right : 20px;
+    width : 22px;
+    height : 22px;
+}
 
-        header>.menu>.middle-menu>a{
-            text-decoration: none; /* 밑줄 제거 */
-            color : black;
-            height : 50px;
-            margin-right : 10px;
-            margin-top : 15px;
-            position: relative;
-            bottom : 10px;
-        }
+header>.menu>.middle-menu>a>.mypage>img{
+    margin-right : 20px;
+}
 
-        header>.menu>.middle-menu>.searchbox{
-            text-decoration: none; /* 밑줄 제거 */
-            color : black;
-            height : 50px;
-            margin-right : 10px;
-            margin-top : 15px;
-            position: relative;
-            bottom : 10px;
-        }
+header>.menu>.middle-menu>a{
+    text-decoration: none; /* 밑줄 제거 */
+    color : black;
+    height : 50px;
+    margin-right : 10px;
+    margin-top : 15px;
+    position: relative;
+    bottom : 10px;
+}
 
-        header>.menu>.middle-menu>a:hover {
-            background-color: rgb(233, 233, 233);
-            border-radius: 10px;
-        }
+header>.menu>.middle-menu>.searchbox{
+    text-decoration: none; /* 밑줄 제거 */
+    color : black;
+    height : 50px;
+    margin-right : 10px;
+    margin-top : 15px;
+    position: relative;
+    bottom : 10px;
+}
 
-        header > .menu >.middle-menu> a:hover svg,img {
-            transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
-        }
+header>.menu>.middle-menu>a:hover {
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+}
 
-        header>.menu>.logout{
-            height : 50px;
-        }
+header > .menu >.middle-menu> a:hover svg,img {
+    transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
+}
 
-        header>.menu>.logout svg{
-            margin-right : 20px;
-            width : 22px;
-            height : 22px;
-        }
+header>.menu>.logout{
+    height : 50px;
+}
 
-        header>.menu>.logout button{
-            height : 50px;
-            margin-right : 10px;
-            margin-top : 15px;
-            cursor: pointer;
-            position : relative;
-            bottom : 60px;
-            display: flex;
-            align-items: center;
-            font-size: 1.0rem;
-            width : 210px;
-            background-color: white;
-            border-style: none;
-        }
+header>.menu>.logout svg{
+    margin-right : 20px;
+    width : 22px;
+    height : 22px;
+}
 
-        header>.menu>.logout button:hover{
-            background-color: rgb(233, 233, 233);
-            border-radius: 10px;
-        }
+header>.menu>.logout button{
+    height : 50px;
+    margin-right : 10px;
+    margin-top : 15px;
+    cursor: pointer;
+    position : relative;
+    bottom : 60px;
+    display: flex;
+    align-items: center;
+    font-size: 1.0rem;
+    width : 210px;
+    background-color: white;
+    border-style: none;
+}
 
-        header>.menu>.logout button:hover svg{
-            transform: scale(1.05);
-        }
+header>.menu>.logout button:hover{
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+}
 
-        .up{
-            position : fixed;
-            right : 20%;
-            bottom : 10%;
-            z-index:999;
-            cursor : pointer;
-        }
+header>.menu>.logout button:hover svg{
+    transform: scale(1.05);
+}
 
-        .up svg{
-            width : 40px;
-            height : 40px;
-        }
+.up{
+    position : fixed;
+    right : 20%;
+    bottom : 10%;
+    z-index:999;
+    cursor : pointer;
+}
 
-        body > main{
-            margin-left : 220px;
-        }
+.up svg{
+    width : 40px;
+    height : 40px;
+}
+
+body > main{
+    margin-left : 220px;
+}

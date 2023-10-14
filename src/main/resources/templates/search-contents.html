@@ -4,346 +4,188 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/board.css">
+
     <style>
-        *{
-            font-family: 'Gothic A1', sans-serif;
-        }
-        body {
-            width: 1024px;
-            height: 860px;
-            margin: 50px auto;
-            overflow: auto;
-            max-height: 860px;
-            position : relative;
+        .btn-primary{
+            font-weight: 800;
+            font-size : 1.2rem;
         }
 
-        header{
-
-        }
-
-        .top-header{
-            display : flex;
-            justify-content: space-between;
-            padding-left : 50px;
-        }
-
-        .top-header > div > a{
-            align-self : center;
-        }
-
-        .top-header > div > h2 {
-            margin-left : 30px;
-            color : #414e5f;
-        }
-
-        .logout{
-            align-self: center;
-            margin-right : 50px;
-            display: flex;
-        }
-
-        .logout-btn{
-            border-style : none;
-            background-color: white;
-            margin-left : 20px;
-            cursor: pointer;
-        }
-
-
-        .middle-header{
-            display: flex;
-            height : 70px;
+        .board>h2{
             margin-bottom : 50px;
-            border-bottom : 3px solid #4A596D;
-            border-radius: 30px;
-            align-items : center;
-            justify-content: space-between;
-            position : sticky;
-            background-color: #4a596d23;
-        }
-
-        .searchbox{
-            display: flex;
-            align-items: center; /* 수직으로 중앙 정렬 */
-            position: relative;
-            right : 200px;
-        }
-
-        .search{
-            height : 30px;
-            font-size: 1rem;
-            margin-right : 6px
-        }
-
-        .searchbox > input{
-            height : 26px;
-            font-size : 1rem;
-            margin-right : 4px;
-        }
-
-        .search select{
-
-        }
-
-        .search option {
-
-        }
-
-        .etcmenu{
-            margin-right : 35px;
-        }
-
-        .etcmenu > a{
-            margin-right : 30px;
-        }
-
-        .tooltip {
-            position: relative;
-            text-decoration: none; /* 링크의 기본 밑줄을 제거 */
-            color: #4A596D; /* 링크 색상 */
-        }
-
-        .tooltip::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            background-color: white; /* 말풍선 배경색 */
-            color: #4A596D; /* 말풍선 텍스트 색상 */
-            padding: 4px 8px; /* 말풍선 내부 여백 */
-            border : 3px solid #4A596D;
-            border-radius: 50px; /* 말풍선 모서리 둥글게 */
-            font-size: 14px; /* 말풍선 텍스트 크기 */
-            opacity: 0; /* 초기에는 투명하게 숨김 */
-            bottom: 15px; /* 말풍선을 링크 아래로 위치시킴 */
-            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-            transform: translateX(-50%); /* 가운데 정렬 */
-            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-            font-weight: 600;
-        }
-
-        .tooltip:hover::before {
-            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
-        }
-
-        .write{
-            position: relative;
-            left : 800px;
-            bottom : 30px;
-        }
-
-
-
-
-
-
-                .board-container {
-                    width: 80%;
-                    margin: 0 auto;
-                    margin-top : 60px;
-                }
-
-                .board-item {
-                    border: 1px solid #ccc;
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin-bottom: 20px;
-                }
-
-
-                .idbox{
-                    padding-bottom : 20px;
-                    border-bottom : 3px solid #4A596D;
-                }
-
-                /* contents 크기 조정 */
-                .contents {
-                    font-size: 16px;
-                    padding: 20px;
-                }
-
-                /* 이미지 크기 조정 */
-                .thumbnail {
-                    width: 200px;
-                    height: auto;
-                }
-                .scroll::-webkit-scrollbar{
-                    display: none;
-                }
-
-                #board_id{
-                    margin-left : 40px;
-                }
-                #board_contents{
-                    border-bottom: 3px solid #4A596D;
-                    height:100px;
-                }
-                #board_img{
-                    border-bottom: 1px solid #4A596D;
-                    height: 200px;
-                }
-                .date-box{
-                    display: flex;
-                    justify-content : space-between;
-                    padding : 30px;
-                }
-                .hits-like{
-                    display: flex;
-                }
-                .hits-like > div{
-                    margin-left : 90px;
-                }
-
-                .hits{
-                    padding-top : 10px;
-                    border-top : 1px solid #4A596D;
-                }
-
-                .like{
-                    padding-top : 10px;
-                    border-top : 1px solid #4A596D;
-                }
-
-
-
-                /* 빠른 메뉴 스타일 */
-        .quick-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height : 80px;
-            background-color: #4a596d85;
-            display: none; /* 초기에는 숨겨짐 */
-            border-bottom : 4px solid #4A596D;
-            padding-top : 20px;
-        }
-
-        .quick-sebu{
-            display: flex;
-        }
-        .quick-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            display: inline-block;
         }
 
     </style>
 </head>
 <body class="scroll">
 <header>
-    <div class="top-header">
-        <div style="display : flex;">
-            <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
-            <h2>Welcome <!--<span th:text="${boardList.email}"></span>--> !</h2>
+    <div class="menu">
+
+        <div class="logo">
+            <a href="/list"> <img src="images/logo.png" max-width="100%" height="15"/> </a>
+            <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
         </div>
-        <div class="logout">
-            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-                <img src="/images/mypageicon.png" max-width="100%" height="45"/>
+
+        <div class="middle-menu">
+            <a href="/list">
+                <div class="home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                    </svg>홈
+                </div>
             </a>
+
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart-fill" viewBox="0 0 16 16">
+                    <path d="M6.5 13a6.474 6.474 0 0 0 3.845-1.258h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.008 1.008 0 0 0-.115-.1A6.471 6.471 0 0 0 13 6.5 6.502 6.502 0 0 0 6.5 0a6.5 6.5 0 1 0 0 13Zm0-8.518c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"/>
+                </svg>
+                검색
+            </button>
+
+            <a href="#">
+                <div class="message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>메시지
+                </div>
+            </a>
+
+            <a href="#" id="notification-icon">
+                <div class="bell">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                    </svg>알림
+                </div>
+            </a>
+
+            <a href="/post">
+                <div class="write">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>글쓰기
+                </div>
+            </a>
+
+            <a href="/mypage">
+                <div class="mypage">
+                    <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="logout">
             <form method="post" action="/logout">
-                <button class="logout-btn"><img src="/images/logout.png" max-width="100%" height="45"/></button><br/>
-            </form>
-        </div>
-    </div>
-
-
-    <div class="middle-header">
-        <div>
-
-        </div>
-
-        <div class="searchbox">
-            <form id="searchForm" action="/list/search" method="GET">
-                <select class="search">
-                    <option value="nickname">닉네임</option>
-                    <option value="content">내용</option>
-                </select>
-                <input type="text" name="keyword" class="form-control" id="search">
-                <button type="button" id="searchButton">
-                    <img src="/images/searchicon.png" max-width="100%" height="30"/>
+                <button class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                    </svg>로그아웃
                 </button>
             </form>
         </div>
 
-        <div class="etcmenu">
-
-            <a href="#"><img src="/images/bellicon.png" max-width="100%" height="37"/></a>
-            <a href="#"><img src="/images/msgicon.png" max-width="100%" height="36"/></a>
-        </div>
-
-    </div>
-
-
-    <div class="quick-menu" id="quickMenu">
-        <div class="quick-sebu">
-            <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
-
-            <div class="quick-searchbox">
-                <select class="quick-search" style="height : 23px;">
-                    <option value="nickname">닉네임</option>
-                    <option value="content">내용</option>
-                </select>
-                <input><a href="#"><img src="/images/searchicon.png" max-width="100%" height="30" style="position : relative; top : 10px; right : 20px;"/></a>
-            </div>
-
-            <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-                <img src="/images/mypageicon.png" max-width="100%" height="45"/>
-            </a>
-
-            <a href="#"><img src="/images/bellicon.png" max-width="100%" height="37"/></a>
-            <a href="#"><img src="/images/msgicon.png" max-width="100%" height="36"/></a>
-
-            <form method="post" action="/logout">
-                <button class="logout-btn" style="width : 50px;">로그아웃</button><br/>
-            </form>
-
-        </div>
     </div>
 </header>
 
+<div class="up">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
+    </svg>
+</div>
 
+<!-- /* COMMIN 구간---------------------------------- */ -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">검색</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <div class="searchbox">
+            <form id="searchForm" method="GET">
+                <select class="form-select" aria-label="Default select example" id="searchOption">
+                    <option value="nickname">닉네임</option>
+                    <option value="content">내용</option>
+                </select>
+                <input type="text" name="keyword" class="form-control" id="searchKeyword">
+                <button type="submit" class="btn btn-outline-secondary" id="searchButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 <main>
-    <div class="board-container">
-        <a href="/post" class="write">글쓰기</a>
+    <div class="board">
+        <h2>조회</h2>
+
         <th:block th:each="board : ${boardList}">
             <div class="board-item">
+
                 <div class="idbox">
-                    <div id = board_id th:text="${board.email}">id</div>
+                    <div>
+                        <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                        <div id = board_id th:text="${board.email}">id</div>|
+                        <div class="date" th:text="${board.date}">date</div>
+                    </div>
+                    <div class="hits-box">조회
+                        <div class="hits" th:text="${board.hits}">hits</div>
+                    </div>
                 </div>
 
 
                 <a th:href="'/read/' + ${board.number}">
                     <div id = board_img>
                         <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-                        <img th:if="${not #strings.isEmpty(board.filename)}"
-                             th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
-                             alt="Thumbnail" width="200" height="auto" class="thumbnail">
+                        <div class="img">
+                            <img th:if="${not #strings.isEmpty(board.filename)}"
+                                 th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
+                                 alt="Thumbnail">
+                        </div>
+                        <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                     </div>
-                    <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                 </a>
 
-                <div class="date-box">
-                    <div th:text="${board.date}">date</div>
-                    <div class="hits-like">
-                        <div >조회수
-                            <div class="hits" th:text="${board.hits}">hits</div>
-                        </div>
-                        <div class="like">
-                            <span class="like-icon" data-board-number="${board.number}" onclick="likeBoard(this)">👍</span>
-                            <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
-                        </div>
-                    </div>
+                <div class="like">
+                    <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                        <span style="border-style : none;">❤️</span>
+                        <!-- <span th:unless="${isLiked}">🖤</span> -->
+                    </a>
+                    <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
                 </div>
+
             </div>
         </th:block>
+
+
     </div>
+
 </main>
 
 </body>

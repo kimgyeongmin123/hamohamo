@@ -54,8 +54,7 @@ main .board{
         }
 
         main>.board .board-item>a>#board_img{
-            height : 500px;
-            border : 1px solid gray;
+            height : auto;
         }
 
         main>.board .board-item>a>#board_img>.img{
@@ -66,18 +65,19 @@ main .board{
         }
 
         main>.board .board-item>a>#board_img>.contents{
-            height : 50px;
+            height : auto;
             margin-top : 10px;
             color : black;
+            width : 450px;
+            word-wrap: break-word;
         }
 
 
         main>.board .board-item>.like{
+            margin-top : 10px;
             padding-bottom : 50px;
             border-bottom:1px solid rgb(185, 185, 185);
-            position : relative;
-            top : 50px;
-            margin-bottom : 100px;
+
         }
 
         main>.board .board-item>.like>a{
