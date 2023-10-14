@@ -107,8 +107,6 @@
 
 <!--    알림 ----------------------------------------------------------------->
 
-<!-- /* COMMON 구간---------------------------------- */ -->
-
 <header>
     <div class="menu">
 
@@ -151,14 +149,12 @@
                 </div>
             </a>
 
-            <a href="/post">
-                <div class="write">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>글쓰기
-                </div>
-            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>글쓰기
+            </button>
 
             <a href="/mypage">
                 <div class="mypage">
@@ -217,7 +213,54 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">글쓰기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form action="/post" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>작성자 </label>
+                        <span th:text="${dto.nickname}"></span><br/>
+
+                        <!-- <label for="email">글쓴이 이메일 </label>
+                        <input type="text" id="email" name="email" th:value="${#authentication.principal.username}" readonly /> -->
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="file" id="formFile" name="files" multiple>
+                        <div class="miri">
+                            미리보기
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contents"></label>
+                        <textarea id="contents" name="contents" rows="4" required></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary submit-button">등록</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- /* COMMON 구간---------------------------------- */ -->
+
+
+
+
 
 
 <main>
@@ -268,6 +311,7 @@
 </body>
 
 <script>
+
     function logoutAndRedirect() {
           // 새 창 열기
        var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
