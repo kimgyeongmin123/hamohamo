@@ -124,28 +124,24 @@ public class UserController {
 
 	@GetMapping("/profile/update")
 	public String showInfo(Model model) {
+
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
 
-		// UserDto 객체 생성
-		UserDto dto = new UserDto();
-
 		// UserRepository를 사용하여 사용자 정보 가져오기
-		User user = userRepository.findByEmail(email);
+		User user = userRepository.findById(email).get();
 
+		// UserDto 객체 생성
+		UserDto dto = UserDto.EntityToDto(user);
 		// 사용자 정보에서 닉네임을 가져와서 설정
 		if (user != null) {
 			dto.setNickname(user.getNickname());
-			dto.setPassword(user.getPassword());
-			dto.setBirth(user.getBirth());
-			dto.setPhone(user.getPhone());
-			dto.setZipcode(user.getZipcode());
-			dto.setAddr1(user.getAddr1());
-			dto.setAddr2(user.getAddr2());
 		}
 
 		model.addAttribute("dto", dto);
+
+
 
 		return "profile/update";
 	}
@@ -159,6 +155,8 @@ public class UserController {
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
+
+
 
 		boolean isUpdate = userService.UserUpdate(email,newNickname);
 
