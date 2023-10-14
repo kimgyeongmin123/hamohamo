@@ -125,17 +125,22 @@ public class BoardService {
 
         Optional<Board> boardOptional = boardRepository.findByNum(number);
 
+
         if (boardOptional.isPresent()) {
             Board board = boardOptional.get();
             if(board.getDirpath()!=null)
                 // 게시물의 이미지 파일들을 삭제
                 deleteImageFiles(board.getDirpath());
             // 게시물 삭제
+            heartRepository.deleteByBoard(board);
+
             boardRepository.delete(board);
+
             return true;
         }
         return false;
     }
+
     private void deleteImageFiles(String dirPath){
         File dir = new File(dirPath);
         if (dir.exists() && dir.isDirectory()) {
