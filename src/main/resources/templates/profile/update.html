@@ -238,15 +238,15 @@
             <button class="jung-btn" onclick="checkNicknameDuplicate('nickname')">중복체크</button>
             <br/>
 
-            생년월일 : <input name="birth" id="birthInput" autocomplete="off" th:value="${dto.birth}">
+            생년월일 : <input name="newBirth" id="birthInput" autocomplete="off" th:value="${dto.birth}">
             <br/>
             <label>휴대폰 :</label>
-            <input type="text" id="phone" name="name" th:value="${dto.phone}">
+            <input type="text" id="phone" name="newPhone" th:value="${dto.phone}">
             <br/>
             <label>주소 :</label>
             <input type="text" id="zipcode" name="name" th:value="${dto.zipcode}"><br>
-            <input type="text" id="addr1" name="name" th:value="${dto.addr1}"><br>
-            <input type="text" id="addr2" name="name" th:value="${dto.addr2}"><br>
+            <input type="text" id="addr1" name="newAddr1" th:value="${dto.addr1}"><br>
+            <input type="text" id="addr2" name="newAddr2" th:value="${dto.addr2}"><br>
             <br/>
             <button type="submit">수정</button>
         </form>

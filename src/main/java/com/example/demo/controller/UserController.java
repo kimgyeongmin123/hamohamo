@@ -124,30 +124,40 @@ public class UserController {
 
 	@GetMapping("/profile/update")
 	public String showInfo(Model model) {
-
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
 
-		// UserRepository를 사용하여 사용자 정보 가져오기
-		User user = userRepository.findById(email).get();
-
 		// UserDto 객체 생성
-		UserDto dto = UserDto.EntityToDto(user);
+		UserDto dto = new UserDto();
+
+		// UserRepository를 사용하여 사용자 정보 가져오기
+		User user = userRepository.findByEmail(email);
+
 		// 사용자 정보에서 닉네임을 가져와서 설정
 		if (user != null) {
 			dto.setNickname(user.getNickname());
+			dto.setName(user.getName());
+			dto.setPassword(user.getPassword());
+			dto.setBirth(user.getBirth());
+			dto.setPhone(user.getPhone());
+			dto.setZipcode(user.getZipcode());
+			dto.setAddr1(user.getAddr1());
+			dto.setAddr2(user.getAddr2());
+			dto.setProfile(user.getProfile());
 		}
 
 		model.addAttribute("dto", dto);
-
-
 
 		return "profile/update";
 	}
 
 	@PostMapping("/profile/update")
 	public String UserUpdate(@RequestParam("newNickname") String newNickname,
+							 @RequestParam("newBirth") String newBirth,
+							 @RequestParam("newPhone") String newPhone,
+							 @RequestParam("newAddr1") String newAddr1,
+							 @RequestParam("newAddr2") String newAddr2,
 							 RedirectAttributes redirectAttributes,
 							 Model model) {
 		log.info("UserUpdate POST/ post");
@@ -158,7 +168,7 @@ public class UserController {
 
 
 
-		boolean isUpdate = userService.UserUpdate(email,newNickname);
+		boolean isUpdate = userService.UserUpdate(email,newNickname, newBirth, newPhone, newAddr1, newAddr2);
 
 		if (isUpdate) {
 			redirectAttributes.addFlashAttribute("successMessage", "Nickname updated successfully.");

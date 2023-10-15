@@ -24,12 +24,18 @@ public class UserService {
     private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
     @Transactional(rollbackFor = SQLException.class)
-    public Boolean UserUpdate(String email, String newNickname){
+    public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone, String newAddr1, String newAddr2){
         try {
             User user = userRepository.findByEmail(email);
 
             if (user != null) {
                 user.setNickname(newNickname);
+                user.setBirth(newBirth);
+                user.setPhone(newPhone);
+                user.setAddr1(newAddr1);
+                user.setAddr2(newAddr2);
+
+
                 userRepository.save(user);
                 System.out.println("user: " +user);
                 return true;
