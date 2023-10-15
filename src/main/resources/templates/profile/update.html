@@ -253,21 +253,14 @@
             <input type="text" id="phoneInput" name="newPhone" th:value="${dto.phone}">
             <br/>
 
-<!--            <div>-->
-<!--                <h5>주소</h5>-->
-<!--                <input name="zipcode" id="zipcode" class="form-control zipcode" th:value="${dto.zipcode}" >-->
-<!--                <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>-->
 
 
-<!--                <input name="addr1" class="form-control"  id="addr1" th:value="${dto.addr1}" style="width : 330px; margin-top : 5px;"><br/>-->
-<!--                <input name="addr2" class="form-control" id="addr2" th:value="${dto.addr2}" style="width : 330px; margin-top : 5px;">-->
-<!--            </div>-->
+            <h5>주소 :</h5>
 
-            <label>주소 :</label>
-
-            <input type="text" id="zipcode" name="newZipcode" th:value="${dto.zipcode}"><br>
-            <input type="text" id="addr1" name="newAddr1" th:value="${dto.addr1}"><br>
-            <input type="text" id="addr2" name="newAddr2" th:value="${dto.addr2}"><br>
+            <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button>
+            <input type="text" class="form-control zipcode" id="zipcode" name="newZipcode" th:value="${dto.zipcode}">
+            <input type="text" class="form-control addr1" id="addr1" name="newAddr1" th:value="${dto.addr1}"><br/>
+            <input type="text" id="addr2" name="newAddr2" th:value="${dto.addr2}">
             <br/>
             <button type="submit">수정</button>
         </form>
