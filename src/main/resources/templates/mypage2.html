@@ -31,15 +31,15 @@
         main>section{
             margin-top : 50px;
             margin-left : 16%;
-            width : 600px;
+            width : 900px;
             margin-bottom : 50px;
+            border-bottom : 1px solid gray;
         }
 
         main>section>.profile{
             height : 200px;
-            width : 600px;
+            width : 900px;
             display: flex;
-            border-bottom : 1px solid rgb(185, 185, 185);
         }
 
         .profileimg{
@@ -108,17 +108,6 @@
         .hits-box{
             position : relative;
             left : 50px;
-        }
-
-        main>section>.board .board-item>a>#board_img{
-            border : 1px solid blue;
-
-        }
-
-        main>section>.board .board-item>a>#board_img>.img{
-            height : 150px;
-            width : 150px;
-            background-color: rgb(0, 0, 0);
         }
 
     </style>
@@ -309,30 +298,41 @@
 
 
         <!-- 모달 창 -->
-        <!--        <div id="profileModal" class="modal" >-->
-        <!--            <div class="modal-content">-->
-        <!--                <span class="close">&times;</span>-->
-        <!--                <h2>프로필 사진 변경</h2>-->
-        <!--                &lt;!&ndash; 업로드 폼 추가 &ndash;&gt;-->
-        <!--                <form id="profileUploadForm" action="/uploadProfile" method="post" enctype="multipart/form-data">-->
-        <!--                    &lt;!&ndash; 프로필 사진을 업로드하는 파일 입력 필드를 추가 &ndash;&gt;-->
-        <!--                    <input type="file" name="profileImage" accept="image/*">-->
-        <!--                    <input type="submit" value="업로드">-->
-        <!--                </form>-->
-        <!--            </div>-->
-        <!--        </div>-->
+<!--        <div id="profileModal" class="modal" >-->
+<!--            <div class="modal-content">-->
+<!--                <span class="close">&times;</span>-->
+<!--                <h2>프로필 사진 변경</h2>-->
+<!--                &lt;!&ndash; 업로드 폼 추가 &ndash;&gt;-->
+<!--                <form id="profileUploadForm" action="/uploadProfile" method="post" enctype="multipart/form-data">-->
+<!--                    &lt;!&ndash; 프로필 사진을 업로드하는 파일 입력 필드를 추가 &ndash;&gt;-->
+<!--                    <input type="file" name="profileImage" accept="image/*">-->
+<!--                    <input type="submit" value="업로드">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+    </section>
+    <!-- --------------------------------------------------------------------------------------------------------------------------- -->
 
-        <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+    <div class="board">
 
-        <div class="board" style="width : 600px; display : flex; justify-content: space-evenly; flex-wrap : wrap; margin-left : 0px;">
+        <th:block th:each="board : ${myBoards}">
+            <div class="board-item">
 
-            <th:block th:each="board : ${myBoards}">
-                <div class="board-item">
+                <div class="idbox">
+                    <div>
+                        <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                        <div id = board_id th:text="${dto.nickname}">id</div>|
+                        <div class="date" th:text="${board.date}">date</div>
+                    </div>
+                    <div class="hits-box">조회
+                        <div class="hits" th:text="${board.hits}">hits</div>
+                    </div>
+
 
                     <div class="btn-group dropend">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                             </svg>
                         </button>
                         <ul class="dropdown-menu">
@@ -344,22 +344,34 @@
                         </ul>
                     </div>
 
-                    <a th:href="'/read/' + ${board.number}">
-                        <div id = board_img>
-                            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-                            <div class="img">
-                                <img th:if="${not #strings.isEmpty(board.filename)}"
-                                     th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
-                                     alt="Thumbnail">
-                            </div>
-                        </div>
-                    </a>
+
 
                 </div>
-            </th:block>
-        </div>
 
-    </section>
+
+                <a th:href="'/read/' + ${board.number}">
+                    <div id = board_img>
+                        <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+                        <div class="img">
+                            <img th:if="${not #strings.isEmpty(board.filename)}"
+                                 th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
+                                 alt="Thumbnail">
+                        </div>
+                        <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                    </div>
+                </a>
+
+                <div class="like">
+                    <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                        <span style="border-style : none;">❤️</span>
+                        <!-- <span th:unless="${isLiked}">🖤</span> -->
+                    </a>
+                    <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+                </div>
+
+            </div>
+        </th:block>
+    </div>
 
     <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
 

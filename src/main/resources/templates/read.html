@@ -3,244 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <!--  BS5  -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
   <!-- 구글폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/board.css">
 
 
   <style>
 
-        main {
-            display:flex;
-        }
-        *{
-            font-family: 'Gothic A1', sans-serif;
-        }
-        body {
-            width: 1024px;
-            height: 860px;
-            margin: 50px auto;
-            overflow: auto;
-            max-height: 860px;
-        }
+    main{
+     display : flex;
+    }
 
-        header{
-
-        }
-
-        .top-header{
-            display : flex;
-            justify-content: space-between;
-            padding-left : 50px;
-        }
-
-        .top-header > div > a{
-            align-self : center;
-        }
-
-        .top-header > div > h2 {
-            margin-left : 30px;
-            color : #414e5f;
-        }
-
-        .logout{
-            align-self: center;
-            margin-right : 100px;
-        }
-
-        .middle-header{
-            display: flex;
-            height : 70px;
-            margin-top : 20px;
-            margin-bottom : 50px;
-            border-top : 7px solid #4A596D;
-            border-bottom : 4px solid #4A596D;
-            justify-content : space-around;
-            align-items : center;
-        }
-
-        .searchbox{
-            position : relative;
-            left : 70px;
-            display: flex;
-            align-items: center; /* 수직으로 중앙 정렬 */
-            border-left : 4px solid #4A596D;
-            border-right : 4px solid #4A596D;
-            padding : 15px;
-        }
-
-        .search{
-            height : 30px;
-            font-size: 1rem;
-            margin-right : 6px
-        }
-
-        .searchbox > input{
-            height : 26px;
-            font-size : 1rem;
-            margin-right : 4px;
-        }
-
-        .search select{
-
-        }
-
-        .search option {
-
-        }
-
-        .etcmenu > a{
-            margin-right : 18px;
-        }
-
-        .tooltip {
-            position: relative;
-            text-decoration: none; /* 링크의 기본 밑줄을 제거 */
-            color: #4A596D; /* 링크 색상 */
-        }
-
-        .tooltip::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            background-color: white; /* 말풍선 배경색 */
-            color: #4A596D; /* 말풍선 텍스트 색상 */
-            padding: 4px 8px; /* 말풍선 내부 여백 */
-            border : 3px solid #4A596D;
-            border-radius: 50px; /* 말풍선 모서리 둥글게 */
-            font-size: 14px; /* 말풍선 텍스트 크기 */
-            opacity: 0; /* 초기에는 투명하게 숨김 */
-            top: 16px; /* 말풍선을 링크 아래로 위치시킴 */
-            left: 50%; /* 가운데 정렬을 위해 왼쪽 50%로 설정 */
-            transform: translateX(-50%); /* 가운데 정렬 */
-            transition: opacity 0.2s; /* 말풍선 표시 애니메이션 */
-            white-space: nowrap; /* 텍스트를 한 줄로 가로로 나오게 함 */
-            font-weight: 600;
-        }
-
-        .tooltip:hover::before {
-            opacity: 1; /* 말풍선을 투명하지 않게 표시 */
-        }
-
-                .board-container {
-                    width: 80%;
-                    margin: 0 auto;
-                    margin-top: 50px;
-                    height: 70%;
-                }
-
-                .board-item {
-                    position: relative;
-                    border: 1px solid #ccc;
-                    border-radius: 10px;
-                    padding: 5px;
-                    margin-bottom: 20px;
-                    height:600px;
-
-                }
-
-
-                .idbox{
-                    padding-bottom : 20px;
-                    border-bottom : 3px solid #4A596D;
-                }
-
-                /* contents 크기 조정 */
-                .contents-a {
-                    font-size: 16px;
-                    padding: 1px;
-                }
-
-
-                /* 이미지 크기 조정 */
-                .thumbnail {
-                    width: 200px;
-                    height: auto;
-                }
-                .scroll::-webkit-scrollbar{
-                    display: none;
-                }
-
-                #board_id{
-                    margin-left : 40px;
-                }
-                #board_contents{
-                    border-bottom: 3px solid #4A596D;
-                    height:100px;
-                }
-                #board_img{
-                    border-bottom: 1px solid #4A596D;
-                    height: 200px;
-                }
-                .date-box{
-                    display: flex;
-                    justify-content : space-between;
-                    padding : 30px;
-                }
-                .hits-like{
-                    display: flex;
-                }
-                .hits-like > div{
-                    margin-left : 90px;
-                }
-
-                .hits{
-                    padding-top : 10px;
-                    border-top : 1px solid #4A596D;
-                }
-
-                .like{
-                    padding-top : 10px;
-                    border-top : 1px solid #4A596D;
-                }
-
-    </style>
+  </style>
 </head>
 <body class="scroll">
 <header>
-  <div class="top-header">
-    <div style="display : flex;">
-      <a href="/list"> <img src="/images/logo.png" max-width="100%" height="40"/> </a>
-    </div>
-    <div class="logout">
-      <form method="post" action="/logout">
-        <button class="logoutbtn">로그아웃</button><br/>
-      </form>
-    </div>
-  </div>
+  <div class="menu">
 
-  <div class="middle-header">
-    <div>
-      <a href="/mypage" class="tooltip" data-tooltip="내 페이지">
-        <img src="/images/mypageicon.png" max-width="100%" height="50"/>
+    <div class="logo">
+      <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
+      <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
+    </div>
+
+    <div class="middle-menu">
+      <a href="/list">
+        <div class="home" style="font-size: 1.2rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+          </svg>홈
+        </div>
+      </a>
+
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+        검색
+      </button>
+
+      <a href="#">
+        <div class="message">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+          </svg>메시지
+        </div>
+      </a>
+
+      <a href="#" id="notification-icon">
+        <div class="bell">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+          </svg>알림
+        </div>
+      </a>
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>글쓰기
+      </button>
+
+      <a href="/mypage">
+        <div class="mypage">
+          <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+        </div>
       </a>
     </div>
 
-    <div class="searchbox">
-      <select class="search">
-        <option value="nickname">닉네임</option>
-        <option value="contents-a">내용</option>
-      </select>
-      <input> <a href="#"><img src="/images/searchicon.png" max-width="100%" height="30"/></a>
-    </div>
 
-    <div class="etcmenu">
-      <a href="/post"><img src="/images/writeicon.png" max-width="100%" height="50"/></a>
-      <a href="#"><img src="/images/bellicon.png" max-width="100%" height="52"/></a>
-      <a href="#"><img src="/images/msgicon.png" max-width="100%" height="45"/></a>
+
+    <div class="logout">
+      <form method="post" action="/logout">
+        <button class="logout-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+          </svg>로그아웃
+        </button>
+      </form>
     </div>
 
   </div>
 </header>
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">검색</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <div class="searchbox">
+      <form id="searchForm" method="GET">
+        <select class="form-select" aria-label="Default select example" id="searchOption">
+          <option value="nickname">닉네임</option>
+          <option value="content">내용</option>
+        </select>
+        <input type="text" name="keyword" class="form-control" id="searchKeyword">
+        <button type="submit" class="btn btn-outline-secondary" id="searchButton">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">글쓰기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form action="/post" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>작성자 </label>
+            <span th:text="${dto.nickname}"></span><br/>
+
+            <label for="email">글쓴이 이메일 </label>
+            <input type="text" id="email" name="email" th:value="${#authentication.principal.username}" readonly />
+          </div>
+
+          <div class="form-group">
+            <input class="form-control" type="file" id="formFile" name="files" multiple>
+            <div class="miri">
+              미리보기
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contents"></label>
+            <textarea id="contents" name="contents" rows="4" required></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary submit-button">등록</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- /* COMMON 구간---------------------------------- */ -->
+
 <main>
 
-  <div class="board-container">
+  <div class="board">
+
+    <th:block th:each="board : ${board}">
+      <div class="board-item">
+
+        <div class="idbox">
+          <div>
+            <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+            <div id = board_id th:text="${board.email}">id</div>|
+            <div class="date" th:text="${board.date}">date</div>
+          </div>
+          <div class="hits-box">조회
+            <div class="hits" th:text="${board.hits}">hits</div>
+          </div>
+        </div>
+
+
+        <a href="#">
+          <div id = board_img>
+            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+            <div class="img">
+              <img th:if="${not #strings.isEmpty(board.filename)}"
+                   th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
+                   alt="Thumbnail">
+            </div>
+            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+          </div>
+        </a>
+
+        <div class="like">
+          <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+            <span style="border-style : none;">❤️</span>
+            <!-- <span th:unless="${isLiked}">🖤</span> -->
+          </a>
+          <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+        </div>
+
+      </div>
+    </th:block>
+
+
+  </div>
+
+  <!-- <div class="board-container">
     <th:block th:each="board : ${board}">
       <div class="board-item">
         <div class="idbox">
@@ -249,7 +225,7 @@
 
 
         <div id = board_img>
-          <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+          이미지 썸네일을 표시하는 이미지 태그
           <img th:if="${not #strings.isEmpty(board.filename)}"
                th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
                alt="Thumbnail" width="200" height="auto" class="thumbnail">
@@ -270,7 +246,7 @@
         </div>
       </div>
     </th:block>
-  </div>
+  </div> -->
 
 
   <!-- REPLY        -->
@@ -278,11 +254,11 @@
 
     .reply--block{
         position:relative;
-        top: 50px;
+        top: 100px;
         left: 1%;
         width: 350px;
 
-        height: 600px;
+        height: 620px;
         border: 1px solid lightgray;
         border-radius: 10px;
         padding: 10px;
@@ -395,11 +371,11 @@
     }
 
 
-    </style>
+  </style>
   <div class="comment-container">
     <section class="reply--block">
 
-      <h4>REPLY LIST</h4>
+      <h4>게시물 댓글</h4>
 
       <div class="reply-body">
         <div class="items"></div>
@@ -430,263 +406,263 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
-    function logoutAndRedirect() {
-      // 새 창 열기
-    var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
-    setTimeout(function() {
-     // 1.5초후 창닫기
-      newWindow.close();
+  function logoutAndRedirect() {
+    // 새 창 열기
+  var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+  setTimeout(function() {
+   // 1.5초후 창닫기
+    newWindow.close();
 
-     // 특정 지점으로 리다이렉션
-    window.location.href = '/login';
-    }, 1500);
+   // 특정 지점으로 리다이렉션
+  window.location.href = '/login';
+  }, 1500);
 
-    }
-    //----------------------------------------------------------------
-    //댓글 추가
-    //----------------------------------------------------------------
-    const reply_btn_el = document.querySelector('.reply_btn');
+  }
+  //----------------------------------------------------------------
+  //댓글 추가
+  //----------------------------------------------------------------
+  const reply_btn_el = document.querySelector('.reply_btn');
 
-     /*<![CDATA[*/
-            var bno = [[${board.number}]];
-            let nickname = "[[${#httpServletRequest.remoteUser}]]";
-     /*]]>*/
+   /*<![CDATA[*/
+          var bno = [[${board.number}]];
+          let nickname = "[[${#httpServletRequest.remoteUser}]]";
+   /*]]>*/
 
 
 reply_btn_el.addEventListener('click', function () {
-        const reply_contents_el = document.querySelector('.reply_contents');
-        console.log("BNO : ", bno);
+      const reply_contents_el = document.querySelector('.reply_contents');
+      console.log("BNO : ", bno);
 
-        axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
-            .then(response => {
-                console.log(response);
+      axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
+          .then(response => {
+              console.log(response);
 
-                // 기존 list 삭제
-                const replyBody_items = document.querySelector('.reply-body .items');
-                while (replyBody_items.firstChild) {
-                    replyBody_items.firstChild.remove()
-                }
+              // 기존 list 삭제
+              const replyBody_items = document.querySelector('.reply-body .items');
+              while (replyBody_items.firstChild) {
+                  replyBody_items.firstChild.remove()
+              }
 
-                // 새로 list 불러오기
-                getReplylist();
+              // 새로 list 불러오기
+              getReplylist();
 
-                // 댓글 개수 가져오기
-                axios.get("/board/reply/count?bno=" + bno)
-                    .then(response => {
-                        let reply_count_el = document.querySelector('.reply--count');
-                        reply_count_el.innerHTML = response.data;
-                    })
-                    .catch(error => {});
+              // 댓글 개수 가져오기
+              axios.get("/board/reply/count?bno=" + bno)
+                  .then(response => {
+                      let reply_count_el = document.querySelector('.reply--count');
+                      reply_count_el.innerHTML = response.data;
+                  })
+                  .catch(error => {});
 
-                // Input Clear
-                reply_contents_el.value = "";
+              // Input Clear
+              reply_contents_el.value = "";
 
-            })
-            .catch(error => console.log(error));
+          })
+          .catch(error => console.log(error));
 
-    });
-    //----------------------------------------------------------------
-    //엔터키 댓글 추가
-    //----------------------------------------------------------------
-    const reply_contents_el = document.querySelector('.reply_contents');
-    reply_contents_el.addEventListener('keydown',function(e){
+  });
+  //----------------------------------------------------------------
+  //엔터키 댓글 추가
+  //----------------------------------------------------------------
+  const reply_contents_el = document.querySelector('.reply_contents');
+  reply_contents_el.addEventListener('keydown',function(e){
 
-        if(e.keyCode==13){
+      if(e.keyCode==13){
 
-                axios.get("/board/reply/add?bno="+bno+"&content="+reply_contents_el.value + "&nickname=" + nickname)
-                .then(response=>{
-                    console.log(response);
+              axios.get("/board/reply/add?bno="+bno+"&content="+reply_contents_el.value + "&nickname=" + nickname)
+              .then(response=>{
+                  console.log(response);
 
-                    //기존list삭제
-                    const replyBody_items = document.querySelector('.reply-body .items');
-                    while(replyBody_items.firstChild){
-                         replyBody_items.firstChild.remove()
-                    }
+                  //기존list삭제
+                  const replyBody_items = document.querySelector('.reply-body .items');
+                  while(replyBody_items.firstChild){
+                       replyBody_items.firstChild.remove()
+                  }
 
-                    //새로list불러오기
-                    getReplylist();
+                  //새로list불러오기
+                  getReplylist();
 
-                    //댓글 개수 가져오기
-                    axios.get("/board/reply/count?bno=" + bno)
-                    .then(response=>{
-                        let reply_count_el = document.querySelector('.reply--count');
-                        reply_count_el.innerHTML = response.data;
-                    })
-                    .catch(error=>{});
+                  //댓글 개수 가져오기
+                  axios.get("/board/reply/count?bno=" + bno)
+                  .then(response=>{
+                      let reply_count_el = document.querySelector('.reply--count');
+                      reply_count_el.innerHTML = response.data;
+                  })
+                  .catch(error=>{});
 
-                    //Input Clear
-                    reply_contents_el.value="";
+                  //Input Clear
+                  reply_contents_el.value="";
 
-                })
-                .catch(error=>console.log(error));
+              })
+              .catch(error=>console.log(error));
 
-        }
-    });
-         //----------------------------------------------------------------
-        //댓글 리스트 가져오기
-        //----------------------------------------------------------------
-        const getReplylist = ()=>{
+      }
+  });
+       //----------------------------------------------------------------
+      //댓글 리스트 가져오기
+      //----------------------------------------------------------------
+      const getReplylist = ()=>{
 
-         /*<![CDATA[*/
-                let bno = [[${board.number}]];
-         /*]]>*/
+       /*<![CDATA[*/
+              let bno = [[${board.number}]];
+       /*]]>*/
 
-            console.log("getReplylist bno :",bno);
-            axios.get("/board/reply/list?bno="+bno)
-            .then(response=>{
-                console.log(response);
-                if(response.data!=null)
-                {
+          console.log("getReplylist bno :",bno);
+          axios.get("/board/reply/list?bno="+bno)
+          .then(response=>{
+              console.log(response);
+              if(response.data!=null)
+              {
 
-                    //댓글 Item 만들기
-                    const reply_list = response.data;
-                    reply_list.forEach(
-                        reply=>{
-                            CreateItem(reply);
-                        }
-                    );
+                  //댓글 Item 만들기
+                  const reply_list = response.data;
+                  reply_list.forEach(
+                      reply=>{
+                          CreateItem(reply);
+                      }
+                  );
 
-                    //댓글 개수 가져오기
-                    axios.get("/board/reply/count?bno=" + bno)
-                    .then(response=>{
-                        let reply_count_el = document.querySelector('.reply--count');
-                        reply_count_el.innerHTML = response.data;
-                    })
-                }
+                  //댓글 개수 가져오기
+                  axios.get("/board/reply/count?bno=" + bno)
+                  .then(response=>{
+                      let reply_count_el = document.querySelector('.reply--count');
+                      reply_count_el.innerHTML = response.data;
+                  })
+              }
 
-            })
-            .catch(error=>console.log(error));
-        };
-        getReplylist();
-
-
-        //----------------------------------------------------------------
-        // Item 만들기
-        //----------------------------------------------------------------
-        const items_el = document.querySelector(".items");
-        const CreateItem = (reply)=>{
-            console.log("reply : ",reply);
-
-            // div 엘리먼트 생성
-            var divElement = document.createElement("div");
-            divElement.className = "item";
-
-            // header div 엘리먼트 생성
-            var headerElement = document.createElement("div");
-            headerElement.className = "header";
-
-            // img 엘리먼트 생성
-            var imgElement = document.createElement("img");
-            imgElement.src = "/images/하모하모기본프사.png";
-            imgElement.alt = "";
-
-            // header div에 img 엘리먼트 추가
-            headerElement.appendChild(imgElement);
-
-            // body div 엘리먼트 생성
-            var bodyElement = document.createElement("div");
-            bodyElement.className = "body";
-
-            // 내용 엘리먼트 생성(계정 | 날짜 )
-            var contentDiv = document.createElement("div");
-
-            var span1 = document.createElement("span");
-            span1.className = "reply_username me-2";
-            span1.textContent = reply.nickname;
-            var span2 = document.createElement("span");
-            span2.className = "reply_date";
-            span2.textContent = formatter(reply.date);
-            span2.textContent = " | " + formatter(reply.date); // date 앞에 공백 추가
+          })
+          .catch(error=>console.log(error));
+      };
+      getReplylist();
 
 
-            var delete_a = document.createElement("a");
-            delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rnumber);       //DELETE HREF!!!!!!!!
+      //----------------------------------------------------------------
+      // Item 만들기
+      //----------------------------------------------------------------
+      const items_el = document.querySelector(".items");
+      const CreateItem = (reply)=>{
+          console.log("reply : ",reply);
 
-            var span3 = document.createElement("span");
-            span3.className = "reply_delete material-symbols-outlined";
-            span3.textContent = "remove";
-            delete_a.appendChild(span3);
+          // div 엘리먼트 생성
+          var divElement = document.createElement("div");
+          divElement.className = "item";
 
-            contentDiv.appendChild(span1);
-            contentDiv.appendChild(span2);
-            contentDiv.appendChild(delete_a);
+          // header div 엘리먼트 생성
+          var headerElement = document.createElement("div");
+          headerElement.className = "header";
 
-            // 내용 엘리먼트 추가
-            bodyElement.appendChild(contentDiv);
+          // img 엘리먼트 생성
+          var imgElement = document.createElement("img");
+          imgElement.src = "/images/하모하모기본프사.png";
+          imgElement.alt = "";
+
+          // header div에 img 엘리먼트 추가
+          headerElement.appendChild(imgElement);
+
+          // body div 엘리먼트 생성
+          var bodyElement = document.createElement("div");
+          bodyElement.className = "body";
+
+          // 내용 엘리먼트 생성(계정 | 날짜 )
+          var contentDiv = document.createElement("div");
+
+          var span1 = document.createElement("span");
+          span1.className = "reply_username me-2";
+          span1.textContent = reply.nickname;
+          var span2 = document.createElement("span");
+          span2.className = "reply_date";
+          span2.textContent = formatter(reply.date);
+          span2.textContent = " | " + formatter(reply.date); // date 앞에 공백 추가
 
 
+          var delete_a = document.createElement("a");
+          delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rnumber);       //DELETE HREF!!!!!!!!
 
-            // contents div 엘리먼트 생성
-            var contentsDiv = document.createElement("div");
-            contentsDiv.className = "contents";
-            contentsDiv.textContent = reply.content;
+          var span3 = document.createElement("span");
+          span3.className = "reply_delete material-symbols-outlined";
+          span3.textContent = "remove";
+          delete_a.appendChild(span3);
 
-            // contents div 엘리먼트 추가
-            bodyElement.appendChild(contentsDiv);
+          contentDiv.appendChild(span1);
+          contentDiv.appendChild(span2);
+          contentDiv.appendChild(delete_a);
 
-            // 좋아요 및 싫어요 링크 엘리먼트 생성
-            var likeLink = document.createElement("a");
-            var dislikeLink = document.createElement("a");
-
-            likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rnumber;
-            dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rnumber;
-
-            // 좋아요 아이콘과 개수 엘리먼트 생성
-            var likeIcon = document.createElement("span");
-            likeIcon.className = "material-icons me-1";
-            likeIcon.textContent = "thumb_up";
-            var likeCount = document.createElement("span");
-            likeCount.className = "me-1";
-            likeCount.textContent = reply.likecount;
-
-            // 싫어요 아이콘과 개수 엘리먼트 생성
-            var dislikeIcon = document.createElement("span");
-            dislikeIcon.className = "material-icons me-1";
-            dislikeIcon.textContent = "thumb_down";
-            var dislikeCount = document.createElement("span");
-            dislikeCount.className = "me-1";
-            dislikeCount.textContent = reply.unlikecount;
+          // 내용 엘리먼트 추가
+          bodyElement.appendChild(contentDiv);
 
 
 
-            // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
-            likeLink.appendChild(likeIcon);
-            likeLink.appendChild(document.createTextNode(" "));
-            likeLink.appendChild(likeCount);
+          // contents div 엘리먼트 생성
+          var contentsDiv = document.createElement("div");
+          contentsDiv.className = "contents";
+          contentsDiv.textContent = reply.content;
 
-            // 좋아요와 싫어요 엘리먼트를 싫어요 링크에 추가
-            dislikeLink.appendChild(dislikeIcon);
-            dislikeLink.appendChild(document.createTextNode(" "));
-            dislikeLink.appendChild(dislikeCount);
+          // contents div 엘리먼트 추가
+          bodyElement.appendChild(contentsDiv);
 
-            const ThumbsDiv = document.createElement("div");
-            ThumbsDiv.append(likeLink);
-            ThumbsDiv.append(dislikeLink);
+          // 좋아요 및 싫어요 링크 엘리먼트 생성
+          var likeLink = document.createElement("a");
+          var dislikeLink = document.createElement("a");
+
+          likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rnumber;
+          dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rnumber;
+
+          // 좋아요 아이콘과 개수 엘리먼트 생성
+          var likeIcon = document.createElement("span");
+          likeIcon.className = "material-icons me-1";
+          likeIcon.textContent = "thumb_up";
+          var likeCount = document.createElement("span");
+          likeCount.className = "me-1";
+          likeCount.textContent = reply.likecount;
+
+          // 싫어요 아이콘과 개수 엘리먼트 생성
+          var dislikeIcon = document.createElement("span");
+          dislikeIcon.className = "material-icons me-1";
+          dislikeIcon.textContent = "thumb_down";
+          var dislikeCount = document.createElement("span");
+          dislikeCount.className = "me-1";
+          dislikeCount.textContent = reply.unlikecount;
 
 
-            // 좋아요와 싫어요 링크 엘리먼트를 body div에 추가
-            bodyElement.appendChild(ThumbsDiv);
 
-            // header와 body 엘리먼트를 div에 추가
-            divElement.appendChild(headerElement);
-            divElement.appendChild(bodyElement);
+          // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
+          likeLink.appendChild(likeIcon);
+          likeLink.appendChild(document.createTextNode(" "));
+          likeLink.appendChild(likeCount);
 
-            // div 엘리먼트를 body에 추가
-            items_el.appendChild(divElement);
-        }
+          // 좋아요와 싫어요 엘리먼트를 싫어요 링크에 추가
+          dislikeLink.appendChild(dislikeIcon);
+          dislikeLink.appendChild(document.createTextNode(" "));
+          dislikeLink.appendChild(dislikeCount);
 
-    //----------------------------------------------------------------
-    // LocalDateTime Formatter
-    //----------------------------------------------------------------
-    const formatter = (regDate)=>{
-      // JavaScript Date 객체로 변환
-      const date = new Date(regDate);
+          const ThumbsDiv = document.createElement("div");
+          ThumbsDiv.append(likeLink);
+          ThumbsDiv.append(dislikeLink);
 
-      // Date 객체를 원하는 형식으로 포맷팅합니다.
-      const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
-      return formattedDate;
-    };
+          // 좋아요와 싫어요 링크 엘리먼트를 body div에 추가
+          bodyElement.appendChild(ThumbsDiv);
+
+          // header와 body 엘리먼트를 div에 추가
+          divElement.appendChild(headerElement);
+          divElement.appendChild(bodyElement);
+
+          // div 엘리먼트를 body에 추가
+          items_el.appendChild(divElement);
+      }
+
+  //----------------------------------------------------------------
+  // LocalDateTime Formatter
+  //----------------------------------------------------------------
+  const formatter = (regDate)=>{
+    // JavaScript Date 객체로 변환
+    const date = new Date(regDate);
+
+    // Date 객체를 원하는 형식으로 포맷팅합니다.
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+
+    return formattedDate;
+  };
 
 
 
