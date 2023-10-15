@@ -24,7 +24,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
     @Transactional(rollbackFor = SQLException.class)
-    public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone, String newAddr1, String newAddr2){
+    public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone, String newZipcode, String newAddr1, String newAddr2){
         try {
             User user = userRepository.findByEmail(email);
 
@@ -32,6 +32,7 @@ public class UserService {
                 user.setNickname(newNickname);
                 user.setBirth(newBirth);
                 user.setPhone(newPhone);
+                user.setZipcode(newZipcode);
                 user.setAddr1(newAddr1);
                 user.setAddr2(newAddr2);
 

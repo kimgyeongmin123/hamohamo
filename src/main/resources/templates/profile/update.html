@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -232,19 +237,34 @@
             <br/>
             비밀번호 : <a href="/leave">비밀번호 변경하기</a>
             <br/>
-            <!-- 닉네임 수정 폼 -->
             <label for="nickname">닉네임 :</label>
             <input type="text" id="nickname" name="newNickname" th:value="${dto.nickname}">
             <button class="jung-btn" onclick="checkNicknameDuplicate('nickname')">중복체크</button>
             <br/>
 
-            생년월일 : <input name="newBirth" id="birthInput" autocomplete="off" th:value="${dto.birth}">
+            이름 : <input th:value="${dto.name}" readonly/>
+            <br/>
+
+            <h5 for="birthInput">생년월일</h5>
+            <input name="newBirth" id="birthInput" autocomplete="off" th:value="${dto.birth}">
             <br/>
             <label>휴대폰 :</label>
-            <input type="text" id="phone" name="newPhone" th:value="${dto.phone}">
+            <input type="text" id="phoneInput" name="newPhone" th:value="${dto.phone}">
             <br/>
+
+<!--            <div>-->
+<!--                <h5>주소</h5>-->
+<!--                <input name="zipcode" id="zipcode" class="form-control zipcode" th:value="${dto.zipcode}" >-->
+<!--                <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>-->
+
+
+<!--                <input name="addr1" class="form-control"  id="addr1" th:value="${dto.addr1}" style="width : 330px; margin-top : 5px;"><br/>-->
+<!--                <input name="addr2" class="form-control" id="addr2" th:value="${dto.addr2}" style="width : 330px; margin-top : 5px;">-->
+<!--            </div>-->
+
             <label>주소 :</label>
-            <input type="text" id="zipcode" name="name" th:value="${dto.zipcode}"><br>
+
+            <input type="text" id="zipcode" name="newZipcode" th:value="${dto.zipcode}"><br>
             <input type="text" id="addr1" name="newAddr1" th:value="${dto.addr1}"><br>
             <input type="text" id="addr2" name="newAddr2" th:value="${dto.addr2}"><br>
             <br/>
@@ -283,6 +303,62 @@
         });
     }
 
+    <!--휴대폰 번호 입력 제한-->
+    const phoneInput = document.getElementById("phoneInput");
+
+    phoneInput.addEventListener("input", function(){
+        const inputValue = phoneInput.value.replace(/\D/g, "");
+<!--   입력시 숫자제외 입력 불가-->
+        phoneInput.value = inputValue;
+
+ if (inputValue.length >= 7) {
+        phoneInput.value =
+            inputValue.slice(0, 3) +
+            "-" +
+            inputValue.slice(3, 7) +
+            "-" +
+            inputValue.slice(7);
+    }
+
+});
+
+    <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
+        $(function() {
+            $("#birthInput").datepicker({
+                dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
+                changeMonth: true,      // 월 선택 가능
+                changeYear: true,       // 연도 선택 가능
+                yearRange: "c-100:c+10" // 년도 선택 범위 설정
+            });
+        });
+
+</script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+    const search_addr_btn = document.querySelector('.search_addr_btn');
+    search_addr_btn.addEventListener('click',function(){
+       new daum.Postcode({
+                oncomplete: function(data) {
+                    console.log(data);
+                    const zipcode = document.querySelector('.zipcode');
+                    const addr1 = document.querySelector('.addr1');
+
+                    if(data.userSelectedType==='R')
+                    {
+                        addr1.value = data.roadAddress;
+                    }
+                    else
+                    {
+                        addr1.value = data.jibunAddress;
+                    }
+                    zipcode.value=data.zonecode;
+
+                }
+            }).open();
+
+    });
 </script>
 
 </body>
