@@ -91,7 +91,7 @@ header>.menu>.middle-menu>.btn-primary:active,button:focus{
 header>.menu>.middle-menu>.btn-primary>svg{
   width : 22px;
     height : 22px;
-    margin-right : 10px;
+    margin-right : 18px;
     position : relative;
     right : 2px;
 }
