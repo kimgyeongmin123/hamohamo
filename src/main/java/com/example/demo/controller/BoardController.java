@@ -120,22 +120,40 @@ public class BoardController {
     public void update(@RequestParam Long number, Model model){
         log.info("GET /update no : " + number);
 
+        //-----------------------------------------------------------------------------------
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // UserRepository를 사용하여 사용자 정보 가져오기
+        User user = userRepository.findById(email).get();
+
+        // UserDto 객체 생성
+        UserDto dto = UserDto.EntityToDto(user);
+        // 사용자 정보에서 닉네임을 가져와서 설정
+        if (user != null) {
+            dto.setNickname(user.getNickname());
+        }
+
+        model.addAttribute("dto", dto);
+//--------------------------------------------------------------------------------------
+
         // 게시물 번호로 해당 게시물 정보 가져오기
         Optional<Board> boardOptional = boardRepository.findByNum(number);
 
         if (boardOptional.isPresent()) {
             Board board = boardOptional.get();
-            BoardDto dto = new BoardDto();
-            dto.setNumber(board.getNumber());
-            dto.setContents(board.getContents());
-            dto.setEmail(board.getEmail());
-            dto.setDate(board.getDate());
-            dto.setHits(board.getHits());
-            dto.setLike_count(board.getLike_count());
-            System.out.println("dto : " + dto);
+            BoardDto bdto = new BoardDto();
+            bdto.setNumber(board.getNumber());
+            bdto.setContents(board.getContents());
+            bdto.setEmail(board.getEmail());
+            bdto.setDate(board.getDate());
+            bdto.setHits(board.getHits());
+            bdto.setLike_count(board.getLike_count());
+            System.out.println("bdto : " + bdto);
 
             // 모델에 게시물 정보 전달
-            model.addAttribute("boardDto", dto);
+            model.addAttribute("boardDto", bdto);
 
         }
     }
