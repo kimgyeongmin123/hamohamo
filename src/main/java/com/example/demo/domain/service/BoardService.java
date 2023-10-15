@@ -288,5 +288,10 @@ public class BoardService {
         }
     }
 
+//    로그인한 사용자가 해당 글에 하트를 눌렀는지 확인 하기 위한 메서드(true/false)
+    public boolean hasUserLikedPost(User user, Board board) {
+        return heartRepository.existsByUserAndBoard(user, board);
+    }
+
 }
 

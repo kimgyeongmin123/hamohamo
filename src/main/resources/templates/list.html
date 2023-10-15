@@ -299,20 +299,6 @@
 
      }
 
-     // 빠른 메뉴 요소를 가져옵니다.
-var quickMenu = document.getElementById('quickMenu');
-
-// 스크롤 위치에 따라 빠른 메뉴를 표시/숨깁니다.
-function toggleQuickMenu() {
-    if (window.scrollY > 200) { // 스크롤 위치 기준 값을 조정하세요.
-        quickMenu.style.display = 'block';
-    } else {
-        quickMenu.style.display = 'none';
-    }
-}
-
-// 윈도우의 스크롤 이벤트에 이벤트 리스너를 추가합니다.
-window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -329,7 +315,8 @@ window.addEventListener('scroll', toggleQuickMenu);
             success: function(data) {
                 // 성공적으로 좋아요를 업데이트한 경우
                 console.log('좋아요 업데이트 성공');
-                window.location.href = "/list";
+                // 페이지를 다시 로드
+                location.reload();
             },
             error: function() {
                 console.error('좋아요 업데이트 실패');

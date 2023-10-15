@@ -226,38 +226,6 @@
 
   </div>
 
-  <!-- <div class="board-container">
-    <th:block th:each="board : ${board}">
-      <div class="board-item">
-        <div class="idbox">
-          <div id = board_id th:text="${board.email}">id</div>
-        </div>
-
-
-        <div id = board_img>
-          이미지 썸네일을 표시하는 이미지 태그
-          <img th:if="${not #strings.isEmpty(board.filename)}"
-               th:src="@{file:///C:/upload/user1/0ccb83f9-129e-46de-b4f4-b046a82b833d/${board.dirpath}/${board.filename}}"
-               alt="Thumbnail" width="200" height="auto" class="thumbnail">
-        </div>
-        <a th:href="'/read/' + ${board.number}">
-          <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
-        </a>
-        <div class="date-box">
-          <div th:text="${board.date}">date</div>
-          <div class="hits-like">
-            <div >조회수
-              <div class="hits" th:text="${board.hits}">hits</div>
-            </div>
-            <div >따봉!
-              <div class="like" th:text="${board.like_count}">like</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </th:block>
-  </div> -->
-
 
   <!-- REPLY        -->
   <style>
@@ -677,5 +645,48 @@ reply_btn_el.addEventListener('click', function () {
 
 
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+  $('.like-button').click(function(event) {
+      event.preventDefault();
+      var url = $(this).attr('href');
+      $.ajax({
+          type: 'GET',
+          url: url,
+          success: function(data) {
+              // 성공적으로 좋아요를 업데이트한 경우
+              console.log('좋아요 업데이트 성공');
+              // 페이지를 다시 로드
+        location.reload();
+          },
+          error: function() {
+              console.error('좋아요 업데이트 실패');
+          }
+      });
+  });
+});
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('searchButton').addEventListener('click', function(event) {
+      event.preventDefault(); // 기본 동작을 막습니다.
+
+      // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+      var form = document.getElementById('searchForm');
+      var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+      if (selectedOption === 'nickname') {
+          form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+      } else {
+          form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+      }
+          form.submit(); // 폼 제출
+      });
+  });
+</script>
+
 </body>
 </html>

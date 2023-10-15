@@ -18,8 +18,6 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     Optional<Heart> findByUserAndBoard(User user, Board board);
 
-    List<Heart> findByBoard(Long board);
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Heart h WHERE h.user = ?1 AND h.board = ?2")

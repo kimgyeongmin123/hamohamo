@@ -68,6 +68,9 @@ public class BoardController {
         List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
         model.addAttribute("board", list);
 
+
+
+
         return list;
     }
 
@@ -278,7 +281,7 @@ public class BoardController {
             boolean isLiked = boardService.addLike(user, board);
             System.out.println("[보드컨트롤러]보드서비스의 에드라이크 호출끝");
 
-            //html로 isLiked 보내기
+            //html로 isLiked 보내기 왜?
             model.addAttribute("isLiked", isLiked);
 
             System.out.println("isLiked : " + isLiked);

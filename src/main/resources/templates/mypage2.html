@@ -477,6 +477,8 @@
     });
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
     $('.like-button').click(function(event) {
@@ -488,14 +490,15 @@
             success: function(data) {
                 // 성공적으로 좋아요를 업데이트한 경우
                 console.log('좋아요 업데이트 성공');
-                window.location.href = "/mypage";
+                // 페이지를 다시 로드
+          location.reload();
             },
             error: function() {
                 console.error('좋아요 업데이트 실패');
             }
         });
     });
-});
+  });
 </script>
 
 </body>

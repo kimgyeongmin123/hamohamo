@@ -248,61 +248,57 @@
    }, 1500);
 
      }
-
-     // 빠른 메뉴 요소를 가져옵니다.
-var quickMenu = document.getElementById('quickMenu');
-
-// 스크롤 위치에 따라 빠른 메뉴를 표시/숨깁니다.
-function toggleQuickMenu() {
-    if (window.scrollY > 200) { // 스크롤 위치 기준 값을 조정하세요.
-        quickMenu.style.display = 'block';
-    } else {
-        quickMenu.style.display = 'none';
-    }
-}
-
-// 윈도우의 스크롤 이벤트에 이벤트 리스너를 추가합니다.
-window.addEventListener('scroll', toggleQuickMenu);
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    function likeBoard(element) {
-        // 클릭한 엄지척 아이콘의 부모 요소에서 게시물 번호를 가져옵니다.
-        var boardNumber = element.getAttribute("data-board-number");
-
-        // 해당 게시물의 따봉 수를 가져옵니다.
-        var likeCountElement = document.querySelector(`.like-count[data-board-number="${boardNumber}"]`);
-        var currentLikeCount = parseInt(likeCountElement.textContent);
-
-        // 따봉 수를 1 증가시킵니다.
-        currentLikeCount += 1;
-
-        // 따봉 수를 업데이트합니다.
-        likeCountElement.textContent = currentLikeCount;
-
-        // 클릭한 이모티콘에 'liked' 클래스를 추가하고, 다른 이모티콘에는 'liked' 클래스를 제거합니다.
-        var likeIconElements = document.querySelectorAll('.like-icon');
-        likeIconElements.forEach(function(iconElement) {
-            if (iconElement.getAttribute("data-board-number") === boardNumber) {
-                iconElement.classList.add('liked');
-            } else {
-                iconElement.classList.remove('liked');
+    $(document).ready(function() {
+    $('.like-button').click(function(event) {
+        event.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data) {
+                // 성공적으로 좋아요를 업데이트한 경우
+                console.log('좋아요 업데이트 성공');
+                // 페이지를 다시 로드
+          location.reload();
+            },
+            error: function() {
+                console.error('좋아요 업데이트 실패');
             }
         });
-
-        // 이후 서버로 업데이트된 따봉 수와 게시물 번호를 보내는 로직을 추가해야 합니다.
-        // 서버 업데이트 로직은 원하는 방식으로 구현하셔야 합니다.
-        }
+    });
+  });
 </script>
 
 <script>
-    document.getElementById('searchButton').addEventListener('click', function(event) {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('searchButton').addEventListener('click', function(event) {
         event.preventDefault(); // 기본 동작을 막습니다.
 
         // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
         var form = document.getElementById('searchForm');
-        form.action = '/list/search-contents'; // 폼의 action 속성 변경
-        form.submit(); // 폼 제출
+        var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+        if (selectedOption === 'nickname') {
+            form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+        } else {
+            form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+        }
+            form.submit(); // 폼 제출
+        });
+    });
+</script>
+
+<script>
+    // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
+    document.querySelector(".up").addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // 부드러운 스크롤 사용
+        });
     });
 </script>
 
