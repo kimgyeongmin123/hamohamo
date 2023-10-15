@@ -70,43 +70,6 @@
 </head>
 <body class="scroll">
 
-
-<!--    알림 ----------------------------------------------------------------->
-
-<!-- Notification Panel -->
-<!--<div class="notification-panel" id="notificationPanel">-->
-<!--    &lt;!&ndash; 아무런 알림이 없을 때 &ndash;&gt;-->
-<!--    <div class="no-notifications">-->
-<!--        <p>새로운 알림이 없습니다.</p>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; 알림 목록을 표시할 곳 (댓글 또는 새로운 글) &ndash;&gt;-->
-<!--    <div class="notification-list">-->
-<!--        &lt;!&ndash; 여기에 알림 항목 추가 &ndash;&gt;-->
-<!--    </div>-->
-<!--</div>-->
-<script>
-    // "notification-icon"을 클릭하면 알림 패널 토글
-    var notificationPanel = document.getElementById('notificationPanel');
-    var notificationIcon = document.getElementById('notification-icon');
-
-    notificationIcon.addEventListener('click', function () {
-        if (notificationPanel.style.display === 'block') {
-            notificationPanel.style.display = 'none';
-        } else {
-            notificationPanel.style.display = 'block';
-            // 알림 패널 표시 시, 여기에서 서버로부터 알림 목록을 가져오고 동적으로 추가할 수 있습니다.
-            // 예: 새로운 댓글 알림을 가져와서 알림 목록에 추가하는 코드
-            // var newNotification = document.createElement('div');
-            // newNotification.classList.add('notification-item');
-            // newNotification.textContent = '새로운 댓글이 달렸습니다.';
-            // notificationPanel.querySelector('.notification-list').appendChild(newNotification);
-            // newNotification.classList.add('slideIn'); // 애니메이션 적용
-        }
-    });
-</script>
-
-<!--    알림 ----------------------------------------------------------------->
-
 <header>
     <div class="menu">
 
