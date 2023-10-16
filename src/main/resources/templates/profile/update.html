@@ -237,9 +237,9 @@
             <br/>
             비밀번호 : <a href="/leave">비밀번호 변경하기</a>
             <br/>
-            <label for="nickname">닉네임 :</label>
-            <input type="text" id="nickname" name="newNickname" th:value="${dto.nickname}">
-            <button class="jung-btn" onclick="checkNicknameDuplicate('nickname')">중복체크</button>
+            <label for="nicknameInput">닉네임 :</label>
+            <input type="text" id="nicknameInput" name="newNickname" th:value="${dto.nickname}">
+            <button class="jung-btn" onclick="checkNicknameDuplicate('nicknameInput')">중복체크</button>
             <br/>
 
             이름 : <input th:value="${dto.name}" readonly/>
@@ -273,13 +273,14 @@
 </main>
 
 <script>
+let isNicknameChecked = false;
     // <!--닉네임 중복체크-->
-    function checkNicknameDuplicate(nickname) {
-        const inputValue = $("#" + nickname).val();
+    function checkNicknameDuplicate(nicknameInput) {
+        const inputValue = $("#" + nicknameInput).val();
         $.ajax({
             url: "/checkNicknameDuplicate",
             type: "POST",
-            data: {value: inputValue, field: newNickname},
+            data: {value: inputValue, field: nicknameInput},
             success: function (response) {
                 if (response.duplicate) {
                       alert("이미 존재하는 닉네임입니다.");

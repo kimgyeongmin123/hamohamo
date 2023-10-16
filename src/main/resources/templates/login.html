@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,9 +144,283 @@
 </div>
 
 <div class="join">
-    회원이 아니신가요?&nbsp;&nbsp;<a href="/join">회원가입</a>
+    회원이 아니신가요?&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        회원가입
+    </button>
 </div>
 
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form name="joinform" action="/join" method="post" onsubmit="return false">
+                    <div>
+                        <div >
+                            <h5 for="emailInput">이메일</h5>
+                            <input name="email" id="emailInput">
+                            <button class="jung-btn" onclick="checkDuplicate('emailInput')">중복체크</button><br/>
+                        </div>
+
+                        <div>
+                            <h5 for="passwordInput">비밀번호</h5>
+                            <input name="password" type="password" id="passwordInput"><br/>
+                        </div>
+                        <div>
+                            <h5 for="passwordConfirmInput">비밀번호확인</h5>
+                            <input name="passwordConfirm" type="password" id="passwordConfirmInput"><br/>
+                        </div>
+
+                        <div>
+                            <h5 for="nicknameInput">사용할 닉네임</h5>
+                            <input name="nickname" id="nicknameInput">
+                            <button class="jung-btn" onclick="checkNicknameDuplicate('nicknameInput')">중복체크</button><br/>
+                        </div>
+
+                        <div>
+                            <h5 for="nameInput">성명</h5>
+                            <input name="name" id="nameInput"><br/>
+                        </div>
+
+                        <div>
+                            <h5 for="birthInput">생년월일</h5>
+                            <input name="birth" id="birthInput" autocomplete="off"><br/>
+                        </div>
+
+                        <div>
+                            <h5 for="phoneInput">휴대폰</h5>
+                            <input name="phone" id="phoneInput" maxlength="13"><br/>
+                        </div>
+
+                        <div>
+                            <h5>주소</h5>
+                            <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" >
+                            <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>
+
+
+                            <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;"><br/>
+                            <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
+                        </div>
+                        <div>
+                            <h5 for="questionInput">질문 선택</h5>
+                            <select name="question" id="questionInput">
+                                <option value="질문1">당신의 어린시절 별명은?</option>
+                                <option value="질문2">당신이 제일 존경하는 사람은?</option>
+                                <option value="질문3">당신의 보물 제1호는?</option>
+                                <option value="질문4">당신의 인생 좌우명은?</option>
+                                <option value="질문5">당신의 MBTI는?</option>
+                                <option value="질문6">당신이 제일 좋아하는 게임은?</option>
+                            </select><br/>
+                        </div>
+                        <div>
+                            <h5 for="answerInput">질문에 대한 답변</h5>
+                            <input name="answer" id="answerInput" type="text"><br/>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="jechul">
+                        <button onclick="isValid()" class="joinbtn">회원가입</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    <!-- 이메일중복체크  -->
+        let isEmailChecked = false;
+        let isNicknameChecked = false;
+
+        function checkDuplicate(emailInput) {
+            const inputValue = $("#" + emailInput).val();
+            $.ajax({
+                url: "/checkDuplicate",
+                type: "POST",
+                data: {value: inputValue, field: emailInput},
+                success: function (response) {
+                    if (response.duplicate) {
+                          alert("이미 존재하는 이메일입니다.");
+                          isEmailChecked = false;
+                    } else {
+                        alert("사용 가능한 이메일입니다.");
+                        isEmailChecked = true;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생 : ", error);
+                    isEmailChecked = false;
+                }
+            });
+        }
+
+
+    <!--닉네임 중복체크-->
+        function checkNicknameDuplicate(nicknameInput) {
+            const inputValue = $("#" + nicknameInput).val();
+            $.ajax({
+                url: "/checkNicknameDuplicate",
+                type: "POST",
+                data: {value: inputValue, field: nicknameInput},
+                success: function (response) {
+                    if (response.duplicate) {
+                          alert("이미 존재하는 닉네임입니다.");
+                          isNicknameChecked = false;
+                    } else {
+                        alert("사용 가능한 닉네임입니다.");
+                        isNicknameChecked = true;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생 : ", error);
+                    isNicknameChecked = false;
+                }
+            });
+        }
+    <!--휴대폰 번호 입력 제한-->
+        const phoneInput = document.getElementById("phoneInput");
+
+        phoneInput.addEventListener("input", function(){
+            const inputValue = phoneInput.value.replace(/\D/g, "");
+    <!--   입력시 숫자제외 입력 불가-->
+            phoneInput.value = inputValue;
+
+     if (inputValue.length >= 7) {
+            phoneInput.value =
+                inputValue.slice(0, 3) +
+                "-" +
+                inputValue.slice(3, 7) +
+                "-" +
+                inputValue.slice(7);
+        }
+
+    });
+
+
+        <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
+            $(function() {
+                $("#birthInput").datepicker({
+                    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
+                    changeMonth: true,      // 월 선택 가능
+                    changeYear: true,       // 연도 선택 가능
+                    yearRange: "c-100:c+10" // 년도 선택 범위 설정
+                });
+            });
+    <!--회원가입 버튼누를시 빈칸이나 중복체크를 안했을때-->
+            const isValid = () => {
+                const form = document.joinform;
+                const password = form.password.value.trim();
+                const passwordConfirm = form.passwordConfirm.value.trim();
+                const phoneInput = form.phoneInput.value.trim();
+
+                if (form.email.value.trim() ==  "")
+                {
+                    alert("이메일을 입력하세요.");
+                    return;
+                }
+                if (!isEmailChecked){
+                    alert("이메일 중복 체크를 해주세요.");
+                    return;
+                }
+                if (form.password.value.trim() == "")
+                {
+                    alert("비밀번호를 입력하세요.");
+                    return;
+                }
+                if (form.passwordConfirm.value.trim() == "")
+                {
+                    alert("비밀번호를 다시입력하세요.");
+                    return;
+                }
+                if (password != passwordConfirm)
+                {
+                    alert("비밀번호가 일치하지 않습니다.");
+                    return;
+                }
+                if (form.nickname.value.trim() == "")
+                {
+                    alert("닉네임을 입력하세요.");
+                    return;
+                }
+                if (!isNicknameChecked) {
+                    alert("닉네임 중복 체크를 해주세요.");
+                    return;
+                }
+                 if (form.name.value.trim() == "")
+                {
+                    alert("이름을 입력하세요.");
+                    return;
+                }
+                if (form.birth.value.trim() == "")
+                {
+                    alert("생년월일을 입력하세요.");
+                    return;
+                }
+                if (form.phone.value.trim() == "")
+                {
+                    alert("휴대폰번호를 입력하세요.");
+                    return;
+                }
+                const pattern = /^010-\d{4}-\d{4}$/;
+                if (!pattern.test(phoneInput)){
+                    alert("올바른 휴대폰 번호를 입력하세요.");
+                    return;
+                }
+                if (form.zipcode.value.trim() == "")
+                {
+                    alert("우편번호를 입력하세요.");
+                    return;
+                }
+                if (form.addr2.value.trim() == "")
+                {
+                    alert("상세주소를 입력하세요.");
+                    return;
+                }
+                if (form.answer.value.trim() == "")
+                {
+                    alert("질문의 답을 입력하세요.");
+                    return;
+                }
+
+           form.submit();
+            }
+    </script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+        const search_addr_btn = document.querySelector('.search_addr_btn');
+        search_addr_btn.addEventListener('click',function(){
+           new daum.Postcode({
+                    oncomplete: function(data) {
+                        console.log(data);
+                        const zipcode = document.querySelector('.zipcode');
+                        const addr1 = document.querySelector('.addr1');
+
+                        if(data.userSelectedType==='R')
+                        {
+                            addr1.value = data.roadAddress;
+                        }
+                        else
+                        {
+                            addr1.value = data.jibunAddress;
+                        }
+                        zipcode.value=data.zonecode;
+
+                    }
+                }).open();
+
+        });
+    </script>
 
 
 <script>
