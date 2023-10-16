@@ -2,6 +2,8 @@ package com.example.demo.domain.service;
 
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.User;
+import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,12 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BoardRepository boardRepository;
+
+    @Autowired
+    HeartRepository heartRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
@@ -58,6 +66,9 @@ public class UserService {
                 User user = userOptional.get(); // Optional에서 User를 얻는 방법
                 // 비밀번호 확인
                 if (passwordEncoder.matches(password, user.getPassword())) {
+
+                    heartRepository.deleteByUser(user.getEmail());
+                    boardRepository.deleteByNickname(user.getNickname());
                     userRepository.delete(user);
                     return true;
                 }

@@ -258,6 +258,7 @@ public class UserController {
 		if (isWithdrawn) {
 			// 회원 탈퇴 성공 시 로그아웃 및 리다이렉션
 			SecurityContextHolder.getContext().setAuthentication(null);
+			
 			return "redirect:/login?msg=withdrawn";
 		} else {
 			// 회원 탈퇴 실패 시 오류 메시지 표시
