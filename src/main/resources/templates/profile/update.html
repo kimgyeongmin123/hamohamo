@@ -257,9 +257,9 @@
             <h5>주소 :</h5>
 
             <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button>
-            <input type="text" class="form-control zipcode" id="zipcode" name="newZipcode" th:value="${dto.zipcode}">
-            <input type="text" class="form-control addr1" id="addr1" name="newAddr1" th:value="${dto.addr1}"><br/>
-            <input type="text" id="addr2" name="newAddr2" th:value="${dto.addr2}">
+            <input type="text" class="form-control zipcode" name="newZipcode" th:value="${dto.zipcode}">
+            <input type="text" class="form-control addr1" name="newAddr1" th:value="${dto.addr1}"><br/>
+            <input type="text" name="newAddr2" th:value="${dto.addr2}">
             <br/>
             <button type="submit">수정</button>
         </form>
