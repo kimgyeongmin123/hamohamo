@@ -91,9 +91,10 @@ public class BoardService {
 
                 //파일명 추출
                 String filename = file.getOriginalFilename();
-                //파일객체 생성
 
+                //파일객체 생성
                 File fileobj = new File(path,filename);
+
                 //업로드
                 file.transferTo(fileobj);
 

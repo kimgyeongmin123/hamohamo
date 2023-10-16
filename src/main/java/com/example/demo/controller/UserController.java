@@ -248,9 +248,6 @@ public class UserController {
 
 		}
 	}
-
-
-
 	@PostMapping("/user/withdraw")
 	public String withdrawUserPost(@RequestParam String password, RedirectAttributes redirectAttributes) {
 		// 현재 인증된 사용자의 이메일 가져오기
