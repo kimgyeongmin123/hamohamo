@@ -198,8 +198,8 @@ public class UserController {
 			dto.setNickname(user.getNickname());
 		}
 		System.out.println("MYPAGE : " + dto);
-		System.out.println("user.getEmail(): "+user.getEmail() );
-		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(user.getEmail());
+		System.out.println("user.getEmail(): "+user.getNickname() );
+		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(user.getNickname());
 
 
 		model.addAttribute("dto", dto);
