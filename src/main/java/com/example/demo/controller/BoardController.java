@@ -334,33 +334,33 @@ public class BoardController {
     //--------------------------------
     // /Board/reply/delete
     //--------------------------------
-    @GetMapping("/reply/delete/{bno}/{rno}")
-    public String delete(@PathVariable Long bno, @PathVariable Long rno){
-        log.info("GET /board/reply/delete bno,rno " + rno + " " + rno);
+    @GetMapping("/reply/delete/{bno}/{rnumber}")
+    public String delete(@PathVariable Long bno, @PathVariable Long rnumber){
+        log.info("GET reply/delete bno,rnumber " + rnumber + " " + rnumber);
 
-        boardService.deleteReply(rno);
+        boardService.deleteReply(rnumber);
 
-        return "redirect:/board/read?no="+bno;
+        return "redirect:/read/"+bno;
     }
 
     //--------------------------------
     // /board/reply/thumbsup
     //--------------------------------
     @GetMapping("/reply/thumbsup")
-    public String thumbsup(Long bno, Long rno)
+    public String thumbsup(Long bno, Long rnumber)
     {
 
-        boardService.thumbsUp(rno);
-        return "redirect:/board/read?no="+bno;
+        boardService.thumbsUp(rnumber);
+        return "redirect:/read/"+bno;
     }
     //--------------------------------
     // /board/reply/thumbsdown
     //--------------------------------
     @GetMapping("/reply/thumbsdown")
-    public String thumbsudown(Long bno, Long rno)
+    public String thumbsudown(Long bno, Long rnumber)
     {
-        boardService.thumbsDown(rno);
-        return "redirect:/board/read?no="+bno;
+        boardService.thumbsDown(rnumber);
+        return "redirect:/read/"+bno;
     }
 
 

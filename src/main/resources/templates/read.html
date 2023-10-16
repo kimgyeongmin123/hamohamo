@@ -405,6 +405,7 @@ reply_btn_el.addEventListener('click', function () {
       const reply_contents_el = document.querySelector('.reply_contents');
       console.log("BNO : ", bno);
 
+
       axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
           .then(response => {
               console.log(response);
@@ -525,7 +526,7 @@ reply_btn_el.addEventListener('click', function () {
 
           // img 엘리먼트 생성
           var imgElement = document.createElement("img");
-          imgElement.src = "/images/하모하모기본프사.png";
+          imgElement.src = "/images/account.png";
           imgElement.alt = "";
 
           // header div에 img 엘리먼트 추가
@@ -548,11 +549,10 @@ reply_btn_el.addEventListener('click', function () {
 
 
           var delete_a = document.createElement("a");
-          delete_a.setAttribute("href","/board/reply/delete/"+reply.bno+"/"+reply.rnumber);       //DELETE HREF!!!!!!!!
-
+          delete_a.setAttribute("href","/reply/delete/"+reply.bno+"/"+reply.rnumber);
           var span3 = document.createElement("span");
           span3.className = "reply_delete material-symbols-outlined";
-          span3.textContent = "remove";
+          span3.innerHTML = "&#128465;";
           delete_a.appendChild(span3);
 
           contentDiv.appendChild(span1);
@@ -576,13 +576,13 @@ reply_btn_el.addEventListener('click', function () {
           var likeLink = document.createElement("a");
           var dislikeLink = document.createElement("a");
 
-          likeLink.href = "/board/reply/thumbsup?bno="+reply.bno+"&rno=" + reply.rnumber;
-          dislikeLink.href = "/board/reply/thumbsdown?bno="+reply.bno+"&rno=" + reply.rnumber;
+          likeLink.href = "/reply/thumbsup?bno="+reply.bno+"&rnumber=" + reply.rnumber;
+          dislikeLink.href = "/reply/thumbsdown?bno="+reply.bno+"&rnumber=" + reply.rnumber;
 
           // 좋아요 아이콘과 개수 엘리먼트 생성
           var likeIcon = document.createElement("span");
           likeIcon.className = "material-icons me-1";
-          likeIcon.textContent = "👍";
+          likeIcon.textContent = "thumb_up";
           var likeCount = document.createElement("span");
           likeCount.className = "me-1";
           likeCount.textContent = reply.likecount;
@@ -590,17 +590,16 @@ reply_btn_el.addEventListener('click', function () {
           // 싫어요 아이콘과 개수 엘리먼트 생성
           var dislikeIcon = document.createElement("span");
           dislikeIcon.className = "material-icons me-1";
-          dislikeIcon.textContent = "👎";
+          dislikeIcon.textContent = "thumb_down";
           var dislikeCount = document.createElement("span");
           dislikeCount.className = "me-1";
           dislikeCount.textContent = reply.unlikecount;
-
-
 
           // 좋아요와 싫어요 엘리먼트를 좋아요 링크에 추가
           likeLink.appendChild(likeIcon);
           likeLink.appendChild(document.createTextNode(" "));
           likeLink.appendChild(likeCount);
+
 
           // 좋아요와 싫어요 엘리먼트를 싫어요 링크에 추가
           dislikeLink.appendChild(dislikeIcon);
