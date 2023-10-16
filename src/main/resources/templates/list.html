@@ -22,49 +22,6 @@
             font-weight: 800;
         }
 
-         /* 알림 패널 스타일 */
-        .notification-panel {
-            position: fixed;
-            top: 80px;
-            right: 0;
-            width: 300px;
-            height: 100%;
-            background-color: #fff;
-            border-left: 1px solid #ccc;
-            box-shadow: -1px 0 5px 0 rgba(0, 0, 0, 0.2);
-            display: none;
-            overflow-y: auto;
-        }
-
-        /* 알림 패널 내 알림 항목 스타일 */
-        .notification-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* 알림 패널 내 알림 항목 호버 효과 */
-        .notification-item:hover {
-            background-color: #f7f7f7;
-            cursor: pointer;
-        }
-
-        /* 알림 패널 내 알림 항목에 애니메이션 추가 (예: 글자 미끄러짐 효과) */
-        .notification-item.slideIn {
-            animation: slideIn 0.3s ease-in-out;
-        }
-
-        /* 애니메이션 키프레임 정의 */
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
     </style>
 </head>
 <body class="scroll">
@@ -74,7 +31,6 @@
 
         <div class="logo">
             <a href="/list"> <img src="images/logo.png" max-width="100%" height="15"/> </a>
-            <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
         </div>
 
         <div class="middle-menu">

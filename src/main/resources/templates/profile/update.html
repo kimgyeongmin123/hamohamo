@@ -181,11 +181,9 @@
 
                 <form action="/post" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>작성자 </label>
-                        <span th:text="${dto.nickname}"></span><br/>
+                        <label for="nickname">작성자 </label>
+                        <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" readonly/><br/>
 
-                        <!-- <label for="email">글쓴이 이메일 </label>
-                        <input type="text" id="email" name="email" th:value="${#authentication.principal.username}" readonly /> -->
                     </div>
 
                     <div class="form-group">
