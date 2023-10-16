@@ -138,6 +138,7 @@ public class BoardService {
                 // 게시물의 이미지 파일들을 삭제
                 deleteImageFiles(board.getDirpath());
             // 게시물 삭제
+            heartRepository.deleteByBoard(board);
             boardRepository.delete(board);
 
             return true;

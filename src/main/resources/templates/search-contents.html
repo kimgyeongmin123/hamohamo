@@ -208,9 +208,7 @@
                     <div id = board_img>
                         <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                         <div class="img">
-                            <img th:if="${not #strings.isEmpty(board.filename)}"
-                                 th:src="@{c:\upload\jwg8910@naver.com\19369dec-ed1d-443f-ad01-dd1b358c2ce5\IT_바탕화면.jpg}"
-                                 alt="Thumbnail">
+                            <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
                         </div>
                         <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                     </div>
