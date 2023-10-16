@@ -45,7 +45,7 @@ public class BoardController {
     @GetMapping("/list")
     public List<Board> list(Model model){
         log.info("GET /list");
-
+//----------------------------------------------------------------
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
@@ -63,7 +63,7 @@ public class BoardController {
         }
 
         model.addAttribute("dto", dto);
-
+//------------------------------------------------------------------
 
         // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
         List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
@@ -98,6 +98,7 @@ public class BoardController {
 
     @PostMapping("/post")
     public String post_post(
+            @RequestParam("nickname") String nickname,
             @Valid BoardDto dto,
             @RequestParam("files") MultipartFile[] files,
             BindingResult bindingResult,
@@ -159,7 +160,7 @@ public class BoardController {
             BoardDto bdto = new BoardDto();
             bdto.setNumber(board.getNumber());
             bdto.setContents(board.getContents());
-            bdto.setEmail(board.getEmail());
+            bdto.setNickname(board.getNickname());
             bdto.setDate(board.getDate());
             bdto.setHits(board.getHits());
             bdto.setLike_count(board.getLike_count());

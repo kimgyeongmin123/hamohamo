@@ -51,7 +51,7 @@ public class BoardService {
         System.out.println("upload File Count : " +dto.getFiles().length);
 
         Board board = new Board();
-        board.setEmail(dto.getEmail());
+        board.setNickname(dto.getNickname());
         board.setContents(dto.getContents());
         board.setDate(LocalDateTime.now());
         board.setHits(0L);
@@ -67,11 +67,11 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getEmail();
+            String path = uploadDir+ File.separator+dto.getNickname();
             File dir = new File(path);
 
             // 이메일과 UUID 추출
-            String extractedEmail = dto.getEmail();
+            String extractedEmail = dto.getNickname();
 
             // 이메일과 UUID를 이용하여 디렉토리 경로 생성
             String dirPath = "http://localhost:8080/images/" + extractedEmail;

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDto {
     private Long number;
-    private String email;
+    private String nickname;
     private String contents;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -22,7 +22,7 @@ public class BoardDto {
     public static BoardDto Of(Board board) {
         BoardDto dto = new BoardDto();
         dto.number = board.getNumber();
-        dto.email=board.getEmail();
+        dto.nickname=board.getNickname();
         dto.contents = board.getContents();
         dto.date = board.getDate();
         dto.hits = board.getHits();
