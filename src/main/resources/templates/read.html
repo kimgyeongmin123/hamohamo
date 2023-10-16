@@ -335,7 +335,6 @@
 
     .reply_delete{
         position:relative;
-        border : 1px solid red;
     }
 
     .reply_delete:hover{
@@ -587,7 +586,7 @@ reply_btn_el.addEventListener('click', function () {
           // 좋아요 아이콘과 개수 엘리먼트 생성
           var likeIcon = document.createElement("span");
           likeIcon.className = "material-icons me-1";
-          likeIcon.textContent = "thumb_up";
+          likeIcon.textContent = "👍";
           var likeCount = document.createElement("span");
           likeCount.className = "me-1";
           likeCount.textContent = reply.likecount;
@@ -595,7 +594,7 @@ reply_btn_el.addEventListener('click', function () {
           // 싫어요 아이콘과 개수 엘리먼트 생성
           var dislikeIcon = document.createElement("span");
           dislikeIcon.className = "material-icons me-1";
-          dislikeIcon.textContent = "thumb_down";
+          dislikeIcon.textContent = "👎";
           var dislikeCount = document.createElement("span");
           dislikeCount.className = "me-1";
           dislikeCount.textContent = reply.unlikecount;

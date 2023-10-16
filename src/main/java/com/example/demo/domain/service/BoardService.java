@@ -35,7 +35,7 @@ public class BoardService {
 
 
 
-    private String uploadDir = "c://";
+    private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
 
     @Autowired
     private BoardRepository boardRepository;
@@ -67,14 +67,20 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getEmail()+File.separator+ UUID.randomUUID();
+            String path = uploadDir+ File.separator+dto.getEmail();
             File dir = new File(path);
+
+            // 이메일과 UUID 추출
+            String extractedEmail = dto.getEmail();
+
+            // 이메일과 UUID를 이용하여 디렉토리 경로 생성
+            String dirPath = "http://localhost:8080/images/" + extractedEmail;
+
             if(!dir.exists()) {
                 dir.mkdirs();
             }
             //board에 경로 추가
-            board.setDirpath(dir.toString());
-
+            board.setDirpath(dirPath);
 
             for(MultipartFile file  : dto.getFiles())
             {
@@ -95,18 +101,18 @@ public class BoardService {
                 filenames.add(filename);
                 filesizes.add(file.getSize()+"");
 
-                //섬네일이미지 파일 만들기
-
-                File thumbnailFile = new File(path, "s_" + filename);
-
-                BufferedImage bo_img = ImageIO.read(fileobj);
-                double ratio = 3;
-                int width = (int) (bo_img.getWidth() / ratio);
-                int height = (int) (bo_img.getHeight() / ratio);
-
-                Thumbnails.of(fileobj)
-                        .size(width, height)
-                        .toFile(thumbnailFile);
+//                //섬네일이미지 파일 만들기
+//
+//                File thumbnailFile = new File(path, "s_" + filename);
+//
+//                BufferedImage bo_img = ImageIO.read(fileobj);
+//                double ratio = 3;
+//                int width = (int) (bo_img.getWidth() / ratio);
+//                int height = (int) (bo_img.getHeight() / ratio);
+//
+//                Thumbnails.of(fileobj)
+//                        .size(width, height)
+//                        .toFile(thumbnailFile);
             }
         }
 
@@ -132,8 +138,6 @@ public class BoardService {
                 // 게시물의 이미지 파일들을 삭제
                 deleteImageFiles(board.getDirpath());
             // 게시물 삭제
-            heartRepository.deleteByBoard(board);
-
             boardRepository.delete(board);
 
             return true;

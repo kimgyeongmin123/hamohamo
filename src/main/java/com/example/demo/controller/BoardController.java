@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
@@ -74,32 +75,34 @@ public class BoardController {
         return list;
     }
 
-    @GetMapping("/post")
-    public void post_get(Model model){
-        log.info("GET /post");
-        // 현재 인증된 사용자의 이메일 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        // UserDto 객체 생성
-        UserDto dto = new UserDto();
-
-        // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findByEmail(email);
-
-        // 사용자 정보에서 닉네임을 가져와서 설정
-        if (user != null) {
-            dto.setNickname(user.getNickname());
-        }
-
-        model.addAttribute("dto", dto);
-    }
+//    @GetMapping("/post")
+//    public void post_get(Model model){
+//        log.info("GET /post");
+//        // 현재 인증된 사용자의 이메일 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String email = authentication.getName();
+//
+//        // UserDto 객체 생성
+//        UserDto dto = new UserDto();
+//
+//        // UserRepository를 사용하여 사용자 정보 가져오기
+//        User user = userRepository.findByEmail(email);
+//
+//        // 사용자 정보에서 닉네임을 가져와서 설정
+//        if (user != null) {
+//            dto.setNickname(user.getNickname());
+//        }
+//
+//        model.addAttribute("dto", dto);
+//    }
 
     @PostMapping("/post")
     public String post_post(
             @Valid BoardDto dto,
+            @RequestParam("files") MultipartFile[] files,
             BindingResult bindingResult,
-            Model model
+            Model model,
+            RedirectAttributes redirectAttributes
     ) throws IOException {
         log.info("POST /post");
 
@@ -108,15 +111,22 @@ public class BoardController {
                 log.info(error.getField() + " : " + error.getDefaultMessage());
                 model.addAttribute(error.getField(), error.getDefaultMessage());
             }
-            return "/post"; // 폼 다시 표시
+            return "/list"; // 폼 다시 표시
         }
+
+        if (files == null || files.length == 0 || files[0].isEmpty()) {
+            // 이미지를 첨부하지 않은 경우
+            redirectAttributes.addFlashAttribute("error", "이미지를 첨부해주세요.");
+            return "redirect:/list";
+        }
+
 
         boolean isAdd = boardService.addBoard(dto);
 
         if (isAdd) {
             return "redirect:/list";
         }
-        return "redirect:/post";
+        return "redirect:/list";
     }
 
     @GetMapping("/update")
@@ -323,33 +333,33 @@ public class BoardController {
     //--------------------------------
     // /Board/reply/delete
     //--------------------------------
-    @GetMapping("/reply/delete/{bno}/{rnumber}")
-    public String delete(@PathVariable Long bno, @PathVariable Long rnumber){
-        log.info("GET /board/reply/delete bno,rnumber " + rnumber + " " + rnumber);
+    @GetMapping("/reply/delete/{bno}/{rno}")
+    public String delete(@PathVariable Long bno, @PathVariable Long rno){
+        log.info("GET /board/reply/delete bno,rno " + rno + " " + rno);
 
-        boardService.deleteReply(rnumber);
+        boardService.deleteReply(rno);
 
-        return "redirect:/read/"+bno;
+        return "redirect:/board/read?no="+bno;
     }
 
     //--------------------------------
     // /board/reply/thumbsup
     //--------------------------------
     @GetMapping("/reply/thumbsup")
-    public String thumbsup(Long bno, Long rnumber)
+    public String thumbsup(Long bno, Long rno)
     {
 
-        boardService.thumbsUp(rnumber);
-        return "redirect:/read/"+bno;
+        boardService.thumbsUp(rno);
+        return "redirect:/board/read?no="+bno;
     }
     //--------------------------------
     // /board/reply/thumbsdown
     //--------------------------------
     @GetMapping("/reply/thumbsdown")
-    public String thumbsudown(Long bno, Long rnumber)
+    public String thumbsudown(Long bno, Long rno)
     {
-        boardService.thumbsDown(rnumber);
-        return "redirect:/read/"+bno;
+        boardService.thumbsDown(rno);
+        return "redirect:/board/read?no="+bno;
     }
 
 
