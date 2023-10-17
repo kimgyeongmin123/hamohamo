@@ -39,7 +39,7 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     void deleteByNickname(@Param("nickname") String nickname);
 
     @Query("UPDATE Board b SET b.nickname = :newNickname WHERE b.nickname = :oldNickname")
-    void updateNickname(@Param("newNickname") String newNickname, @Param("newNickname") String oldNickname);
+    void updateNickname(@Param("newNickname") String newNickname, @Param("oldNickname") String oldNickname);
 
 
 

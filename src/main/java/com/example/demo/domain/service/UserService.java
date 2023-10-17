@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,6 +30,9 @@ public class UserService {
     @Autowired
     HeartRepository heartRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
@@ -41,6 +46,8 @@ public class UserService {
                 //원래 닉네임 따로 저장
                 String oldNickname = user.getNickname();
 
+                System.out.println("oldNickname: " + oldNickname);
+
                 //바뀐 정보들을 set
                 user.setNickname(newNickname);
                 user.setBirth(newBirth);
@@ -50,8 +57,14 @@ public class UserService {
                 user.setAddr2(newAddr2);
 
                 //바뀐 정보들을 save
+
+                // 바뀐 정보들을 save
+                entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
+                        .setParameter("newNickname", newNickname)
+                        .setParameter("oldNickname", oldNickname)
+                        .executeUpdate();
+
                 userRepository.save(user);
-                //boardRepository.updateNickname(newNickname, oldNickname);
 
                 System.out.println("user: " +user);
 
