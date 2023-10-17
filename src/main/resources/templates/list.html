@@ -157,6 +157,7 @@
 
                 <form action="/post" method="post" enctype="multipart/form-data">
                     <div class="form-group">
+                        <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />
                         <label for="nickname">작성자 </label>
                         <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" readonly/><br/>
 

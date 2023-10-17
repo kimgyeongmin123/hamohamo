@@ -60,6 +60,7 @@ public class BoardController {
         // 사용자 정보에서 닉네임을 가져와서 설정
         if (user != null) {
             dto.setNickname(user.getNickname());
+            dto.setProfile(user.getProfile());
         }
 
         model.addAttribute("dto", dto);
