@@ -145,7 +145,7 @@
 
 <div class="join">
     회원이 아니신가요?&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         회원가입
     </button>
 </div>
@@ -156,87 +156,91 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">HAMOHAMO 회원가입</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
                 <form name="joinform" action="/join" method="post" onsubmit="return false">
+                    <br/>
+                    <span for="emailInput">이메일</span>
+                    <div style="display: flex;">
+                        <input name="email" id="emailInput" class="form-control">
+                        <button class="btn btn-secondary jung-btn" onclick="checkDuplicate('emailInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
+                    </div>
+                    <br/>
+
+                    <span for="passwordInput">비밀번호</span>
                     <div>
-                        <div >
-                            <h5 for="emailInput">이메일</h5>
-                            <input name="email" id="emailInput">
-                            <button class="jung-btn" onclick="checkDuplicate('emailInput')">중복체크</button><br/>
-                        </div>
-
-                        <div>
-                            <h5 for="passwordInput">비밀번호</h5>
-                            <input name="password" type="password" id="passwordInput"><br/>
-                        </div>
-                        <div>
-                            <h5 for="passwordConfirmInput">비밀번호확인</h5>
-                            <input name="passwordConfirm" type="password" id="passwordConfirmInput"><br/>
-                        </div>
-
-                        <div>
-                            <h5 for="nicknameInput">사용할 닉네임</h5>
-                            <input name="nickname" id="nicknameInput">
-                            <button class="jung-btn" onclick="checkNicknameDuplicate('nicknameInput')">중복체크</button><br/>
-                        </div>
-
-                        <div>
-                            <h5 for="nameInput">성명</h5>
-                            <input name="name" id="nameInput"><br/>
-                        </div>
-
-                        <div>
-                            <h5 for="birthInput">생년월일</h5>
-                            <input name="birth" id="birthInput" autocomplete="off"><br/>
-                        </div>
-
-                        <div>
-                            <h5 for="phoneInput">휴대폰</h5>
-                            <input name="phone" id="phoneInput" maxlength="13"><br/>
-                        </div>
-
-                        <div>
-                            <h5>주소</h5>
+                        <input name="password" type="password" id="passwordInput" class="form-control">
+                    </div>
+                    <br/>
+                    <span for="passwordConfirmInput">비밀번호확인</span>
+                    <div>
+                        <input name="passwordConfirm" type="password" id="passwordConfirmInput" class="form-control">
+                    </div>
+                    <br/>
+                    <span for="nicknameInput">사용할 닉네임</span>
+                    <div style="display: flex;">
+                        <input name="nickname" id="nicknameInput" class="form-control">
+                        <button class="btn btn-secondary jung-btn" onclick="checkNicknameDuplicate('nicknameInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
+                    </div>
+                    <br/>
+                    <span for="nameInput">성명</span>
+                    <div>
+                        <input name="name" id="nameInput" class="form-control">
+                    </div>
+                    <br/>
+                    <span for="birthInput">생년월일</span>
+                    <div>
+                        <input name="birth" id="birthInput" autocomplete="off" class="form-control">
+                    </div>
+                    <br/>
+                    <span for="phoneInput">휴대폰</span>
+                    <div>
+                        <input name="phone" id="phoneInput" maxlength="13" class="form-control">
+                    </div>
+                    <br/>
+                    <span>주소</span>
+                    <div>
+                        <div style="display : flex;">
                             <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" >
-                            <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button><br/>
+                            <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">주소검색</button>
+                        </div>
+
+                        <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;">
+                        <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
+                    </div>
+                    <br/>
+                    <span for="questionInput">질문 선택</span>
+                    <div>
+                        <select class="form-select" aria-label=".form-select-sm example" name="question" id="questionInput" style="font-size : 1.0rem;">
+                            <option value="질문1">당신의 어린시절 별명은?</option>
+                            <option value="질문2">당신이 가장 존경하는 사람은?</option>
+                            <option value="질문3">당신의 보물 제1호는?</option>
+                            <option value="질문4">당신의 인생 좌우명은?</option>
+                            <option value="질문5">당신의 MBTI는?</option>
+                            <option value="질문6">당신이 가장 즐겨하는 게임은?</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <span for="answerInput">답변</span>
+                    <div>
+                        <input name="answer" id="answerInput" type="text" class="form-control">                        </div>
 
 
-                            <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;"><br/>
-                            <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
-                        </div>
-                        <div>
-                            <h5 for="questionInput">질문 선택</h5>
-                            <select name="question" id="questionInput">
-                                <option value="질문1">당신의 어린시절 별명은?</option>
-                                <option value="질문2">당신이 제일 존경하는 사람은?</option>
-                                <option value="질문3">당신의 보물 제1호는?</option>
-                                <option value="질문4">당신의 인생 좌우명은?</option>
-                                <option value="질문5">당신의 MBTI는?</option>
-                                <option value="질문6">당신이 제일 좋아하는 게임은?</option>
-                            </select><br/>
-                        </div>
-                        <div>
-                            <h5 for="answerInput">질문에 대한 답변</h5>
-                            <input name="answer" id="answerInput" type="text"><br/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="jechul">
+                            <button onclick="isValid()" class="btn btn-secondary joinbtn">회원가입</button>
                         </div>
                     </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <div class="jechul">
-                        <button onclick="isValid()" class="joinbtn">회원가입</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
     <!-- 이메일중복체크  -->
         let isEmailChecked = false;
         let isNicknameChecked = false;
@@ -395,8 +399,8 @@
             }
     </script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
 
         const search_addr_btn = document.querySelector('.search_addr_btn');
         search_addr_btn.addEventListener('click',function(){
@@ -423,7 +427,7 @@
     </script>
 
 
-<script>
+    <script>
 
 
     function validateLoginForm() {
