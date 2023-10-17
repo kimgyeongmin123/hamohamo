@@ -238,35 +238,49 @@
 
 
         <form action="/profile/update" method="POST">
-            이메일(ID) : <span sec:authentication="principal.username"></span>
+            <span for="emailInput" style="margin-right : 18px;">이메일</span>
+            <span sec:authentication="principal.username"></span>
             <br/>
-            비밀번호 : <a href="/leave">비밀번호 변경하기</a>
+            <span for="emailInput" style="margin-right : 18px;">비밀번호</span>
+            <a href="/leave">비밀번호 변경하기</a>
             <br/>
-            <label for="nicknameInput">닉네임 :</label>
-            <input type="text" id="nicknameInput" name="newNickname" th:value="${dto.nickname}">
-            <button class="jung-btn" onclick="checkNicknameDuplicate('nicknameInput')">중복체크</button>
+            <span for="nicknameInput">사용할 닉네임</span>
+            <div style="display: flex;">
+                <input id="nicknameInput" name="newNickname" class="form-control" th:value="${dto.nickname}">
+                <button class="btn btn-secondary jung-btn" onclick="checkNicknameDuplicate('nicknameInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
+            </div>
+            <br/>
+            <span>성명</span>
+            <div>
+                <input class="form-control" th:value="${dto.name}" readonly>
+            </div>
             <br/>
 
-            이름 : <input th:value="${dto.name}" readonly/>
+            <span for="birthInput">생년월일</span>
+            <div>
+                <input name="newBirth" id="birthInput" autocomplete="off" class="form-control" th:value="${dto.birth}">
+            </div>
             <br/>
 
-            <h5 for="birthInput">생년월일</h5>
-            <input name="newBirth" id="birthInput" autocomplete="off" th:value="${dto.birth}">
+            <span>휴대폰</span>
+            <div>
+                <input name="newPhone" id="phoneInput" maxlength="13" class="form-control" th:value="${dto.phone}">
+            </div>
             <br/>
-            <label>휴대폰 :</label>
-            <input type="text" id="phoneInput" name="newPhone" th:value="${dto.phone}">
+
+            <span>주소</span>
+            <div>
+                <div style="display : flex;">
+                    <input name="newZipcode" class="form-control zipcode"  th:value="${dto.zipcode}">
+                    <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">주소검색</button>
+                </div>
+
+                <input name="newAddr1" class="form-control addr1"  th:value="${dto.addr1}" style="width : 330px; margin-top : 5px;">
+                <input name="newAddr2" class="form-control" th:value="${dto.addr2}" style="width : 330px; margin-top : 5px;">
+            </div>
             <br/>
 
-
-
-            <h5>주소 :</h5>
-
-            <button class="btn btn-secondary search_addr_btn" style="">우편번호 검색</button>
-            <input type="text" class="form-control zipcode" name="newZipcode" th:value="${dto.zipcode}">
-            <input type="text" class="form-control addr1" name="newAddr1" th:value="${dto.addr1}"><br/>
-            <input type="text" name="newAddr2" th:value="${dto.addr2}">
-            <br/>
-            <button type="submit">수정</button>
+            <button type="submit" class="btn btn-secondary">수정</button>
         </form>
 
         <div class="out">
