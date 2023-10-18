@@ -33,9 +33,8 @@
 
         main>.update{
             margin-top : 50px;
-            margin-left : 16%;
-            width : 450px;
             margin-bottom : 50px;
+            margin-right : 100px;
         }
 
         main>.update>h2{
@@ -260,11 +259,13 @@
 
 
         <form action="/profile/update" method="POST">
-            <span for="emailInput" style="margin-right : 18px;">이메일</span>
-            <span sec:authentication="principal.username"></span>
+            <span for="emailInput" style="margin-right : 35px;">이메일</span>
+            <span sec:authentication="principal.username">abc@acb.com</span>
+            <br/>
             <br/>
             <span for="emailInput" style="margin-right : 18px;">비밀번호</span>
             <a href="/leave">비밀번호 변경하기</a>
+            <br/>
             <br/>
             <span for="nicknameInput">사용할 닉네임</span>
             <div style="display: flex;">
@@ -290,7 +291,7 @@
             </div>
             <br/>
 
-            <span>주소</span>
+            <!-- <span>주소</span>
             <div>
                 <div style="display : flex;">
                     <input name="newZipcode" class="form-control zipcode"  th:value="${dto.zipcode}">
@@ -300,9 +301,9 @@
                 <input name="newAddr1" class="form-control addr1"  th:value="${dto.addr1}" style="width : 330px; margin-top : 5px;">
                 <input name="newAddr2" class="form-control" th:value="${dto.addr2}" style="width : 330px; margin-top : 5px;">
             </div>
-            <br/>
+            <br/> -->
 
-            <button type="submit" class="btn btn-secondary">수정</button>
+            <button type="submit" class="btn btn-secondary">제출</button>
         </form>
 
         <div class="out">
@@ -314,58 +315,58 @@
 </main>
 
 <script>
-let isNicknameChecked = false;
-    // <!--닉네임 중복체크-->
-    function checkNicknameDuplicate(nicknameInput) {
-        const inputValue = $("#" + nicknameInput).val();
-        $.ajax({
-            url: "/checkNicknameDuplicate",
-            type: "POST",
-            data: {value: inputValue, field: nicknameInput},
-            success: function (response) {
-                if (response.duplicate) {
-                      alert("이미 존재하는 닉네임입니다.");
-                      isNicknameChecked = false;
-                } else {
-                    alert("사용 가능한 닉네임입니다.");
-                    isNicknameChecked = true;
+    let isNicknameChecked = false;
+        // <!--닉네임 중복체크-->
+        function checkNicknameDuplicate(nicknameInput) {
+            const inputValue = $("#" + nicknameInput).val();
+            $.ajax({
+                url: "/checkNicknameDuplicate",
+                type: "POST",
+                data: {value: inputValue, field: nicknameInput},
+                success: function (response) {
+                    if (response.duplicate) {
+                          alert("이미 존재하는 닉네임입니다.");
+                          isNicknameChecked = false;
+                    } else {
+                        alert("사용 가능한 닉네임입니다.");
+                        isNicknameChecked = true;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생 : ", error);
+                    isNicknameChecked = false;
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error("오류 발생 : ", error);
-                isNicknameChecked = false;
-            }
-        });
-    }
-
-    <!--휴대폰 번호 입력 제한-->
-    const phoneInput = document.getElementById("phoneInput");
-
-    phoneInput.addEventListener("input", function(){
-        const inputValue = phoneInput.value.replace(/\D/g, "");
-<!--   입력시 숫자제외 입력 불가-->
-        phoneInput.value = inputValue;
-
- if (inputValue.length >= 7) {
-        phoneInput.value =
-            inputValue.slice(0, 3) +
-            "-" +
-            inputValue.slice(3, 7) +
-            "-" +
-            inputValue.slice(7);
-    }
-
-});
-
-    <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
-        $(function() {
-            $("#birthInput").datepicker({
-                dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
-                changeMonth: true,      // 월 선택 가능
-                changeYear: true,       // 연도 선택 가능
-                yearRange: "c-100:c+10" // 년도 선택 범위 설정
             });
-        });
+        }
+
+        <!--휴대폰 번호 입력 제한-->
+        const phoneInput = document.getElementById("phoneInput");
+
+        phoneInput.addEventListener("input", function(){
+            const inputValue = phoneInput.value.replace(/\D/g, "");
+    <!--   입력시 숫자제외 입력 불가-->
+            phoneInput.value = inputValue;
+
+     if (inputValue.length >= 7) {
+            phoneInput.value =
+                inputValue.slice(0, 3) +
+                "-" +
+                inputValue.slice(3, 7) +
+                "-" +
+                inputValue.slice(7);
+        }
+
+    });
+
+        <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
+            $(function() {
+                $("#birthInput").datepicker({
+                    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
+                    changeMonth: true,      // 월 선택 가능
+                    changeYear: true,       // 연도 선택 가능
+                    yearRange: "c-100:c+10" // 년도 선택 범위 설정
+                });
+            });
 
 </script>
 
@@ -415,38 +416,38 @@ let isNicknameChecked = false;
 </script>
 
 <script>
-// 프로필 업데이트 함수
+    // 프로필 업데이트 함수
 
-function updateProfile() {
-    const nickname = document.getElementById('nickname').value;
-    const newPhone = document.getElementById('phoneInput').value;
-    const newZipcode = document.getElementById('zipcode').value;
-    const newAddr1 = document.getElementById('addr1').value;
-    const newAddr2 = document.getElementById('addr2').value;
+    function updateProfile() {
+        const nickname = document.getElementById('nickname').value;
+        const newPhone = document.getElementById('phoneInput').value;
+        const newZipcode = document.getElementById('zipcode').value;
+        const newAddr1 = document.getElementById('addr1').value;
+        const newAddr2 = document.getElementById('addr2').value;
 
-    const requestBody = {
-        nickname: nickname,
-        phone: newPhone,
-        zipcode: newZipcode,
-        addr1: newAddr1,
-        addr2: newAddr2
-    };
+        const requestBody = {
+            nickname: nickname,
+            phone: newPhone,
+            zipcode: newZipcode,
+            addr1: newAddr1,
+            addr2: newAddr2
+        };
 
-    // 서버에 비동기 요청을 보냅니다.
-    axios.post('/profile/update', requestBody)
-        .then(response => {
-            console.log('프로필이 성공적으로 업데이트되었습니다.', response);
-            // 여기에서 추가적인 동작을 수행할 수 있습니다.
-        })
-        .catch(error => {
-            alert('프로필 업데이트 중 오류가 발생했습니다: ' + error.message);
-            console.error('프로필 업데이트 중 오류 발생:', error);
-        });
-}
+        // 서버에 비동기 요청을 보냅니다.
+        axios.post('/profile/update', requestBody)
+            .then(response => {
+                console.log('프로필이 성공적으로 업데이트되었습니다.', response);
+                // 여기에서 추가적인 동작을 수행할 수 있습니다.
+            })
+            .catch(error => {
+                alert('프로필 업데이트 중 오류가 발생했습니다: ' + error.message);
+                console.error('프로필 업데이트 중 오류 발생:', error);
+            });
+    }
 
-// 프로필 업데이트 버튼 클릭 이벤트에 updateProfile 함수를 연결합니다.
-const updateButton = document.getElementById('updateButton');
-updateButton.addEventListener('click', updateProfile);
+    // 프로필 업데이트 버튼 클릭 이벤트에 updateProfile 함수를 연결합니다.
+    const updateButton = document.getElementById('updateButton');
+    updateButton.addEventListener('click', updateProfile);
 
 </script>
 
