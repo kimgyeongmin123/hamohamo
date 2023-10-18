@@ -446,6 +446,16 @@
 </script>
 
 <script>
+    // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
+    document.querySelector(".up").addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // 부드러운 스크롤 사용
+        });
+    });
+</script>
+
+<script>
     // 스크롤 위치 저장
     window.addEventListener("scroll", function () {
         localStorage.setItem("scrollPosition", window.scrollY);
