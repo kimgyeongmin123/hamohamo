@@ -23,8 +23,6 @@
         }
 
         body {
-         width: 1024px;
-         height: 700px;
          margin: 50px auto;
          overflow: auto;
          max-height: 860px;
@@ -32,35 +30,39 @@
          top : 80px;
         }
 
-        .big{
+        .logo{
+            height : 113px;
             display : flex;
             align-items: center;
-            justify-content: space-around;
+        }
+
+        .big{
+            display : flex;
+            flex-direction: column;
+            align-items: center;
+
         }
 
         .loginform{
-            position : relative;
-            right : 100px;
-            width : 400px;
-            height : 600px;
+            width : 348px;
+            height : 379.984px;
+            padding-top : 10px;
+            padding-bottom : 10px;
+            margin-bottom : 10px;
+
+            border : 1px solid rgb(204, 204, 204);
+
             display: flex; /* 수직 중앙 정렬을 위해 flex 컨테이너로 설정 */
             flex-direction: column; /* 하위 요소들을 수직으로 배치 */
-            justify-content: center; /* 수직 가운데 정렬 */
             align-items: center;
         }
 
-        .nlogoimg{
-          position : relative;
-          left : 100px;
-        }
-
         .idpw{
-            padding-left : 5px;
         }
 
         .idpw > input{
-            margin-bottom : 10px;
-            height : 40px;
+            width : 226px;
+            height : 36px;
             font-size: 13px;
         }
         .form-check{
@@ -72,11 +74,25 @@
         .loginbtn{
           padding-bottom : 20px;
           margin-bottom : 30px;
-          border-bottom : 1px solid gray;
         }
+
+        .join{
+
+        }
+
+        .forget{
+            color : black;
+            text-decoration: none;
+        }
+
+        .forget:hover{
+            color : rgb(3, 153, 212);
+            font-weight: 600;
+        }
+
         .btn-lg{
-            width : 183px;
-            height : 45px;
+            width : 230px;
+            height :30px;
             margin-bottom : 20px;
             border-radius: 7px;
             color : #cfd7e0;
@@ -86,14 +102,25 @@
         }
 
         .find{
-            position : relative;
-            left : 515px;
-            bottom : 80px;
         }
         .join{
-            position : relative;
-            left : 515px;
-            bottom : 80px;
+            width : 348px;
+            height : 70px;
+            border : 1px solid rgb(204, 204, 204);
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            padding-top : 10px;
+            padding-bottom : 10px;
+            margin-bottom : 10px;
+            font-size: 0.9rem;
+        }
+
+        .join>button{
+            border-style: none;
+            background-color: white;
+            color : rgb(3, 153, 212);
+            font-weight: 600;
         }
 
         .otherlogin{
@@ -107,48 +134,57 @@
 
 </head>
 <body>
+<main>
+    <div class="big">
 
-<div class="big">
+        <div class="loginform">
 
-
-    <img src="images/nlogo.png" class="nlogoimg" max-width="100%" height="300"/>
-    <div class="loginform">
-        <form action="/login" method="post" onsubmit="return validateLoginForm()">
-
-            <div class="idpw">
-                <input name="username" id="username" placeholder="EMAIL"><br/>
-                <input name="password" type="password" id="password" placeholder="PASSWORD"><br/>
-            </div>
-
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
-                <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
-            </div>
-
-            <div class="loginbtn">
-                <!-- <input type="submit" class="jechul" value="HAMOHAMO 로그인"/> -->
-                <button type="submit" class="btn btn-secondary btn-lg">Login</button>
-            </div>
-
-        </form>
-        <div class="otherlogin">
-            <div><a href="/oauth2/authorization/kakao"><img src="images/kakaologin.png" width=100% height=45px/></a></div>
-            <div><a href="/oauth2/authorization/naver"><img src="images/naverlogin.png" width=100% height=45px/></a></div>
+            <form action="/login" method="post" onsubmit="return validateLoginForm()">
+                <div class="logo">
+                    <img src="images/logo.png" class="nlogoimg" max-width="100%" height="30"/>
+                </div>
+                <div class="idpw">
+                <input class="form-control" name="username" id="username" placeholder="EMAIL"><br/>
+                <input class="form-control" name="password" type="password" id="password" placeholder="PASSWORD" style="position : relative; bottom : 20px;"><br/>
         </div>
+
+        <!-- <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
+            <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
+        </div> -->
+
+        <div class="loginbtn">
+
+            <!-- <input type="submit" class="jechul" value="HAMOHAMO 로그인"/> -->
+            <button type="submit" class="btn btn-secondary btn-lg" style="position : relative; bottom : 30px;">Login</button>
+        </div>
+        </form>
+
+        <div class="find" style="width : 230px;border-top : 1px solid rgb(194, 194, 194);padding-top : 30px;text-align: center;position : relative;bottom : 50px;">
+            <a href="#" class="forget" style="font-size: 0.8rem; ">계정을 잊으셨나요?</a>
+        </div>
+
     </div>
 
-</div>
+    <div class="join">
+        계정이 없으신가요?
+        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            가입하기
+        </button>
+    </div>
 
-<div class="find">
-    <a href="#">아이디/비밀번호 찾기</a>
-</div>
 
-<div class="join">
-    회원이 아니신가요?&nbsp;&nbsp;
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        회원가입
-    </button>
-</div>
+    <div class="otherlogin" style="margin-top : 20px;">
+        <div><a href="/oauth2/authorization/kakao"><img src="images/kakaologin.png" width=100% height=45px/></a></div>
+        <div><a href="/oauth2/authorization/naver"><img src="images/naverlogin.png" width=100% height=45px/></a></div>
+    </div>
+
+    </div>
+</main>
+
+
+
+
 
 
 
@@ -226,7 +262,8 @@
                     <br/>
                     <span for="answerInput">답변</span>
                     <div>
-                        <input name="answer" id="answerInput" type="text" class="form-control">                        </div>
+                        <input name="answer" id="answerInput" type="text" class="form-control">
+                    </div>
 
 
                     <div class="modal-footer">
