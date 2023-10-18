@@ -22,6 +22,8 @@
             font-weight: 800;
         }
 
+
+
     </style>
 </head>
 <body class="scroll">
@@ -162,9 +164,19 @@
 
                     <div class="form-group" style="display : flex; flex-direction: column;">
                         <input class="form-control" type="file" id="formFile" name="files" multiple>
-                        <div class="miri" style="display : flex; align-items: center; justify-content: center;height : 600px;width : 500px;border : 1px solid gray;">
-                            미리보기
-                        </div>
+
+                        <section class="product_img_block">
+                            <div class="product_img">
+                                <div class="upload-box">
+                                    <div class="plus">+</div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <div>
+                                <label>PREVIEW</label>
+                                <div id="preview"></div>
+                            </div>
                     </div>
 
                     <div>
@@ -220,7 +232,6 @@
 
                     <a th:href="'/read/' + ${board.number}">
                         <div id = board_img>
-                            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
                                 <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
                             </div>
@@ -336,6 +347,65 @@
             behavior: "smooth" // 부드러운 스크롤 사용
         });
     });
+</script>
+
+
+<script>
+    const formData = new FormData();	//폼관련 정보 저장
+
+const uploadBox_el = document.querySelector('.upload-box');
+//dragenter / dragover /dragleave / drop
+
+uploadBox_el.addEventListener('dragenter',function(e){
+    e.preventDefault();
+    console.log("dragenter...");
+});
+uploadBox_el.addEventListener('dragover',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='0.5';
+    console.log("dragover...");
+
+});
+uploadBox_el.addEventListener('dragleave',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='1';
+    console.log("dragleave...");
+
+});
+
+//----------------------------------------------
+//
+//----------------------------------------------
+uploadBox_el.addEventListener('drop',function(e){
+    e.preventDefault();
+    console.log("drop...");
+    console.log(e);
+    console.log(e.dataTransfer);
+    console.log(e.dataTransfer.files[0]);
+
+    //유효성체크(이미지만, 하나씩만 , 용량제한 ...)
+    // 파일 유형 확인 및 이미지 파일만 처리
+    const imageFiles = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    if (imageFiles.length === 0) {
+            alert("이미지 파일만 가능합니다");
+            return;
+    }
+    //총이미지의 개수가 5개 이상이면 return(아직..)
+
+    //미리보기
+    const file = e.dataTransfer.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(event) {
+        const preview = document.getElementById('preview');
+        const img = document.createElement('img')
+        img.setAttribute('src',event.target.result);
+        preview.appendChild(img);
+    };
+    //formData에 저장
+    formData.append('files',file);
+
+});
 </script>
 
 

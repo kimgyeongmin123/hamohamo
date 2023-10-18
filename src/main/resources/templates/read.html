@@ -29,56 +29,61 @@
 <body class="scroll">
 <header>
   <div class="menu">
+    <div class="top-menu">
 
-    <div class="logo">
-      <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
-      <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
-    </div>
+      <div class="logo">
+        <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
+      </div>
 
-    <div class="middle-menu">
-      <a href="/list">
-        <div class="home" style="font-size: 1.2rem;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-          </svg>홈
-        </div>
-      </a>
+      <div class="middle-menu">
+        <a href="/list">
+          <div class="home" style="font-size: 1.2rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+              <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+              <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+            </svg>홈
+          </div>
+        </a>
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-        </svg>
-        검색
-      </button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+          검색
+        </button>
 
-      <a href="#">
-        <div class="message">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-          </svg>메시지
-        </div>
-      </a>
+        <a href="#" id="notification-icon">
+          <div class="message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>메시지
+          </div>
+        </a>
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-        </svg>알림
-      </button>
+        <button type="button" class="btn btn-primary position-relative bell" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+          </svg>알림
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        99+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+        </button>
 
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-        </svg>글쓰기
-      </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>글쓰기
+        </button>
 
-      <a href="/mypage">
-        <div class="mypage">
-          <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
-        </div>
-      </a>
+        <a href="/mypage">
+          <div class="mypage">
+            <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+          </div>
+        </a>
+      </div>
     </div>
 
 
@@ -98,6 +103,13 @@
 </header>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<div class="up">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
+  </svg>
+</div>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
@@ -137,40 +149,54 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">글쓰기</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <form action="/post" method="post" enctype="multipart/form-data">
+        <div class="modal-header" style="height : 40px;">
+          <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
+          <button type="submit" class="btn btn-primary submit-button">등록</button>
+        </div>
 
-      <div class="modal-body">
 
-        <form action="/post" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="nickname">작성자 </label>
-            <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" readonly/><br/>
 
-          </div>
+        <div class="modal-body" style="display : flex; justify-content: center;">
 
-          <div class="form-group">
+          <div class="form-group" style="display : flex; flex-direction: column;">
             <input class="form-control" type="file" id="formFile" name="files" multiple>
-            <div class="miri">
-              미리보기
+
+            <section class="product_img_block">
+              <div class="product_img">
+                <div class="upload-box">
+                  <div class="plus">+</div>
+                </div>
+              </div>
+            </section>
+
+            <div>
+              <label>PREVIEW</label>
+              <div id="preview"></div>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="contents"></label>
-            <textarea id="contents" name="contents" rows="4" required></textarea>
-          </div>
+          <div>
+            <div class="form-group" style="height : 38px;">
+              <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />
+              <label for="nickname"></label>
+              <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" style="border : 1px solid white;"readonly/><br/>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary submit-button">등록</button>
+            </div>
+
+            <div class="form-group">
+              <label for="contents"></label>
+              <textarea id="contents" name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -180,198 +206,203 @@
 <!-- /* COMMON 구간---------------------------------- */ -->
 
 <main>
+  <div class="BandF" style="margin-right : 300px;">
 
-  <div class="board">
+    <div class="board">
 
-    <th:block th:each="board : ${board}">
-      <div class="board-item">
+      <th:block th:each="board : ${board}">
+        <div class="board-item">
 
-        <div class="idbox">
-          <div>
-            <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
-            <div id = board_id th:text="${board.nickname}">id</div>|
-            <div class="date" th:text="${board.date}">date</div>
-          </div>
-          <div class="hits-box">조회
-            <div class="hits" th:text="${board.hits}">hits</div>
-          </div>
-        </div>
-
-
-        <a href="#">
-          <div id = board_img>
-            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-            <div class="img">
-              <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
+          <div class="idbox" style="width : 585px;">
+            <div>
+              <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+              <div id = board_id th:text="${board.nickname}">id</div>|
+              <div class="date" th:text="${board.date}">date</div>
             </div>
-            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+            <div class="hits-box">조회
+              <div class="hits" th:text="${board.hits}">hits</div>
+            </div>
           </div>
-        </a>
 
-        <div class="like">
-          <a th:href="@{'/like/' + ${board.number}}" class="like-button">
-            <span style="border-style : none;">❤️</span>
-            <!-- <span th:unless="${isLiked}">🖤</span> -->
+
+          <a href="#">
+            <div id = board_img>
+              <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+              <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
+                <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="585" height="650"/>
+              </div>
+              <div id=board_contents class="contents" th:text="${board.contents}" tyle="width : 585px;">contents</div>
+            </div>
           </a>
-          <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+
+          <div class="like" style="width : 585px;">
+            <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+              <span style="border-style : none;">❤️</span>
+              <!-- <span th:unless="${isLiked}">🖤</span> -->
+            </a>
+            <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+          </div>
+
         </div>
-
-      </div>
-    </th:block>
+      </th:block>
 
 
-  </div>
+    </div>
 
 
-  <!-- REPLY        -->
-  <style>
+    <!-- REPLY        -->
+    <style>
 
-    .reply--block{
-        position:relative;
-        top: 100px;
-        left: 5%;
-        width: 350px;
+      .reply--block{
+          position:relative;
+          top: 300px;
+          left: 20%;
+          width: 350px;
 
-        height: 620px;
-        border: 1px solid lightgray;
-        border-radius: 10px;
-        padding: 10px;
-        background-color: white;
-    }
+          height: 620px;
+          border: 1px solid lightgray;
+          border-radius: 10px;
+          padding: 10px;
+          background-color: white;
 
-    .reply--block  img{
-        width : 35px; height : 35px;
-    }
+          margin-right : 250px;
+          margin-left : 50px;
+      }
 
-    .reply--block a{
-        text-decoration : none;
-        color : gray;
-    }
+      .reply--block  img{
+          width : 35px; height : 35px;
+      }
 
-    .reply--block a:hover{
-        color : royalblue;
-    }
+      .reply--block a{
+          text-decoration : none;
+          color : gray;
+      }
 
-    .reply--block>.reply-header{
-        display:flex;
-        justify-content:space-evenly;
-        align-items:center;
-        margin-bottom:25px;
-    }
+      .reply--block a:hover{
+          color : royalblue;
+      }
 
-    .reply--block>.reply-header>*{
-        margin:5px;
-    }
+      .reply--block>.reply-header{
+          display:flex;
+          justify-content:space-evenly;
+          align-items:center;
+          margin-bottom:25px;
+      }
 
-    .reply--block>.reply-header>*:nth-child(2){
-        width : 400px;
-    }
+      .reply--block>.reply-header>*{
+          margin:5px;
+      }
 
-    .reply--block>.reply-header>*:nth-child(3){
-        width : 80px;
-    }
+      .reply--block>.reply-header>*:nth-child(2){
+          width : 400px;
+      }
 
-    .reply--block>.reply-body{
+      .reply--block>.reply-header>*:nth-child(3){
+          width : 80px;
+      }
 
-         height : 410px;
-         overflow : auto;
+      .reply--block>.reply-body{
 
-    }
+           height : 410px;
+           overflow : auto;
 
-    .reply--block>.reply-body>.items{}
+      }
 
-    .reply--block>.reply-body>.items>.item{
-        display:flex;
-        margin-bottom:5px;
-        width : 380px;
-    }
+      .reply--block>.reply-body>.items{}
 
-
-
-    .reply--block>.reply-body>.items>.item>*{
-        margin:5px;
-    }
-
-    reply--block>.reply-body>.items>.item>.body{
-      max-width : 300px;
-    }
-    .reply--block .item .body .contents {
-    max-width: 250px; /* 최대 넓이 설정 */
-    word-wrap: break-word; /* 텍스트가 너무 길어질 때 줄 바꿈 발생 */
-    /* 다른 스타일 속성 추가 가능 */
-}
-
-    .reply--block>.reply-body>.items>.item>.body>*{
-        margin-bottom:2px;
-
-    }
-
-     .reply--block>.reply-body>.items>.item>.body>*:nth-child(1)
-    ,.reply--block>.reply-body>.items>.item>.body>*:nth-child(3)
-    {
-       font-size : 0.8rem;
-       color : gray;
-    }
-
-    .reply--block>.reply-body>.items>.item>.body>*:nth-child(2){
-        font-size : 0.9rem;
-        color : #424242;
-    }
-
-    .reply--block .material-icons{
-        font-size:1rem;
-    }
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    .reply--block>.reply-body>.items>.item>.body{
-        position:relative;
-    }
-
-    .reply_delete{
-        position:relative;
-    }
-
-    .reply_delete:hover{
-        color : red;
-    }
-
-    .reply_btn {
-        font-size: 14px; /* 원하는 크기로 조정 */
-        padding: 6px 7px; /* 원하는 여백 조정 */
-    }
+      .reply--block>.reply-body>.items>.item{
+          display:flex;
+          margin-bottom:5px;
+          width : 380px;
+      }
 
 
-  </style>
-  <div class="comment-container">
-    <section class="reply--block">
 
-      <h4>게시물 댓글</h4>
+      .reply--block>.reply-body>.items>.item>*{
+          margin:5px;
+      }
 
-      <div class="reply-body">
-        <div class="items"></div>
-      </div>
+      reply--block>.reply-body>.items>.item>.body{
+        max-width : 300px;
+      }
+      .reply--block .item .body .contents {
+      max-width: 250px; /* 최대 넓이 설정 */
+      word-wrap: break-word; /* 텍스트가 너무 길어질 때 줄 바꿈 발생 */
+      /* 다른 스타일 속성 추가 가능 */
+  }
 
-      <div>
-        댓글 : <span class="reply--count"></span>
-      </div>
+      .reply--block>.reply-body>.items>.item>.body>*{
+          margin-bottom:2px;
 
-      <div class="reply-header">
-        <div>
-          <img src="/images/하모하모기본프사.png" />
-        </div>
+      }
 
-        <div>
-          <input name="contents" class="form-control reply_contents">
+       .reply--block>.reply-body>.items>.item>.body>*:nth-child(1)
+      ,.reply--block>.reply-body>.items>.item>.body>*:nth-child(3)
+      {
+         font-size : 0.8rem;
+         color : gray;
+      }
+
+      .reply--block>.reply-body>.items>.item>.body>*:nth-child(2){
+          font-size : 0.9rem;
+          color : #424242;
+      }
+
+      .reply--block .material-icons{
+          font-size:1rem;
+      }
+
+      ::-webkit-scrollbar {
+          display: none;
+      }
+
+      .reply--block>.reply-body>.items>.item>.body{
+          position:relative;
+      }
+
+      .reply_delete{
+          position:relative;
+      }
+
+      .reply_delete:hover{
+          color : red;
+      }
+
+      .reply_btn {
+          font-size: 14px; /* 원하는 크기로 조정 */
+          padding: 6px 7px; /* 원하는 여백 조정 */
+      }
+
+
+    </style>
+    <div class="comment-container">
+      <section class="reply--block">
+
+        <h4>댓글</h4>
+
+        <div class="reply-body">
+          <div class="items"></div>
         </div>
 
         <div>
-          <button class="btn btn-primary reply_btn">댓글</button>
+          댓글 : <span class="reply--count"></span>
         </div>
-      </div>
-    </section>
+
+        <div class="reply-header">
+          <div>
+            <img src="/images/하모하모기본프사.png" />
+          </div>
+
+          <div>
+            <input name="contents" class="form-control reply_contents">
+          </div>
+
+          <div>
+            <button class="btn btn-primary reply_btn">댓글</button>
+          </div>
+        </div>
+      </section>
+    </div>
 
 
   </div>
@@ -680,6 +711,64 @@ reply_btn_el.addEventListener('click', function () {
           form.submit(); // 폼 제출
       });
   });
+</script>
+
+<script>
+  const formData = new FormData();	//폼관련 정보 저장
+
+const uploadBox_el = document.querySelector('.upload-box');
+//dragenter / dragover /dragleave / drop
+
+uploadBox_el.addEventListener('dragenter',function(e){
+  e.preventDefault();
+  console.log("dragenter...");
+});
+uploadBox_el.addEventListener('dragover',function(e){
+  e.preventDefault();
+  uploadBox_el.style.opacity='0.5';
+  console.log("dragover...");
+
+});
+uploadBox_el.addEventListener('dragleave',function(e){
+  e.preventDefault();
+  uploadBox_el.style.opacity='1';
+  console.log("dragleave...");
+
+});
+
+//----------------------------------------------
+//
+//----------------------------------------------
+uploadBox_el.addEventListener('drop',function(e){
+  e.preventDefault();
+  console.log("drop...");
+  console.log(e);
+  console.log(e.dataTransfer);
+  console.log(e.dataTransfer.files[0]);
+
+  //유효성체크(이미지만, 하나씩만 , 용량제한 ...)
+  // 파일 유형 확인 및 이미지 파일만 처리
+  const imageFiles = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+  if (imageFiles.length === 0) {
+          alert("이미지 파일만 가능합니다");
+          return;
+  }
+  //총이미지의 개수가 5개 이상이면 return(아직..)
+
+  //미리보기
+  const file = e.dataTransfer.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function(event) {
+      const preview = document.getElementById('preview');
+      const img = document.createElement('img')
+      img.setAttribute('src',event.target.result);
+      preview.appendChild(img);
+  };
+  //formData에 저장
+  formData.append('files',file);
+
+});
 </script>
 
 </body>

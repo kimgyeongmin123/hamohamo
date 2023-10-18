@@ -75,55 +75,61 @@
 
 <header>
     <div class="menu">
+        <div class="top-menu">
 
-        <div class="logo">
-            <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
-            <!-- <h2><span th:text="${dto.nickname}"></span>닉네임</h2> -->
-        </div>
+            <div class="logo">
+                <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
+            </div>
 
-        <div class="middle-menu">
-            <a href="/list">
-                <div class="home">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                    </svg>홈
-                </div>
-            </a>
+            <div class="middle-menu">
+                <a href="/list">
+                    <div class="home" style="font-size: 1.2rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                        </svg>홈
+                    </div>
+                </a>
 
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-                검색
-            </button>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                    검색
+                </button>
 
-            <a href="#">
-                <div class="message">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                    </svg>메시지
-                </div>
-            </a>
+                <a href="#" id="notification-icon">
+                    <div class="message">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>메시지
+                    </div>
+                </a>
 
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-                </svg>알림
-            </button>
+                <button type="button" class="btn btn-primary position-relative bell" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                    </svg>알림
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        99+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>글쓰기
-            </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>글쓰기
+                </button>
 
-            <a href="/mypage">
-                <div class="mypage" style="font-size : 1.2rem;">
-                    <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
-                </div>
-            </a>
+                <a href="/mypage">
+                    <div class="mypage">
+                        <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+                    </div>
+                </a>
+            </div>
         </div>
 
 
@@ -141,6 +147,15 @@
 
     </div>
 </header>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<div class="up">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z"/>
+    </svg>
+</div>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
@@ -180,43 +195,58 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">글쓰기</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <form action="/post" method="post" enctype="multipart/form-data">
+                <div class="modal-header" style="height : 40px;">
+                    <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
+                    <button type="submit" class="btn btn-primary submit-button">등록</button>
+                </div>
 
-            <div class="modal-body">
 
-                <form action="/post" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="nickname">작성자 </label>
-                        <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" readonly/><br/>
 
-                    </div>
+                <div class="modal-body" style="display : flex; justify-content: center;">
 
-                    <div class="form-group">
+                    <div class="form-group" style="display : flex; flex-direction: column;">
                         <input class="form-control" type="file" id="formFile" name="files" multiple>
-                        <div class="miri">
-                            미리보기
+
+                        <section class="product_img_block">
+                            <div class="product_img">
+                                <div class="upload-box">
+                                    <div class="plus">+</div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div>
+                            <label>PREVIEW</label>
+                            <div id="preview"></div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="contents"></label>
-                        <textarea id="contents" name="contents" rows="4" required></textarea>
-                    </div>
+                    <div>
+                        <div class="form-group" style="height : 38px;">
+                            <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />
+                            <label for="nickname"></label>
+                            <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" style="border : 1px solid white;"readonly/><br/>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary submit-button">등록</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contents"></label>
+                            <textarea id="contents" name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <main>
@@ -426,6 +456,64 @@ function updateProfile() {
 const updateButton = document.getElementById('updateButton');
 updateButton.addEventListener('click', updateProfile);
 
+</script>
+
+<script>
+    const formData = new FormData();	//폼관련 정보 저장
+
+const uploadBox_el = document.querySelector('.upload-box');
+//dragenter / dragover /dragleave / drop
+
+uploadBox_el.addEventListener('dragenter',function(e){
+    e.preventDefault();
+    console.log("dragenter...");
+});
+uploadBox_el.addEventListener('dragover',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='0.5';
+    console.log("dragover...");
+
+});
+uploadBox_el.addEventListener('dragleave',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='1';
+    console.log("dragleave...");
+
+});
+
+//----------------------------------------------
+//
+//----------------------------------------------
+uploadBox_el.addEventListener('drop',function(e){
+    e.preventDefault();
+    console.log("drop...");
+    console.log(e);
+    console.log(e.dataTransfer);
+    console.log(e.dataTransfer.files[0]);
+
+    //유효성체크(이미지만, 하나씩만 , 용량제한 ...)
+    // 파일 유형 확인 및 이미지 파일만 처리
+    const imageFiles = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    if (imageFiles.length === 0) {
+            alert("이미지 파일만 가능합니다");
+            return;
+    }
+    //총이미지의 개수가 5개 이상이면 return(아직..)
+
+    //미리보기
+    const file = e.dataTransfer.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(event) {
+        const preview = document.getElementById('preview');
+        const img = document.createElement('img')
+        img.setAttribute('src',event.target.result);
+        preview.appendChild(img);
+    };
+    //formData에 저장
+    formData.append('files',file);
+
+});
 </script>
 
 </body>
