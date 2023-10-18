@@ -23,15 +23,19 @@
     }
 
     main .board{
-        width : 450px;
-        margin-left : 16%;
+        width : 600px;
+        height : 160px;
         margin-top : 120px;
+        margin-right : 300px;
     }
 
 
 .user{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     height : 160px;
+    width : 600px;
     border-bottom : 1px solid rgb(208, 208, 208);
     padding : 20px;
     padding-left : 50px;
@@ -39,9 +43,10 @@
     margin-bottom : 50px;
 }
 .name{
+    width : 280px;
     display: flex;
     flex-direction: column;
-    margin-left : 20px;
+    margin-right : 20px;
     justify-content: center;
 }
 .nickname{
@@ -248,6 +253,9 @@
           <div class = "nickname" th:text="${user.nickname}"> nickname</div>
           <div class="email" th:test="${user.email}">email</div>
         </div>
+        <div class="follow">
+          <button class="btn btn-secondary">팔로우</button>
+        </div>
       </div>
 
     </th:block>
@@ -385,6 +393,24 @@ uploadBox_el.addEventListener('drop',function(e){
   formData.append('files',file);
 
 });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('searchButton').addEventListener('click', function(event) {
+      event.preventDefault(); // 기본 동작을 막습니다.
+
+      // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+      var form = document.getElementById('searchForm');
+      var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+      if (selectedOption === 'nickname') {
+          form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+      } else {
+          form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+      }
+          form.submit(); // 폼 제출
+      });
+  });
 </script>
 
 </body>

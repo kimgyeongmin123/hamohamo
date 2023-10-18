@@ -202,47 +202,49 @@
 
 <main>
     <div class="BandF">
-    <div class="board">
-        <h2>조회</h2>
+        <div class="board">
 
-        <th:block th:each="board : ${boardList}">
-            <div class="board-item">
+            <th:block th:each="board : ${boardList}">
+                <div class="board-item">
 
-                <div class="idbox">
-                    <div>
-                        <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
-                        <div id = board_id th:text="${board.nickname}">id</div>|
-                        <div class="date" th:text="${board.date}">date</div>
-                    </div>
-                    <div class="hits-box">조회
-                        <div class="hits" th:text="${board.hits}">hits</div>
-                    </div>
-                </div>
-
-
-                <a th:href="'/read/' + ${board.number}">
-                    <div id = board_img>
-                        <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-                        <div class="img">
-                            <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
+                    <div class="idbox">
+                        <div>
+                            <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                            <div id = board_id th:text="${board.nickname}">id</div>|
+                            <div class="date" th:text="${board.date}">date</div>
                         </div>
-                        <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                        <div class="hits-box">조회
+                            <div class="hits" th:text="${board.hits}">hits</div>
+                        </div>
                     </div>
-                </a>
 
-                <div class="like">
-                    <a th:href="@{'/like/' + ${board.number}}" class="like-button">
-                        <span style="border-style : none;">❤️</span>
-                        <!-- <span th:unless="${isLiked}">🖤</span> -->
+
+                    <a th:href="'/read/' + ${board.number}">
+                        <div id = board_img>
+                            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
+                            <div class="img">
+                                <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
+                            </div>
+                            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                        </div>
                     </a>
-                    <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+
+                    <div class="like">
+                        <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                            <span style="border-style : none;">❤️</span>
+                            <!-- <span th:unless="${isLiked}">🖤</span> -->
+                        </a>
+                        <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+                    </div>
+
                 </div>
-
-            </div>
-        </th:block>
+            </th:block>
 
 
-    </div>
+        </div>
+        <div class="fallow">
+            <h6>친구목록</h6>
+        </div>
     </div>
 
 </main>
