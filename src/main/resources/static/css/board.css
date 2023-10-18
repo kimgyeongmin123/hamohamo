@@ -1,290 +1,307 @@
 main .board{
-            width : 450px;
-            margin-left : 16%;
-            margin-top : 50px;
-        }
+    width : 450px;
+    margin-left : 16%;
+    margin-top : 200px;
+}
 
-        .board-container {
-            width: 80%;
-            margin-top : 60px;
-            margin-left: 50%;
-        }
+.board-container {
+    width: 80%;
+    margin-top : 60px;
+    margin-left: 50%;
+}
 
-        .board-item {
-            margin-bottom: 20px;
-        }
+.board-item {
+    margin-bottom: 20px;
+}
 
-        main>.board .board-item>.idbox{
-            display: flex;
-            justify-content: space-between;
-        }
+main>.BandF>.board .board-item>.idbox{
+    display: flex;
+    justify-content: space-between;
+}
 
-        main>.board .board-item>.idbox>div{
-            display: flex;
-            padding-bottom : 20px;
-            align-items: center;
-        }
-        main>.board .board-item>.idbox>.hits-box{
-            font-size: 0.8rem;
-            margin-right : 10px;
-        }
+main>.BandF>.board .board-item>.idbox>div{
+    display: flex;
+    padding-bottom : 20px;
+    align-items: center;
+}
+main>.BandF>.board .board-item>.idbox>.hits-box{
+    font-size: 0.8rem;
+    margin-right : 10px;
+}
 
-        main>.board .board-item>.idbox>.hits-box>.hits{
-            margin-left : 10px;
-        }
+main>.BandF>.board .board-item>.idbox>.hits-box>.hits{
+    margin-left : 10px;
+}
 
-        main>.board .board-item>.idbox>div>img{
-            margin-right : 18px;
-        }
+main>.BandF>.board .board-item>.idbox>div>img{
+    margin-right : 18px;
+}
 
-        main>.board .board-item>.idbox>div>#board_id{
-            margin-right : 10px;
-            font-size: 0.8rem;
-        }
+main>.BandF>.board .board-item>.idbox>div>#board_id{
+    margin-right : 10px;
+    font-size: 0.8rem;
+}
 
-        main>.board .board-item>.idbox>div>.date{
-            margin-left : 10px;
-            color : gray;
-            font-size: 0.8rem;
-        }
+main>.BandF>.board .board-item>.idbox>div>.date{
+    margin-left : 10px;
+    color : gray;
+    font-size: 0.8rem;
+}
 
-        main>.board .board-item>a{
+main>.BandF>.board .board-item>a{
 
-            text-decoration: none; /* 밑줄 제거 */
-        }
+    text-decoration: none; /* 밑줄 제거 */
+}
 
-        main>.board .board-item>a>#board_img{
-            height : auto;
-        }
+main>.board .board-item>a>#board_img{
+    height : auto;
+}
 
-        main>.board .board-item>a>#board_img>.img{
-            height : 500px;
-            background-color: rgb(0, 0, 0);
-            display: flex;
-            align-items: center;
-        }
+main>.BandF>.board .board-item>a>#board_img>.img{
+    height : 500px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+}
 
-        main>.board .board-item>a>#board_img>.contents{
-            height : auto;
-            margin-top : 10px;
-            color : black;
-            width : 450px;
-            word-wrap: break-word;
-        }
+main>.BandF>.board .board-item>a>#board_img>.contents{
+    height : auto;
+    margin-top : 10px;
+    color : black;
+    width : 450px;
+    word-wrap: break-word;
+}
 
 
-        main>.board .board-item>.like{
-            margin-top : 10px;
-            padding-bottom : 50px;
-            border-bottom:1px solid rgb(185, 185, 185);
+main>.BandF>.board .board-item>.like{
+    margin-top : 10px;
+    padding-bottom : 50px;
+    border-bottom:1px solid rgb(185, 185, 185);
 
-        }
+}
 
-        main>.board .board-item>.like>a{
+main>.BandF>.board .board-item>.like>a{
 
-            text-decoration: none; /* 밑줄 제거 */
-        }
+    text-decoration: none; /* 밑줄 제거 */
+}
 -----------------------------------------------------------------
 
 
 *{
-    font-family: 'Gothic A1', sans-serif;
+font-family: 'Gothic A1', sans-serif;
 }
 
 .scroll::-webkit-scrollbar{
-    display: none;
+display: none;
+}
+
+main{
+    margin-left: 220px;
+    display : flex;
+    justify-content: center;
+}
+
+main>.BandF{
+    display : flex;
+}
+main>.BandF>.fallow{
+    width : 500px;
+    height : 400px;
+    margin-left : 150px;
+    margin-top : 50px;
+
+    border : 1px solid rgb(204, 204, 204);
 }
 
 .searchbox{
 }
 
 .searchbox >form{
-    display: flex;
+display: flex;
 }
 
 .searchbox >form>.search{
-    height : 30px;
-    font-size: 0.5rem;
-    margin-right : 2px
+height : 30px;
+font-size: 0.5rem;
+margin-right : 2px
 }
 
 .searchbox input{
-    height : 40px;
-    font-size : 1.0rem;
-    width : 300px;
+height : 40px;
+font-size : 1.0rem;
+width : 300px;
 }
 
 .form-select{
-  width : 100px;
-  font-size: 0.8rem;
+width : 100px;
+font-size: 0.8rem;
 }
 
 .searchbox>form>.search>.form-select>option {
-  height : 40px;
+height : 40px;
 }
 
 
 
 header{
-    display: flex;
-    justify-content: space-between;
-    padding-left : 10px;
+display: flex;
+justify-content: space-between;
+padding-left : 10px;
 }
 
 header .menu{
-    background-color: white;
-    position: fixed;
-    border-right : 1px solid rgb(197, 197, 197);
-    width : 220px;
-    height : 100%;
-    display: flex;
-    flex-direction: column; /* 수직으로 배치 */
-    justify-content: space-between; /* 간격을 일정하게 유지 */
+background-color: white;
+position: fixed;
+border-right : 1px solid rgb(197, 197, 197);
+width : 220px;
+height : 100%;
+display: flex;
+flex-direction: column; /* 수직으로 배치 */
+justify-content: space-between; /* 간격을 일정하게 유지 */
 }
 
-header>.menu>.logo{
-    position : relative;
-    top : 40px;
-    margin-left : 10px;
+header>.menu>.top-menu{
+    margin-top : 30px;
 }
 
-header>.menu>.middle-menu{
-    display : flex;
-    flex-direction: column;
-    height : 500px;
+header>.menu>.top-menu>.logo{
+position : relative;
+margin-left : 10px;
 }
 
-header>.menu>.middle-menu>.btn-primary{
-  background-color: white;
-  color : black;
-  height : 50px;
-  width : 210px;
-  text-align: left;
-  border-style: none;
-  margin-bottom : 10px;
-  margin-top : 5px;
+header>.menu>.top-menu>.middle-menu{
+display : flex;
+flex-direction: column;
+height : 500px;
+margin-top : 30px;
 }
 
-header>.menu>.middle-menu>.btn-primary:hover{
-  background-color: rgb(233, 233, 233);
-    border-radius: 10px;
+header>.menu>.top-menu>.middle-menu>.btn-primary{
+background-color: white;
+color : black;
+height : 50px;
+width : 210px;
+text-align: left;
+border-style: none;
+margin-bottom : 10px;
+margin-top : 5px;
 }
 
-header>.menu>.middle-menu>.btn-primary:active,button:focus{
-  outline: none !important;
-  box-shadow: none !important;
+header>.menu>.top-menu>.middle-menu>.btn-primary:hover{
+background-color: rgb(233, 233, 233);
+border-radius: 10px;
 }
 
-header>.menu>.middle-menu>.btn-primary>svg{
-  width : 22px;
-    height : 22px;
-    margin-right : 18px;
-    position : relative;
-    right : 2px;
+header>.menu>.top-menu>.middle-menu>.btn-primary:active,button:focus{
+outline: none !important;
+box-shadow: none !important;
 }
 
-header>.menu>.middle-menu>.btn-primary:hover svg{
-    transform: scale(1.05);
+header>.menu>.top-menu>.middle-menu>.btn-primary>svg{
+width : 22px;
+height : 22px;
+margin-right : 18px;
+position : relative;
+right : 2px;
 }
 
-header>.menu>.middle-menu div{
-    height : 50px;
-    margin-left: 10px;
-    margin-right : 10px;
-    font-size: 1.0rem;
-    display: flex;
-    align-items: center;
+header>.menu>.top-menu>.middle-menu>.btn-primary:hover svg{
+transform: scale(1.05);
 }
 
-header>.menu>.middle-menu>a svg{
-    margin-right : 20px;
-    width : 22px;
-    height : 22px;
+header>.menu>.top-menu>.middle-menu div{
+height : 50px;
+margin-left: 10px;
+margin-right : 10px;
+font-size: 1.0rem;
+display: flex;
+align-items: center;
 }
 
-header>.menu>.middle-menu>a>.mypage>img{
-    margin-right : 20px;
+header>.menu>.top-menu>.middle-menu>a svg{
+margin-right : 20px;
+width : 22px;
+height : 22px;
 }
 
-header>.menu>.middle-menu>a{
-    text-decoration: none; /* 밑줄 제거 */
-    color : black;
-    height : 50px;
-    margin-right : 10px;
-    margin-top : 15px;
-    position: relative;
-    bottom : 10px;
+header>.menu>.top-menu>.middle-menu>a>.mypage>img{
+margin-right : 20px;
 }
 
-header>.menu>.middle-menu>.searchbox{
-    text-decoration: none; /* 밑줄 제거 */
-    color : black;
-    height : 50px;
-    margin-right : 10px;
-    margin-top : 15px;
-    position: relative;
-    bottom : 10px;
+header>.menu>.top-menu>.middle-menu>a{
+text-decoration: none; /* 밑줄 제거 */
+color : black;
+height : 50px;
+margin-right : 10px;
+margin-top : 15px;
+position: relative;
+bottom : 10px;
 }
 
-header>.menu>.middle-menu>a:hover {
-    background-color: rgb(233, 233, 233);
-    border-radius: 10px;
+header>.menu>.top-menu>.middle-menu>.searchbox{
+text-decoration: none; /* 밑줄 제거 */
+color : black;
+height : 50px;
+margin-right : 10px;
+margin-top : 15px;
+position: relative;
+bottom : 10px;
 }
 
-header > .menu >.middle-menu> a:hover svg,img {
-    transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
+header>.menu>.top-menu>.middle-menu>a:hover {
+background-color: rgb(233, 233, 233);
+border-radius: 10px;
+}
+
+header > .menu >.top-menu>.middle-menu> a:hover svg,img {
+transform: scale(1.05); /* 마우스를 올렸을 때 1.05배 확대 */
 }
 
 header>.menu>.logout{
-    height : 50px;
+height : 50px;
 }
 
 header>.menu>.logout svg{
-    margin-right : 20px;
-    width : 22px;
-    height : 22px;
+margin-right : 20px;
+width : 22px;
+height : 22px;
 }
 
 header>.menu>.logout button{
-    height : 50px;
-    margin-right : 10px;
-    margin-top : 15px;
-    cursor: pointer;
-    position : relative;
-    bottom : 60px;
-    display: flex;
-    align-items: center;
-    font-size: 1.0rem;
-    width : 210px;
-    background-color: white;
-    border-style: none;
+height : 50px;
+margin-right : 10px;
+margin-top : 15px;
+cursor: pointer;
+position : relative;
+bottom : 60px;
+display: flex;
+align-items: center;
+font-size: 1.0rem;
+width : 210px;
+background-color: white;
+border-style: none;
 }
 
 header>.menu>.logout button:hover{
-    background-color: rgb(233, 233, 233);
-    border-radius: 10px;
+background-color: rgb(233, 233, 233);
+border-radius: 10px;
 }
 
 header>.menu>.logout button:hover svg{
-    transform: scale(1.05);
+transform: scale(1.05);
 }
 
 .up{
-    position : fixed;
-    right : 20%;
-    bottom : 10%;
-    z-index:999;
-    cursor : pointer;
+position : fixed;
+right : 20%;
+bottom : 10%;
+z-index:999;
+cursor : pointer;
 }
 
 .up svg{
-    width : 40px;
-    height : 40px;
+width : 40px;
+height : 40px;
 }
 
-body > main{
-    margin-left : 220px;
-}
-
-/* 여기에 글쓰기 디자인 작성  */
 
