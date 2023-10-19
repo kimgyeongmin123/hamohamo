@@ -150,22 +150,18 @@ public class BoardController {
 
     @GetMapping("/read/{number}")
     public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request, HttpServletResponse response){
-        log.info("GET /read/"+number);
-
-        //-----------------------------------------------------------------------------------
-        // 현재 인증된 사용자의 이메일 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findById(email).get();
-
-
-        //--------------------------------------------------------------------------------------
-
-        //서비스 실행
+        System.out.println("GET /read/"+number);
         Board board = boardService.getBoardOne(number);
 
+        System.out.println(board);
+
+        List<String> files = board.getFiles();
+        System.out.println(files);
+        model.addAttribute("board", board);
+        model.addAttribute("files", files);
+
+        //-----------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------
 
         //클라이언트에서 전송한 모든 쿠키 cookies에 저장
         Cookie[] cookies = request.getCookies();
@@ -195,8 +191,8 @@ public class BoardController {
             readCookie.setPath("/"); // 쿠키의 범위 설정
             response.addCookie(readCookie);
         }
+        //--------------------------------------------------------------------------------------
 
-        model.addAttribute("boardDto",board);
 
         return "read";
     }

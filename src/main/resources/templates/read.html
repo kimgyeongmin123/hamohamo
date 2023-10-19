@@ -428,7 +428,7 @@
   const reply_btn_el = document.querySelector('.reply_btn');
 
    /*<![CDATA[*/
-          var bno = [[${boardDto.number}]];
+          var bno = [[${board.number}]];
           let nickname = "[[${#authentication.getPrincipal().getUser().getNickname()}]]";
    /*]]>*/
 
@@ -509,7 +509,7 @@ reply_btn_el.addEventListener('click', function () {
       const getReplylist = ()=>{
 
        /*<![CDATA[*/
-              let bno = [[${boardDto.number}]];
+              let bno = [[${board.number}]];
        /*]]>*/
 
           console.log("getReplylist bno :",bno);

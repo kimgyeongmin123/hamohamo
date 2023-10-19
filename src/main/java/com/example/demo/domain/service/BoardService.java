@@ -110,12 +110,15 @@ public class BoardService {
 
     @Transactional(rollbackFor = SQLException.class)
     public Board getBoardOne(Long number){
-        Optional<Board> board = boardRepository.findByNum(number);
+        Optional<Board> optionalBoard = boardRepository.findByNum(number);
 
-        if(board.isEmpty())
-            return null;
-        else
-            return board.get();
+        System.out.println("optionalboard : "+optionalBoard);
+
+        if(!optionalBoard.isEmpty()) {
+
+            return optionalBoard.get();
+        }
+        return null;
     }
 
     @Transactional(rollbackFor = SQLException.class)
