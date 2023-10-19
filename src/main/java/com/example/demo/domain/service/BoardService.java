@@ -12,6 +12,7 @@ import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.ReplyRepository;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -99,6 +100,12 @@ public class BoardService {
 
         board.setFiles(boardList);
         boardRepository.save(board);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<Board> getBoardList(){
+        //Desc Sorting return
+        return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
     }
 
     @Transactional(rollbackFor = SQLException.class)
