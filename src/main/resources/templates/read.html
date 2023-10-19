@@ -209,10 +209,7 @@
 
           <div class="idbox" style="width : 585px;">
             <div>
-              <th:block  th:each="file : ${files}">
-                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" alt="" />
-              </th:block>
-<!--              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />-->
+              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />
               <div id = board_id th:text="${board.nickname}">id</div>|
               <div class="date" th:text="${board.date}">date</div>
             </div>
@@ -225,9 +222,7 @@
           <a href="#">
             <div id = board_img>
               <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-              <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
-                <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="585" height="650"/>
-              </div>
+
               <div id=board_contents class="contents" th:text="${board.contents}" tyle="width : 585px;">contents</div>
             </div>
           </a>
@@ -242,6 +237,12 @@
 
         </div>
       </th:block>
+
+      <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
+        <th:block  th:each="file : ${files}">
+          <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="585" height="650"/>
+        </th:block>
+      </div>
 
 
     </div>
