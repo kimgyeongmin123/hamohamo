@@ -233,7 +233,7 @@
                     <a th:href="'/read/' + ${board.number}">
                         <div id = board_img>
                             <div class="img">
-                                <img th:src="@{'C:/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
+                                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
                             </div>
                             <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                         </div>

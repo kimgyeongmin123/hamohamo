@@ -42,6 +42,9 @@ dependencies {
 	//OAUTH2
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+	//FILE UPLOAD
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+
 	//TEST
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
