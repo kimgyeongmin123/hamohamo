@@ -155,7 +155,7 @@
             <form action="/post" method="post" enctype="multipart/form-data">
                 <div class="modal-header" style="height : 40px;">
                     <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
-                    <button type="submit" class="btn btn-primary submit-button">등록</button>
+                    <button type="submit" class="btn btn-primary add_product_btn">등록</button>
                 </div>
 
 
@@ -189,8 +189,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="contents"></label>
-                            <textarea id="contents" name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
+                            <textarea name="content" rows="4" style="width : 300px;height : 300px;" required></textarea>
                         </div>
 
                         <div class="modal-footer">
@@ -352,6 +351,8 @@
     });
 </script>
 
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     const formData = new FormData();	//폼관련 정보 저장

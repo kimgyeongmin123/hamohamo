@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class Board {
     private LocalDateTime date;
     private Long hits;
     private Long like_count;
-    private String dirpath;
-    private String filename;
-    private String filesize;
+
+    @ElementCollection
+    private List<String> files;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.auth.PrincipalDetails;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -71,33 +73,17 @@ public class BoardController {
 
     @PostMapping("/post")
     public String post_post(
-            @Valid BoardDto dto,
-            @RequestParam("files") MultipartFile[] files,
-            BindingResult bindingResult,
-            Model model,
-            RedirectAttributes redirectAttributes
+            BoardDto dto,Authentication authentication
     ) throws IOException {
-        log.info("POST /post");
+        log.info("POST /post"+dto+"그리고 "+authentication);
 
-        if (bindingResult.hasFieldErrors()) {
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                log.info(error.getField() + " : " + error.getDefaultMessage());
-                model.addAttribute(error.getField(), error.getDefaultMessage());
-            }
-            return "/list"; // 폼 다시 표시
-        }
+        dto.setDate(LocalDateTime.now());
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+        dto.setEmail(principal.getUsername());
+        dto.setNickname(principal.getNickname());
 
-        if (files == null || files.length == 0 || files[0].isEmpty()) {
-            // 이미지를 첨부하지 않은 경우
-            redirectAttributes.addFlashAttribute("error", "이미지를 첨부해주세요.");
-            return "redirect:/list";
-        }
+        boardService.addBoard(dto);
 
-        boolean isAdd = boardService.addBoard(dto);
-
-        if (isAdd) {
-            return "redirect:/list";
-        }
         return "redirect:/list";
     }
 
