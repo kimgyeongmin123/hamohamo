@@ -217,9 +217,10 @@
 
                     <div>
                         <div class="form-group" style="height : 38px;">
-                            <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />
+                            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />
                             <label for="nickname"></label>
-                            <input type="text" id="nickname" name="nickname" th:value="${dto.nickname}" style="border : 1px solid white;"readonly/><br/>
+                            <input type="text" id="nickname" name="nickname" th:value="${#authentication.getPrincipal().getUser().getNickname()}" style="border : 1px solid white;"readonly/>
+                            <input type="text" id="email" name="email" th:value="${#authentication.getPrincipal().getUser().getEmail()}" style="border : 1px solid white; color : gray;"readonly/>
 
                         </div>
 
