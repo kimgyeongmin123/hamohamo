@@ -209,7 +209,10 @@
 
           <div class="idbox" style="width : 585px;">
             <div>
-              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />
+              <th:block  th:each="file : ${files}">
+                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" alt="" />
+              </th:block>
+<!--              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />-->
               <div id = board_id th:text="${board.nickname}">id</div>|
               <div class="date" th:text="${board.date}">date</div>
             </div>
