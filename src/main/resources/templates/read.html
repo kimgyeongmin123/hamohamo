@@ -204,7 +204,6 @@
 
     <div class="board">
 
-      <th:block th:each="board : ${boardDto}">
         <div class="board-item">
 
           <div class="idbox" style="width : 585px;">
@@ -222,7 +221,11 @@
           <a href="#">
             <div id = board_img>
               <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
-
+              <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
+                <th:block  th:each="file : ${files}">
+                  <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="150" height="150"/>
+                </th:block>
+              </div>
               <div id=board_contents class="contents" th:text="${board.contents}" tyle="width : 585px;">contents</div>
             </div>
           </a>
@@ -236,13 +239,8 @@
           </div>
 
         </div>
-      </th:block>
 
-      <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
-        <th:block  th:each="file : ${files}">
-          <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="585" height="650"/>
-        </th:block>
-      </div>
+
 
 
     </div>
