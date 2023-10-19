@@ -204,12 +204,12 @@
 
     <div class="board">
 
-      <th:block th:each="board : ${board}">
+      <th:block th:each="board : ${boardDto}">
         <div class="board-item">
 
           <div class="idbox" style="width : 585px;">
             <div>
-              <img th:src="${dto.profile}" style="width:30px;height:30px;border-radius:50%;" />
+              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />
               <div id = board_id th:text="${board.nickname}">id</div>|
               <div class="date" th:text="${board.date}">date</div>
             </div>
@@ -425,8 +425,8 @@
   const reply_btn_el = document.querySelector('.reply_btn');
 
    /*<![CDATA[*/
-          var bno = [[${board.number}]];
-          let nickname = "[[${#httpServletRequest.remoteUser}]]";
+          var bno = [[${boardDto.number}]];
+          let nickname = "[[${#authentication.getPrincipal().getUser().getNickname()}]]";
    /*]]>*/
 
 
@@ -506,7 +506,7 @@ reply_btn_el.addEventListener('click', function () {
       const getReplylist = ()=>{
 
        /*<![CDATA[*/
-              let bno = [[${board.number}]];
+              let bno = [[${boardDto.number}]];
        /*]]>*/
 
           console.log("getReplylist bno :",bno);
