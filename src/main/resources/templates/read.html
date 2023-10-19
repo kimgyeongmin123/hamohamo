@@ -222,9 +222,43 @@
             <div id = board_img>
               <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
               <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
-                <th:block  th:each="file : ${files}">
-                  <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="150" height="150"/>
-                </th:block>
+
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <th:block  th:each="file : ${files}">
+                        <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="150" height="150"/>
+                      </th:block>
+                    </div>
+                    <div class="carousel-item">
+                      <img src="..." class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="..." class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+
+<!--                <th:block  th:each="file : ${files}">-->
+<!--                  <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${file}}" width="150" height="150"/>-->
+<!--                </th:block>-->
+
+
+
               </div>
               <div id=board_contents class="contents" th:text="${board.contents}" tyle="width : 585px;">contents</div>
             </div>
