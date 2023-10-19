@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,8 @@ public class BoardController {
         // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
         List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
 
-        model.addAttribute("board", list);
+        System.out.println("Board's list : " + list);
+
 
         //dto -> entity
         List<BoardDto> boardDtos = list.stream()
@@ -66,7 +68,6 @@ public class BoardController {
 
         return "list";
     }
-
 
     @PostMapping("/post")
     public String post_post(
@@ -92,7 +93,6 @@ public class BoardController {
             return "redirect:/list";
         }
 
-
         boolean isAdd = boardService.addBoard(dto);
 
         if (isAdd) {
@@ -109,7 +109,8 @@ public class BoardController {
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-//--------------------------------------------------------------------------------------
+
+        //--------------------------------------------------------------------------------------
 
         //서비스 실행
         Board board = boardService.getBoardOne(number);
@@ -119,6 +120,8 @@ public class BoardController {
 
         // 모델에 게시물 정보 전달
         model.addAttribute("boardDto", board);
+
+
     }
 
     @PostMapping("/update")
@@ -126,7 +129,7 @@ public class BoardController {
                              @Param("newContents") String newContents,
                              BindingResult bindingResult,
                              Model model) throws IOException {
-        log.info("POST /update number: " + dto.getNumber() + ", newContents: " + newContents);
+        log.info("POST /update number: " + dto.getNumber());
 
         if (bindingResult.hasFieldErrors()) {
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -136,7 +139,8 @@ public class BoardController {
             return "mypage"; // 폼 다시 표시
         }
 
-        boolean isAdd = boardService.updateBoard(dto, newContents);
+        boolean isAdd = boardService.updateBoard(dto,newContents);
+
 
         if (isAdd) {
             return "redirect:/list";
@@ -171,10 +175,13 @@ public class BoardController {
 
         // UserRepository를 사용하여 사용자 정보 가져오기
         User user = userRepository.findById(email).get();
+
+
         //--------------------------------------------------------------------------------------
 
         //서비스 실행
         Board board = boardService.getBoardOne(number);
+
 
         //클라이언트에서 전송한 모든 쿠키 cookies에 저장
         Cookie[] cookies = request.getCookies();
@@ -254,6 +261,7 @@ public class BoardController {
 
         // UserRepository를 사용하여 사용자 정보 가져오기
         User user = userRepository.findById(email).get();
+
 //--------------------------------------------------------------------------------------
         return "search-contents";
     }

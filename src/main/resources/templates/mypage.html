@@ -179,8 +179,8 @@
                 </button>
 
                 <a href="/mypage">
-                    <div class="mypage">
-                        <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+                    <div class="mypage" style="font-size : 1.2rem;">
+                        <img th:src="${userDto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
                     </div>
                 </a>
             </div>
@@ -308,12 +308,12 @@
         <div class="profile">
 
             <div class="profileimg" style="display:flex;justify-content:center; align-items : center;">
-                <img th:src="${dto.profile}" style="width:150px;height:150px;border-radius:50%;" />
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:150px;height:150px;border-radius:50%;" />
             </div>
 
             <div class="menu">
                 <div class="top-menu">
-                    <span th:text="${dto.nickname}" >사용자 닉네임</span>
+                    <span th:text="${#authentication.getPrincipal().getUser().getNickname()}" >사용자 닉네임</span>
                     <a href="/profile/update"><button type="button" class="btn btn-outline-secondary">정보 수정</button></a>
                 </div>
 

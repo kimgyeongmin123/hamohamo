@@ -83,6 +83,8 @@ public class UserService {
                 user.setAddr1(newAddr1);
                 user.setAddr2(newAddr2);
 
+                //바뀐 정보들을 save
+
                 // 바뀐 정보들을 save
                 entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
                         .setParameter("newNickname", newNickname)
@@ -134,7 +136,6 @@ public class UserService {
 //            userRepository.save(user);
 //        }
 //    }
-
 
     public boolean isEmailAlreadyTaken (String email){
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));

@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
@@ -92,7 +91,6 @@ public class UserController {
 	}
 	@GetMapping("/checkNicknameDuplicate")
 	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
-
 	@PostMapping("/checkNicknameDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
 
@@ -186,7 +184,26 @@ public class UserController {
 	@GetMapping("/profile/leave_auth")
 	public String showauth(Model model) {
 
-		return "profile/leave_auth";
+//		//-----------------------------------------------------------------------------------
+//		// 현재 인증된 사용자의 이메일 가져오기
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String email = authentication.getName();
+//
+//		// UserRepository를 사용하여 사용자 정보 가져오기
+//		User user = userRepository.findById(email).get();
+//
+//		// UserDto 객체 생성
+//		UserDto dto = UserDto.EntityToDto(user);
+//		// 사용자 정보에서 닉네임을 가져와서 설정
+//		if (user != null) {
+//			dto.setNickname(user.getNickname());
+//		}
+//
+//		model.addAttribute("dto", dto);
+//		//--------------------------------------------------------------------------------------
+//
+//		return "profile/leave_auth";
+		return null;
 	}
 
 	@GetMapping("/user/withdraw")
@@ -255,7 +272,7 @@ public class UserController {
 		model.addAttribute("userList",searchList);
 		System.out.println("searchList : "+searchList);
 
-////		------------------------------------------------------------
+//		------------------------------------------------------------
 //		// 현재 인증된 사용자의 이메일 가져오기
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		String email = authentication.getName();
@@ -271,7 +288,7 @@ public class UserController {
 //		}
 //
 //		model.addAttribute("dto", dto);
-////		------------------------------------------------------------
+//		------------------------------------------------------------
 		return "search-nickname";
 	}
 

@@ -35,9 +35,11 @@ public class BoardService {
 
 
     //경민-학원컴퓨터
-    private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
+    //private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
     //경민-집컴퓨터
-    //private String uploadDir = "C:/Users/82108/OneDrive/바탕 화면/hamohamo/hamohamo/src/main/resources/static/images";
+    private String uploadDir = "C:/Users/User/Downloads/1018/src/main/resources/static/images";
+
+    //private String uploadDir = "C:/Users/Administrator/Downloads/1018/src/main/resources/static/images";
 
     @Autowired
     private BoardRepository boardRepository;
@@ -73,7 +75,6 @@ public class BoardService {
             String path = uploadDir+ File.separator+dto.getEmail();
             File dir = new File(path);
 
-            // 이메일과 UUID 추출
             String extractedEmail = dto.getEmail();
 
             // 이메일과 UUID를 이용하여 디렉토리 경로 생성
@@ -141,6 +142,7 @@ public class BoardService {
 
     @Transactional(rollbackFor = SQLException.class)
     public boolean deleteBoard(Long number){
+        System.out.println("deleteBoard할거임!!!!!!!!! : " + number);
 
         Optional<Board> boardOptional = boardRepository.findByNum(number);
 
@@ -192,6 +194,7 @@ public class BoardService {
         } else {
             return false; // 게시물이 존재하지 않는 경우
         }
+
     }
 
     @Transactional(rollbackFor = SQLException.class)
@@ -306,10 +309,9 @@ public class BoardService {
         }
     }
 
-//    로그인한 사용자가 해당 글에 하트를 눌렀는지 확인 하기 위한 메서드(true/false)
+    //    로그인한 사용자가 해당 글에 하트를 눌렀는지 확인 하기 위한 메서드(true/false)
     public boolean hasUserLikedPost(User user, Board board) {
         return heartRepository.existsByUserAndBoard(user, board);
     }
 
 }
-

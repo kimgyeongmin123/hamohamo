@@ -216,7 +216,7 @@
     <div class="BandF">
         <div class="board">
 
-            <th:block th:each="board : ${boardList}">
+            <th:block th:each="board : ${board}">
                 <div class="board-item">
 
                     <div class="idbox">
@@ -246,6 +246,8 @@
                             <!-- <span th:unless="${isLiked}">🖤</span> -->
                         </a>
                         <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+                        <span style="font-size: 17px;">🗨️</span>
+                        <span class="reply-count"></span>
                     </div>
 
                 </div>
