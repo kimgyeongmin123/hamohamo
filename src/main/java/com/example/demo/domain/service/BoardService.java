@@ -37,9 +37,14 @@ public class BoardService {
     //경민-학원컴퓨터
     //private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
     //경민-집컴퓨터
-    private String uploadDir = "C:/Users/User/Downloads/1018/src/main/resources/static/images";
+    private String uploadDir = "C:/Users/82108/OneDrive/바탕 화면/hamohamo/hamohamo/src/main/resources/static/images";
 
     //private String uploadDir = "C:/Users/Administrator/Downloads/1018/src/main/resources/static/images";
+
+    //유진
+    //private String uploadDir = "C:/Users/User/Downloads/1018/src/main/resources/static/images";
+
+
 
     @Autowired
     private BoardRepository boardRepository;

@@ -115,7 +115,7 @@
 
         <a href="/mypage">
           <div class="mypage">
-            <img th:src="${dto.profile}" style="width:22px;height:22px;border-radius:50%;" />프로필
+            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
           </div>
         </a>
       </div>
