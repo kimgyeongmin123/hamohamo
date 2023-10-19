@@ -10,6 +10,7 @@ import com.example.demo.domain.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +29,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -43,63 +45,31 @@ public class BoardController {
 
 
     @GetMapping("/list")
-    public List<Board> list(Model model){
+    public String list(Model model){
         log.info("GET /list");
-//----------------------------------------------------------------
-        // 현재 인증된 사용자의 이메일 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-
-
-        // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findById(email).get();
-
-        // UserDto 객체 생성
-        UserDto dto = UserDto.EntityToDto(user);
-        // 사용자 정보에서 닉네임을 가져와서 설정
-        if (user != null) {
-            dto.setNickname(user.getNickname());
-            dto.setProfile(user.getProfile());
-        }
-
-        model.addAttribute("dto", dto);
-//------------------------------------------------------------------
 
         // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
         List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+
+        model.addAttribute("board", list);
+
+        //dto -> entity
+        List<BoardDto> boardDtos = list.stream()
+                .map(BoardDto::Of)
+                .collect(Collectors.toList());
+
+
+        System.out.println("Board's boardDtos : " + boardDtos);
+
         model.addAttribute("board", list);
 
 
-
-
-        return list;
+        return "list";
     }
 
-//    @GetMapping("/post")
-//    public void post_get(Model model){
-//        log.info("GET /post");
-//        // 현재 인증된 사용자의 이메일 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String email = authentication.getName();
-//
-//        // UserDto 객체 생성
-//        UserDto dto = new UserDto();
-//
-//        // UserRepository를 사용하여 사용자 정보 가져오기
-//        User user = userRepository.findByEmail(email);
-//
-//        // 사용자 정보에서 닉네임을 가져와서 설정
-//        if (user != null) {
-//            dto.setNickname(user.getNickname());
-//        }
-//
-//        model.addAttribute("dto", dto);
-//    }
 
     @PostMapping("/post")
     public String post_post(
-            @RequestParam("nickname") String nickname,
             @Valid BoardDto dto,
             @RequestParam("files") MultipartFile[] files,
             BindingResult bindingResult,
@@ -139,45 +109,23 @@ public class BoardController {
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-
-        // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findById(email).get();
-
-        // UserDto 객체 생성
-        UserDto dto = UserDto.EntityToDto(user);
-        // 사용자 정보에서 닉네임을 가져와서 설정
-        if (user != null) {
-            dto.setNickname(user.getNickname());
-        }
-
-        model.addAttribute("dto", dto);
 //--------------------------------------------------------------------------------------
 
-        // 게시물 번호로 해당 게시물 정보 가져오기
-        Optional<Board> boardOptional = boardRepository.findByNum(number);
+        //서비스 실행
+        Board board = boardService.getBoardOne(number);
 
-        if (boardOptional.isPresent()) {
-            Board board = boardOptional.get();
-            BoardDto bdto = new BoardDto();
-            bdto.setNumber(board.getNumber());
-            bdto.setContents(board.getContents());
-            bdto.setNickname(board.getNickname());
-            bdto.setDate(board.getDate());
-            bdto.setHits(board.getHits());
-            bdto.setLike_count(board.getLike_count());
-            System.out.println("bdto : " + bdto);
 
-            // 모델에 게시물 정보 전달
-            model.addAttribute("boardDto", bdto);
+        System.out.println("update's dto : " + board);
 
-        }
+        // 모델에 게시물 정보 전달
+        model.addAttribute("boardDto", board);
     }
 
     @PostMapping("/update")
     public String postUpdate(@Valid BoardDto dto,
+                             @Param("newContents") String newContents,
                              BindingResult bindingResult,
-                             Model model,
-                             @RequestParam String newContents) {
+                             Model model) throws IOException {
         log.info("POST /update number: " + dto.getNumber() + ", newContents: " + newContents);
 
         if (bindingResult.hasFieldErrors()) {
@@ -188,12 +136,12 @@ public class BoardController {
             return "mypage"; // 폼 다시 표시
         }
 
-        boolean isAdd = boardService.updateBoard(dto.getNumber(), newContents);
+        boolean isAdd = boardService.updateBoard(dto, newContents);
 
         if (isAdd) {
-            return "redirect:/mypage";
+            return "redirect:/list";
         }
-        return "redirect:/list";
+        return "redirect:/mypage";
 
     }
     @DeleteMapping("/delete")
@@ -223,18 +171,10 @@ public class BoardController {
 
         // UserRepository를 사용하여 사용자 정보 가져오기
         User user = userRepository.findById(email).get();
-
-        // UserDto 객체 생성
-        UserDto dto = UserDto.EntityToDto(user);
-        // 사용자 정보에서 닉네임을 가져와서 설정
-        if (user != null) {
-            dto.setNickname(user.getNickname());
-        }
-
-        model.addAttribute("dto", dto);
         //--------------------------------------------------------------------------------------
 
-        Optional<Board> boardOptional = boardRepository.findByNum(number);
+        //서비스 실행
+        Board board = boardService.getBoardOne(number);
 
         //클라이언트에서 전송한 모든 쿠키 cookies에 저장
         Cookie[] cookies = request.getCookies();
@@ -265,14 +205,9 @@ public class BoardController {
             response.addCookie(readCookie);
         }
 
-        if(boardOptional.isPresent()){
-            Board board = boardOptional.get();
-            model.addAttribute("board",board);
+        model.addAttribute("boardDto",board);
 
-            return "read";
-        }else{
-            return "error";
-        }
+        return "read";
     }
 
     @GetMapping("/like/{number}")
@@ -319,15 +254,6 @@ public class BoardController {
 
         // UserRepository를 사용하여 사용자 정보 가져오기
         User user = userRepository.findById(email).get();
-
-        // UserDto 객체 생성
-        UserDto dto = UserDto.EntityToDto(user);
-        // 사용자 정보에서 닉네임을 가져와서 설정
-        if (user != null) {
-            dto.setNickname(user.getNickname());
-        }
-
-        model.addAttribute("dto", dto);
 //--------------------------------------------------------------------------------------
         return "search-contents";
     }

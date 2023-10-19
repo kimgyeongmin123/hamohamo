@@ -63,6 +63,14 @@ public class PrincipalDetails implements UserDetails , OAuth2User {
 		return user.getEmail();
 	}
 
+	public String getNickname(){
+		return user.getNickname();
+	}
+
+	public String getProfile(){
+		return user.getProfile();
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub

@@ -36,6 +36,33 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
+    public boolean joinMember(UserDto dto, Model model, HttpServletRequest request){
+
+        //Email 중복체크
+//        if (isEmailAlreadyTaken(dto.getEmail())) {
+//            model.addAttribute("email", "이미 사용중인 이메일입니다.");
+//            return false;
+//        }
+
+        //패스워드 일치하는지 확인
+//        if(!dto.getPassword().equals(dto.getRepassword())){
+//            model.addAttribute("repassword","패스워드가 일치하지 않습니다.");
+//            //일치안하면 FALSE(가입실패)
+//            return false;
+//        }
+
+        dto.setRole("ROLE_USER");
+        dto.setProfile("/images/basic_profile.png");
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()) );
+
+        User user = UserDto.dtoToEntity(dto);
+        System.out.println("joinMember's user : " + user);
+
+        userRepository.save(user);
+
+        return true;
+    }
+
     @Transactional(rollbackFor = SQLException.class)
     public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone, String newZipcode, String newAddr1, String newAddr2){
         try {
@@ -55,8 +82,6 @@ public class UserService {
                 user.setZipcode(newZipcode);
                 user.setAddr1(newAddr1);
                 user.setAddr2(newAddr2);
-
-                //바뀐 정보들을 save
 
                 // 바뀐 정보들을 save
                 entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
@@ -110,16 +135,6 @@ public class UserService {
 //        }
 //    }
 
-    public boolean joinMember(UserDto dto, Model model, HttpServletRequest request) {
-
-        //=======================================
-        //Email 중복체크
-        if (isEmailAlreadyTaken(dto.getEmail())) {
-            model.addAttribute("email", "이미 사용중인 이메일입니다.");
-            return false;
-        }
-        return false;
-    }
 
     public boolean isEmailAlreadyTaken (String email){
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));

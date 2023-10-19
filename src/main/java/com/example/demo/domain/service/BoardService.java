@@ -35,9 +35,9 @@ public class BoardService {
 
 
     //경민-학원컴퓨터
-    //private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
+    private String uploadDir = "C:/Users/Administrator/Desktop/망고(휴지통에 넣지말아주세요)/hamo/hamohamo/src/main/resources/static/images";
     //경민-집컴퓨터
-    private String uploadDir = "C:/Users/82108/OneDrive/바탕 화면/hamohamo/hamohamo/src/main/resources/static/images";
+    //private String uploadDir = "C:/Users/82108/OneDrive/바탕 화면/hamohamo/hamohamo/src/main/resources/static/images";
 
     @Autowired
     private BoardRepository boardRepository;
@@ -53,6 +53,7 @@ public class BoardService {
         System.out.println("upload File Count : " +dto.getFiles().length);
 
         Board board = new Board();
+        board.setEmail(dto.getEmail());
         board.setNickname(dto.getNickname());
         board.setContents(dto.getContents());
         board.setDate(LocalDateTime.now());
@@ -69,11 +70,11 @@ public class BoardService {
         if(dto.getFiles().length >= 1 && dto.getFiles()[0].getSize()!=0L)
         {
             //Upload Dir 미존재시 생성
-            String path = uploadDir+ File.separator+dto.getNickname();
+            String path = uploadDir+ File.separator+dto.getEmail();
             File dir = new File(path);
 
             // 이메일과 UUID 추출
-            String extractedEmail = dto.getNickname();
+            String extractedEmail = dto.getEmail();
 
             // 이메일과 UUID를 이용하여 디렉토리 경로 생성
             String dirPath = "http://localhost:8080/images/" + extractedEmail;
@@ -129,8 +130,17 @@ public class BoardService {
     }
 
     @Transactional(rollbackFor = SQLException.class)
+    public Board getBoardOne(Long number){
+        Optional<Board> board = boardRepository.findByNum(number);
+
+        if(board.isEmpty())
+            return null;
+        else
+            return board.get();
+    }
+
+    @Transactional(rollbackFor = SQLException.class)
     public boolean deleteBoard(Long number){
-        System.out.println("deleteBoard할거임!!!!!!!!! : " + number);
 
         Optional<Board> boardOptional = boardRepository.findByNum(number);
 
@@ -163,11 +173,11 @@ public class BoardService {
     }
 
     @Transactional(rollbackFor = SQLException.class)
-    public boolean updateBoard(Long number, String newContents) {
+    public boolean updateBoard(BoardDto dto, String newContents) {
 
-        System.out.println("updateBoard!!!!!"+number);
+        System.out.println("updateBoard!!!!!"+dto.getNumber());
         // 게시물 번호로 해당 게시물 정보 가져오기
-        Optional<Board> boardOptional = boardRepository.findByNum(number);
+        Optional<Board> boardOptional = boardRepository.findByNum(dto.getNumber());
 
         if (boardOptional.isPresent()) {
             Board board = boardOptional.get();

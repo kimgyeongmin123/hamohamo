@@ -17,8 +17,6 @@ public class UserDto {
 	private String password;
 	private String repassword;
 
-
-
 	private String nickname;
 	private String name;
 	private String zipcode;
@@ -37,24 +35,25 @@ public class UserDto {
 
 	private String profile;
 
-	public static UserDto EntityToDto(User user)
+	public static User dtoToEntity(UserDto dto)
 	{
-		UserDto dto  = new UserDto();
-		dto.setEmail(user.getEmail());
-		dto.setPassword(user.getPassword());
-		dto.setZipcode(user.getZipcode());
-		dto.setNickname(user.getNickname());
-		dto.setName(user.getName());
-		dto.setAddr1(user.getAddr1());
-		dto.setAddr2(user.getAddr2());
-		dto.setBirth(user.getBirth());
-		dto.setPhone(user.getPhone());
-		dto.setRole(user.getRole());
-		dto.setProfile(user.getProfile());
-		dto.setAnswer(user.getAnswer());
-		dto.setQuestion(user.getQuestion());
+		User user = User.builder()
+				.email(dto.getEmail())
+				.nickname(dto.getNickname())
+				.password(dto.getPassword())
+				.name(dto.getName())
+				.zipcode(dto.getZipcode())
+				.addr1(dto.getAddr1())
+				.addr2(dto.getAddr2())
+				.birth(dto.getBirth())
+				.phone(dto.getPhone())
+				.role(dto.getRole())
+				.question(dto.getQuestion())
+				.answer(dto.getAnswer())
+				.profile(dto.getProfile())
+				.build();
 
-		return dto;
+		return user;
 
 	}
 
