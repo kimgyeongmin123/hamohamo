@@ -224,17 +224,22 @@
               <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
 
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
+<!--                  <div class="carousel-indicators" style="background-color : gray;">-->
+<!--                    <th:block th:each="file, status : ${files}">-->
+<!--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>-->
+<!--&lt;!&ndash;                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>&ndash;&gt;-->
+<!--                    </th:block>-->
+<!--                  </div>-->
                   <div class="carousel-inner">
 
                     <th:block th:each="file, status : ${files}">
                       <div class="carousel-item" th:classappend="${status.index == 0} ? active">
                         <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="585" height="650" />
+                        <div class="carousel-caption">
+                          <p style="background-color : gray; border : 1px solid red;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+                        </div>
                       </div>
                     </th:block>
 
