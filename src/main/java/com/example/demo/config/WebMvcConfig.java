@@ -37,7 +37,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //이미지 경로 추가(윈도우 : c:\\hamohamo를 기본경로로 둔다)
         registry.addResourceHandler("/resources/hamohamo/**").addResourceLocations("file:c:\\hamohamo\\").setCachePeriod(60 * 60 * 24 * 365);
 
-
+        registry.addResourceHandler("/resource/hamohamo/**")
+                .addResourceLocations("file:c:\\hamohamo\\")
+                .setCachePeriod(60 * 60 * 24 * 365);
+        
     }
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
