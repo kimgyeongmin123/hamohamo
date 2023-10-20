@@ -175,10 +175,10 @@
                         </div>
                     </div>
                 </section>
-                <form action="/post" method="post" enctype="multipart/form-data">
+                <form onsubmit="return false" name="imageform" >
                     <div style="display : flex;">
                         <div class="form-group" style="display : flex; flex-direction: column;">
-                            <input class="form-control" type="file" id="formFile" name="files" multiple>
+                            <input class="form-control" type="file" id="formFile" name="files" style="z-index : 80;"multiple>
 
 
 
@@ -196,7 +196,7 @@
                             </div>
 
                             <div class="form-group">
-                                <textarea name="content" rows="4" style="width : 300px;height : 300px;" required></textarea>
+                                <textarea name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
                             </div>
 
                         </div>
@@ -423,17 +423,15 @@ uploadBox_el.addEventListener('drop',function(e){
 
 const add_product_btn_el = document.querySelector('.add_product_btn');
 		add_product_btn_el.addEventListener('click',function(){
-			const title =	document.imageform.title.value;
-			const content = document.imageform.content.value;
+			const contents = document.imageform.contents.value;
 
-			formData.append('title',title);
-			formData.append('content',content);
+			formData.append('contents',contents);
 
 
-			axios.post('/imageboard/add',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
+			axios.post('/post',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
 			.then(response =>{
 				alert("SUCCESS");
-				location.href="/imageboard/list";
+				location.href="/list";
 			})
 			.catch(error =>{alert("FAIL");})
 
