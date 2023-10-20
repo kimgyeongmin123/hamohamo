@@ -606,6 +606,7 @@ reply_btn_el.addEventListener('click', function () {
           span2.className = "reply_date";
           span2.textContent = formatter(reply.date);
           span2.textContent = " | " + formatter(reply.date); // date 앞에 공백 추가
+          console.log("reply.date:", reply.date);
 
 
           var delete_a = document.createElement("a");
@@ -686,17 +687,21 @@ reply_btn_el.addEventListener('click', function () {
   // LocalDateTime Formatter
   //----------------------------------------------------------------
   const formatter = (regDate)=>{
-    // JavaScript Date 객체로 변환
-    const date = new Date(regDate);
+    // 분리한 정보를 사용하여 Date 객체를 생성합니다.
+    const year = parseInt(regDate[0]);
+    const month = parseInt(regDate[1]) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
+    const day = parseInt(regDate[2]);
+    const hours = parseInt(regDate[3]);
+    const minutes = parseInt(regDate[4]);
+    const seconds = parseInt(regDate[5]);
+
+    const date = new Date(year, month, day, hours, minutes, seconds);
 
     // Date 객체를 원하는 형식으로 포맷팅합니다.
     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
     return formattedDate;
   };
-
-
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

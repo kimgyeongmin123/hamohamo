@@ -293,8 +293,8 @@ public class UserController {
 		return "search-nickname";
 	}
 
-	//프로필이미지 업로드
 
+	//프로필이미지 업로드
 	@Autowired
 	private ResourceLoader resourceLoader;
 

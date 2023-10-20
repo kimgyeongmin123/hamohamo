@@ -40,7 +40,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resource/hamohamo/**")
                 .addResourceLocations("file:c:\\hamohamo\\")
                 .setCachePeriod(60 * 60 * 24 * 365);
-        
+
     }
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
