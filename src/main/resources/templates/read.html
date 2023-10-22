@@ -144,53 +144,48 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <form action="/post" method="post" enctype="multipart/form-data">
-        <div class="modal-header" style="height : 40px;">
-          <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
-          <button type="submit" class="btn btn-primary submit-button">등록</button>
-        </div>
 
+      <div class="modal-header" style="height : 40px;">
+        <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
+      </div>
 
+      <div class="modal-body" style="display : flex; justify-content: center;">
+        <section class="product_img_block" style="display : fixed;width : 10px;">
+          <div class="product_img">
+            <div class="upload-box" style="position : relative;left :10px;top : 0px;width : 500px;height : 500px;z-index:999;">
+              <div class="plus">+</div>
+            </div>
+          </div>
+        </section>
+        <form onsubmit="return false" name="imageform" >
+          <div style="display : flex;">
+            <div class="form-group" style="display : flex; flex-direction: column;">
+              <!--                            <input class="form-control" type="file" id="fileInput" name="files" style="z-index : 80;" multiple>-->
 
-        <div class="modal-body" style="display : flex; justify-content: center;">
-
-          <div class="form-group" style="display : flex; flex-direction: column;">
-            <input class="form-control" type="file" id="formFile" name="files" multiple>
-
-            <section class="product_img_block">
-              <div class="product_img">
-                <div class="upload-box">
-                  <div class="plus">+</div>
-                </div>
+              <div style="width : 500px; height : 500px;">
+                <div id="preview" style="width : 500px;height : 500px;"></div>
               </div>
-            </section>
+            </div>
 
-            <div>
-              <label>PREVIEW</label>
-              <div id="preview"></div>
+            <div style="margin-left : 60px;">
+              <div class="form-group" style="height : 49px;">
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />
+                <label for="nickname"></label>
+                <input type="text" id="nickname" name="nickname" th:value="${#authentication.getPrincipal().getUser().getNickname()}" style="border : 1px solid white;"readonly/>
+              </div>
+
+              <div class="form-group">
+                <textarea name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
+              </div>
             </div>
           </div>
-
-          <div>
-            <div class="form-group" style="height : 38px;">
-              <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />
-              <label for="nickname"></label>
-              <input type="text" id="nickname" name="nickname" th:value="${#authentication.getPrincipal().getUser().getNickname()}" style="border : 1px solid white;"readonly/>
-              <input type="text" id="email" name="email" th:value="${#authentication.getPrincipal().getUser().getEmail()}" style="border : 1px solid white; color : gray;"readonly/>
-
-            </div>
-
-            <div class="form-group">
-              <label for="contents"></label>
-              <textarea id="contents" name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
-            </div>
-
-            <div class="modal-footer">
-
-            </div>
+          <div class="modal-footer" style="margin-top : 20px;">
+            <button type="submit" class="btn btn-primary add_product_btn">등록</button>
           </div>
-        </div>
-      </form>
+        </form>
+
+      </div>
+
     </div>
   </div>
 </div>
