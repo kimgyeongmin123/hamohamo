@@ -142,28 +142,37 @@ public class UserController {
 	public String UserUpdate(@RequestParam("newNickname") String newNickname,
 							 @RequestParam("newBirth") String newBirth,
 							 @RequestParam("newPhone") String newPhone,
-							 @RequestParam("newZipcode") String newZipcode,
-							 @RequestParam("newAddr1") String newAddr1,
-							 @RequestParam("newAddr2") String newAddr2,
+//							 @RequestParam("newZipcode") String newZipcode,
+//							 @RequestParam("newAddr1") String newAddr1,
+//							 @RequestParam("newAddr2") String newAddr2,
 							 RedirectAttributes redirectAttributes,
-							 Model model) {
-		log.info("UserUpdate POST/ post");
+							 Model model, Authentication authentication) {
+		System.out.println("UserUpdate POST/ post");
 
-		// 현재 인증된 사용자의 이메일 가져오기
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// Authentication 의  PrincipalDetails에 변경된 UserDto저장
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+		//접속 유저명 받기
+		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
 
 
 
-		boolean isUpdate = userService.UserUpdate(email,newNickname, newBirth, newPhone, newZipcode,newAddr1, newAddr2);
+		boolean isUpdate = userService.UserUpdate(email,newNickname, newBirth, newPhone);
 
+		System.out.println(authentication);
+
+
+
+		System.out.println("IsUpdate : "+ isUpdate);
 		if (isUpdate) {
+//			SecurityContextHolder.getContext().setAuthentication(null);
 			redirectAttributes.addFlashAttribute("successMessage", "Nickname updated successfully.");
 		} else {
 			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
-		return "redirect:update";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/mypage")
@@ -182,30 +191,6 @@ public class UserController {
 		model.addAttribute("userDto",principalDetails.getUser());
 	}
 
-	@GetMapping("/profile/leave_auth")
-	public String showauth(Model model) {
-
-//		//-----------------------------------------------------------------------------------
-//		// 현재 인증된 사용자의 이메일 가져오기
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		String email = authentication.getName();
-//
-//		// UserRepository를 사용하여 사용자 정보 가져오기
-//		User user = userRepository.findById(email).get();
-//
-//		// UserDto 객체 생성
-//		UserDto dto = UserDto.EntityToDto(user);
-//		// 사용자 정보에서 닉네임을 가져와서 설정
-//		if (user != null) {
-//			dto.setNickname(user.getNickname());
-//		}
-//
-//		model.addAttribute("dto", dto);
-//		//--------------------------------------------------------------------------------------
-//
-//		return "profile/leave_auth";
-		return null;
-	}
 
 	@GetMapping("/user/withdraw")
 	public String withdrawUser(Model model, Principal principal, HttpServletRequest request) {

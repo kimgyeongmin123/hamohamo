@@ -314,7 +314,7 @@
 
             <div class="menu">
                 <div class="top-menu">
-                    <span th:text="${#authentication.getPrincipal().getUser().getNickname()}" >사용자 닉네임</span>
+                    <span th:text="${userDto.nickname}" >사용자 닉네임</span>
                     <a href="/profile/update"><button type="button" class="btn btn-outline-secondary">정보 수정</button></a>
                 </div>
 
@@ -376,33 +376,6 @@
 
 <!-- axios -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-<script>
-    // 프로필 사진 변경 버튼 클릭 시 모달 열기
-    var profileBtn = document.getElementById("profileBtn");
-    var modal = document.getElementById("profileModal");
-
-    profileBtn.addEventListener("click", function () {
-        modal.style.display = "block";
-    });
-
-    // 모달 닫기 버튼 클릭 시 모달 닫기
-    var closeBtn = document.getElementsByClassName("close")[0];
-
-    closeBtn.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
-
-    // 모달 영역 외 클릭 시 모달 닫기
-    window.addEventListener("click", function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-
-</script>
-
 
 <script>
 
@@ -472,27 +445,6 @@
             });
         }
     });
-</script>
-
-<script>
-    $(document).ready(function() {
-    $('.like-button').click(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function(data) {
-                // 성공적으로 좋아요를 업데이트한 경우
-                console.log('좋아요 업데이트 성공');
-                window.location.href = "/mypage";
-            },
-            error: function() {
-                console.error('좋아요 업데이트 실패');
-            }
-        });
-    });
-});
 </script>
 
 <script>

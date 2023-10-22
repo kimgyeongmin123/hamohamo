@@ -1,11 +1,16 @@
 package com.example.demo.domain.service;
 
+import com.example.demo.config.auth.PrincipalDetails;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,9 +69,10 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = SQLException.class)
-    public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone, String newZipcode, String newAddr1, String newAddr2){
+    public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone){
         try {
             User user = userRepository.findByEmail(email);
+            UserDto dto  = new UserDto();
 
 
             if (user != null) {
@@ -79,21 +85,28 @@ public class UserService {
                 user.setNickname(newNickname);
                 user.setBirth(newBirth);
                 user.setPhone(newPhone);
-                user.setZipcode(newZipcode);
-                user.setAddr1(newAddr1);
-                user.setAddr2(newAddr2);
+//                user.setZipcode(newZipcode);
+//                user.setAddr1(newAddr1);
+//                user.setAddr2(newAddr2);
 
-                //바뀐 정보들을 save
+                //Dto에도 저장
+                dto.setNickname(user.getNickname());
+                dto.setBirth(user.getBirth());
+                dto.setPhone(user.getPhone());
 
-                // 바뀐 정보들을 save
+                System.out.println("dto : "+dto);
+
+
                 entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
                         .setParameter("newNickname", newNickname)
                         .setParameter("oldNickname", oldNickname)
                         .executeUpdate();
 
+                // 바뀐 정보들을 save
                 userRepository.save(user);
 
                 System.out.println("user: " +user);
+
 
                 //성공의 의미인 true를 반환
                 return true;

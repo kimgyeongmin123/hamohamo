@@ -56,6 +56,9 @@ public class BoardController {
 
         System.out.println("Board's list : " + list);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+
 
         //dto -> entity
 //        List<BoardDto> boardDtos = list.stream()
