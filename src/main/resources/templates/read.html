@@ -238,17 +238,17 @@
                       <div class="carousel-item" th:classappend="${status.index == 0} ? active">
                         <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="585" height="650" />
                         <div class="carousel-caption">
-                          <p style="background-color : gray; border : 1px solid red;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+                          <p style="background-color : gray; opacity: 0.75; width : 50px;height : 30px;border-radius : 20px;position : relative;bottom : 550px;left : 430px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
                         </div>
                       </div>
                     </th:block>
 
                   </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color : gray;">
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color : gray;height : 50px;margin-top : 325px;border-radius : 10px;">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                   </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color : gray;">
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color : gray;height : 50px;margin-top : 325px;border-radius : 10px;">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                   </button>
