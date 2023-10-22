@@ -359,8 +359,7 @@
                         <div id = board_img>
                             <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
-                                <img th:src="@{'/resources/hamohamo/'+${#authentication.getPrincipal().getUser().getEmail()}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
-<!--                                <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="300" height="300"/>-->
+                                <img th:src="@{'/resources/hamohamo/'+${#authentication.getPrincipal().getUser().getEmail()}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="300" height="300"/>
                             </div>
                         </div>
                     </a>
