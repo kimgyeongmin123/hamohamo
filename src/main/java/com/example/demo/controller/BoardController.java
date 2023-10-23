@@ -29,9 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -52,23 +50,23 @@ public class BoardController {
         log.info("GET /list");
 
         // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
-        List<Board> list = boardService.getBoardList();
+        List<Object[]> list = boardService.getBoardList();
 
-        System.out.println("Board's list : " + list);
+        List<Map<String, Object>> dataList = new ArrayList<>();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
+        for (Object[] row : list) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("board", row[0]); // 여기에서 row[0]는 Board 객체
+            data.put("profile", row[1]); // 여기에서 row[1]은 profile 문자열
+            dataList.add(data);
+        }
 
+        System.out.println("dataList : " + dataList);
 
-        //dto -> entity
-//        List<BoardDto> boardDtos = list.stream()
-//                .map(BoardDto::Of)
-//                .collect(Collectors.toList());
-//
-//
-//        System.out.println("Board's boardDtos : " + boardDtos);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println(authentication);
 
-        model.addAttribute("list", list);
+        model.addAttribute("dataList", dataList);
 
     }
 

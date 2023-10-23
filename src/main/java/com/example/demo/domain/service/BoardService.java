@@ -92,9 +92,9 @@ public class BoardService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<Board> getBoardList(){
+    public List<Object[]> getBoardList(){
         //Desc Sorting return
-        return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+        return boardRepository.findJoin();
     }
 
     @Transactional(rollbackFor = SQLException.class)

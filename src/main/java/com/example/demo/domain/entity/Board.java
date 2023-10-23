@@ -30,4 +30,5 @@ public class Board {
 
     @ElementCollection
     private List<String> files;
+
 }

@@ -17,15 +17,12 @@ public interface BoardRepository extends JpaRepository<Board, String> {
 
 
 
-    List<Board> findAll();
+    //List<Board> findAll();
 
     boolean existsByNumber(Long number);
 
     @Query("SELECT b FROM Board b WHERE email = :email ORDER BY date DESC")
     List<Board> getBoardByEmailOrderByDateDesc(@Param("email") String email);
-
-    @Query("SELECT b FROM Board b WHERE number = :number")
-    List<Object> findByNumber(@Param("number") Long number);
 
     @Query("SELECT b FROM Board b WHERE number = :number")
     Optional<Board> findByNum(@Param("number") Long number);
@@ -38,7 +35,9 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("DELETE FROM Board b WHERE b.nickname = :nickname")
     void deleteByNickname(@Param("nickname") String nickname);
 
-//   @Query("SELECT b.number, u.profile FROM Board b RIGHT OUTER JOIN User u ON b.email = u.email")
+    //조인하여 프로필조회 (보드 number 에 따라 프로필만 select)
+    @Query("SELECT b,u.profile FROM Board b INNER JOIN User u ON b.email = u.email")
+    List<Object[]> findJoin();
 
 
 

@@ -218,36 +218,36 @@
     <div class="BandF">
         <div class="board">
 
-            <div th:each="board,i: ${list}">
+            <div th:each="data ,i: ${dataList}">
                 <div class="board-item">
 
                     <div class="idbox">
                         <div>
-                            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:30px;height:30px;border-radius:50%;" />
-                            <div id = board_id th:text="${board.nickname}">id</div>|
-                            <div class="date" th:text="${board.date}">date</div>
+                            <img th:src="${data.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                            <div id = board_id th:text="${data.board.nickname}">id</div>|
+                            <div class="date" th:text="${data.board.date}">date</div>
                         </div>
                         <div class="hits-box">조회
-                            <div class="hits" th:text="${board.hits}">hits</div>
+                            <div class="hits" th:text="${data.board.hits}">hits</div>
                         </div>
                     </div>
 
 
-                    <a th:href="'/read/' + ${board.number}">
+                    <a th:href="'/read/' + ${data.board.number}">
                         <div id = board_img>
                             <div class="img">
-                                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
+                                <img th:src="@{'/resources/hamohamo/'+${data.board.email}+'/'+${data.board.number}+'/'+${data.board.files.get(0)}}" width="450" height="100%"/>
                             </div>
-                            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                            <div id=board_contents class="contents" th:text="${data.board.contents}">contents</div>
                         </div>
                     </a>
 
                     <div class="like">
-                        <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                        <a th:href="@{'/like/' + ${data.board.number}}" class="like-button">
                             <span style="border-style : none;">❤️</span>
                             <!-- <span th:unless="${isLiked}">🖤</span> -->
                         </a>
-                        <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+                        <span class="like-count" data-board-number="${data.board.number}" th:text="${data.board.like_count}">like</span>
                         <span style="font-size: 17px;">🗨️</span>
                         <span class="reply-count"></span>
                     </div>
