@@ -392,7 +392,23 @@
 
 <!--    });-->
 <!--</script>-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('searchButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작을 막습니다.
 
+        // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+        var form = document.getElementById('searchForm');
+        var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+        if (selectedOption === 'nickname') {
+            form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+        } else {
+            form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+        }
+            form.submit(); // 폼 제출
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js" integrity="sha512-emSwuKiMyYedRwflbZB2ghzX8Cw8fmNVgZ6yQNNXXagFzFOaQmbvQ1vmDkddHjm5AITcBIZfC7k4ShQSjgPAmQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     const fileInput = document.getElementById('imagechange');
@@ -437,7 +453,6 @@
             });
     });
 </script>
-
 <script>
     const formData = new FormData();	//폼관련 정보 저장
 
@@ -494,6 +509,23 @@ uploadBox_el.addEventListener('drop',function(e){
     formData.append('files',file);
 
 });
+
+const add_product_btn_el = document.querySelector('.add_product_btn');
+		add_product_btn_el.addEventListener('click',function(){
+			const contents = document.imageform.contents.value;
+
+			formData.append('contents',contents);
+
+
+			axios.post('/post',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
+			.then(response =>{
+				alert("SUCCESS");
+				location.href="/list";
+			})
+			.catch(error =>{alert("FAIL");})
+
+
+		})
 </script>
 
 </body>
