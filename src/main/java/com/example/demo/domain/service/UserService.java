@@ -141,14 +141,6 @@ public class UserService {
             return false; // 예외 발생 시 탈퇴 실패
         }
     }
-//    @Transactional
-//    public void updateUserProfilePicture(String email, String profilePicturePath) {
-//        User user = userRepository.findByEmail(email);
-//        if (user != null) {
-//            user.setProfile(profilePicturePath);
-//            userRepository.save(user);
-//        }
-//    }
 
     public boolean isEmailAlreadyTaken (String email){
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));

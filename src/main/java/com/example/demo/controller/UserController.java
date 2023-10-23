@@ -193,22 +193,9 @@ public class UserController {
 
 
 	@GetMapping("/user/withdraw")
-	public String withdrawUser(Model model, Principal principal, HttpServletRequest request) {
-		String email = principal.getName(); // 현재 인증된 사용자의 이메일 가져오기
-		String password = request.getParameter("password"); // 사용자 입력에서 비밀번호 가져오기
+	public String withdrawUser() {
 
-		boolean isWithdrawn = userService.withdrawUser(email, password);
-
-		if (isWithdrawn) {
-			// 회원 탈퇴에 성공한 경우, 로그아웃 처리 및 세션 무효화
-			SecurityContextHolder.clearContext(); // 현재 사용자의 보안 컨텍스트를 지웁니다.
-
-			return "redirect:/login?message=WithdrawnSuccessfully";
-		} else {
-			// 회원 탈퇴에 실패한 경우 에러 메시지 등을 처리합니다.
-			return "redirect:/mypage?error=WithdrawFailed";
-
-		}
+		return "/profile/leave_auth";
 	}
 	@PostMapping("/user/withdraw")
 	public String withdrawUserPost(@RequestParam String password, RedirectAttributes redirectAttributes) {
