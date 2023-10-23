@@ -111,6 +111,11 @@ public class BoardService {
     }
 
     @Transactional(rollbackFor = SQLException.class)
+    public String getProfileForBoard(Long number) {
+        return boardRepository.findByNumProfile(number);
+    }
+
+    @Transactional(rollbackFor = SQLException.class)
     public boolean deleteBoard(Long number){
         System.out.println("deleteBoard할거임!!!!!!!!! : " + number);
 

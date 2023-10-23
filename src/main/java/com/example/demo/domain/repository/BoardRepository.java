@@ -2,6 +2,7 @@ package com.example.demo.domain.repository;
 
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.Heart;
+import com.example.demo.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,6 +27,10 @@ public interface BoardRepository extends JpaRepository<Board, String> {
 
     @Query("SELECT b FROM Board b WHERE number = :number")
     Optional<Board> findByNum(@Param("number") Long number);
+
+    //read에서 사용할 프로필쿼리문
+    @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email WHERE number = :number")
+    String findByNumProfile(@Param("number") Long number);
 
     @Query("SELECT b FROM Board b WHERE contents LIKE %:keyword%")
     List<Board> findByContents(@Param("keyword") String keyword);

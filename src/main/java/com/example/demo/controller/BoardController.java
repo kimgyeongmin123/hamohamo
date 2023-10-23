@@ -153,6 +153,7 @@ public class BoardController {
     public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request, HttpServletResponse response){
         System.out.println("GET /read/"+number);
         Board board = boardService.getBoardOne(number);
+        String profile = boardService.getProfileForBoard(number);
 
         System.out.println(board);
 
@@ -160,6 +161,7 @@ public class BoardController {
         System.out.println(files);
         model.addAttribute("board", board);
         model.addAttribute("files", files);
+        model.addAttribute("profile", profile);
 
         //-----------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------
