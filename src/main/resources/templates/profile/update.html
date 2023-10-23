@@ -436,13 +436,10 @@
         const formData = new FormData(profileForm);
 
         axios.post('/profile/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(response => {
-                console.log(response);
-                alert('프로필 업데이트가 성공했습니다.');
+            .then(response=>{
+            alert("수정이 완료되었습니다.");
+                location.reload();
             })
-            .catch(error => {
-                console.error(error);
-            });
     });
 </script>
 

@@ -111,18 +111,18 @@ public class UserController {
 		System.out.println("프로필 업데이트 겟요청입니다.");
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		String email = authentication.getName();
+		String email = authentication.getName();
 //
 
-		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+//		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
-		UserDto dto = principalDetails.getUser();
+//		UserDto dto = principalDetails.getUser();
 		// UserDto 객체 생성
 
-		// UserRepository를 사용하여 사용자 정보 가져오기 왜 가져오는거지?
-//		User user = userRepository.findByEmail(email);
+		// UserRepository를 사용하여 사용자 정보 가져오기
+		User user = userRepository.findByEmail(email);
 
-		System.out.println("dto : "+dto);
+//		System.out.println("dto : "+dto);
 
 		// 사용자 정보에서 닉네임을 가져와서 설정 왜 디티오에 넣죠?
 //		if (user != null) {
@@ -137,7 +137,7 @@ public class UserController {
 //			dto.setProfile(user.getProfile());
 //		}
 
-		model.addAttribute("dto", dto);
+		model.addAttribute("dto", user);
 
 		return "profile/update";
 	}
@@ -176,7 +176,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
-		return "redirect:/profile/update";
+		return "ok";
 	}
 
 	@GetMapping("/mypage")
