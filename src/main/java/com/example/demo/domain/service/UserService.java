@@ -72,8 +72,6 @@ public class UserService {
     public Boolean UserUpdate(String email, String newNickname, String newBirth, String newPhone){
         try {
             User user = userRepository.findByEmail(email);
-            UserDto dto  = new UserDto();
-
 
             if (user != null) {
                 //원래 닉네임 따로 저장
@@ -89,14 +87,7 @@ public class UserService {
 //                user.setAddr1(newAddr1);
 //                user.setAddr2(newAddr2);
 
-                //Dto에도 저장
-                dto.setNickname(user.getNickname());
-                dto.setBirth(user.getBirth());
-                dto.setPhone(user.getPhone());
-
-                System.out.println("dto : "+dto);
-
-
+                //이거는 테이블의 닉네임도 바꾸는 것이에요 :) 이거는 때려죽여도 잘돼요
                 entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
                         .setParameter("newNickname", newNickname)
                         .setParameter("oldNickname", oldNickname)

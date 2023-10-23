@@ -8,7 +8,6 @@ import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -31,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,8 +88,8 @@ public class UserController {
 
 		return ResponseEntity.ok(response);
 	}
-	@GetMapping("/checkNicknameDuplicate")
-	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
+//	@GetMapping("/checkNicknameDuplicate")
+//	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
 	@PostMapping("/checkNicknameDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
 
@@ -110,28 +108,34 @@ public class UserController {
 
 	@GetMapping("/profile/update")
 	public String showInfo(Model model) {
+		System.out.println("프로필 업데이트 겟요청입니다.");
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String email = authentication.getName();
+//		String email = authentication.getName();
+//
 
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+		UserDto dto = principalDetails.getUser();
 		// UserDto 객체 생성
-		UserDto dto = new UserDto();
 
-		// UserRepository를 사용하여 사용자 정보 가져오기
-		User user = userRepository.findByEmail(email);
+		// UserRepository를 사용하여 사용자 정보 가져오기 왜 가져오는거지?
+//		User user = userRepository.findByEmail(email);
 
-		// 사용자 정보에서 닉네임을 가져와서 설정
-		if (user != null) {
-			dto.setNickname(user.getNickname());
-			dto.setName(user.getName());
-			dto.setPassword(user.getPassword());
-			dto.setBirth(user.getBirth());
-			dto.setPhone(user.getPhone());
-			dto.setZipcode(user.getZipcode());
-			dto.setAddr1(user.getAddr1());
-			dto.setAddr2(user.getAddr2());
-			dto.setProfile(user.getProfile());
-		}
+		System.out.println("dto : "+dto);
+
+		// 사용자 정보에서 닉네임을 가져와서 설정 왜 디티오에 넣죠?
+//		if (user != null) {
+//			dto.setNickname(user.getNickname());
+//			dto.setName(user.getName());
+//			dto.setPassword(user.getPassword());
+//			dto.setBirth(user.getBirth());
+//			dto.setPhone(user.getPhone());
+//			dto.setZipcode(user.getZipcode());
+//			dto.setAddr1(user.getAddr1());
+//			dto.setAddr2(user.getAddr2());
+//			dto.setProfile(user.getProfile());
+//		}
 
 		model.addAttribute("dto", dto);
 
@@ -145,34 +149,34 @@ public class UserController {
 //							 @RequestParam("newZipcode") String newZipcode,
 //							 @RequestParam("newAddr1") String newAddr1,
 //							 @RequestParam("newAddr2") String newAddr2,
-							 RedirectAttributes redirectAttributes,
-							 Model model, Authentication authentication) {
+							 RedirectAttributes redirectAttributes) {
 		System.out.println("UserUpdate POST/ post");
 
-		// Authentication 의  PrincipalDetails에 변경된 UserDto저장
-		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
 		//접속 유저명 받기
-		authentication = SecurityContextHolder.getContext().getAuthentication();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
 
-
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
 		boolean isUpdate = userService.UserUpdate(email,newNickname, newBirth, newPhone);
 
-		System.out.println(authentication);
+		UserDto dto = principalDetails.getUser();
 
-
+		System.out.println("전 dto : "+dto);
+		dto.setNickname(newNickname);
+		dto.setPhone(newPhone);
+		dto.setBirth(newBirth);
+		System.out.println("후 dto : "+dto);
 
 		System.out.println("IsUpdate : "+ isUpdate);
 		if (isUpdate) {
-//			SecurityContextHolder.getContext().setAuthentication(null);
 			redirectAttributes.addFlashAttribute("successMessage", "Nickname updated successfully.");
 		} else {
 			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
-		return "redirect:/login";
+		return "redirect:/profile/update";
 	}
 
 	@GetMapping("/mypage")
@@ -323,7 +327,7 @@ public class UserController {
 		user.setProfile("/resources/hamohamo/"+user.getEmail()+"/"+filename);
 
 		//DB에도 넣기
-		System.out.println("userDto : "+user);
+		System.out.println("user : "+user);
 		userService.updateProfile(user);
 
 

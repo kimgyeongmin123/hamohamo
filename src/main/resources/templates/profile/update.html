@@ -299,7 +299,7 @@
             </div>
             <br/> -->
 
-            <button type="submit" class="btn btn-secondary">제출</button>
+            <button type="submit" class="btn btn-secondary jechul">제출</button>
         </form>
 
         <div class="out">
@@ -428,31 +428,25 @@
 </script>
 
 <script>
-    // HTML 폼 요소를 찾아서 변수에 할당
     const profileForm = document.getElementById('profileForm');
 
-    // 폼 제출 이벤트 리스너를 추가
-    profileForm.addEventListener('submit', function (event) {
+    const jechulButton = document.querySelector('.jechul');
 
-        // FormData 객체를 사용하여 폼 데이터 수집
+    jechulButton.addEventListener('click', function (event) {
         const formData = new FormData(profileForm);
 
-        // Axios를 사용하여 POST 요청을 서버에 보냄
         axios.post('/profile/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(response => {
-                // 성공적으로 요청이 처리된 후 실행되는 코드
                 console.log(response);
-
-    window.location.href = '/login'; // 로그인 페이지로 리디렉션
-    alert('프로필 업데이트가 성공했습니다.');
-
+                alert('프로필 업데이트가 성공했습니다.');
             })
             .catch(error => {
-                // 요청이 실패한 경우 실행되는 코드
                 console.error(error);
             });
     });
 </script>
+
+
 <script>
     const formData = new FormData();	//폼관련 정보 저장
 
