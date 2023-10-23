@@ -113,7 +113,7 @@
             padding-top : 10px;
             padding-bottom : 10px;
             margin-bottom : 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .join>button{
@@ -130,6 +130,10 @@
             margin-right : 20px;
         }
 
+        .modal-body>form span{
+            font-size: 0.8rem;
+        }
+
     </style>
 
 </head>
@@ -144,41 +148,41 @@
                     <img src="images/logo.png" class="nlogoimg" max-width="100%" height="30"/>
                 </div>
                 <div class="idpw">
-                <input class="form-control" name="username" id="username" placeholder="EMAIL"><br/>
-                <input class="form-control" name="password" type="password" id="password" placeholder="PASSWORD" style="position : relative; bottom : 20px;"><br/>
+                    <input class="form-control" name="username" id="username" placeholder="EMAIL"><br/>
+                    <input class="form-control" name="password" type="password" id="password" placeholder="PASSWORD" style="position : relative; bottom : 20px;"><br/>
 
-                 </div>
+                </div>
 
-        <!-- <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
-            <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
-        </div> -->
+                <!-- <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me"/>
+                    <label class="form-check-label" for="rememberMe">로그인 상태를 유지</label>
+                </div> -->
 
-        <div class="loginbtn">
+                <div class="loginbtn">
 
-            <!-- <input type="submit" class="jechul" value="HAMOHAMO 로그인"/> -->
-            <button type="submit" class="btn btn-secondary btn-lg" style="position : relative; bottom : 30px;">Login</button>
+                    <!-- <input type="submit" class="jechul" value="HAMOHAMO 로그인"/> -->
+                    <button type="submit" class="btn btn-secondary btn-lg" style="position : relative; bottom : 30px;">Login</button>
+                </div>
+            </form>
+
+            <div class="find" style="width : 230px;border-top : 1px solid rgb(194, 194, 194);padding-top : 30px;text-align: center;position : relative;bottom : 50px;">
+                <a href="#" class="forget" style="font-size: 0.8rem; ">계정을 잊으셨나요?</a>
+            </div>
+
         </div>
-        </form>
 
-        <div class="find" style="width : 230px;border-top : 1px solid rgb(194, 194, 194);padding-top : 30px;text-align: center;position : relative;bottom : 50px;">
-            <a href="#" class="forget" style="font-size: 0.8rem; ">계정을 잊으셨나요?</a>
+        <div class="join">
+            계정이 없으신가요?
+            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                가입하기
+            </button>
         </div>
 
-    </div>
 
-    <div class="join">
-        계정이 없으신가요?
-        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            가입하기
-        </button>
-    </div>
-
-
-    <div class="otherlogin" style="margin-top : 20px;">
-        <div><a href="/oauth2/authorization/kakao"><img src="images/kakaologin.png" width=100% height=45px/></a></div>
-        <div><a href="/oauth2/authorization/naver"><img src="images/naverlogin.png" width=100% height=45px/></a></div>
-    </div>
+        <div class="otherlogin" style="margin-top : 20px;">
+            <div><a href="/oauth2/authorization/kakao"><img src="images/kakaologin.png" width=100% height=45px/></a></div>
+            <div><a href="/oauth2/authorization/naver"><img src="images/naverlogin.png" width=100% height=45px/></a></div>
+        </div>
 
     </div>
 </main>
@@ -193,7 +197,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">HAMOHAMO 회원가입</h5>
+                <span class="modal-title" id="staticBackdropLabel" style="font-size: 1.0rem;;">HAMOHAMO 회원가입</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -202,56 +206,56 @@
                     <br/>
                     <span for="emailInput">이메일</span>
                     <div style="display: flex;">
-                        <input name="email" id="emailInput" class="form-control">
-                        <button class="btn btn-secondary jung-btn" onclick="checkDuplicate('emailInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
+                        <input name="email" id="emailInput" class="form-control" style="font-size : 0.7rem;">
+                        <button class="btn btn-secondary jung-btn" onclick="checkDuplicate('emailInput')" style="width : 160px; font-size: 0.7rem; margin-left : 17px;">중복체크</button>
                     </div>
                     <br/>
 
                     <span for="passwordInput">비밀번호</span>
                     <div>
-                        <input name="password" type="password" id="passwordInput" class="form-control">
+                        <input name="password" type="password" id="passwordInput" class="form-control" style="font-size : 0.7rem;">
                     </div>
                     <br/>
                     <span for="passwordConfirmInput">비밀번호확인</span>
                     <div>
-                        <input name="passwordConfirm" type="password" id="passwordConfirmInput" class="form-control">
+                        <input name="passwordConfirm" type="password" id="passwordConfirmInput" class="form-control" style="font-size : 0.7rem;">
                     </div>
                     <br/>
                     <span for="nicknameInput">사용할 닉네임</span>
                     <div style="display: flex;">
-                        <input name="nickname" id="nicknameInput" class="form-control">
-                        <button class="btn btn-secondary jung-btn" onclick="checkNicknameDuplicate('nicknameInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
+                        <input name="nickname" id="nicknameInput" class="form-control" style="font-size : 0.7rem;">
+                        <button class="btn btn-secondary jung-btn" onclick="checkNicknameDuplicate('nicknameInput')" style="width : 160px; font-size: 0.7rem; margin-left : 17px;">중복체크</button>
                     </div>
                     <br/>
                     <span for="nameInput">성명</span>
                     <div>
-                        <input name="name" id="nameInput" class="form-control">
+                        <input name="name" id="nameInput" class="form-control" style="font-size : 0.7rem;">
                     </div>
                     <br/>
                     <span for="birthInput">생년월일</span>
                     <div>
-                        <input name="birth" id="birthInput" autocomplete="off" class="form-control">
+                        <input name="birth" id="birthInput" autocomplete="off" class="form-control" style="font-size : 0.7rem;">
                     </div>
                     <br/>
                     <span for="phoneInput">휴대폰</span>
                     <div>
-                        <input name="phone" id="phoneInput" maxlength="13" class="form-control">
+                        <input name="phone" id="phoneInput" maxlength="13" class="form-control" style="font-size : 0.7rem;">
                     </div>
                     <br/>
                     <span>주소</span>
                     <div>
                         <div style="display : flex;">
-                            <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" >
-                            <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">주소검색</button>
+                            <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" style="font-size: 0.7rem;">
+                            <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.7rem; margin-left : 17px;">주소검색</button>
                         </div>
 
-                        <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;">
-                        <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;">
+                        <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;font-size: 0.7rem;">
+                        <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;font-size: 0.7rem;">
                     </div>
                     <br/>
                     <span for="questionInput">질문 선택</span>
                     <div>
-                        <select class="form-select" aria-label=".form-select-sm example" name="question" id="questionInput" style="font-size : 1.0rem;">
+                        <select class="form-select" aria-label=".form-select-sm example" name="question" id="questionInput" style="font-size : 0.75rem;">
                             <option value="질문1">당신의 어린시절 별명은?</option>
                             <option value="질문2">당신이 가장 존경하는 사람은?</option>
                             <option value="질문3">당신의 보물 제1호는?</option>
@@ -262,15 +266,15 @@
                     </div>
                     <br/>
                     <span for="answerInput">답변</span>
-                    <div>
-                        <input name="answer" id="answerInput" type="text" class="form-control">
+                    <div style="margin-bottom : 20px;">
+                        <input name="answer" id="answerInput" type="text" class="form-control" style="font-size : 0.7rem;">
                     </div>
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size : 0.8rem;">Close</button>
                         <div class="jechul">
-                            <button onclick="isValid()" class="btn btn-secondary joinbtn">회원가입</button>
+                            <button onclick="isValid()" class="btn btn-secondary joinbtn" style="font-size : 0.8rem;">회원가입</button>
                         </div>
                     </div>
                 </form>
@@ -279,7 +283,7 @@
     </div>
 </div>
 
-    <script>
+<script>
     <!-- 이메일중복체크  -->
         let isEmailChecked = false;
         let isNicknameChecked = false;
@@ -436,37 +440,37 @@
 
            form.submit();
             }
-    </script>
+</script>
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
 
-        const search_addr_btn = document.querySelector('.search_addr_btn');
-        search_addr_btn.addEventListener('click',function(){
-           new daum.Postcode({
-                    oncomplete: function(data) {
-                        console.log(data);
-                        const zipcode = document.querySelector('.zipcode');
-                        const addr1 = document.querySelector('.addr1');
+    const search_addr_btn = document.querySelector('.search_addr_btn');
+    search_addr_btn.addEventListener('click',function(){
+       new daum.Postcode({
+                oncomplete: function(data) {
+                    console.log(data);
+                    const zipcode = document.querySelector('.zipcode');
+                    const addr1 = document.querySelector('.addr1');
 
-                        if(data.userSelectedType==='R')
-                        {
-                            addr1.value = data.roadAddress;
-                        }
-                        else
-                        {
-                            addr1.value = data.jibunAddress;
-                        }
-                        zipcode.value=data.zonecode;
-
+                    if(data.userSelectedType==='R')
+                    {
+                        addr1.value = data.roadAddress;
                     }
-                }).open();
+                    else
+                    {
+                        addr1.value = data.jibunAddress;
+                    }
+                    zipcode.value=data.zonecode;
 
-        });
-    </script>
+                }
+            }).open();
+
+    });
+</script>
 
 
-    <script>
+<script>
 
 
     function validateLoginForm() {
