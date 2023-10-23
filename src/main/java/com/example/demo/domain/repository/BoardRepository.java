@@ -32,6 +32,10 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email WHERE number = :number")
     String findByNumProfile(@Param("number") Long number);
 
+    //그냥 해당 글의 프로필만 조회
+    @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email")
+    String findProfile();
+
     @Query("SELECT b FROM Board b WHERE contents LIKE %:keyword%")
     List<Board> findByContents(@Param("keyword") String keyword);
 
@@ -40,7 +44,7 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("DELETE FROM Board b WHERE b.nickname = :nickname")
     void deleteByNickname(@Param("nickname") String nickname);
 
-    //조인하여 프로필조회 (보드 number 에 따라 프로필만 select)
+    //조인하여 프로필과 Board 함께 조회
     @Query("SELECT b,u.profile FROM Board b INNER JOIN User u ON b.email = u.email")
     List<Object[]> findJoin();
 

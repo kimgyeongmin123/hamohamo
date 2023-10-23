@@ -251,6 +251,11 @@ public class BoardService {
         return boardList;
     }
 
+    public String search_contents_profile(){
+        String profile = boardRepository.findProfile();
+        return profile;
+    }
+
     public boolean addLike(User user, Board board) {
         System.out.println("[보드서비스]에드라이크 호출완료했슴다");
         // 중복 좋아요를 방지하기 위해 이미 좋아요를 눌렀는지 확인

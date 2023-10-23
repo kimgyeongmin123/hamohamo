@@ -236,7 +236,10 @@ public class BoardController {
     @GetMapping("/list/search-contents")
     public String search(String keyword, Model model){
         List<Board> searchList = boardService.search_contents(keyword);
+        String profile = boardService.search_contents_profile();
+
         model.addAttribute("boardList",searchList);
+        model.addAttribute("profile", profile);
 //-----------------------------------------------------------------------------------
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
