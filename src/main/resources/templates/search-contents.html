@@ -219,7 +219,7 @@
                         <div id = board_img>
                             <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
-                                <img th:src="@{${board.dirpath} + '/' + ${#strings.replace(#strings.replace(board.filename, '[', ''), ']', '')}}" width="450" height="100%"/>
+                                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
                             </div>
                             <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
                         </div>
