@@ -112,30 +112,9 @@ public class UserController {
 		// 현재 인증된 사용자의 이메일 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
-//
-
-//		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-
-//		UserDto dto = principalDetails.getUser();
-		// UserDto 객체 생성
 
 		// UserRepository를 사용하여 사용자 정보 가져오기
 		User user = userRepository.findByEmail(email);
-
-//		System.out.println("dto : "+dto);
-
-		// 사용자 정보에서 닉네임을 가져와서 설정 왜 디티오에 넣죠?
-//		if (user != null) {
-//			dto.setNickname(user.getNickname());
-//			dto.setName(user.getName());
-//			dto.setPassword(user.getPassword());
-//			dto.setBirth(user.getBirth());
-//			dto.setPhone(user.getPhone());
-//			dto.setZipcode(user.getZipcode());
-//			dto.setAddr1(user.getAddr1());
-//			dto.setAddr2(user.getAddr2());
-//			dto.setProfile(user.getProfile());
-//		}
 
 		model.addAttribute("dto", user);
 

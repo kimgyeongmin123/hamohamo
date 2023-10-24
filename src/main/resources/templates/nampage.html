@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,26 +14,119 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="/css/board.css">
 
     <style>
 
-        .home{
+        .mypage{
             font-weight: 800;
+
         }
 
-          #preview>img {
-            width: 200px;
-            height: 200px;
-            border: 1px solid gray;
-            margin : 2px;
+        .mypage>img{
+            border : 2px solid gray;
         }
 
+        main>section{
+            margin-top : 50px;
+            margin-bottom : 50px;
+        }
 
+        main>section>.profile{
+            height : 200px;
+            width : 1000px;
+            display: flex;
+            border-bottom : 1px solid rgb(185, 185, 185);
+        }
+
+        .profileimg{
+            height : 150px;
+            width : 150px;
+            border : 1px solid gray;
+            border-radius: 50%;
+            margin-left : 100px;
+        }
+
+        main>section>.profile>.menu{
+            margin-left : 30px;
+        }
+
+        main>section>.profile>.menu>.top-menu{
+            display:  flex;
+            align-items: center;
+            justify-content: left;
+            margin-top : 10px;
+            margin-bottom : 20px;
+        }
+
+        main>section>.profile>.menu>.top-menu>span{
+            margin-left : 50px;
+            margin-right : 50px;
+        }
+
+        main>section>.profile>.menu>.top-menu>a{
+
+        }
+
+        .follow-box{
+            display : flex;
+            width : 500px;
+            height : 150px;
+            justify-content : left;
+        }
+
+        .follow-box>a{
+            line-height: 50px;
+            text-decoration: none;
+            color: black;
+            cursor : pointer;
+        }
+
+        .follow-box>.follower{
+            margin-left : 50px;
+            margin-right : 50px;
+        }
+
+        .no{
+            font-weight: 600;
+        }
+
+        .dropdown-toggle{
+            border-style: none;
+            background-color: white;
+            color: gray;
+            position : relative;
+            top : 25px;
+            right : 10px;
+            z-index : 1;
+        }
+
+        .dropdown-toggle:hover{
+            background-color: rgb(196, 193, 193);
+        }
+
+        .hits-box{
+            position : relative;
+            left : 50px;
+        }
+
+        main>section>.s_board .board-item>a>#board_img{
+
+        }
+
+        main>section>.s_board .board-item>a>#board_img>.img{
+            height : 300px;
+            width : 300px;
+            background-color: rgb(0, 0, 0);
+        }
 
     </style>
+
 </head>
+
 <body class="scroll">
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 <header>
     <div class="menu">
@@ -45,10 +138,9 @@
 
             <div class="middle-menu">
                 <a href="/list">
-                    <div class="home" style="font-size: 1.2rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-                            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                    <div class="home">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                         </svg>홈
                     </div>
                 </a>
@@ -87,7 +179,7 @@
                 </button>
 
                 <a href="/mypage">
-                    <div class="mypage">
+                    <div class="mypage" style="font-size : 1.2rem;">
                         <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
                     </div>
                 </a>
@@ -205,109 +297,103 @@
     </div>
 </div>
 
-
-
-<!-- /* COMMON 구간---------------------------------- */ -->
-
-
-
-
-
+<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 <main>
-    <div class="BandF">
-        <div class="board">
+    <section>
+        <div class="profile">
 
-            <div th:each="data ,i: ${dataList}">
+            <div class="profileimg" style="display:flex;justify-content:center; align-items : center;">
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:150px;height:150px;border-radius:50%;" />
+            </div>
+
+            <div class="menu">
+                <div class="top-menu">
+                    <span th:text="${userDto.nickname}" >사용자 닉네임</span>
+                    <a href="/profile/update"><button type="button" class="btn btn-outline-secondary">정보 수정</button></a>
+                </div>
+
+                <div class="follow-box">
+                    <a class="follower">
+                        팔로워
+                        <span class="no">100</span>
+                    </a>
+                    <a class="following">
+                        팔로잉
+                        <span class="no">100</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div class="s_board" style="width : 1000px; display : flex; justify-content: left; flex-wrap : wrap; margin-left : 0px;">
+
+            <th:block th:each="board : ${myBoards}">
                 <div class="board-item">
 
-                    <div class="idbox">
-                        <div>
-                            <a href="#" style="display:flex; align-items: center;font-size: 0.8rem;margin-right : 10px;justify-content: center; text-decoration: none; color : black;">
-                                <img th:src="${data.profile}" style="width:30px;height:30px;border-radius:50%;margin-right : 10px;" />
-                                <div id = board_id th:text="${data.board.nickname}">id</div>
-                            </a>|
-                            <div class="date" th:text="${data.board.date}">date</div>
-                        </div>
-                        <div class="hits-box">조회
-                            <div class="hits" th:text="${data.board.hits}">hits</div>
-                        </div>
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- 게시물 수정 버튼 -->
+
+                            <li><a th:href="@{'/update?number=' + ${board.number}}" class="dropdown-item">수정</a></li>
+                            <!-- 게시물 삭제 버튼 -->
+                            <li><a class="delete_btn dropdown-item" th:data-no="${board.number}">삭제</a></li>
+                        </ul>
                     </div>
 
-
-                    <a th:href="'/read/' + ${data.board.number}">
+                    <a th:href="'/read/' + ${board.number}">
                         <div id = board_img>
+                            <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
-                                <img th:src="@{'/resources/hamohamo/'+${data.board.email}+'/'+${data.board.number}+'/'+${data.board.files.get(0)}}" width="450" height="100%"/>
+                                <img th:src="@{'/resources/hamohamo/'+${#authentication.getPrincipal().getUser().getEmail()}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="300" height="300"/>
                             </div>
-                            <div id=board_contents class="contents" th:text="${data.board.contents}">contents</div>
                         </div>
                     </a>
 
-                    <div class="like">
-                        <a th:href="@{'/like/' + ${data.board.number}}" class="like-button">
-                            <span style="border-style : none;">❤️</span>
-                            <!-- <span th:unless="${isLiked}">🖤</span> -->
-                        </a>
-                        <span class="like-count" data-board-number="${data.board.number}" th:text="${data.board.like_count}">like</span>
-                        <span style="font-size: 17px;">🗨️</span>
-                        <span class="reply-count"></span>
-                    </div>
-
                 </div>
-            </div>
-
-
+            </th:block>
         </div>
-        <div class="fallow">
-            <h6>친구목록</h6>
-        </div>
-    </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
 
 </main>
 
-</body>
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
 
-    function logoutAndRedirect() {
-          // 새 창 열기
-       var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
-       setTimeout(function() {
-         // 1.5초후 창닫기
-          newWindow.close();
 
-         // 특정 지점으로 리다이렉션
-     window.location.href = '/login';
-   }, 1500);
+    // 모든 .delete_btn 요소를 선택
+    var deleteBtns = document.querySelectorAll('.delete_btn');
 
-     }
-
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-<script>
-    $(document).ready(function() {
-    $('.like-button').click(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function(data) {
-                // 성공적으로 좋아요를 업데이트한 경우
-                console.log('좋아요 업데이트 성공');
-                // 페이지를 다시 로드
-                location.reload();
-            },
-            error: function() {
-                console.error('좋아요 업데이트 실패');
-            }
+    // 모든 삭제 버튼에 이벤트 리스너 등록
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('click', function () {
+            const number = deleteBtn.getAttribute('data-no');
+            axios.delete("/delete?number=" + number)
+                .then(function (response) {
+                    console.log(response);
+                    if (response.status === 200) {
+                        location.href = "/list";
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         });
     });
-});
 </script>
 
 <script>
@@ -329,6 +415,16 @@
 </script>
 
 <script>
+    // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
+    document.querySelector(".up").addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // 부드러운 스크롤 사용
+        });
+    });
+</script>
+
+<script>
     // 스크롤 위치 저장
     window.addEventListener("scroll", function () {
         localStorage.setItem("scrollPosition", window.scrollY);
@@ -343,16 +439,6 @@
                 behavior: "auto"
             });
         }
-    });
-</script>
-
-<script>
-    // .up 엘리먼트를 클릭하면 페이지 상단으로 스크롤
-    document.querySelector(".up").addEventListener("click", function() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth" // 부드러운 스크롤 사용
-        });
     });
 </script>
 
@@ -433,10 +519,6 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
 		})
 </script>
-
-
-
-
 
 </body>
 </html>
