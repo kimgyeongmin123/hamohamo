@@ -21,14 +21,13 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler{
 
 
 
-	private String kakaoClientId = "206caf77477fe5ba91dafb10da8d95d2";
+	private String kakaoClientId = "c6120b18905d96ee859e2ad4378d6116";
 	private String LOGOUT_REDIRECT_URI ="http://localhost:8080/login";
 
-	private String naverClientId ="myCONIrrsJHFIPcgl9OQ";
+	private String naverClientId ="IayD1Rtkd3rQB2NViWi_";
 
-	private String naverClientSecret="ngJQs03WkY";
+	private String naverClientSecret="XonIHo8Skz";
 
-	private String googleAPIKEY = "141949035610-n9jkso1n0kebcgoj6luls6g206s1660u.apps.googleusercontent.com";
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -38,29 +37,22 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler{
 
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		String provider = principalDetails.getUser().getProvider();
-		if(StringUtils.contains(provider,"kakao"))
-		{
-			System.out.println("GET /th/kakao/logoutWithKakao");
-			//URL
-			String url = "https://kauth.kakao.com/oauth/logout?client_id="+kakaoClientId+"&logout_redirect_uri="+LOGOUT_REDIRECT_URI;
-			response.sendRedirect(url);
-			return ;
+		if (provider != null) {
+			if(StringUtils.contains(provider,"kakao"))
+			{
+				System.out.println("GET /th/kakao/logoutWithKakao");
+				//URL
+				String url = "https://kauth.kakao.com/oauth/logout?client_id="+kakaoClientId+"&logout_redirect_uri="+LOGOUT_REDIRECT_URI;
+				response.sendRedirect(url);
+				return ;
+			}
+			else if(StringUtils.contains(provider,"naver"))
+			{
+				String url = "/login";
+				response.sendRedirect(url);
+				return ;
+			}
 		}
-		else if(StringUtils.contains(provider,"google"))
-		{
-			String url = "https://accounts.google.com/Logout";
-			response.sendRedirect(url);
-			return;
-
-		}
-		else if(StringUtils.contains(provider,"naver"))
-		{
-			String url = "http://nid.naver.com/nidlogin.logout";
-			response.sendRedirect(url);
-			return ;
-		}
-
-
 
 		response.sendRedirect("/login");
 	}

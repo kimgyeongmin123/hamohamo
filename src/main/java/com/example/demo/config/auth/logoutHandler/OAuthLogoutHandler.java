@@ -34,7 +34,7 @@ public class OAuthLogoutHandler implements LogoutHandler {
         String provider = principalDetails.getUser().getProvider();
         String accessToken = ((PrincipalDetails) authentication.getPrincipal()).getAccessToken();
 
-        if(StringUtils.contains(provider,"kakao"))
+        if(provider!=null&&StringUtils.contains(provider,"kakao"))
         {
             System.out.println("GET /th/kakao/logout");
 
@@ -56,19 +56,7 @@ public class OAuthLogoutHandler implements LogoutHandler {
             System.out.println(rs.getBody());
 
         }
-        else if(StringUtils.contains(provider,"google"))
-        {
-            String url ="https://accounts.google.com/o/oauth2/revoke?token="+accessToken;
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.exchange(url,HttpMethod.GET,null,String.class);
-
-            HttpSession session = request.getSession(false);
-
-            if(session!=null)
-                session.invalidate();
-
-        }
-        else if(StringUtils.contains(provider,"naver"))
+        else if(provider!=null&&StringUtils.contains(provider,"naver"))
         {
 
             //https://developers.naver.com/docs/login/devguide/devguide.md#5-3-1-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%97%B0%EB%8F%99-%ED%95%B4%EC%A0%9C%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EA%B2%BD%EC%9A%B0

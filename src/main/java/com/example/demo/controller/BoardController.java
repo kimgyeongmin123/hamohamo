@@ -63,9 +63,6 @@ public class BoardController {
 
         System.out.println("dataList : " + dataList);
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println(authentication);
-
         model.addAttribute("dataList", dataList);
 
     }
