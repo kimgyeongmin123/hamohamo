@@ -227,7 +227,7 @@
                       <div class="carousel-item" th:classappend="${status.index == 0} ? active">
                         <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="585" height="650" />
                         <div class="carousel-caption">
-                          <p style="background-color : gray; opacity: 0.75; width : 50px;height : 30px;border-radius : 20px;position : relative;bottom : 550px;left : 430px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+                          <p style="background-color : gray; opacity: 0.75; width : 50px;height : 27px;border-radius : 20px;position : relative;bottom : 550px;left : 430px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
                         </div>
                       </div>
                     </th:block>
