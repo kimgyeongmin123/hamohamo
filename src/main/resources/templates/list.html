@@ -223,7 +223,7 @@
 
                     <div class="idbox">
                         <div>
-                            <a href="#" style="display:flex; align-items: center;font-size: 0.8rem;margin-right : 10px;justify-content: center; text-decoration: none; color : black;">
+                            <a th:href="'/whopage/' + ${data.board.number}" style="display:flex; align-items: center;font-size: 0.8rem;margin-right : 10px;justify-content: center; text-decoration: none; color : black;">
                                 <img th:src="${data.profile}" style="width:30px;height:30px;border-radius:50%;margin-right : 10px;" />
                                 <div id = board_id th:text="${data.board.nickname}">id</div>
                             </a>|

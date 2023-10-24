@@ -284,5 +284,24 @@ public class BoardController {
         return "redirect:/read/"+bno;
     }
 
+    @GetMapping(value ="/whopage/{number}")
+    public String whopage(@PathVariable("number") Long number){
+
+        String boardEmail = boardService.whopageS(number);
+
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        if(email.equals(boardEmail)){
+            return "redirect:/mypage";
+        }else if(!email.equals(boardEmail)){
+            return "redirect:/nampage";
+        }
+
+
+        return null;
+    }
+
 
 }

@@ -294,4 +294,11 @@ public class BoardService {
         return heartRepository.existsByUserAndBoard(user, board);
     }
 
+    public String whopageS(Long number){
+
+        String boardEmail = boardRepository.whoboard(number);
+
+        return boardEmail;
+    }
+
 }

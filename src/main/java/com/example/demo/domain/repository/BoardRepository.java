@@ -48,6 +48,7 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("SELECT b,u.profile FROM Board b INNER JOIN User u ON b.email = u.email")
     List<Object[]> findJoin();
 
-
+    @Query("SELECT u.email FROM User u INNER JOIN Board b ON u.email = b.email WHERE b.number=:number")
+    String whoboard(@Param("number") Long number);
 
 }
