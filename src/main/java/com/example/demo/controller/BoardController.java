@@ -232,20 +232,24 @@ public class BoardController {
 
     @GetMapping("/list/search-contents")
     public String search(String keyword, Model model){
-        List<Board> searchList = boardService.search_contents(keyword);
-        String profile = boardService.search_contents_profile();
 
-        model.addAttribute("boardList",searchList);
-        model.addAttribute("profile", profile);
-//-----------------------------------------------------------------------------------
-        // 현재 인증된 사용자의 이메일 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
+        List<Object[]> searchList = boardService.search_contents(keyword);
+        List<Map<String, Object>> dataList = new ArrayList<>();
 
-        // UserRepository를 사용하여 사용자 정보 가져오기
-        User user = userRepository.findById(email).get();
+        for (Object[] row : searchList) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("board", row[0]); // 여기에서 row[0]는 Board 객체
+            data.put("profile", row[1]); // 여기에서 row[1]은 profile 문자열
 
-//--------------------------------------------------------------------------------------
+            System.out.println(data);
+
+            dataList.add(data);
+        }
+
+        System.out.println("dataList : "+ dataList);
+
+        model.addAttribute("boardList",dataList);
+
         return "search-contents";
     }
 
@@ -281,6 +285,7 @@ public class BoardController {
         return "redirect:/read/"+bno;
     }
 
+    //보드number로 내페이지 구분
     @GetMapping(value ="/whopage/{number}")
     public String whopage(@PathVariable("number") Long number){
 

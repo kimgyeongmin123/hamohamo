@@ -33,12 +33,12 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email WHERE number = :number")
     String findByNumProfile(@Param("number") Long number);
 
-    //그냥 해당 글의 프로필만 조회
-    @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email")
-    String findProfile();
+    //모든 글의 프로필만 조회
+//    @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email")
+//    String findProfile();
 
-    @Query("SELECT b FROM Board b WHERE contents LIKE %:keyword%")
-    List<Board> findByContents(@Param("keyword") String keyword);
+    @Query("SELECT b,u.profile FROM Board b INNER JOIN User u On b.email = u.email WHERE contents LIKE %:keyword% ORDER BY b.date DESC")
+    List<Object[]> findByContents(@Param("keyword") String keyword);
 
     //보드 삭제
     @Modifying

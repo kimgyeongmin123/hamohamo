@@ -246,15 +246,15 @@ public class BoardService {
     }
 
     @Transactional(rollbackFor = SQLException.class)
-    public List<Board> search_contents(String keyword){
-        List<Board> boardList = boardRepository.findByContents(keyword);
-        return boardList;
+    public List<Object[]> search_contents(String keyword){
+
+        return boardRepository.findByContents(keyword);
     }
 
-    public String search_contents_profile(){
-        String profile = boardRepository.findProfile();
-        return profile;
-    }
+//    public String search_contents_profile(){
+//        String profile = boardRepository.findProfile();
+//        return profile;
+//    }
 
     public boolean addLike(User user, Board board) {
         System.out.println("[보드서비스]에드라이크 호출완료했슴다");

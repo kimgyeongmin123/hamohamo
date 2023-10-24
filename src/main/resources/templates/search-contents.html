@@ -200,37 +200,38 @@
     <div class="BandF">
         <div class="board">
 
-            <th:block th:each="board : ${boardList}">
+            <th:block th:each="data : ${boardList}">
                 <div class="board-item">
 
                     <div class="idbox">
                         <div>
-                            <img th:src="${profile}" style="width:30px;height:30px;border-radius:50%;" />
-                            <div id = board_id th:text="${board.nickname}">id</div>|
-                            <div class="date" th:text="${board.date}">date</div>
+                            <img th:src="${data.profile}" style="width:30px;height:30px;border-radius:50%;" />
+                            <div id = board_id th:text="${data.board.nickname}">id</div>|
+                            <div class="date" th:text="${data.board.date}">date</div>
                         </div>
                         <div class="hits-box">조회
-                            <div class="hits" th:text="${board.hits}">hits</div>
+                            <div class="hits" th:text="${data.board.hits}">hits</div>
                         </div>
                     </div>
 
 
-                    <a th:href="'/read/' + ${board.number}">
+                    <a th:href="'/read/' + ${data.board.number}">
                         <div id = board_img>
                             <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
-                                <img th:src="@{'/resources/hamohamo/'+${board.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="450" height="100%"/>
+                                <img th:src="@{'/resources/hamohamo/'+${data.board.email}+'/'+${data.board.number}+'/'+${data.board.files.get(0)}}" width="450" height="100%"/>
+                                <p style="background-color : gray; opacity: 0.75; width : 50px;height : 23px;border-radius : 20px;position : relative;right : 50px; bottom : 220px;color : white;font-size : 0.8rem;"><span style="font-size : 0.8rem;">&nbsp;&nbsp;1</span>/<span th:text="${#lists.size(data.board.files)}" style="font-size : 0.8rem;"></span><span style="font-size : 0.8rem;">&nbsp;&nbsp;</span></p>
                             </div>
-                            <div id=board_contents class="contents" th:text="${board.contents}">contents</div>
+                            <div id=board_contents class="contents" th:text="${data.board.contents}">contents</div>
                         </div>
                     </a>
 
                     <div class="like">
-                        <a th:href="@{'/like/' + ${board.number}}" class="like-button">
+                        <a th:href="@{'/like/' + ${data.board.number}}" class="like-button">
                             <span style="border-style : none;">❤️</span>
                             <!-- <span th:unless="${isLiked}">🖤</span> -->
                         </a>
-                        <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
+                        <span class="like-count" data-board-number="${data.board.number}" th:text="${data.board.like_count}">like</span>
                     </div>
 
                 </div>
