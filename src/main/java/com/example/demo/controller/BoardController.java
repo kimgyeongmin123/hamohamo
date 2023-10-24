@@ -296,11 +296,33 @@ public class BoardController {
         if(email.equals(boardEmail)){
             return "redirect:/mypage";
         }else if(!email.equals(boardEmail)){
-            return "redirect:/nampage";
+            return "redirect:/nampage?boardEmail=" + boardEmail;
         }
 
 
         return null;
+    }
+
+    @GetMapping("/nampage")
+    public String nampage(@RequestParam(value = "boardEmail") String boardEmail, Model model) {
+        if (boardEmail != null) {
+            System.out.println("남페이지 겟매핑 남의이메일 : " + boardEmail);
+
+            //유저정보 조회
+            User user = userRepository.findByEmail(boardEmail);
+
+            //보드정보 조회
+            List<Board> namBoards = boardRepository.getBoardByEmailOrderByDateDesc(boardEmail);
+
+            System.out.println("남에 보드정보 : "+ namBoards);
+
+            //남의 게시물 정보 보내기
+            model.addAttribute("namBoards", namBoards);
+
+            //남의 유저 정보 보내기
+            model.addAttribute("namUser", user);
+        }
+        return "nampage";
     }
 
 

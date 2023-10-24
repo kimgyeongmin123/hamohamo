@@ -303,16 +303,14 @@
     <section>
         <div class="profile">
 
-            <h1>남에 페이지</h1>
 
             <div class="profileimg" style="display:flex;justify-content:center; align-items : center;">
-                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:150px;height:150px;border-radius:50%;" />
+                <img th:src="${namUser.profile}" style="width:150px;height:150px;border-radius:50%;" />
             </div>
 
             <div class="menu">
                 <div class="top-menu">
-                    <span th:text="${userDto.nickname}" >사용자 닉네임</span>
-                    <a href="/profile/update"><button type="button" class="btn btn-outline-secondary">정보 수정</button></a>
+                    <span th:text="${namUser.nickname}" >사용자 닉네임</span>
                 </div>
 
                 <div class="follow-box">
@@ -334,29 +332,14 @@
 
         <div class="s_board" style="width : 1000px; display : flex; justify-content: left; flex-wrap : wrap; margin-left : 0px;">
 
-            <th:block th:each="board : ${myBoards}">
+            <th:block th:each="board : ${namBoards}">
                 <div class="board-item">
-
-                    <div class="btn-group dropend">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-                            </svg>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <!-- 게시물 수정 버튼 -->
-
-                            <li><a th:href="@{'/update?number=' + ${board.number}}" class="dropdown-item">수정</a></li>
-                            <!-- 게시물 삭제 버튼 -->
-                            <li><a class="delete_btn dropdown-item" th:data-no="${board.number}">삭제</a></li>
-                        </ul>
-                    </div>
 
                     <a th:href="'/read/' + ${board.number}">
                         <div id = board_img>
                             <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
-                                <img th:src="@{'/resources/hamohamo/'+${#authentication.getPrincipal().getUser().getEmail()}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="300" height="300"/>
+                                <img th:src="@{'/resources/hamohamo/'+${namUser.email}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="300" height="300"/>
                             </div>
                         </div>
                     </a>

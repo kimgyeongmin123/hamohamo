@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
 
 
+    //이메일로 유저정보조회
     User findByEmail(String email);
 
     boolean existsByEmail(String email);
