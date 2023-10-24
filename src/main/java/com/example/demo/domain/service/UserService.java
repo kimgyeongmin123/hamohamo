@@ -138,8 +138,8 @@ public class UserService {
         return existingUser.isPresent();
     }
 
-    public List<User> search_nickname(String keyword) {
-        List<User> userList = userRepository.findByNickname(keyword);
+    public List<User> search_nickname(String keyword, String nickname) {
+        List<User> userList = userRepository.findByNickname(keyword,nickname);
         System.out.println("userList: " + userList);
         return userList;
     }
