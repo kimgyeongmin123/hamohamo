@@ -239,6 +239,7 @@
                         <div id = board_img>
                             <div class="img">
                                 <img th:src="@{'/resources/hamohamo/'+${data.board.email}+'/'+${data.board.number}+'/'+${data.board.files.get(0)}}" width="450" height="100%"/>
+                                <p style="background-color : gray; opacity: 0.75; width : 50px;height : 25px;border-radius : 20px;position : relative;right : 50px; bottom : 220px;color : white;font-size : 0.8rem;"><span style="font-size : 0.8rem;">&nbsp;&nbsp;1</span>/<span th:text="${#lists.size(data.board.files)}" style="font-size : 0.8rem;"></span><span style="font-size : 0.8rem;">&nbsp;&nbsp;</span></p>
                             </div>
                             <div id=board_contents class="contents" th:text="${data.board.contents}">contents</div>
                         </div>
