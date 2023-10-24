@@ -327,5 +327,28 @@ public class BoardController {
         return "nampage";
     }
 
+    //좀 겹치지만 남에페이지로 가는 또다른 메서드...
+    @GetMapping("/nampage/{email}")
+    public String nampage2(@PathVariable (value = "email") String email, Model model) {
+        if (email != null) {
+            System.out.println("남페이지 겟매핑 남의이메일 : " + email);
+
+            //유저정보 조회
+            User user = userRepository.findByEmail(email);
+
+            //보드정보 조회
+            List<Board> namBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
+
+            System.out.println("남에 보드정보 : "+ namBoards);
+
+            //남의 게시물 정보 보내기
+            model.addAttribute("namBoards", namBoards);
+
+            //남의 유저 정보 보내기
+            model.addAttribute("namUser", user);
+        }
+        return "nampage";
+    }
+
 
 }

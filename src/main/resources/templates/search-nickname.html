@@ -243,7 +243,9 @@
 
       <div class="user">
         <div class="profileimg" style="display:flex;justify-content:center; align-items : center;">
-          <img th:src="${user.profile}" style="width:100px;height:100px;border-radius:50%;" />
+          <a th:href="'/nampage/' + ${user.email}" style="display:flex; align-items: center;font-size: 0.8rem;margin-right : 10px;justify-content: center; text-decoration: none; color : black;">
+            <img th:src="${user.profile}" style="width:100px;height:100px;border-radius:50%;" />
+          </a>
         </div>
         <div class="name">
           <div class = "nickname" th:text="${user.nickname}"> nickname</div>
