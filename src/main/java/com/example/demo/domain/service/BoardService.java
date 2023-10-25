@@ -197,6 +197,7 @@ public class BoardService {
 
         replyRepository.save(reply);
     }
+
     public List<ReplyDto> getReplyList(Long bno) {
         List<Reply> replyList =  replyRepository.GetReplyByBnoDesc(bno);
 
@@ -214,6 +215,7 @@ public class BoardService {
                 dto.setLikecount(replyList.get(i).getLikecount());
                 dto.setUnlikecount(replyList.get(i).getUnlikecount());
                 dto.setDate(replyList.get(i).getDate());
+                dto.setProfileimage(replyList.get(i).getProfileimage());
 
                 returnReply.add(dto);
 
