@@ -253,8 +253,8 @@
 
         </div>
 
-
-        <form id="profileForm" >
+<!--        name="joinform" action="/join" method="post" onsubmit="return false"-->
+        <form name="profileForm" action="/profile/update" method="post" onsubmit="return false">
             <span for="emailInput" style="margin-right : 35px;">이메일</span>
             <span sec:authentication="principal.username">abc@acb.com</span>
             <br/>
@@ -299,7 +299,7 @@
             </div>
             <br/> -->
 
-            <button type="submit" class="btn btn-secondary jechul">제출</button>
+            <button onclick="isValid()" class="btn btn-secondary jechul">제출</button>
         </form>
 
         <div class="out">
@@ -427,21 +427,21 @@
 
 </script>
 
-<script>
-    const profileForm = document.getElementById('profileForm');
+<!--<script>-->
+<!--    const profileForm = document.getElementById('profileForm');-->
 
-    const jechulButton = document.querySelector('.jechul');
+<!--    const jechulButton = document.querySelector('.jechul');-->
 
-    jechulButton.addEventListener('click', function (event) {
-        const formData = new FormData(profileForm);
+<!--    jechulButton.addEventListener('click', function (event) {-->
+<!--        const formData = new FormData(profileForm);-->
 
-        axios.post('/profile/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(response=>{
-            alert("수정이 완료되었습니다.");
-                location.reload();
-            })
-    });
-</script>
+<!--        axios.post('/profile/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })-->
+<!--            .then(response=>{-->
+<!--            alert("수정이 완료되었습니다.");-->
+<!--                location.reload();-->
+<!--            })-->
+<!--    });-->
+<!--</script>-->
 
 
 <script>
@@ -517,6 +517,24 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
 
 		})
+</script>
+
+<script>
+    const isValid = () => {
+            const form = document.profileForm;
+
+
+
+            alert("수정이 완료되었습니다! 🤸‍♂️");
+
+location.reload();
+
+<!--            window.location.href = "/mypage";-->
+
+            form.submit();
+
+
+        }
 </script>
 
 </body>

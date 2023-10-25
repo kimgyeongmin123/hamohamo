@@ -129,6 +129,9 @@ public class UserController {
 		// UserRepository를 사용하여 사용자 정보 가져오기
 		User user = userRepository.findByEmail(email);
 
+//		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+//		UserDto dto = principalDetails.getUser();
+
 		model.addAttribute("dto", user);
 
 		return "profile/update";
@@ -168,7 +171,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
-		return "ok";
+		return "mypage";
 	}
 
 	@GetMapping("/mypage")
