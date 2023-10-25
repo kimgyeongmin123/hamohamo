@@ -10,7 +10,6 @@ import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.ReplyRepository;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

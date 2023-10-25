@@ -61,7 +61,8 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator'
 	implementation 'javax.validation:validation-api'
 
-	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'    /* thumbnailator */
+	//MAIL
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 
 }
 

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>아이디찾기</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- 구글폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+        *{
+            font-family: 'Gothic A1', sans-serif;
+        }
+        body {
+            width: 700px;
+            height: 1000px;
+            margin: 50px auto;
+            overflow: auto;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+        }
+        header > img{
+            margin-top : 20px;
+        }
+        main{
+            margin-top : 20px;
+
+        }
+        .formbox{
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 높이를 화면 높이와 동일하게 설정 */
+
+        }
+        .formbox > form > div > div{
+            margin-bottom : 10px;
+        }
+        .formbox > form > div > div > input{
+            height : 25px;
+            width : 200px;
+
+        }
+        .formbox > form > div > div > h5{
+            margin-bottom : 5px;
+        }
+        .jechul > button{
+            margin-top : 30px;
+            height : 50px;
+            width : 340px;
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .search_addr_btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
+        }
+        .jung-btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+<header>
+
+  <a href="/login"><img src="/images/logo.png" class="logoimg" max-width="100%" height="50"/></a>
+</header>
+<main>
+  <div class="formbox">
+    <form name="findidform" action="/findid" method="post" onsubmit="return false">
+      <div>
+
+        <div>
+          <h5 for="nameInput">성명</h5>
+          <input name="name" id="nameInput"><br/>
+        </div>
+        <div>
+          <h5 for="phoneInput">휴대폰</h5>
+          <input name="phone" id="phoneInput" maxlength="13">
+        </div>
+        <div>
+          <h5 for="questionInput">선택한 질문</h5>
+          <select name="question" id="questionInput">
+            <option value="질문1">당신의 어린시절 별명은?</option>
+            <option value="질문2">당신이 제일 존경하는 사람은?</option>
+            <option value="질문3">당신의 보물 제1호는?</option>
+            <option value="질문4">당신의 인생 좌우명은?</option>
+            <option value="질문5">당신의 MBTI는?</option>
+            <option value="질문6">당신이 제일 좋아하는 게임은?</option>
+          </select>
+        </div>
+        <div>
+          <h5 for="answerInput">질문에 대한 답변</h5>
+          <input name="answer" id="answerInput" type="text">
+        </div>
+      </div>
+      <div class="jechul">
+        <button onclick="findid()">사용자 EMAIL찾기</button>
+      </div>
+
+    </form>
+  </div>
+</main>
+<script>
+
+    const phoneInput = document.getElementById("phoneInput");
+
+    phoneInput.addEventListener("input", function(){
+        const inputValue = phoneInput.value.replace(/\D/g, "");
+
+        phoneInput.value = inputValue;
+
+ if (inputValue.length >= 7) {
+        phoneInput.value =
+            inputValue.slice(0, 3) +
+            "-" +
+            inputValue.slice(3, 7) +
+            "-" +
+            inputValue.slice(7);
+    }
+});
+
+    function findid() {
+             const nameInput = document.getElementById("nameInput");
+             const questionInput = document.getElementById("questionInput");
+             const answerInput = document.getElementById("answerInput");
+             const phoneInput = document.getElementById("phoneInput");
+
+             const name = nameInput.value;
+             const question = questionInput.value;
+             const answer = answerInput.value;
+             const phone = phoneInput.value;
+
+             const xhr = new XMLHttpRequest();
+             xhr.open('POST', '/findid', true);
+             xhr.setRequestHeader('Content-Type', 'application/json');
+             xhr.onreadystatechange = function () {
+                 if (xhr.readyState === 4) {
+                     if (xhr.status === 200) {
+                         alert("찾으시는 EMAIL은 "+xhr.responseText+"입니다🙏");
+
+                         window.location.href = "/login";
+                     } else {
+                         alert('사용자를 찾을 수 없습니다.');
+                     }
+                 }
+             };
+
+             const data = {
+                 question: question,
+                 answer: answer,
+                 phone: phone,
+                 name: name
+             };
+             xhr.send(JSON.stringify(data));
+         }
+</script>
+
+</body>
+</html>

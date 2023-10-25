@@ -69,10 +69,10 @@ public class UserController {
 	}
 
 	//================================================================
-	@GetMapping("/checkDuplicate")
-	public void checkDuplicate_get(){
-		log.info("GET/checkDuplicate");
-	}
+//	@GetMapping("/checkDuplicate")
+//	public void checkDuplicate_get(){
+//		log.info("GET/checkDuplicate");
+//	}
 
 	@PostMapping("/checkDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestParam("field") String field, @RequestParam("value") String value) {
@@ -97,6 +97,19 @@ public class UserController {
 
 		if("nicknameInput".equals(field)){
 			isDuplicate = userRepository.existsByNickname(value);
+		}
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("duplicate", isDuplicate);
+
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/checkPhoneDuplicate")
+	public ResponseEntity<Map<String, Boolean>> checkPhoneDuplicate(@RequestParam ("field") String field, @RequestParam ("value") String value){
+
+		boolean isDuplicate = false;
+		if("phoneInput".equals(field)){
+			isDuplicate = userRepository.existsByPhone(value);
 		}
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("duplicate", isDuplicate);
@@ -309,6 +322,29 @@ public class UserController {
 		return "ok";
 
 	}
+
+	@GetMapping("/findid")
+	public void findid() {log.info("GET/findid...");}
+	@GetMapping("/emailcheck")
+	public void emailcheck() {log.info("GET/emailcheck...");}
+	@GetMapping("/resetpw")
+	public void resetpw() {log.info("GET/resetpw...");}
+	@GetMapping("/checkNicknameDuplicate")
+	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
+	@GetMapping("/checkDuplicate")
+	public void checkDuplicate_get(){
+		log.info("GET/checkDuplicate");
+	}
+	@GetMapping("/checkPhoneDuplicate")
+	public void checkPhoneDuplicate_get(){
+		log.info("GET/checkPhoneDuplicate");
+	}
+	@GetMapping("/sendemail")
+	public void sendemail_get() {log.info("GET/sendemail"); }
+	@GetMapping("/checkcode")
+	public void checkCode_get() {log.info("GET/checkcode"); }
+	@GetMapping("/draw")
+	public void draw_get() {log.info("GET/draw"); }
 
 
 

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>메일 보내기</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Axios 추가 -->
+
+
+  <!-- 구글폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+        *{
+            font-family: 'Gothic A1', sans-serif;
+        }
+        body {
+            width: 700px;
+            height: 1000px;
+            margin: 50px auto;
+            overflow: auto;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+        }
+        header > img{
+            margin-top : 20px;
+        }
+        main{
+            margin-top : 20px;
+
+        }
+        .formbox{
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 높이를 화면 높이와 동일하게 설정 */
+
+        }
+        .formbox > form > div > div{
+            margin-bottom : 10px;
+        }
+        .formbox > form > div > div > input{
+            height : 25px;
+            width : 200px;
+
+        }
+        .formbox > form > div > div > h5{
+            margin-bottom : 5px;
+        }
+        .jechul > button{
+            margin-top : 30px;
+            height : 50px;
+            width : 340px;
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .search_addr_btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
+        }
+        .jung-btn{
+            color : #cfd7e0;
+            background-color: #4a596d;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width:120px;
+            margin-left:5px;
+            height : 30px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+<header>
+
+  <a href="/login"><img src="/images/logo.png" class="logoimg" max-width="100%" height="50"/></a>
+</header>
+<main>
+  <div class="formbox">
+    <form name="sendemail" method="post" onsubmit="return false">
+      <div>
+
+        <h5 for="emailInput">이메일</h5>
+        <div style="display : flex;">
+          <input name="email" id="emailInput">
+          <button class="jung-btn" id="checkDuplicatebtn" onclick="checkDuplicate('emailInput')">회원가입 체크</button>
+          <button class="jung-btn" id="sendEmailbtn" style="display: none;" onclick="sendemailFunction()">메일 보내기</button><br/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="formbox">
+    <form name="checkcode" method="post" onsubmit="return false">
+      <div>
+        <div>
+          <h5 for="codeInput">인증번호</h5>
+          <input name="code" id="codeInput">
+          <button class="jung-btn" id="checkcode" onclick="checkcodeFunction()">인증하기</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="formbox">
+    <form name="resetpwform" action="/resetpw" method="post" onsubmit="return false">
+      <div>
+        <div>
+          <h5 for="passwordInput">새로운 비밀번호</h5>
+          <input name="password" id="passwordInput" type="password"><br/>
+        </div>
+        <div>
+          <h5 for="passwordConfirmInput">비밀번호 확인</h5>
+          <input name="passwordConfirm" id="passwordConfirmInput" type="password">
+        </div>
+      </div>
+      <div class="jechul">
+        <button onclick="resetpw()">비밀번호 재설정하기</button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<script>
+    let isEmailChecked = false;
+    function checkDuplicate(emailInput) {
+        const inputValue = $("#" + emailInput).val();
+        $.ajax({
+            url: "/checkDuplicate",
+            type: "POST",
+            data: {value: inputValue, field: emailInput},
+            success: function (response) {
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const emailInput = document.getElementById("emailInput");
+            const email = emailInput.value;
+
+            if (!emailPattern.test(email)) {
+            alert("올바른 이메일 주소 형식이 아닙니다.");
+            return;
+            }
+
+                if (response.duplicate) {
+                      alert("가입된 EMAIL입니다. 인증번호를 보내주세요.");
+                      isEmailChecked = false;
+                      document.getElementById("checkDuplicatebtn").style.display = "none";
+                      document.getElementById("sendEmailbtn").style.display = "block";
+                } else {
+                    alert("가입되지 않은 이메일입니다.");
+                    isEmailChecked = true;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생 : ", error);
+                isEmailChecked = false;
+            }
+        });
+    }
+
+    function sendemailFunction(){
+    if(isEmailChecked) {
+    alert("회원 가입유무를 먼저 체크해주세요🙏");
+    return;
+    }
+
+    const email = document.getElementById("emailInput").value;
+
+    axios.post("/sendemail?email=" + email, {email: email})
+        .then((response) => {
+        alert("메일이 전송되었습니다.");
+        console.log("인증코드 : "+response.data);
+        sendCode = response.data;
+    })
+    .catch((error) => {
+        alert("오류가 발생했습니다.");
+        console.error("메일 전송 중 오류 발생 : ", error);
+        });
+    }
+
+
+    let sendCode  = "";
+    let checkok = false;
+    function checkcodeFunction(){
+        const enteredCode = document.getElementById("codeInput").value;
+
+        if (!enteredCode) {
+        alert("인증 코드를 입력해주세요.");
+        return;
+        }
+        if(enteredCode === sendCode){
+        alert("인증이 완료되었습니다!");
+        checkok = true;
+        } else {
+        alert("인증코드가 올바르지 않습니다.");
+        checkok = false;
+        }
+    }
+    </script>
+<script>
+    function resetpw() {
+
+               if (checkok === false)
+              {
+                  alert("인증을 먼저 해주세요.");
+                  return;
+              }
+              const email = document.getElementById("emailInput").value;             const passwordInput = document.getElementById("passwordInput");
+              const passwordConfirmInput = document.getElementById("passwordConfirmInput");
+              const password = passwordInput.value;
+              const passwordConfirm = passwordConfirmInput.value;
+              const Pattern = /^(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*\d).{8,16}$/;
+
+
+
+              if (password === "")
+              {
+                  alert("비밀번호를 입력하세요.");
+                  return;
+              }
+              if (!Pattern.test(password))
+              {
+                  alert("비밀번호 양식에 맞춰서 입력하세요.");
+                  return;
+              }
+              if (passwordConfirm === "")
+              {
+                  alert("비밀번호를 다시입력하세요.");
+                  return;
+              }
+              if (password !== passwordConfirm)
+              {
+                  alert("비밀번호가 일치하지 않습니다.");
+                  return;
+             }
+
+             axios.post("/resetpw", {email: email, newPassword: password})
+             .then((response) => {
+             if(response.data === "success"){
+              alert("비밀번호가 재설정되었습니다 🤸‍♂️");
+              window.location.href = "/login";
+              } else {
+              alert("비밀번호 재설정에 실패하였습니다");
+              }
+              })
+              .catch((error) => {
+              alert("오류가 발생했습니다.");
+              console.error("비밀번호 재설정 중 오류 발생 : " , error);
+              });
+
+          }
+
+</script>
+
+</body>
+</html>

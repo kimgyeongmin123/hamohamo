@@ -19,6 +19,10 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByNickname(String nickname);
 
+    boolean existsByPhone(String value);
+
+    User findBynameAndPhoneAndQuestionAndAnswer(String name, String phone, String question, String answer);
+
     @Query("SELECT u FROM User u WHERE nickname LIKE %:keyword% AND nickname NOT LIKE :mynickname")
     List<User> findByNickname(@Param("keyword") String keyword, @Param("mynickname") String mynickname);
 

@@ -52,7 +52,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
 		http
 				.authorizeRequests()
-				.antMatchers("/","/public","/login","/join","/checkDuplicate","/checkNicknameDuplicate").permitAll()
+				.antMatchers("/","/public","/login","/join","/checkDuplicate","/checkNicknameDuplicate","/findid","/resetpw","/emailcheck",
+						"/checkPhoneDuplicate","/sendemail","/checkcode","/draw").permitAll()
 				.antMatchers("/css/**","/js/**","/images/**").permitAll()
 				.antMatchers("/user/**").permitAll()			//ROLE_USER
 				.antMatchers("/member").hasRole("MEMBER")			//ROLE_MEMBER

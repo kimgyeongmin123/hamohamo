@@ -166,7 +166,8 @@
             </form>
 
             <div class="find" style="width : 230px;border-top : 1px solid rgb(194, 194, 194);padding-top : 30px;text-align: center;position : relative;bottom : 50px;">
-                <a href="#" class="forget" style="font-size: 0.8rem; ">계정을 잊으셨나요?</a>
+                <a href="/findid" class="forget" style="font-size: 0.8rem; ">가입한 이메일을 잊으셨나요?</a><br/>
+                <a href="/emailcheck" class="forget" style="font-size: 0.8rem; ">패스워드를 잊으셨나요?</a>
             </div>
 
         </div>
@@ -238,8 +239,9 @@
                     </div>
                     <br/>
                     <span for="phoneInput">휴대폰</span>
-                    <div>
+                    <div style="display: flex;">
                         <input name="phone" id="phoneInput" maxlength="13" class="form-control" style="font-size : 0.7rem;">
+                        <button class="btn btn-secondary jung-btn" onclick="checkPhoneDuplicate('phoneInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
                     </div>
                     <br/>
                     <span>주소</span>
@@ -287,6 +289,7 @@
     <!-- 이메일중복체크  -->
         let isEmailChecked = false;
         let isNicknameChecked = false;
+        let isPhoneChecked = false;
 
         function checkDuplicate(emailInput) {
             const inputValue = $("#" + emailInput).val();
@@ -310,7 +313,6 @@
             });
         }
 
-
     <!--닉네임 중복체크-->
         function checkNicknameDuplicate(nicknameInput) {
             const inputValue = $("#" + nicknameInput).val();
@@ -333,12 +335,13 @@
                 }
             });
         }
-    <!--휴대폰 번호 입력 제한-->
+
+    <!--휴대폰 숫자제외 입력 제한-->
         const phoneInput = document.getElementById("phoneInput");
 
         phoneInput.addEventListener("input", function(){
             const inputValue = phoneInput.value.replace(/\D/g, "");
-    <!--   입력시 숫자제외 입력 불가-->
+    <!--   길이와 하이픈 생성-->
             phoneInput.value = inputValue;
 
      if (inputValue.length >= 7) {
@@ -349,97 +352,149 @@
                 "-" +
                 inputValue.slice(7);
         }
-
     });
+    <!--비밀번호 형식체크-->
+    function isValidPassword(password){
+        const passwordPattern = /^(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*\d).{8,16}$/;
+        return passwordPattern.test(password);
+        }
+        const passwordInput = document.getElementById("passwordInput");
 
 
-        <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
-            $(function() {
-                $("#birthInput").datepicker({
-                    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
-                    changeMonth: true,      // 월 선택 가능
-                    changeYear: true,       // 연도 선택 가능
-                    yearRange: "c-100:c+10" // 년도 선택 범위 설정
-                });
+
+</script>
+<script>
+    <!--휴대폰번호 중복-->
+        function checkPhoneDuplicate(phoneInput){
+        const inputValue = $("#" + phoneInput).val();
+        $.ajax({
+            url: "/checkPhoneDuplicate",
+            type: "POST",
+            data: { value: inputValue, field: phoneInput},
+            success: function (response) {
+                if (response.duplicate){
+                    alert("이미 가입에 사용된 번호입니다.");
+                    isPhoneChecked = false;
+                } else {
+                    alert("가입에 사용 가능한 번호입니다.");
+                    isPhoneChecked = true;
+                }
+        },
+        error: function (xhr, status, error){
+            console.error("오류 발생 : ",error);
+            isPhoneChecked = false;
+        }
+        });
+        }
+
+</script>
+<script>
+    <!--    생년월일 입력 필드에 Datepicker를 적용합니다.-->
+        $(function() {
+            $("#birthInput").datepicker({
+                dateFormat: "yy-mm-dd", // 날짜 형식 설정 (연도-월-일)
+                changeMonth: true,      // 월 선택 가능
+                changeYear: true,       // 연도 선택 가능
+                yearRange: "c-100:c+10", // 년도 선택 범위 설정
+                beforeShow: function(input, inst){
+                $(input).prop('readOnly', true);
+                }
             });
-    <!--회원가입 버튼누를시 빈칸이나 중복체크를 안했을때-->
-            const isValid = () => {
-                const form = document.joinform;
-                const password = form.password.value.trim();
-                const passwordConfirm = form.passwordConfirm.value.trim();
-                const phoneInput = form.phoneInput.value.trim();
+        });
+<!--회원가입 버튼누를시 빈칸이나 중복체크를 안했을때-->
+        const isValid = () => {
+            const form = document.joinform;
+            const password = passwordInput.value;
+            const passwordConfirm = form.passwordConfirm.value.trim();
+            const phoneInput = form.phoneInput.value.trim();
+            const email = emailInput.value;
+            const secret = isValidPassword(password);
 
-                if (form.email.value.trim() ==  "")
-                {
-                    alert("이메일을 입력하세요.");
-                    return;
-                }
-                if (!isEmailChecked){
-                    alert("이메일 중복 체크를 해주세요.");
-                    return;
-                }
-                if (form.password.value.trim() == "")
-                {
-                    alert("비밀번호를 입력하세요.");
-                    return;
-                }
-                if (form.passwordConfirm.value.trim() == "")
-                {
-                    alert("비밀번호를 다시입력하세요.");
-                    return;
-                }
-                if (password != passwordConfirm)
-                {
-                    alert("비밀번호가 일치하지 않습니다.");
-                    return;
-                }
-                if (form.nickname.value.trim() == "")
-                {
-                    alert("닉네임을 입력하세요.");
-                    return;
-                }
-                if (!isNicknameChecked) {
-                    alert("닉네임 중복 체크를 해주세요.");
-                    return;
-                }
-                 if (form.name.value.trim() == "")
-                {
-                    alert("이름을 입력하세요.");
-                    return;
-                }
-                if (form.birth.value.trim() == "")
-                {
-                    alert("생년월일을 입력하세요.");
-                    return;
-                }
-                if (form.phone.value.trim() == "")
-                {
-                    alert("휴대폰번호를 입력하세요.");
-                    return;
-                }
-                const pattern = /^010-\d{4}-\d{4}$/;
-                if (!pattern.test(phoneInput)){
-                    alert("올바른 휴대폰 번호를 입력하세요.");
-                    return;
-                }
-                if (form.zipcode.value.trim() == "")
-                {
-                    alert("우편번호를 입력하세요.");
-                    return;
-                }
-                if (form.addr2.value.trim() == "")
-                {
-                    alert("상세주소를 입력하세요.");
-                    return;
-                }
-                if (form.answer.value.trim() == "")
-                {
-                    alert("질문의 답을 입력하세요.");
-                    return;
-                }
 
-           form.submit();
+
+            if (form.email.value.trim() ==  "")
+            {
+                alert("이메일을 입력하세요.");
+                return;
             }
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)){
+                alert("올바른 이메일 주소 형식이 아닙니다.");
+                return;
+            }
+            if (!isEmailChecked){
+                alert("이메일 중복 체크를 해주세요.");
+                return;
+            }
+            if (password == "")
+            {
+                alert("비밀번호를 입력하세요.");
+                return;
+            }
+            if (!secret) {
+                alert("비밀번호 양식에 맞춰서 입력하세요.");
+                return;
+            }
+            if (passwordConfirm == "")
+            {
+                alert("비밀번호를 다시입력하세요.");
+                return;
+            }
+            if (password != passwordConfirm)
+            {
+                alert("비밀번호가 일치하지 않습니다.");
+                return;
+            }
+            if (form.nickname.value.trim() == "")
+            {
+                alert("닉네임을 입력하세요.");
+                return;
+            }
+            if (!isNicknameChecked) {
+                alert("닉네임 중복 체크를 해주세요.");
+                return;
+            }
+             if (form.name.value.trim() == "")
+            {
+                alert("이름을 입력하세요.");
+                return;
+            }
+            if (form.birth.value.trim() == "")
+            {
+                alert("생년월일을 입력하세요.");
+                return;
+            }
+            if (form.phone.value.trim() == "")
+            {
+                alert("휴대폰번호를 입력하세요.");
+                return;
+            }
+            const pattern = /^010-\d{4}-\d{4}$/;
+            if (!pattern.test(phoneInput)){
+                alert("올바른 휴대폰 번호를 입력하세요.");
+                return;
+            }
+            if (form.zipcode.value.trim() == "")
+            {
+                alert("우편번호를 입력하세요.");
+                return;
+            }
+            if (form.addr2.value.trim() == "")
+            {
+                alert("상세주소를 입력하세요.");
+                return;
+            }
+            if (form.answer.value.trim() == "")
+            {
+                alert("질문의 답을 입력하세요.");
+                return;
+            }
+            alert("하모하모에 가입을 환영합니다! 🤸‍♂️");
+
+            window.location.href = "/login";
+
+       form.submit();
+        }
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -468,8 +523,6 @@
 
     });
 </script>
-
-
 <script>
 
 
@@ -486,6 +539,13 @@
         return true;
     }
 </script>
+
+<script>
+    function opendraw() {
+            window.location.href = "/draw";
+    }
+</script>
+
 
 </body>
 </html>
