@@ -181,7 +181,7 @@ public class BoardService {
 
 
 
-    public void addReply(Long bno,String content, String nickname){
+    public void addReply(Long bno,String content, String nickname, String profileimage){
 
         Reply reply = new Reply();
         Board board = new Board();
@@ -193,6 +193,7 @@ public class BoardService {
         reply.setDate(LocalDateTime.now());
         reply.setLikecount(0L);
         reply.setUnlikecount(0L);
+        reply.setProfileimage(profileimage);
 
         replyRepository.save(reply);
     }

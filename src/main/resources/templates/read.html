@@ -80,7 +80,7 @@
 
         <a href="/mypage">
           <div class="mypage">
-            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
+            <img id="profileImage" th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
           </div>
         </a>
       </div>
@@ -405,7 +405,7 @@
 
         <div class="reply-header">
           <div>
-            <img src="/images/하모하모기본프사.png" />
+            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" />
           </div>
 
           <div>
@@ -446,9 +446,15 @@
   //----------------------------------------------------------------
   const reply_btn_el = document.querySelector('.reply_btn');
 
+
+
    /*<![CDATA[*/
           var bno = [[${board.number}]];
           let nickname = "[[${#authentication.getPrincipal().getUser().getNickname()}]]";
+
+            //프로필이미지 꺼내오기
+            let profileimage = '[[${#authentication.getPrincipal().getUser().getProfile()}]]';
+            console.log("profileimage",profileimage);
    /*]]>*/
 
 
@@ -457,7 +463,7 @@ reply_btn_el.addEventListener('click', function () {
       console.log("BNO : ", bno);
 
 
-      axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname)
+      axios.get("/board/reply/add?bno=" + bno + "&content=" + reply_contents_el.value + "&nickname=" + nickname+"&profileimage="+profileimage)
           .then(response => {
               console.log(response);
 
@@ -493,7 +499,7 @@ reply_btn_el.addEventListener('click', function () {
 
       if(e.keyCode==13){
 
-              axios.get("/board/reply/add?bno="+bno+"&content="+reply_contents_el.value + "&nickname=" + nickname)
+              axios.get("/board/reply/add?bno="+bno+"&content="+reply_contents_el.value + "&nickname=" + nickname+"&profileimage="+profileimage)
               .then(response=>{
                   console.log(response);
 
@@ -564,6 +570,8 @@ reply_btn_el.addEventListener('click', function () {
       // Item 만들기
       //----------------------------------------------------------------
       const items_el = document.querySelector(".items");
+
+
       const CreateItem = (reply)=>{
           console.log("reply : ",reply);
 
@@ -577,7 +585,8 @@ reply_btn_el.addEventListener('click', function () {
 
           // img 엘리먼트 생성
           var imgElement = document.createElement("img");
-          imgElement.src = "/images/account.png";
+          imgElement.src = reply.profileimage;
+          imgElement.setAttribute("style","border-radius:50%;opacity:1");
           imgElement.alt = "";
 
           // header div에 img 엘리먼트 추가

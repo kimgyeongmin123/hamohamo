@@ -23,9 +23,9 @@ public class BoardRestController {
     //댓글추가
     //-------------------
     @GetMapping("/reply/add")
-    public void addReply(Long bno, String content , String nickname){
-        log.info("GET /reply/add " + bno + " " + content + " " + nickname);
-        boardService.addReply(bno,content, nickname);
+    public void addReply(Long bno, String content , String nickname, String profileimage){
+        log.info("GET /reply/add " + bno + " " + content + " " + nickname + " " + profileimage);
+        boardService.addReply(bno,content, nickname, profileimage);
     }
     //-------------------
     //댓글 조회

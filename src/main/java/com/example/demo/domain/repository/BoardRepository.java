@@ -46,6 +46,13 @@ public interface BoardRepository extends JpaRepository<Board, String> {
     @Query("DELETE FROM Board b WHERE b.nickname = :nickname")
     void deleteByNickname(@Param("nickname") String nickname);
 
+//    @Modifying
+//    @Transactional
+//    @Query("DELETE b,bf FROM Board b LEFT JOIN board_files bf ON b.number = bf.board_number WHERE b.nickname = :nickname")
+//    void deleteByNickname(@Param("nickname") String nickname);
+
+
+
     //조인하여 프로필과 Board 함께 조회(list에서 사용)
     @Query("SELECT b,u.profile FROM Board b INNER JOIN User u ON b.email = u.email ORDER BY b.date DESC")
     List<Object[]> findJoin();
