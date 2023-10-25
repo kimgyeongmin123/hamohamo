@@ -88,7 +88,7 @@ public class UserController {
 
 		return ResponseEntity.ok(response);
 	}
-//	@GetMapping("/checkNicknameDuplicate")
+	//	@GetMapping("/checkNicknameDuplicate")
 //	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
 	@PostMapping("/checkNicknameDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
@@ -171,7 +171,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Failed to update nickname.");
 		}
 
-		return "mypage";
+		return "redirect:update";
 	}
 
 	@GetMapping("/mypage")
