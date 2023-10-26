@@ -96,8 +96,8 @@
             background-color: white;
             color: gray;
             position : relative;
-            top : 25px;
-            right : 10px;
+            top : 18px;
+            right : 8px;
             z-index : 1;
         }
 
@@ -355,6 +355,7 @@
                             <!-- 이미지 썸네일을 표시하는 이미지 태그 -->
                             <div class="img">
                                 <img th:src="@{'/resources/hamohamo/'+${#authentication.getPrincipal().getUser().getEmail()}+'/'+${board.number}+'/'+${board.files.get(0)}}" width="300" height="300"/>
+                                <p style="background-color : gray; opacity: 0.75; width : 50px;height : 23px;border-radius : 20px;position : relative;left : 240px; bottom : 280px;color : white;font-size : 0.8rem; text-decoration : none;"><span style="font-size : 0.8rem;">&nbsp;&nbsp;1</span>/<span th:text="${#lists.size(board.files)}" style="font-size : 0.8rem;"></span><span style="font-size : 0.8rem;">&nbsp;&nbsp;</span></p>
                             </div>
                         </div>
                     </a>
