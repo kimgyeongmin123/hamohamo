@@ -252,7 +252,8 @@
                         </a>
                         <span class="like-count" data-board-number="${data.board.number}" th:text="${data.board.like_count}">like</span>
                         <span style="font-size: 17px;">🗨️</span>
-                        <span class="reply-count"></span>
+                        <span class="reply-count" th:text="${data.cnt}">0</span>
+
                     </div>
 
                 </div>
@@ -268,6 +269,41 @@
 </main>
 
 </body>
+
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+
+<!--        var boardItems = document.querySelectorAll('.board-item');-->
+
+<!--        console.log(boardItems);-->
+
+<!--        boardItems.forEach(function (item) {-->
+
+<!--            var boardNumber = item.getAttribute('data-board-number');-->
+
+<!--            console.log(boardNumber);-->
+
+<!--            var replyCountElement = item.querySelector('.reply-count');-->
+
+<!--            //boardNumber를 사용하여 getReplyCount 호출-->
+<!--            getReplyCount(boardNumber, replyCountElement);-->
+<!--        });-->
+<!--    });-->
+
+<!--    function getReplyCount(boardNumber, replyCountElement) {-->
+
+<!--        fetch('/getReplyCount/' + boardNumber) // 서비스 엔드포인트 URL-->
+<!--            .then(function (response) {-->
+<!--                return response.json();-->
+<!--            })-->
+<!--            .then(function (data) {-->
+<!--                replyCountElement.textContent = data.replyCount;-->
+<!--            })-->
+<!--            .catch(function (error) {-->
+<!--                console.error('댓글 수를 가져오는 중 오류 발생: ' + error);-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
 
 <script>
 

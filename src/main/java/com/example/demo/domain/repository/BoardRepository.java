@@ -54,7 +54,7 @@ public interface BoardRepository extends JpaRepository<Board, String> {
 
 
     //조인하여 프로필과 Board 함께 조회(list에서 사용)
-    @Query("SELECT b,u.profile FROM Board b INNER JOIN User u ON b.email = u.email ORDER BY b.date DESC")
+    @Query("SELECT b,u.profile,count(r.board.number) as cnt FROM Board b INNER JOIN User u ON b.email = u.email INNER JOIN Reply r ON b.number = r.board.number GROUP BY r.board.number ORDER BY b.date DESC")
     List<Object[]> findJoin();
 
     //해당보드를 작성한 유저의 이메일 조회

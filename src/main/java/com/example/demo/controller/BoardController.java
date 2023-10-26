@@ -58,6 +58,7 @@ public class BoardController {
             Map<String, Object> data = new HashMap<>();
             data.put("board", row[0]); // 여기에서 row[0]는 Board 객체
             data.put("profile", row[1]); // 여기에서 row[1]은 profile 문자열
+            data.put("cnt", row[2]); //cnt 가져옵니다.
             dataList.add(data);
         }
 
