@@ -19,4 +19,6 @@ public interface ReplyRepository extends JpaRepository<Reply,Long> {
     Long GetReplyCountByBnoDesc(@Param("bno") Long bno);
 
 
+
+
 }

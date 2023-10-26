@@ -147,6 +147,14 @@ public class UserService {
     public void updateProfile(User user) {
 
         userRepository.save(user);
+        userRepository.UpdateReplyProfile(user.getProfile(),user.getNickname());
+
+        System.out.println("유저의 프로필" + user.getProfile());
+
+//        entityManager.createNativeQuery("UPDATE reply SET profileimage = :profile WHERE nickname = :nickname")
+//                .setParameter("profile", user.getProfile())
+//                .setParameter("nickname", user.getNickname())
+//                .executeUpdate();
     }
 
 

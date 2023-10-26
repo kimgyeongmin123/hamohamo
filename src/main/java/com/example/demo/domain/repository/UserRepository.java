@@ -2,10 +2,12 @@ package com.example.demo.domain.repository;
 
 import com.example.demo.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -26,5 +28,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE nickname LIKE %:keyword% AND nickname NOT LIKE :mynickname")
     List<User> findByNickname(@Param("keyword") String keyword, @Param("mynickname") String mynickname);
 
-
+    @Modifying
+    @Transactional
+    @Query("UPDATE Reply r SET r.profileimage = :profile WHERE r.nickname = :nickname")
+    void UpdateReplyProfile(@Param("profile") String profile, @Param("nickname") String nickname);
 }
