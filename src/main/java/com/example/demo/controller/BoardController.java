@@ -97,12 +97,10 @@ public class BoardController {
 
         //서비스 실행
         Board board = boardService.getBoardOne(number);
+        List<String> files = board.getFiles();
 
-
-        System.out.println("update's dto : " + board);
-
-        // 모델에 게시물 정보 전달
-        model.addAttribute("boardDto", board);
+        model.addAttribute("files", files);
+        model.addAttribute("board", board);
 
 
     }

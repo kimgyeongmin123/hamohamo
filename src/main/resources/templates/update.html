@@ -204,16 +204,47 @@
 
     <h2>게시물 수정</h2>
 
+    <input type="hidden" name = "number" th:value="${board.number}">
+    <div id = board_img>
+    <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
+
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
+
+        <div class="carousel-inner">
+
+          <th:block th:each="file, status : ${files}">
+            <div class="carousel-item" th:classappend="${status.index == 0} ? active">
+              <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="585" height="650" />
+              <div class="carousel-caption">
+                <p style="background-color : gray; opacity: 0.75; width : 50px;height : 27px;border-radius : 20px;position : relative;bottom : 550px;left : 430px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+              </div>
+            </div>
+          </th:block>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color : gray;width : 40px;height : 50px;margin-top : 325px;border-radius : 10px;">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color : gray;width : 40px;height : 50px;margin-top : 325px;border-radius : 10px;">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+    </div>
+
     <form method="post" action="/update">
-      <input type="hidden" name = "number" th:value="${boardDto.number}">
       <div>
         <label for="newContents">새로운 내용을 작성해 주세요.</label>
-        <textarea id="newContents" name="newContents" rows="4" cols="50" th:text="${boardDto.contents}"></textarea>
+        <textarea id="newContents" name="newContents" rows="4" cols="50" th:text="${board.contents}"></textarea>
       </div>
       <div>
         <button type="submit">수정</button>
       </div>
     </form>
+    </div>
 
   </section>
 
