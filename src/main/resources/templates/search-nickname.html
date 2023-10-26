@@ -422,11 +422,11 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
 
           axios.post('/post',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
-          .then(response =>{
-              alert("SUCCESS");
-              location.href="/list";
-          })
-          .catch(error =>{alert("FAIL");})
+			.then(response =>{
+				alert("새 글을 추가했습니다. 짝짝짝");
+				location.href="/list";
+			})
+			.catch(error =>{alert("글쓰기를 실패하였습니다.(이미지파일 필수)");})
 
 
       })
