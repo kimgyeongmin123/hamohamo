@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="/css/board.css">
 
     <style>
 
@@ -262,15 +262,19 @@
 
         </div>
         <div class="fallow">
-            <h6>Follow List</h6>
-            my : <span th:text="${#authentication.getPrincipal().getUser().getEmail()}"></span>
-            <ul>
+            <div class="myInfo" style="height : 60px;">
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+                <span th:text="${#authentication.getPrincipal().getUser().getEmail()}">my email</span>
+            </div>
+            <div style="margin-top : 20px;padding-top : 20px;border-top : 1px solid rgb(194, 194, 194);">
                 <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
-                <li th:each="follow : ${followList}">
+                <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;">
                     <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
-                    <span th:text="${follow}"></span>
-                </li>
-            </ul>
+                    <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+
+                    <span th:text="${follow}">nam email</span>
+                </div>
+            </div>
         </div>
     </div>
 
