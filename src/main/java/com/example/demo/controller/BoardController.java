@@ -59,7 +59,8 @@ public class BoardController {
         String currentUser = principal.getUser().getEmail();
 
         // 팔로우 리스트를 가져오기
-        List<String> followList = followService.getFollowList(currentUser);
+        List<User> followList = followService.getFollowList(currentUser);
+//        List<String> followProfileList = followService.getFollowListProfile(currentUser);
 
         // 게시물을 날짜 기준으로 내림차순 정렬
         List<Object[]> list = boardService.getBoardList();
@@ -78,6 +79,7 @@ public class BoardController {
 
         model.addAttribute("dataList", dataList);
         model.addAttribute("followList", followList);
+//        model.addAttribute("followProfileList", followProfileList);
 
     }
 

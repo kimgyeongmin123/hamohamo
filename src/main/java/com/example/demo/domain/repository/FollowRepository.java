@@ -11,6 +11,11 @@ import java.util.List;
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     Follow findByFollowerAndFollowing(User follower, User following);
 
-    @Query("SELECT f.following.email FROM Follow f WHERE f.follower.email = :followerEmail")
-    List<String> findByFollow(@Param("followerEmail") String followerEmail);
+//    @Query("SELECT f.following.email FROM Follow f WHERE f.follower.email = :followerEmail")
+
+    @Query("SELECT u FROM Follow f INNER JOIN User u ON f.following.email = u.email WHERE f.follower.email = :followerEmail")
+    List<User> findByFollowNickname(@Param("followerEmail") String followerEmail);
+
+//    @Query("SELECT u.profile FROM Follow f INNER JOIN User u ON f.following.email = u.email WHERE f.follower.email = :followerEmail")
+//    List<String> findByFollowProfile(@Param("followerEmail") String followerEmail);
 }
