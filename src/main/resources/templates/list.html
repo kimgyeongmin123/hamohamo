@@ -263,13 +263,13 @@
         </div>
         <div class="fallow">
 <!--            내정보-->
-            <div class="myInfo" style="height : 60px;">
-                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+            <div class="myInfo" style="height : 60px;margin-top : 15px;">
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin-left : 10px;margin-right : 10px;" />
                 <span th:text="${#authentication.getPrincipal().getUser().getEmail()}">my email</span>
             </div>
 
 <!--            친구정보-->
-            <div style="margin-top : 20px;padding-top : 20px;border-top : 1px solid rgb(194, 194, 194);">
+            <div style="padding-top : 20px;border-top : 1px solid rgb(194, 194, 194);">
                 <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
                 <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;">
                     <a th:href="'/nampage/' + ${follow.email}" style="text-decoration: none; color : black;">
