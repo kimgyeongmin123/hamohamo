@@ -29,7 +29,17 @@
             margin : 2px;
         }
 
+        .Flist::-webkit-scrollbar {
+            width: 0.4em; /* 수평 스크롤바 너비 */
+        }
 
+        .Flist::-webkit-scrollbar-thumb {
+            background-color: #c2c2c2; /* 스크롤바 썸의 색상 */
+        }
+
+        .Flist::-webkit-scrollbar-track {
+            background: transparent; /* 스크롤바 트랙의 색상 */
+        }
 
     </style>
 </head>
@@ -261,15 +271,17 @@
 
 
         </div>
-        <div class="fallow">
-<!--            내정보-->
+        <div class="followlist" style="width : 500px;
+    margin-left : 150px;
+    margin-top : 50px;">
+            <!--            내정보-->
             <div class="myInfo" style="height : 60px;margin-top : 15px;">
                 <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin-left : 10px;margin-right : 10px;" />
                 <span th:text="${#authentication.getPrincipal().getUser().getEmail()}">my email</span>
             </div>
 
-<!--            친구정보-->
-            <div style="padding-top : 20px;border-top : 1px solid rgb(194, 194, 194);">
+            <!--            친구정보-->
+            <div class="Flist" style="padding-top : 20px;border-top : 1px solid rgb(194, 194, 194); max-height: 340px; overflow-y: auto;border : 1px solid rgb(192, 192, 192);">
                 <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
                 <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;">
                     <a th:href="'/nampage/' + ${follow.email}" style="text-decoration: none; color : black;">
