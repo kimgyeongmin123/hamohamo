@@ -20,8 +20,17 @@
   <style>
     main>section{
         margin-top : 50px;
-        margin-left : 16%;
+        margin-right : 150px;
     }
+
+    .mypage{
+            font-weight: 800;
+
+        }
+
+        .mypage>img{
+            border : 2px solid gray;
+        }
   </style>
 
 </head>
@@ -37,10 +46,9 @@
 
       <div class="middle-menu">
         <a href="/list">
-          <div class="home" style="font-size: 1.2rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-              <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-              <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+          <div class="home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+              <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
             </svg>홈
           </div>
         </a>
@@ -79,7 +87,7 @@
         </button>
 
         <a href="/mypage">
-          <div class="mypage">
+          <div class="mypage" style="font-size : 1.2rem;">
             <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
           </div>
         </a>
@@ -198,52 +206,51 @@
 </div>
 
 <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-<main>
+<main style="margin-top : 60px;">
 
-  <section>
+  <section >
 
-    <h2>게시물 수정</h2>
 
     <input type="hidden" name = "number" th:value="${board.number}">
-    <div id = board_img>
-    <div class="img" style="width : 585px;height : 650px;margin-bottom : 20px;">
+    <div id = board_img style="display : flex; justify-content: center;align-items: center;">
+      <div class="img" style="width : 450px;height : 500px;margin-bottom : 20px;">
 
 
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
 
-        <div class="carousel-inner">
+          <div class="carousel-inner">
 
-          <th:block th:each="file, status : ${files}">
-            <div class="carousel-item" th:classappend="${status.index == 0} ? active">
-              <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="585" height="650" />
-              <div class="carousel-caption">
-                <p style="background-color : gray; opacity: 0.75; width : 50px;height : 27px;border-radius : 20px;position : relative;bottom : 550px;left : 430px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+            <th:block th:each="file, status : ${files}">
+              <div class="carousel-item" th:classappend="${status.index == 0} ? active" >
+                <img th:src="@{'/resources/hamohamo/' + ${board.email} + '/' + ${board.number} + '/' + ${file}}" width="450" height="500"/>
+                <div class="carousel-caption" >
+                  <p style="background-color : gray; opacity: 0.75; width : 50px;height : 27px;border-radius : 20px;position : relative;left : 310px; bottom : 400px;"><span th:text="${status.index + 1}"></span>/<span th:text="${#lists.size(files)}"></span></p>
+                </div>
               </div>
-            </div>
-          </th:block>
+            </th:block>
 
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color : gray;width : 30px;height : 40px;margin-top : 220px;border-radius : 10px;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color : gray;width : 30px;height : 40px;margin-top : 220px;border-radius : 10px;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color : gray;width : 40px;height : 50px;margin-top : 325px;border-radius : 10px;">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color : gray;width : 40px;height : 50px;margin-top : 325px;border-radius : 10px;">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+
       </div>
 
-    </div>
-
-    <form method="post" action="/update">
-      <div>
-        <label for="newContents">새로운 내용을 작성해 주세요.</label>
-        <textarea id="newContents" name="newContents" rows="4" cols="50" th:text="${board.contents}"></textarea>
-      </div>
-      <div>
-        <button type="submit">수정</button>
-      </div>
-    </form>
+      <form method="post" action="/update" style="display : flex; flex-direction: column;align-items: center;margin-left : 80px;align-self : end;">
+        <div>
+          <label for="newContents"></label>
+          <textarea id="newContents" name="newContents" rows="10" cols="36" th:text="${board.contents}"></textarea>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-secondary" style="width : 292.5px;margin-left : 5px;">수정</button>
+        </div>
+      </form>
     </div>
 
   </section>
