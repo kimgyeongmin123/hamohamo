@@ -272,10 +272,13 @@
             <div style="margin-top : 20px;padding-top : 20px;border-top : 1px solid rgb(194, 194, 194);">
                 <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
                 <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;">
-                    <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
-                    <img th:src="${follow.profile}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+                    <a th:href="'/nampage/' + ${follow.email}" style="text-decoration: none; color : black;">
 
-                    <span th:text="${follow.nickname}">nam email</span>
+                        <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
+                        <img th:src="${follow.profile}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+
+                        <span th:text="${follow.nickname}">nam email</span>
+                    </a>
                 </div>
             </div>
         </div>
