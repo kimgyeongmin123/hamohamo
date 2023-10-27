@@ -151,10 +151,11 @@ public class UserService {
 
         System.out.println("유저의 프로필" + user.getProfile());
 
-//        entityManager.createNativeQuery("UPDATE reply SET profileimage = :profile WHERE nickname = :nickname")
-//                .setParameter("profile", user.getProfile())
-//                .setParameter("nickname", user.getNickname())
-//                .executeUpdate();
+    }
+
+    public User getUserByEmail(String email) {
+        System.out.println("getUserByEmail : " + email);
+        return userRepository.findByEmail(email);
     }
 
 

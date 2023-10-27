@@ -8,6 +8,7 @@ import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
+import com.example.demo.domain.service.FollowService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -44,12 +45,23 @@ public class BoardController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FollowService followService;
+
 
     @GetMapping("/list")
-    public void list(Model model){
+    public void list(Model model, Authentication authentication){
         log.info("GET /list");
 
-        // 게시물을 날짜 기준으로 내림차순 정렬하여 가져옵니다.
+        // 현재유저정보 가져오기
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+
+        String currentUser = principal.getUser().getEmail();
+
+        // 팔로우 리스트를 가져오기
+        List<String> followList = followService.getFollowList(currentUser);
+
+        // 게시물을 날짜 기준으로 내림차순 정렬
         List<Object[]> list = boardService.getBoardList();
 
         List<Map<String, Object>> dataList = new ArrayList<>();
@@ -65,6 +77,7 @@ public class BoardController {
         System.out.println("dataList : " + dataList);
 
         model.addAttribute("dataList", dataList);
+        model.addAttribute("followList", followList);
 
     }
 

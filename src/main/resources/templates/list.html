@@ -262,7 +262,15 @@
 
         </div>
         <div class="fallow">
-            <h6>친구목록</h6>
+            <h6>Follow List</h6>
+            my : <span th:text="${#authentication.getPrincipal().getUser().getEmail()}"></span>
+            <ul>
+                <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
+                <li th:each="follow : ${followList}">
+                    <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
+                    <span th:text="${follow}"></span>
+                </li>
+            </ul>
         </div>
     </div>
 
