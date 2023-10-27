@@ -34,11 +34,11 @@
         }
 
         .Flist::-webkit-scrollbar-thumb {
-            background-color: #c2c2c2; /* 스크롤바 썸의 색상 */
+            background-color: white;
         }
 
         .Flist::-webkit-scrollbar-track {
-            background: transparent; /* 스크롤바 트랙의 색상 */
+            background: transparent;
         }
 
     </style>
@@ -281,13 +281,13 @@
             </div>
 
             <!--            친구정보-->
-            <div class="Flist" style="padding-top : 20px;border-top : 1px solid rgb(194, 194, 194); max-height: 340px; overflow-y: auto;border : 1px solid rgb(192, 192, 192);">
+            <div class="Flist" style="padding-top : 20px;border-top : 1px solid rgb(194, 194, 194); max-height: 340px; overflow-y: auto;border : 1px solid rgb(192, 192, 192);border-radius : 15px;">
                 <!-- followList가 리스트일 경우 각 항목을 순회하며 표시 -->
-                <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;">
+                <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;margin-left : 20px;">
                     <a th:href="'/nampage/' + ${follow.email}" style="text-decoration: none; color : black;">
 
                         <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
-                        <img th:src="${follow.profile}" style="width:40px;height:40px;border-radius:50%;margin : 10px;" />
+                        <img th:src="${follow.profile}" style="width:40px;height:40px;border-radius:50%;margin-top : 10px;margin-bottom:10px; margin-right : 20px;" />
 
                         <span th:text="${follow.nickname}">nam email</span>
                     </a>
@@ -299,41 +299,6 @@
 </main>
 
 </body>
-
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-
-<!--        var boardItems = document.querySelectorAll('.board-item');-->
-
-<!--        console.log(boardItems);-->
-
-<!--        boardItems.forEach(function (item) {-->
-
-<!--            var boardNumber = item.getAttribute('data-board-number');-->
-
-<!--            console.log(boardNumber);-->
-
-<!--            var replyCountElement = item.querySelector('.reply-count');-->
-
-<!--            //boardNumber를 사용하여 getReplyCount 호출-->
-<!--            getReplyCount(boardNumber, replyCountElement);-->
-<!--        });-->
-<!--    });-->
-
-<!--    function getReplyCount(boardNumber, replyCountElement) {-->
-
-<!--        fetch('/getReplyCount/' + boardNumber) // 서비스 엔드포인트 URL-->
-<!--            .then(function (response) {-->
-<!--                return response.json();-->
-<!--            })-->
-<!--            .then(function (data) {-->
-<!--                replyCountElement.textContent = data.replyCount;-->
-<!--            })-->
-<!--            .catch(function (error) {-->
-<!--                console.error('댓글 수를 가져오는 중 오류 발생: ' + error);-->
-<!--            });-->
-<!--    }-->
-<!--</script>-->
 
 <script>
 
