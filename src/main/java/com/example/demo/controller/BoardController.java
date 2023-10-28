@@ -6,6 +6,7 @@ import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
 import com.example.demo.domain.service.FollowService;
@@ -213,7 +214,7 @@ public class BoardController {
 
     @GetMapping("/like/{number}")
     @ResponseBody
-    public boolean like(@PathVariable("number") Long number, Model model) {
+    public boolean like(@PathVariable("number") Long number) {
         System.out.println("[보드컨트롤러]의 라이크(겟)입니다.");
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -248,9 +249,22 @@ public class BoardController {
     }
 
     @GetMapping("/get-like-status/{number}")
-    public boolean likeStatus(){
+    @ResponseBody
+    public boolean likeStatus(@PathVariable("number") Long number){
 
-        return false;
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // 게시물 번호로 해당 게시물 정보 가져오기
+        Optional<Board> boardOptional = boardRepository.findByNum(number);
+
+        Board board = boardOptional.get();
+        User user = userRepository.findById(email).get();
+
+//        boolean hasLiked = boardService.isLiked(user, board);
+
+        return boardService.isLiked(user, board);
     }
 
     @GetMapping("/list/search-contents")

@@ -322,28 +322,28 @@
 <script>
     $(document).ready(function() {
 
-<!--        $('.heart').each(function(){-->
+        $('.heart').each(function(){
 
-<!--            var heart = $(this);-->
-<!--            var boardNumber = heart.data(board-number);-->
+            var heart = $(this);
+            var boardNumber = heart.data('board-number');
 
-<!--            $.ajax({-->
+            $.ajax({
 
-<!--                type:'GET',-->
-<!--                url:'/get-like-status/'+boardNumber,-->
-<!--                success:function(data){-->
+                type:'GET',
+                url:'/get-like-status/'+boardNumber,
+                success:function(hasLiked){
 
-<!--                    if(data.isLiked){-->
-<!--                        likeButton.html('<span style="border-style : none; color: red;">❤️</span>');-->
-<!--                    }else{-->
-<!--                        likeButton.html('<span style="border-style : none; color: white;">❤</span>');-->
-<!--                    }-->
-<!--                },-->
-<!--                error:function(){-->
-<!--                    console.error('좋아요 상태 가져오기 실패');-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
+                    if(hasLiked){
+                        heart.text('❤️');
+                    }else{
+                        heart.text('🖤');
+                    }
+                },
+                error:function(){
+                    console.error('좋아요 상태 가져오기 실패');
+                }
+            });
+        });
 
         $('.heart').on('click', function(event) {
             event.preventDefault();
