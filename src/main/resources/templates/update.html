@@ -243,6 +243,7 @@
       </div>
 
       <form method="post" action="/update" style="display : flex; flex-direction: column;align-items: center;margin-left : 80px;align-self : end;">
+        <input type="hidden" name = "number" th:value="${board.number}">
         <div>
           <label for="newContents"></label>
           <textarea id="newContents" name="newContents" rows="10" cols="36" th:text="${board.contents}"></textarea>
