@@ -322,28 +322,28 @@
 <script>
     $(document).ready(function() {
 
-        $('.heart').each(function(){
+<!--        $('.heart').each(function(){-->
 
-            var heart = $(this);
-            var boardNumber = heart.data(board-number);
+<!--            var heart = $(this);-->
+<!--            var boardNumber = heart.data(board-number);-->
 
-            $.ajax({
+<!--            $.ajax({-->
 
-                type:'GET',
-                url:'/get-like-status/'+boardNumber,
-                success:function(data){
+<!--                type:'GET',-->
+<!--                url:'/get-like-status/'+boardNumber,-->
+<!--                success:function(data){-->
 
-                    if(data.isLiked){
-                        likeButton.html('<span style="border-style : none; color: red;">❤️</span>');
-                    }else{
-                        likeButton.html('<span style="border-style : none; color: white;">❤</span>');
-                    }
-                },
-                error:function(){
-                    console.error('좋아요 상태 가져오기 실패');
-                }
-            });
-        });
+<!--                    if(data.isLiked){-->
+<!--                        likeButton.html('<span style="border-style : none; color: red;">❤️</span>');-->
+<!--                    }else{-->
+<!--                        likeButton.html('<span style="border-style : none; color: white;">❤</span>');-->
+<!--                    }-->
+<!--                },-->
+<!--                error:function(){-->
+<!--                    console.error('좋아요 상태 가져오기 실패');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
 
         $('.heart').on('click', function(event) {
             event.preventDefault();
@@ -353,11 +353,12 @@
             $.ajax({
                 type: 'GET',
                 url: '/like/'+boardNumber,
-                success: function(data) {
-                    // 성공적으로 좋아요를 업데이트한 경우
-                    console.log('좋아요 업데이트 성공');
-                    // 페이지를 다시 로드
-                    location.reload();
+                success: function(isLiked) {
+                     if (isLiked) {
+                        heart.text('❤️');
+                     } else {
+                        heart.text('🖤');
+                    }
                 },
                 error: function() {
                     console.error('좋아요 업데이트 실패');

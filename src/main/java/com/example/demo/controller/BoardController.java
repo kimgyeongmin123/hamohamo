@@ -212,7 +212,8 @@ public class BoardController {
     }
 
     @GetMapping("/like/{number}")
-    public ResponseEntity<String> like(@PathVariable("number") Long number, Model model) {
+    @ResponseBody
+    public boolean like(@PathVariable("number") Long number, Model model) {
         System.out.println("[보드컨트롤러]의 라이크(겟)입니다.");
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -230,18 +231,26 @@ public class BoardController {
             System.out.println("[보드컨트롤러]보드서비스의 에드라이크 호출끝");
 
             //html로 isLiked 보내기 왜?
-            model.addAttribute("isLiked", isLiked);
+//            model.addAttribute("isLiked", isLiked);
 
             System.out.println("isLiked : " + isLiked);
 
-            if (isLiked) {
-                return ResponseEntity.ok("Liked successfully.");
-            } else {
-                return ResponseEntity.ok("Already liked.");
-            }
+            return isLiked;
+
+//            if (isLiked) {
+//                return ResponseEntity.ok("Liked successfully.");
+//            } else {
+//                return ResponseEntity.ok("Already liked.");
+//            }
         } else {
-            return ResponseEntity.ok("Board not found.");
+            return false;
         }
+    }
+
+    @GetMapping("/get-like-status/{number}")
+    public boolean likeStatus(){
+
+        return false;
     }
 
     @GetMapping("/list/search-contents")
