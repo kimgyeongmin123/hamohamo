@@ -37,7 +37,7 @@ public interface BoardRepository extends JpaRepository<Board, String> {
 //    @Query("SELECT u.profile FROM Board b INNER JOIN User u On b.email = u.email")
 //    String findProfile();
 
-    @Query("SELECT b,u.profile FROM Board b INNER JOIN User u On b.email = u.email WHERE contents LIKE %:keyword% ORDER BY b.date DESC")
+    @Query("SELECT b,u.profile, COALESCE(count(r.board.number), 0) as cnt FROM Board b INNER JOIN User u On b.email = u.email LEFT OUTER JOIN Reply r ON b.number = r.board.number WHERE contents LIKE %:keyword% GROUP BY b.number ORDER BY b.date DESC")
     List<Object[]> findByContents(@Param("keyword") String keyword);
 
     //보드 삭제
