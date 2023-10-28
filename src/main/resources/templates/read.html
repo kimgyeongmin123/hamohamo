@@ -250,10 +250,7 @@
           </a>
 
           <div class="like" style="width : 585px;">
-            <a th:href="@{'/like/' + ${board.number}}" class="like-button">
-              <span style="border-style : none;">❤️</span>
-              <!-- <span th:unless="${isLiked}">🖤</span> -->
-            </a>
+            <span class="heart" style="border-style : none;cursor : pointer;" th:data-board-number="${board.number}"></span>
             <span class="like-count" data-board-number="${board.number}" th:text="${board.like_count}">like</span>
           </div>
 
@@ -707,23 +704,68 @@ reply_btn_el.addEventListener('click', function () {
 
 <script>
   $(document).ready(function() {
-  $('.like-button').click(function(event) {
-      event.preventDefault();
-      var url = $(this).attr('href');
-      $.ajax({
-          type: 'GET',
-          url: url,
-          success: function(data) {
-              // 성공적으로 좋아요를 업데이트한 경우
-              console.log('좋아요 업데이트 성공');
-              // 페이지를 다시 로드
-        location.reload();
-          },
-          error: function() {
-              console.error('좋아요 업데이트 실패');
-          }
+
+      $('.heart').each(function(){
+
+          var heart = $(this);
+          var boardNumber = heart.data('board-number');
+
+          $.ajax({
+
+              type:'GET',
+              url:'/get-like-status/'+boardNumber,
+              success:function(hasLiked){
+
+              var heartIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">' +
+              '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.060.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>' +
+              '</svg>';
+
+              var FillheartIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">'+
+              '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>'+
+              '</svg>';
+
+                  if(hasLiked){
+                      heart.html(FillheartIconSVG);
+                  }else{
+                      heart.html(heartIconSVG);
+                  }
+              },
+              error:function(){
+                  console.error('좋아요 상태 가져오기 실패');
+              }
+          });
       });
-  });
+
+      $('.heart').on('click', function(event) {
+          event.preventDefault();
+          var heart = $(this)
+          var boardNumber = heart.data('board-number');
+
+          $.ajax({
+              type: 'GET',
+              url: '/like/'+boardNumber,
+              success: function(isLiked) {
+
+              var heartIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">' +
+              '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.060.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>' +
+              '</svg>';
+
+              var FillheartIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">'+
+              '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>'+
+              '</svg>';
+
+                   if (isLiked) {
+                      heart.html(FillheartIconSVG);
+                   } else {
+                      heart.html(heartIconSVG);
+                  }
+                  location.reload();
+              },
+              error: function() {
+                  console.error('좋아요 업데이트 실패');
+              }
+          });
+      });
 });
 </script>
 
