@@ -161,8 +161,8 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div>
-            여기에 알림
+        <div id="notification-container">
+            <!-- 알림이 여기에 동적으로 추가 -->
         </div>
     </div>
 </div>
@@ -301,6 +301,42 @@
 </main>
 
 </body>
+
+<!-- 자체 작성한 JavaScript 코드 -->
+<script>
+    // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
+    function loadNotifications() {
+        $.ajax({
+            url: "/boardnotification/read", // 알림 데이터를 제공하는 엔드포인트
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                // 알림 데이터를 동적으로 렌더링합니다.
+                const notificationContainer = $("#notification-container");
+
+                data.forEach(function(notification) {
+                    // 알림을 동적으로 생성하여 추가합니다.
+                    const notificationElement = `
+                        <div class="notification">
+                            <p>${notification.replyemail}</p>
+                            <p>${notification.message}</p>
+                            <p>${notification.rdate}</p>
+                        </div>
+                    `;
+                    notificationContainer.append(notificationElement);
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching notifications: " + error);
+            }
+        });
+    }
+
+    // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
+    $(document).ready(function() {
+        loadNotifications();
+    });
+</script>
 
 <script>
 
@@ -513,8 +549,28 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 		})
 </script>
 
+<script>
+    //---------------------------------
+    //소켓 연결
+    //---------------------------------
+    var socket = new WebSocket('ws://localhost:8080/socket');
 
+    //---------------------------------
+    //메세지 수신
+    //---------------------------------
+    let amarmtest = 0;
+    socket.onmessage = function(event) {
+            var message = event.data;
+            console.log('message : ',message);
+            alert("Message : "+message);
 
+            const notificationSpan = document.querySelector('.notification .counter');
+            if (notificationSpan) {
+              notificationSpan.style.display = 'block';
+            }
+   };
+
+</script>
 
 
 </body>
