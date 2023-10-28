@@ -258,11 +258,8 @@
                     </a>
 
                     <div class="like">
-                        <a th:href="@{'/like/' + ${data.board.number}}" class="like-button">
-                            <span style="border-style : none;">❤️</span>
-                            <!-- <span th:unless="${isLiked}">🖤</span> -->
-                        </a>
-                        <span class="like-count" data-board-number="${data.board.number}" th:text="${data.board.like_count}">like</span>
+                            <span class="heart" style="border-style : none;cursor : pointer;" th:data-board-number="${data.board.number}">❤️</span>
+                        <span class="like-count" th:text="${data.board.like_count}">like</span>
                         <span style="font-size: 17px;margin-left : 25px;">🗨️</span>
                         <span class="reply-count" th:text="${data.cnt}">0</span>
 
@@ -324,23 +321,49 @@
 
 <script>
     $(document).ready(function() {
-    $('.like-button').click(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function(data) {
-                // 성공적으로 좋아요를 업데이트한 경우
-                console.log('좋아요 업데이트 성공');
-                // 페이지를 다시 로드
-                location.reload();
-            },
-            error: function() {
-                console.error('좋아요 업데이트 실패');
-            }
+
+        $('.heart').each(function(){
+
+            var heart = $(this);
+            var boardNumber = heart.data(board-number);
+
+            $.ajax({
+
+                type:'GET',
+                url:'/get-like-status/'+boardNumber,
+                success:function(data){
+
+                    if(data.isLiked){
+                        likeButton.html('<span style="border-style : none; color: red;">❤️</span>');
+                    }else{
+                        likeButton.html('<span style="border-style : none; color: white;">❤</span>');
+                    }
+                },
+                error:function(){
+                    console.error('좋아요 상태 가져오기 실패');
+                }
+            });
         });
-    });
+
+        $('.heart').on('click', function(event) {
+            event.preventDefault();
+            var heart = $(this)
+            var boardNumber = heart.data('board-number');
+
+            $.ajax({
+                type: 'GET',
+                url: '/like/'+boardNumber,
+                success: function(data) {
+                    // 성공적으로 좋아요를 업데이트한 경우
+                    console.log('좋아요 업데이트 성공');
+                    // 페이지를 다시 로드
+                    location.reload();
+                },
+                error: function() {
+                    console.error('좋아요 업데이트 실패');
+                }
+            });
+        });
 });
 </script>
 
