@@ -64,6 +64,21 @@ dependencies {
 	//MAIL
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 
+	//RESTCONTROLLER ADDED
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2'
+	implementation 'com.google.code.gson:gson:2.10.1'
+
+
+	//STOMP 를 이용한 NOTIFICATION(https://growth-coder.tistory.com/157)
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.webjars:webjars-locator-core'
+	implementation 'org.webjars:sockjs-client:1.0.2'
+	implementation 'org.webjars:stomp-websocket:2.3.3'
+	implementation 'org.webjars:bootstrap:3.3.7'
+	implementation 'org.webjars:jquery:3.1.1-1'
+
 }
 
 tasks.named('test') {
