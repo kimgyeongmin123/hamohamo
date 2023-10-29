@@ -310,7 +310,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+
+                <div th:each="follower : ${followerList}" style="height : 60px; margin-bottom : 10px;margin-left : 20px;">
+                    <a th:href="'/nampage/' + ${follower.email}" style="text-decoration: none; color : black;">
+
+                        <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
+                        <img th:src="${follower.profile}" style="width:40px;height:40px;border-radius:50%;margin-top : 10px;margin-bottom:10px; margin-right : 20px;" />
+
+                        <span th:text="${follower.nickname}">nam email</span>
+                    </a>
+                </div>
+
             </div>
             <div class="modal-footer">
             </div>

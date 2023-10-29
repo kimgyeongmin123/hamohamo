@@ -193,6 +193,9 @@ public class UserController {
 		// 팔로우 리스트를 가져오기
 		List<User> followList = followService.getFollowList(email);
 
+		//팔로워 리스트를 가져오기
+		List<User> followerList = followService.getFollowerList(email);
+
 		System.out.println("user.getEmail(): "+email );
 		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
 		System.out.println("myBoards' : " + myBoards);
@@ -211,6 +214,7 @@ public class UserController {
 		model.addAttribute("cntFollower",cntFollower);
 
 		model.addAttribute("followList", followList);
+		model.addAttribute("followerList", followerList);
 	}
 
 

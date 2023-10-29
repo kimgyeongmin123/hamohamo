@@ -40,10 +40,12 @@ public class FollowService {
         return list;
     }
 
-//    public List<String> getFollowListProfile(String currentUser) {
-//        List<String> Profilelist = followRepository.findByFollowProfile(currentUser);
-//        System.out.println("list : " + Profilelist);
-//
-//        return Profilelist;
-//    }
+    public List<User> getFollowerList(String currentUser) {
+        List<User> list = followRepository.findByFollowNickname(currentUser);
+        System.out.println("list : " + list);
+
+        return list;
+    }
+
+
 }
