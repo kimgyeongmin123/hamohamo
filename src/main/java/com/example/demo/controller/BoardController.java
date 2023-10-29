@@ -250,7 +250,7 @@ public class BoardController {
 
     @GetMapping("/get-like-status/{number}")
     @ResponseBody
-    public boolean likeStatus(@PathVariable("number") Long number){
+    public String likeStatus(@PathVariable("number") Long number){
 
         // 현재 인증된 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -262,9 +262,12 @@ public class BoardController {
         Board board = boardOptional.get();
         User user = userRepository.findById(email).get();
 
-//        boolean hasLiked = boardService.isLiked(user, board);
+        if (boardService.isLiked(user, board)) {
+            return "true";
+        } else {
+            return "false";
+        }
 
-        return boardService.isLiked(user, board);
     }
 
     @GetMapping("/list/search-contents")
