@@ -75,12 +75,13 @@
             justify-content : left;
         }
 
-        .follow-box>a{
-            line-height: 50px;
+        .follow-box>div{
             text-decoration: none;
             color: black;
             cursor : pointer;
-            height : 50px;
+            height : 40px;
+            background-color: white;
+            border-style: none;
         }
 
         .follow-box>.follower{
@@ -299,6 +300,58 @@
 </div>
 
 <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!--팔로우 목록-->
+<div class="modal fade" id="followerModal" tabindex="-1" aria-labelledby="followerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="followerModalLabel">팔로워</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div th:each="follower : ${followerList}" style="height : 60px; margin-bottom : 10px;margin-left : 20px;">
+                    <a th:href="'/nampage/' + ${follower.email}" style="text-decoration: none; color : black;">
+
+                        <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
+                        <img th:src="${follower.profile}" style="width:40px;height:40px;border-radius:50%;margin-top : 10px;margin-bottom:10px; margin-right : 20px;" />
+
+                        <span th:text="${follower.nickname}">nam email</span>
+                    </a>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="followingModalLabel">팔로잉</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div th:each="follow : ${followList}" style="height : 60px; margin-bottom : 10px;margin-left : 20px;">
+                    <a th:href="'/nampage/' + ${follow.email}" style="text-decoration: none; color : black;">
+
+                        <!-- follower 객체에서 필요한 속성을 가져와서 표시 -->
+                        <img th:src="${follow.profile}" style="width:40px;height:40px;border-radius:50%;margin-top : 10px;margin-bottom:10px; margin-right : 20px;" />
+
+                        <span th:text="${follow.nickname}">nam email</span>
+                    </a>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 <main>
     <section>
@@ -315,14 +368,15 @@
                 </div>
 
                 <div class="follow-box">
-                    <a class="follower">
+                    <div class="follower" data-bs-toggle="modal" data-bs-target="#followerModal">
                         팔로워
                         <span class="no" th:text="${cntFollower}"></span>
-                    </a>
-                    <a class="following">
+                    </div>
+
+                    <div class="following" data-bs-toggle="modal" data-bs-target="#followingModal">
                         팔로잉
                         <span class="no" th:text="${cntFollowing}"></span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>

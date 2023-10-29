@@ -363,6 +363,12 @@ public class BoardController {
 
             System.out.println("남에 보드정보 : "+ namBoards);
 
+            // 팔로우 리스트를 가져오기
+            List<User> followList = followService.getFollowList(boardEmail);
+
+            //팔로워 리스트를 가져오기
+            List<User> followerList = followService.getFollowerList(boardEmail);
+
             String cntFollowing = followRepository.CntFollowing(boardEmail);
             if (cntFollowing==null){
                 cntFollowing="0";
@@ -380,6 +386,10 @@ public class BoardController {
 
             //남의 유저 정보 보내기
             model.addAttribute("namUser", user);
+
+            //팔로우/팔로워 목록 보내기
+            model.addAttribute("followList", followList);
+            model.addAttribute("followerList", followerList);
         }
         return "nampage";
     }
@@ -398,6 +408,12 @@ public class BoardController {
 
             System.out.println("남에 보드정보 : "+ namBoards);
 
+            // 팔로우 리스트를 가져오기
+            List<User> followList = followService.getFollowList(email);
+
+            //팔로워 리스트를 가져오기
+            List<User> followerList = followService.getFollowerList(email);
+
             String cntFollowing = followRepository.CntFollowing(email);
             if (cntFollowing==null){
                 cntFollowing="0";
@@ -415,6 +431,10 @@ public class BoardController {
 
             //남의 유저 정보 보내기
             model.addAttribute("namUser", user);
+
+            //팔로우/팔로워 목록 보내기
+            model.addAttribute("followList", followList);
+            model.addAttribute("followerList", followerList);
         }
         return "nampage";
     }
