@@ -75,11 +75,13 @@
             justify-content : left;
         }
 
-        .follow-box>a{
-            line-height: 50px;
+        .follow-box>div{
             text-decoration: none;
             color: black;
             cursor : pointer;
+            height : 40px;
+            background-color: white;
+            border-style: none;
         }
 
         .follow-box>.follower{
@@ -299,6 +301,44 @@
 
 <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
+<!--팔로우 목록-->
+<div class="modal fade" id="followerModal" tabindex="-1" aria-labelledby="followerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="followerModalLabel">나를 팔로우 한</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="followingModalLabel">내가 팔로우 한</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <main>
     <section>
         <div class="profile">
@@ -314,14 +354,15 @@
                 </div>
 
                 <div class="follow-box">
-                    <a class="follower">
+                    <div class="follower" data-bs-toggle="modal" data-bs-target="#followerModal">
                         팔로워
                         <span class="no" th:text="${cntFollower}"></span>
-                    </a>
-                    <a class="following">
+                    </div>
+
+                    <div class="following" data-bs-toggle="modal" data-bs-target="#followingModal">
                         팔로잉
                         <span class="no" th:text="${cntFollowing}"></span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
