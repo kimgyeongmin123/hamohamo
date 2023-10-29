@@ -7,6 +7,7 @@ import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.FollowRepository;
 import com.example.demo.domain.repository.UserRepository;
+import com.example.demo.domain.service.FollowService;
 import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -52,7 +53,10 @@ public class UserController {
 	private BoardRepository boardRepository;
 
 	@Autowired
-	FollowRepository followRepository;
+	private FollowRepository followRepository;
+
+	@Autowired
+	private FollowService followService;
 
 	@GetMapping("/join")
 	public void join_get() {
@@ -186,6 +190,9 @@ public class UserController {
 		// 현재 인증된 사용자의 이메일 가져오기
 		String email = principalDetails.getUser().getEmail();
 
+		// 팔로우 리스트를 가져오기
+		List<User> followList = followService.getFollowList(email);
+
 		System.out.println("user.getEmail(): "+email );
 		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
 		System.out.println("myBoards' : " + myBoards);
@@ -202,6 +209,8 @@ public class UserController {
 		model.addAttribute("userDto",principalDetails.getUser());
 		model.addAttribute("cntFollowing",cntFollowing);
 		model.addAttribute("cntFollower",cntFollower);
+
+		model.addAttribute("followList", followList);
 	}
 
 
