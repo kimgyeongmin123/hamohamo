@@ -10,7 +10,9 @@ import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.ReplyRepository;
+import com.example.demo.listener.ReplyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +45,9 @@ public class BoardService {
 
     @Autowired
     private HeartRepository heartRepository;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     @Transactional(rollbackFor = SQLException.class)
     public void addBoard(BoardDto dto) throws IOException {
@@ -196,6 +201,11 @@ public class BoardService {
         reply.setProfileimage(profileimage);
 
         replyRepository.save(reply);
+
+        //------------------------------------------------
+        //이벤트리스너에 등록
+        //------------------------------------------------
+        publisher.publishEvent(new ReplyEvent(this,reply));
     }
 
     public List<ReplyDto> getReplyList(Long bno) {
