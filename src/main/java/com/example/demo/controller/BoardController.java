@@ -6,6 +6,7 @@ import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.FollowRepository;
 import com.example.demo.domain.repository.HeartRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
@@ -48,6 +49,9 @@ public class BoardController {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private FollowRepository followRepository;
 
 
     @GetMapping("/list")
@@ -359,6 +363,18 @@ public class BoardController {
 
             System.out.println("남에 보드정보 : "+ namBoards);
 
+            String cntFollowing = followRepository.CntFollowing(boardEmail);
+            if (cntFollowing==null){
+                cntFollowing="0";
+            }
+            String cntFollower = followRepository.CntFollower(boardEmail);
+            if (cntFollower==null){
+                cntFollower="0";
+            }
+
+            model.addAttribute("cntFollowing",cntFollowing);
+            model.addAttribute("cntFollower",cntFollower);
+
             //남의 게시물 정보 보내기
             model.addAttribute("namBoards", namBoards);
 
@@ -381,6 +397,18 @@ public class BoardController {
             List<Board> namBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
 
             System.out.println("남에 보드정보 : "+ namBoards);
+
+            String cntFollowing = followRepository.CntFollowing(email);
+            if (cntFollowing==null){
+                cntFollowing="0";
+            }
+            String cntFollower = followRepository.CntFollower(email);
+            if (cntFollower==null){
+                cntFollower="0";
+            }
+
+            model.addAttribute("cntFollowing",cntFollowing);
+            model.addAttribute("cntFollower",cntFollower);
 
             //남의 게시물 정보 보내기
             model.addAttribute("namBoards", namBoards);

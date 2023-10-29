@@ -190,7 +190,6 @@ public class UserController {
 		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
 		System.out.println("myBoards' : " + myBoards);
 		String cntFollowing = followRepository.CntFollowing(email);
-		System.out.println("cntFollowing : "+cntFollowing);
 		if (cntFollowing==null){
 			cntFollowing="0";
 		}
