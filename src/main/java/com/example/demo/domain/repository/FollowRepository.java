@@ -16,6 +16,6 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     @Query("SELECT u FROM Follow f INNER JOIN User u ON f.following.email = u.email WHERE f.follower.email = :followerEmail")
     List<User> findByFollowNickname(@Param("followerEmail") String followerEmail);
 
-//    @Query("SELECT u.profile FROM Follow f INNER JOIN User u ON f.following.email = u.email WHERE f.follower.email = :followerEmail")
-//    List<String> findByFollowProfile(@Param("followerEmail") String followerEmail);
+    @Query("SELECT COALESCE(COUNT(f.follower.email), 0) as cnt FROM Follow f WHERE f.follower.email=:followerEmail GROUP BY f.follower.email")
+    String CntFollowing(@Param("followerEmail") String followerEmail);
 }

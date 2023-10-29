@@ -5,6 +5,7 @@ import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
+import com.example.demo.domain.repository.FollowRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class UserController {
 
 	@Autowired
 	private BoardRepository boardRepository;
+
+	@Autowired
+	FollowRepository followRepository;
 
 	@GetMapping("/join")
 	public void join_get() {
@@ -185,9 +189,15 @@ public class UserController {
 		System.out.println("user.getEmail(): "+email );
 		List<Board> myBoards = boardRepository.getBoardByEmailOrderByDateDesc(email);
 		System.out.println("myBoards' : " + myBoards);
+		String cntFollowing = followRepository.CntFollowing(email);
+		System.out.println("cntFollowing : "+cntFollowing);
+		if (cntFollowing==null){
+			cntFollowing="0";
+		}
 
 		model.addAttribute("myBoards", myBoards);
 		model.addAttribute("userDto",principalDetails.getUser());
+		model.addAttribute("cntFollowing",cntFollowing);
 	}
 
 
