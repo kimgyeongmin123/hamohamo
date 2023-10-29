@@ -41,7 +41,7 @@ public class FollowService {
     }
 
     public List<User> getFollowerList(String currentUser) {
-        List<User> list = followRepository.findByFollowNickname(currentUser);
+        List<User> list = followRepository.findByFollowerNickname(currentUser);
         System.out.println("list : " + list);
 
         return list;
