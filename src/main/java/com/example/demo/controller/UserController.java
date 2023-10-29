@@ -194,10 +194,15 @@ public class UserController {
 		if (cntFollowing==null){
 			cntFollowing="0";
 		}
+		String cntFollower = followRepository.CntFollower(email);
+		if (cntFollower==null){
+			cntFollower="0";
+		}
 
 		model.addAttribute("myBoards", myBoards);
 		model.addAttribute("userDto",principalDetails.getUser());
 		model.addAttribute("cntFollowing",cntFollowing);
+		model.addAttribute("cntFollower",cntFollower);
 	}
 
 
