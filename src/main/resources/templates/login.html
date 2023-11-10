@@ -240,16 +240,16 @@
                         <input name="phone" id="phoneInput" maxlength="13" class="form-control" style="font-size : 0.8rem;">
                         <button class="btn btn-secondary jung-btn" onclick="checkPhoneDuplicate('phoneInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
                     </div>
-                    <span>주소</span>
-                    <div>
-                        <div style="display : flex;">
-                            <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" style="font-size: 0.8rem;">
-                            <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.7rem; margin-left : 17px;">주소검색</button>
-                        </div>
+<!--                    <span>주소</span>-->
+<!--                    <div>-->
+<!--                        <div style="display : flex;">-->
+<!--                            <input name="zipcode" class="form-control zipcode"  placeholder="우편번호" style="font-size: 0.8rem;">-->
+<!--                            <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.7rem; margin-left : 17px;">주소검색</button>-->
+<!--                        </div>-->
 
-                        <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;font-size: 0.8rem;">
-                        <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;font-size: 0.8rem;">
-                    </div>
+<!--                        <input name="addr1" class="form-control addr1"  placeholder="기본주소" style="width : 330px; margin-top : 5px;font-size: 0.8rem;">-->
+<!--                        <input name="addr2" class="form-control" placeholder="상세주소 입력" style="width : 330px; margin-top : 5px;font-size: 0.8rem;">-->
+<!--                    </div>-->
                     <span for="questionInput">질문 선택</span>
                     <div>
                         <select class="form-select" aria-label=".form-select-sm example" name="question" id="questionInput" style="font-size : 0.8rem;">
@@ -468,16 +468,16 @@
                 alert("올바른 휴대폰 번호를 입력하세요.");
                 return;
             }
-            if (form.zipcode.value.trim() == "")
-            {
-                alert("우편번호를 입력하세요.");
-                return;
-            }
-            if (form.addr2.value.trim() == "")
-            {
-                alert("상세주소를 입력하세요.");
-                return;
-            }
+<!--            if (form.zipcode.value.trim() == "")-->
+<!--            {-->
+<!--                alert("우편번호를 입력하세요.");-->
+<!--                return;-->
+<!--            }-->
+<!--            if (form.addr2.value.trim() == "")-->
+<!--            {-->
+<!--                alert("상세주소를 입력하세요.");-->
+<!--                return;-->
+<!--            }-->
             if (form.answer.value.trim() == "")
             {
                 alert("질문의 답을 입력하세요.");

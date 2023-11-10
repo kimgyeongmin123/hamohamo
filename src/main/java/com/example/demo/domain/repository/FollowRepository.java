@@ -24,6 +24,6 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     String CntFollowing(@Param("followerEmail") String followerEmail);
 
     //나를 팔로우 누른 사람의 수
-    @Query("SELECT COUNT(f.following.email) as cnt FROM Follow f WHERE f.following.email=:followerEmail GROUP BY f.follower.email")
+    @Query("SELECT COUNT(f.follower.email) as cnt FROM Follow f WHERE f.following.email=:followerEmail GROUP BY f.following.email")
     String CntFollower(@Param("followerEmail") String followerEmail);
 }
