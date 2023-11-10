@@ -93,6 +93,11 @@ public class UserService {
                         .setParameter("oldNickname", oldNickname)
                         .executeUpdate();
 
+                entityManager.createNativeQuery("UPDATE reply SET nickname = :newNickname WHERE nickname = :oldNickname")
+                        .setParameter("newNickname", newNickname)
+                        .setParameter("oldNickname", oldNickname)
+                        .executeUpdate();
+
                 // 바뀐 정보들을 save
                 userRepository.save(user);
 

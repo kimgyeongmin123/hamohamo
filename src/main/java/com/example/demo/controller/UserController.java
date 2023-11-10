@@ -149,9 +149,6 @@ public class UserController {
 	public String UserUpdate(@RequestParam("newNickname") String newNickname,
 							 @RequestParam("newBirth") String newBirth,
 							 @RequestParam("newPhone") String newPhone,
-//							 @RequestParam("newZipcode") String newZipcode,
-//							 @RequestParam("newAddr1") String newAddr1,
-//							 @RequestParam("newAddr2") String newAddr2,
 							 RedirectAttributes redirectAttributes) {
 		System.out.println("UserUpdate POST/ post");
 
