@@ -55,6 +55,8 @@ public class BoardRestController {
     @ResponseBody
     public String myreply(Model model){
 
+        System.out.println("GET /reply/myreply");
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 

@@ -4,11 +4,9 @@ import com.example.demo.config.auth.PrincipalDetails;
 import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.entity.Board;
+import com.example.demo.domain.entity.Reply;
 import com.example.demo.domain.entity.User;
-import com.example.demo.domain.repository.BoardRepository;
-import com.example.demo.domain.repository.FollowRepository;
-import com.example.demo.domain.repository.HeartRepository;
-import com.example.demo.domain.repository.UserRepository;
+import com.example.demo.domain.repository.*;
 import com.example.demo.domain.service.BoardService;
 import com.example.demo.domain.service.FollowService;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +50,9 @@ public class BoardController {
 
     @Autowired
     private FollowRepository followRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
 
     @GetMapping("/list")
@@ -211,7 +212,6 @@ public class BoardController {
             response.addCookie(readCookie);
         }
         //--------------------------------------------------------------------------------------
-
 
         return "read";
     }

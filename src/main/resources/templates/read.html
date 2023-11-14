@@ -17,8 +17,14 @@
 
   <link rel="stylesheet" href="/css/board.css">
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
   <style>
+
+  .reply_delete{
+    display : none;
+  }
 
     main{
      display : flex;
@@ -423,6 +429,7 @@
   </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
 
   function logoutAndRedirect() {
@@ -555,7 +562,6 @@ reply_btn_el.addEventListener('click', function () {
                       reply_count_el.innerHTML = response.data;
                   })
               }
-
           })
           .catch(error=>console.log(error));
       };
@@ -698,10 +704,37 @@ reply_btn_el.addEventListener('click', function () {
 
     return formattedDate;
   };
+
+  $(document).ready(function() {
+
+      $('.reply_delete').each(function(){
+
+      var delete_a = $(this);
+
+          $.ajax({
+
+              type:'GET',
+              url:'/reply/myreply',
+              success:function(myreply){
+
+              console.log(myreply);
+
+                  if(myreply==='true'){
+                      delete_a.style.display = 'inline-block';
+                  }else{
+                      delete_a.style.display = 'none';
+                  }
+              },
+              error:function(){
+                  console.error('내댓글인지 가져오기 실패');
+              }
+          });
+      });
+  });
 </script>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <script>
   $(document).ready(function() {
