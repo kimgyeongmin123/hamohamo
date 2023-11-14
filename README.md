@@ -56,64 +56,6 @@
 <br/>
 
 ## ▶️ DB Query
-09PROJECTPLAN
-=
-
-## ▶️ 개발 동기
-
-##### 그림판을 사용해 기존에 사진과 영상만 올릴 수 있는 sns와 차별을 두어
-##### 다양하게 소통할 수 있는 sns를 만들고자 하였습니다.
-<br/>
-
-## ▶️ 개발 목표
-
-##### 그림판 기능이 추가된 sns 구현
-<br/>
-
-## ▶️ 개발 일정
-#### 2023-09-11 ~ 2023-09-13(03Day) : 요구사항분석 / 유스케이스 / 
-#### 2023-09-14 ~ 2023-09-18(05Day) : 스타일가이드 / 스토리보드 / ERD / ClassDiagram / Sequence Diagram
-#### 2023-09-19 (01Day) : 개발환경 구축(Github / Git / IntelliJ / Mysql / AWS ...)
-#### 2023-09-20 ~       : 개발중...
-
-<br/>
-
-## ▶️ 구성인원 
-
-##### 박영민(조장) : FrontEnd, BackEnd (로그인, 회원가입,팔로우(친구추가) 구현, 캔버스 API)
-##### 김경민(조원1) : FrontEnd, BackEnd (전체적인 디자인 구현, 마이 페이지 CRUD 구현, 알림 구현)
-##### 김성진(조원2) : BackEnd (로그인, 회원가입, 검색, 댓글 구현, 메시지 CRUD 구현)
-##### 장유진(조원3) : BackEnd (게시물관련 CRUD 페이지 구현, 결제(이모티콘) 구현)
-<br/>
-
-## ▶️ 개발 환경(플랫폼)
-
-##### OS : WINDOW Server 2022 base
-##### CPU SPEC : I7 Intel 
-##### RAM SPEC : 16GB SAMSUNG DDR4
-##### DISK SPEC : 100GB SSD 
-
-<br/>
-
-## ▶️ IDE 종류
-
-##### IntelliJ IDEA 2023.2 (Community Edition)
-<br/>
-
-## ▶️ Software 목록
-
-##### IDE : IntelliJ IDEA 2023.2 (Community Edition)
-##### JDK : 11.0.2
-##### SpringBoot 2.7.15
-##### spring.dependency-management version 1.0.15.RELEASE
-##### gradle version 8.2.1
-##### Git 3.1.1
-##### Mysql Server 8.0.33
-##### Mysql Workbench 8.0.33
-##### Visual Studio Code 1.82.2
-<br/>
-
-## ▶️ DB Query
 ![image](https://github.com/yujin7697/1024/assets/122248974/4f65a58b-9d5c-4335-8b19-9c561b123515)
 
 
