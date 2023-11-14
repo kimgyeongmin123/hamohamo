@@ -18,6 +18,8 @@ public interface ReplyRepository extends JpaRepository<Reply,Long> {
     @Query("SELECT COUNT(r) FROM Reply r WHERE bno = :bno")
     Long GetReplyCountByBnoDesc(@Param("bno") Long bno);
 
+    boolean existsByNickname(String nickname);
+
 
 
 
