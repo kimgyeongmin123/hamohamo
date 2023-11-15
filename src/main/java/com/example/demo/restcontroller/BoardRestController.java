@@ -51,23 +51,7 @@ public class BoardRestController {
         return list;
     }
 
-    @GetMapping("/reply/myreply")
-    @ResponseBody
-    public String myreply(Model model){
 
-        System.out.println("GET /reply/myreply");
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-
-        UserDto dto = principalDetails.getUser();
-
-        if(replyRepository.existsByNickname(dto.getNickname())){
-            return "true";
-        } else{
-            return "false";
-        }
-    }
     //-------------------
     //댓글 카운트
     //-------------------

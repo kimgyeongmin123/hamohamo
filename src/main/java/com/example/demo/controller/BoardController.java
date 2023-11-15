@@ -305,7 +305,20 @@ public class BoardController {
     public String delete(@PathVariable Long bno, @PathVariable Long rnumber){
         log.info("GET reply/delete bno,rnumber " + rnumber + " " + rnumber);
 
-        boardService.deleteReply(rnumber);
+        // 현재 인증된 사용자의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        // UserRepository를 사용하여 사용자 정보 가져오기
+        User user = userRepository.findByEmail(email);
+
+        System.out.println("로그인한 유저의 닉네임 : " + user.getNickname());
+        System.out.println("이 rnumber를 작성한 사용자의 닉네임 : "+replyRepository.FindNicknameByRnumber(rnumber));
+
+        if(Objects.equals(replyRepository.FindNicknameByRnumber(rnumber), user.getNickname())){
+            boardService.deleteReply(rnumber);
+        }
+
 
         return "redirect:/read/"+bno;
     }

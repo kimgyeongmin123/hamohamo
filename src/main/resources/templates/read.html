@@ -22,9 +22,7 @@
 
   <style>
 
-  .reply_delete{
-    display : none;
-  }
+
 
     main{
      display : flex;
@@ -705,32 +703,6 @@ reply_btn_el.addEventListener('click', function () {
     return formattedDate;
   };
 
-  $(document).ready(function() {
-
-      $('.reply_delete').each(function(){
-
-      var delete_a = $(this);
-
-          $.ajax({
-
-              type:'GET',
-              url:'/reply/myreply',
-              success:function(myreply){
-
-              console.log(myreply);
-
-                  if(myreply==='true'){
-                      delete_a.style.display = 'inline-block';
-                  }else{
-                      delete_a.style.display = 'none';
-                  }
-              },
-              error:function(){
-                  console.error('내댓글인지 가져오기 실패');
-              }
-          });
-      });
-  });
 </script>
 
 
