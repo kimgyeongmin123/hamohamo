@@ -292,14 +292,20 @@
                 type: "POST",
                 data: {value: inputValue, field: emailInput},
                 success: function (response) {
-                    if (response.duplicate) {
-                          alert("이미 존재하는 이메일입니다.");
-                          isEmailChecked = false;
-                    } else {
-                        alert("사용 가능한 이메일입니다.");
-                        isEmailChecked = true;
-                        var emailbtn = document.getElementById('emailbtn');
-                        emailbtn.innerHTML = '사용 가능';
+
+                    console.log(inputValue);
+                    if(inputValue==''){
+                        alert('이메일을 입력해주세요.');
+                    }else{
+                        if (response.duplicate) {
+                              alert("이미 존재하는 이메일입니다.");
+                              isEmailChecked = false;
+                        } else {
+                            alert("사용 가능한 이메일입니다.");
+                            isEmailChecked = true;
+                            var emailbtn = document.getElementById('emailbtn');
+                            emailbtn.innerHTML = '사용가능';
+                        }
                     }
                 },
                 error: function (xhr, status, error) {
