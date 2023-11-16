@@ -74,7 +74,7 @@ public class UserController {
 	//================================================================
 
 
-	@PostMapping("/checkDuplicate")
+	@PostMapping(path = "/checkDuplicate", produces = "application/json")
 	public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestParam("field") String field, @RequestParam("value") String value) {
 
 
@@ -101,7 +101,7 @@ public class UserController {
 
 		return ResponseEntity.ok(response);
 	}
-	@PostMapping("/checkPhoneDuplicate")
+	@PostMapping(path = "/checkPhoneDuplicate", produces = "application/json")
 	public ResponseEntity<Map<String, Boolean>> checkPhoneDuplicate(@RequestParam ("field") String field, @RequestParam ("value") String value){
 
 		boolean isDuplicate = false;
