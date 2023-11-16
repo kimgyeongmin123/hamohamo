@@ -101,13 +101,26 @@ public class UserController {
 	@PostMapping("/checkNicknameDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
 
+		System.out.println("checkNicknameDuplicate하는 컨트롤러");
 		boolean isDuplicate = false;
 
 		if("nicknameInput".equals(field)){
+
+			System.out.println("이프문으로 들어왔어요.");
 			isDuplicate = userRepository.existsByNickname(value);
 		}
+
+		System.out.println("내가 입력한 값 : "+value);
+
+		System.out.println("isDuplicate : "+isDuplicate);
+
 		Map<String, Boolean> response = new HashMap<>();
+
+		System.out.println("response : "+response);
+
 		response.put("duplicate", isDuplicate);
+
+		System.out.println("풋 한 후 response : "+response);
 
 		return ResponseEntity.ok(response);
 	}
@@ -115,12 +128,12 @@ public class UserController {
 	@PostMapping("/checkPhoneDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkPhoneDuplicate(@RequestParam ("field") String field, @RequestParam ("value") String value){
 
-		boolean isDuplicate = false;
+		boolean duplicate = false;
 		if("phoneInput".equals(field)){
-			isDuplicate = userRepository.existsByPhone(value);
+			duplicate = userRepository.existsByPhone(value);
 		}
 		Map<String, Boolean> response = new HashMap<>();
-		response.put("duplicate", isDuplicate);
+		response.put("duplicate", duplicate);
 
 		return ResponseEntity.ok(response);
 	}
@@ -356,8 +369,8 @@ public class UserController {
 	public void emailcheck() {log.info("GET/emailcheck...");}
 	@GetMapping("/resetpw")
 	public void resetpw() {log.info("GET/resetpw...");}
-	@GetMapping("/checkNicknameDuplicate")
-	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
+//	@GetMapping("/checkNicknameDuplicate")
+//	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
 	@GetMapping("/checkDuplicate")
 	public void checkDuplicate_get(){
 		log.info("GET/checkDuplicate");

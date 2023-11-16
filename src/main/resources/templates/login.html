@@ -315,12 +315,21 @@
                 type: "POST",
                 data: {value: inputValue, field: nicknameInput},
                 success: function (response) {
-                    if (response.duplicate) {
-                          alert("이미 존재하는 닉네임입니다.");
-                          isNicknameChecked = false;
+
+                console.log(response.value);
+                console.log(response.duplicate);
+
+                    if (response.duplicate != undefined) {
+                        if (response.duplicate) {
+                            alert("이미 존재하는 닉네임입니다.");
+                            isNicknameChecked = false;
+                        } else {
+                            alert("사용 가능한 닉네임입니다.");
+                            isNicknameChecked = true;
+                        }
                     } else {
-                        alert("사용 가능한 닉네임입니다.");
-                        isNicknameChecked = true;
+                        console.error("서버 응답에 'duplicate' 키가 없습니다.");
+                        isNicknameChecked = false;
                     }
                 },
                 error: function (xhr, status, error) {
@@ -468,16 +477,7 @@
                 alert("올바른 휴대폰 번호를 입력하세요.");
                 return;
             }
-<!--            if (form.zipcode.value.trim() == "")-->
-<!--            {-->
-<!--                alert("우편번호를 입력하세요.");-->
-<!--                return;-->
-<!--            }-->
-<!--            if (form.addr2.value.trim() == "")-->
-<!--            {-->
-<!--                alert("상세주소를 입력하세요.");-->
-<!--                return;-->
-<!--            }-->
+
             if (form.answer.value.trim() == "")
             {
                 alert("질문의 답을 입력하세요.");
@@ -491,32 +491,32 @@
         }
 </script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<!--<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>-->
+<!--<script>-->
 
-    const search_addr_btn = document.querySelector('.search_addr_btn');
-    search_addr_btn.addEventListener('click',function(){
-       new daum.Postcode({
-                oncomplete: function(data) {
-                    console.log(data);
-                    const zipcode = document.querySelector('.zipcode');
-                    const addr1 = document.querySelector('.addr1');
+<!--    const search_addr_btn = document.querySelector('.search_addr_btn');-->
+<!--    search_addr_btn.addEventListener('click',function(){-->
+<!--       new daum.Postcode({-->
+<!--                oncomplete: function(data) {-->
+<!--                    console.log(data);-->
+<!--                    const zipcode = document.querySelector('.zipcode');-->
+<!--                    const addr1 = document.querySelector('.addr1');-->
 
-                    if(data.userSelectedType==='R')
-                    {
-                        addr1.value = data.roadAddress;
-                    }
-                    else
-                    {
-                        addr1.value = data.jibunAddress;
-                    }
-                    zipcode.value=data.zonecode;
+<!--                    if(data.userSelectedType==='R')-->
+<!--                    {-->
+<!--                        addr1.value = data.roadAddress;-->
+<!--                    }-->
+<!--                    else-->
+<!--                    {-->
+<!--                        addr1.value = data.jibunAddress;-->
+<!--                    }-->
+<!--                    zipcode.value=data.zonecode;-->
 
-                }
-            }).open();
+<!--                }-->
+<!--            }).open();-->
 
-    });
-</script>
+<!--    });-->
+<!--</script>-->
 <script>
 
 

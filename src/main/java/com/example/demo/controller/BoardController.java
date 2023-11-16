@@ -323,6 +323,7 @@ public class BoardController {
         return "redirect:/read/"+bno;
     }
 
+
     //--------------------------------
     // /board/reply/thumbsup
     //--------------------------------
