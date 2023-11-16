@@ -58,11 +58,6 @@ public class UserController {
 	@Autowired
 	private FollowService followService;
 
-	@GetMapping("/join")
-	public void join_get() {
-		log.info("GET /join");
-	}
-
 	@PostMapping("/join")
 	public String join_post(UserDto dto, Model model, HttpServletRequest request) {
 		log.info("POST /join "+dto);
@@ -77,10 +72,7 @@ public class UserController {
 	}
 
 	//================================================================
-//	@GetMapping("/checkDuplicate")
-//	public void checkDuplicate_get(){
-//		log.info("GET/checkDuplicate");
-//	}
+
 
 	@PostMapping("/checkDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestParam("field") String field, @RequestParam("value") String value) {
@@ -96,44 +88,28 @@ public class UserController {
 
 		return ResponseEntity.ok(response);
 	}
-	//	@GetMapping("/checkNicknameDuplicate")
-//	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
-	@PostMapping("/checkNicknameDuplicate")
+	@PostMapping(path = "/checkNicknameDuplicate", produces = "application/json")
 	public ResponseEntity<Map<String, Boolean>> checkNicknameDuplicate(@RequestParam ("field") String field,@RequestParam ("value") String value) {
 
-		System.out.println("checkNicknameDuplicate하는 컨트롤러");
 		boolean isDuplicate = false;
 
 		if("nicknameInput".equals(field)){
-
-			System.out.println("이프문으로 들어왔어요.");
 			isDuplicate = userRepository.existsByNickname(value);
 		}
-
-		System.out.println("내가 입력한 값 : "+value);
-
-		System.out.println("isDuplicate : "+isDuplicate);
-
 		Map<String, Boolean> response = new HashMap<>();
-
-		System.out.println("response : "+response);
-
 		response.put("duplicate", isDuplicate);
-
-		System.out.println("풋 한 후 response : "+response);
 
 		return ResponseEntity.ok(response);
 	}
-
 	@PostMapping("/checkPhoneDuplicate")
 	public ResponseEntity<Map<String, Boolean>> checkPhoneDuplicate(@RequestParam ("field") String field, @RequestParam ("value") String value){
 
-		boolean duplicate = false;
+		boolean isDuplicate = false;
 		if("phoneInput".equals(field)){
-			duplicate = userRepository.existsByPhone(value);
+			isDuplicate = userRepository.existsByPhone(value);
 		}
 		Map<String, Boolean> response = new HashMap<>();
-		response.put("duplicate", duplicate);
+		response.put("duplicate", isDuplicate);
 
 		return ResponseEntity.ok(response);
 	}
@@ -362,31 +338,5 @@ public class UserController {
 		return "ok";
 
 	}
-
-	@GetMapping("/findid")
-	public void findid() {log.info("GET/findid...");}
-	@GetMapping("/emailcheck")
-	public void emailcheck() {log.info("GET/emailcheck...");}
-	@GetMapping("/resetpw")
-	public void resetpw() {log.info("GET/resetpw...");}
-//	@GetMapping("/checkNicknameDuplicate")
-//	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
-	@GetMapping("/checkDuplicate")
-	public void checkDuplicate_get(){
-		log.info("GET/checkDuplicate");
-	}
-	@GetMapping("/checkPhoneDuplicate")
-	public void checkPhoneDuplicate_get(){
-		log.info("GET/checkPhoneDuplicate");
-	}
-	@GetMapping("/sendemail")
-	public void sendemail_get() {log.info("GET/sendemail"); }
-	@GetMapping("/checkcode")
-	public void checkCode_get() {log.info("GET/checkcode"); }
-	@GetMapping("/draw")
-	public void draw_get() {log.info("GET/draw"); }
-
-
-
 
 }

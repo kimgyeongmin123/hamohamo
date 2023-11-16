@@ -308,7 +308,7 @@
         }
 
     <!--닉네임 중복체크-->
-        function checkNicknameDuplicate(nicknameInput) {
+         function checkNicknameDuplicate(nicknameInput) {
             const inputValue = $("#" + nicknameInput).val();
             $.ajax({
                 url: "/checkNicknameDuplicate",
@@ -316,20 +316,15 @@
                 data: {value: inputValue, field: nicknameInput},
                 success: function (response) {
 
-                console.log(response.value);
-                console.log(response.duplicate);
+console.log("전체 응답:", response);
 
-                    if (response.duplicate != undefined) {
-                        if (response.duplicate) {
-                            alert("이미 존재하는 닉네임입니다.");
-                            isNicknameChecked = false;
-                        } else {
-                            alert("사용 가능한 닉네임입니다.");
-                            isNicknameChecked = true;
-                        }
+                console.log(response.duplicate);
+                    if (response.duplicate) {
+                          alert("이미 존재하는 닉네임입니다.");
+                          isNicknameChecked = false;
                     } else {
-                        console.error("서버 응답에 'duplicate' 키가 없습니다.");
-                        isNicknameChecked = false;
+                        alert("사용 가능한 닉네임입니다.");
+                        isNicknameChecked = true;
                     }
                 },
                 error: function (xhr, status, error) {

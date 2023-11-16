@@ -42,4 +42,29 @@ public class SimpleController {
 		log.info("GET /error...");
 	}
 
+	@GetMapping("/findid")
+	public void findid() {log.info("GET/findid...");}
+	@GetMapping("/emailcheck")
+	public void emailcheck() {log.info("GET/emailcheck...");}
+	@GetMapping("/resetpw")
+	public void resetpw() {log.info("GET/resetpw...");}
+	@GetMapping("/checkNicknameDuplicate")
+	public void checkNicknameDuplicate_get(){ log.info("GET/checkNicknameDuplicate");}
+	@GetMapping("/checkDuplicate")
+	public void checkDuplicate_get(){
+		log.info("GET/checkDuplicate");
+	}
+	@GetMapping("/checkPhoneDuplicate")
+	public void checkPhoneDuplicate_get(){
+		log.info("GET/checkPhoneDuplicate");
+	}
+	@GetMapping("/sendemail")
+	public void sendemail_get() {log.info("GET/sendemail"); }
+	@GetMapping("/checkcode")
+	public void checkCode_get() {log.info("GET/checkcode"); }
+	@GetMapping("/draw")
+	public void draw_get() {log.info("GET/draw"); }
+	@GetMapping("/button")
+	public void button_get() {log.info("GET/button"); }
+
 }
