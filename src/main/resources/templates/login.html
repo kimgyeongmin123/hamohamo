@@ -210,13 +210,13 @@
                 <form name="joinform" action="/join" method="post" onsubmit="return false">
                     <span for="emailInput">이메일</span>
                     <div style="display: flex;">
-                        <input name="email" id="emailInput" class="form-control" style="font-size : 0.8rem;">
+                        <input name="email" id="emailInput" class="form-control" style="font-size : 0.8rem;" placeholder="이메일 형식을 지켜주세요.">
                         <button class="btn btn-secondary jung-btn" id="emailbtn" onclick="checkDuplicate('emailInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
                     </div>
 
                     <span for="passwordInput">비밀번호</span>
                     <div>
-                        <input name="password" type="password" id="passwordInput" class="form-control" style="font-size : 0.8rem;">
+                        <input name="password" type="password" id="passwordInput" class="form-control" style="font-size : 0.8rem;" placeholder="8-16자 영문,숫자,특수문자(!@#$%^&*) 포함">
                     </div>
                     <span for="passwordConfirmInput">비밀번호확인</span>
                     <div>
@@ -304,7 +304,6 @@
                             alert("사용 가능한 이메일입니다.");
                             isEmailChecked = true;
                             var emailbtn = document.getElementById('emailbtn');
-                            emailbtn.innerHTML = '사용가능';
                         }
                     }
                 },
@@ -318,6 +317,7 @@
     <!--닉네임 중복체크-->
          function checkNicknameDuplicate(nicknameInput) {
             const inputValue = $("#" + nicknameInput).val();
+            isNicknameChecked = false;
             $.ajax({
                 url: "/checkNicknameDuplicate",
                 type: "POST",
@@ -409,14 +409,13 @@ console.log("전체 응답:", response);
         });
 <!--회원가입 버튼누를시 빈칸이나 중복체크를 안했을때-->
         const isValid = () => {
+
             const form = document.joinform;
             const password = passwordInput.value;
             const passwordConfirm = form.passwordConfirm.value.trim();
             const phoneInput = form.phoneInput.value.trim();
             const email = emailInput.value;
             const secret = isValidPassword(password);
-
-
 
             if (form.email.value.trim() ==  "")
             {
@@ -438,7 +437,7 @@ console.log("전체 응답:", response);
                 return;
             }
             if (!secret) {
-                alert("비밀번호 양식에 맞춰서 입력하세요.");
+                alert("비밀번호 양식에 맞춰서 입력하세요. 8-16자 영문,숫자,특수문자(!@#$%^&*) 포함");
                 return;
             }
             if (passwordConfirm == "")
