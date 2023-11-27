@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>그림 그리기</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 캔버스 설정 */
+canvas{
+
+    margin-top: 20px;
+    cursor: Crosshair;
+    background-color: whitesmoke;
+}
+/* 툴모음 전체 박스 */
+.tools{
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top:30px;
+    display: flex;
+    justify-content:center;
+    flex-direction: row;
+}
+
+/* 툴 컬러 버튼 */
+.tools .color-field{
+    height:40px;
+    width: 40px;
+    min-height:40px;
+    min-width: 40px;
+    cursor:pointer;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing:border-box;
+    border: 2px solid white;
+    align-self:center;
+}
+
+/* 되돌리기,지우기,다운로드 버튼 */
+.tools .button{
+    align-self: center;
+    width:100px;
+    height:40px;
+    border: 2px solid white;
+    cursor :pointer;
+    color: white;
+    background:#222;
+    font-weight: bold;
+    margin:0 6px;
+}
+/* 컬러피커 */
+.color-picker{
+    align-self: center;
+    margin:0 10px;
+    height:50px;
+}
+/* 펜크기 */
+.pen-range{
+    align-self: center;
+    margin:0 10px;
+}
+</style>
+
+
+<body>
+<!-- 그림판시작 -->
+<canvas id="canvas">
+</canvas>
+<div class="tools">
+    <!-- 컬러칩 -->
+    <div onclick="change_color(this)" class="color-field" style="background: red;"></div>
+    <div onclick="change_color(this)" class="color-field" style="background: blue;"></div>
+    <div onclick="change_color(this)" class="color-field" style="background: green;"></div>
+    <div onclick="change_color(this)" class="color-field" style="background: yellow;"></div>
+
+    <!-- 컬러피커  -->
+    <input onInput="draw_color= this.value" type="color" class="color-picker" style="width:70px">
+    <!-- 펜굵기 조절 -->
+    <input type="range" min="1" max="100" class="pen-range"
+           onInput="draw_width=this.value">
+    <!-- 되돌리기, 지우기, 다운로드 버튼  -->
+    <button onclick="undo_last()" type="button" class="button">되돌리기</button>
+    <button onclick="clear_canvas()" type="button" class="button">지우기</button>
+    <button onclick="save()" type="button" class="button">업로드하기</button>
+</div>
+
+
+<script>
+    // 캔버스 설정
+const canvas = document.getElementById("canvas");
+canvas.width = 585;
+canvas.height =650;
+
+
+let context = canvas.getContext("2d");
+let start_background_color ="whitesmoke";
+context.fillStyle = start_background_color;
+context.fillRect(0,0,canvas.width, canvas.height);
+
+// 펜설정, 컬러 굵기
+let draw_color ="black";
+let draw_width = "2";
+let is_drawing = false;
+
+// 이전으로 돌리기 // 빈배열을 만든다.
+let restore_array =[];
+let index = -1;
+
+// 컬러변경
+function change_color(element){
+    draw_color = element.style.background;
+}
+
+canvas.addEventListener("touchstart",start, false);
+canvas.addEventListener("touchmove",draw, false);
+canvas.addEventListener("mousedown",start, false);
+canvas.addEventListener("mousemove",draw, false);
+
+canvas.addEventListener("touchend",stop, false);
+canvas.addEventListener("mouseup",stop, false);
+canvas.addEventListener("mouseout",stop, false);
+
+// 이미지 그리는 부분
+function start(event){
+    is_drawing = true;
+    context.beginPath();
+    context.moveTo(event.clientX - canvas.offsetLeft,
+                   event.clientY - canvas.offsetTop);
+    event.preventDefault();
+
+    // 이전것 저장해두기 // 이벤트가 마우스아웃이 아닐때 마우스가 안에 있을때 위치값 저장.
+    if(event.type != 'mouseout'){
+    restore_array.push(context.getImageData(0,0,canvas.width, canvas.height));
+    index += 1;
+    }
+    console.log(restore_array);
+}
+
+function draw(event){
+    if(is_drawing){
+        context.lineTo(event.clientX - canvas.offsetLeft,
+                       event.clientY - canvas.offsetTop);
+        context.strokeStyle = draw_color;
+        context.lineWidth =draw_width;
+        context.lineCap ="round";
+        context.lineJoin ="round";
+        context.stroke();
+    }
+}
+
+function stop(event){
+    if (is_drawing){
+        context.stroke();
+        context.closePath();
+        is_drawing =false;
+    }
+    event.preventDefault();
+}
+
+// 지우기
+function clear_canvas(){
+    context.fillStyle = start_background_color;
+    context.clearRect(0,0,canvas.width, canvas.height);
+    context.fillRect(0,0,canvas.width, canvas.height);
+
+    restore_array=[];
+    index =-1;
+}
+
+// 뒤로가기
+function undo_last(){
+    if(index <=0){
+        clear_canvas();
+    }else{
+        index -= 1;
+        restore_array.pop();
+        context.putImageData(restore_array[index],0,0);
+    }
+}
+
+// 저장하기
+function save() {
+  const canvas = document.getElementById('canvas');
+  const imgBase64 = canvas.toDataURL('image/jpeg', 1.0);
+
+  const formData = new FormData();
+  formData.append('image', imgBase64);
+
+  fetch('/post', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      alert('이미지가 게시물에 추가되었습니다.');
+    })
+    .catch(error => {
+      console.error('업로드 및 게시물 추가 중 오류 발생: ' + error);
+    });
+}
+</script>
+</body>
+</html>
