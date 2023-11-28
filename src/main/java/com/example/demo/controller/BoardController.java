@@ -58,7 +58,7 @@ public class BoardController {
     @GetMapping("/list")
     public void list(Model model, Authentication authentication){
         log.info("GET /list");
-//젠킨스으으으~~jfdlsdjfksldfhwueiofhdjfsdkl
+//젠킨스으으으~~jfdlsdjfksldfhwueiofhdjfsdklfgfdgdfgdfgfd
         // 현재유저정보 가져오기
         PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
 
