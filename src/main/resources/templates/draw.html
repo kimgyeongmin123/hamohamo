@@ -190,24 +190,15 @@ function undo_last(){
 }
 
 // 저장하기
-function save() {
-  const canvas = document.getElementById('canvas');
-  const imgBase64 = canvas.toDataURL('image/jpeg', 1.0);
+function save(){
+    canvas.toBlob((blob)=>{
 
-  const formData = new FormData();
-  formData.append('image', imgBase64);
-
-  fetch('/post', {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      alert('이미지가 게시물에 추가되었습니다.');
-    })
-    .catch(error => {
-      console.error('업로드 및 게시물 추가 중 오류 발생: ' + error);
+        const a = document.createElement('a');
+        document.body.append(a);
+        a.download ='export{timestamp}.png';
+        a.href= URL.createObjectURL(blob);
+        a.click();
+        a.remove();
     });
 }
 </script>

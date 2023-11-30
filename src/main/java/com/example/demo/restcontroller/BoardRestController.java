@@ -45,9 +45,6 @@ public class BoardRestController {
         log.info("GET /reply/list " + bno);
         List<ReplyDto> list =  boardService.getReplyList(bno);
 
-
-
-
         return list;
     }
 
