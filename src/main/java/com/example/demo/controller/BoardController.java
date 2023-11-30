@@ -58,8 +58,7 @@ public class BoardController {
     @GetMapping("/list")
     public void list(Model model, Authentication authentication){
         log.info("GET /list");
-//젠킨스으으으~~jfdlsdjfksldfhwueiofhsdfsdfsdfdgbgfdgfdgdfgdfgdfg
-// djfsdklfgfdgdfgdfgfdvbcvbcvbcvbbcvrtfgfdgeritudlkfjsdlkfjlsdkjflkdsj
+
         // 현재유저정보 가져오기
         PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
 
@@ -86,7 +85,6 @@ public class BoardController {
 
         model.addAttribute("dataList", dataList);
         model.addAttribute("followList", followList);
-//        model.addAttribute("followProfileList", followProfileList);
 
     }
 
@@ -459,9 +457,9 @@ public class BoardController {
         log.info("GET /draw");
 
 //        // 현재유저정보 가져오기
-//        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
-//
-//        String currentUser = principal.getUser().getEmail();
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+
+        String currentUser = principal.getUser().getEmail();
 
     }
 
