@@ -274,10 +274,18 @@ public class BoardController {
     }
 
     @GetMapping("/list/search-contents")
-    public String search(String keyword, Model model){
+    public String search(String keyword, Model model, Authentication authentication){
 
         List<Object[]> searchList = boardService.search_contents(keyword);
         List<Map<String, Object>> dataList = new ArrayList<>();
+
+        // 현재유저정보 가져오기
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+
+        String currentUser = principal.getUser().getEmail();
+
+        // 팔로우 리스트를 가져오기
+        List<User> followList = followService.getFollowList(currentUser);
 
         for (Object[] row : searchList) {
             Map<String, Object> data = new HashMap<>();
@@ -293,6 +301,7 @@ public class BoardController {
         System.out.println("dataList : "+ dataList);
 
         model.addAttribute("boardList",dataList);
+        model.addAttribute("followList", followList);
 
         return "search-contents";
     }
