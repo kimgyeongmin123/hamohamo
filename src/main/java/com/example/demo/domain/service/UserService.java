@@ -84,7 +84,7 @@ public class UserService {
                 user.setBirth(newBirth);
                 user.setPhone(newPhone);
 
-                //이거는 테이블의 닉네임도 바꾸는 것이에요 :) 이거는 때려죽여도 잘돼요
+                //이거는 테이블의 닉네임도 바꾸는 것이에요 :)
                 entityManager.createNativeQuery("UPDATE board SET nickname = :newNickname WHERE nickname = :oldNickname")
                         .setParameter("newNickname", newNickname)
                         .setParameter("oldNickname", oldNickname)
