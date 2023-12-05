@@ -219,7 +219,7 @@
                 <img th:src="${profile}" style="width:30px;height:30px;border-radius:50%;margin-right : 10px;" />
                 <div id = board_id th:text="${board.nickname}">id</div>
               </a>|
-              <div class="date" th:text="${#temporals.format(data.board.date, 'yyyy년 MM월 dd일 HH:mm:ss')}">date</div>
+              <div class="date" th:text="${#temporals.format(board.date, 'yyyy년 MM월 dd일 HH:mm:ss')}">date</div>
             </div>
             <div class="hits-box">조회
               <div class="hits" th:text="${board.hits}">hits</div>
