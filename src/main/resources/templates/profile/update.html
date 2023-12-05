@@ -319,6 +319,11 @@
 </main>
 
 <script>
+    function formatDateTime(rawDate) {
+        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY년 MM월 DD일 HH:mm:ss');
+        return formattedDate;
+    }
+
     // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
     function loadNotifications() {
         $.ajax({
@@ -333,9 +338,10 @@
                     // 알림을 동적으로 생성하여 추가합니다.
                     const notificationElement = `
                         <div class="notification">
+                            <i class="fas fa-bell"></i>
                             <p>${notification.replynickname}</p>
                             <p>${notification.message}</p>
-                            <p>${notification.rdate}</p>
+                            <p>${formatDateTime(notification.rdate)}</p>
                         </div>
                     `;
                     notificationContainer.append(notificationElement);

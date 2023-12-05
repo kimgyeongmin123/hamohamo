@@ -282,7 +282,183 @@ canvas{
 </div>
 
 </main>
+<script>
+    function formatDateTime(rawDate) {
+        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY년 MM월 DD일 HH:mm:ss');
+        return formattedDate;
+    }
 
+    // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
+    function loadNotifications() {
+        $.ajax({
+            url: "/boardnotification/read", // 알림 데이터를 제공하는 엔드포인트
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                // 알림 데이터를 동적으로 렌더링합니다.
+                const notificationContainer = $("#notification-container");
+
+                data.forEach(function(notification) {
+                    // 알림을 동적으로 생성하여 추가합니다.
+                    const notificationElement = `
+                        <div class="notification">
+                            <i class="fas fa-bell"></i>
+                            <p>${notification.replynickname}</p>
+                            <p>${notification.message}</p>
+                            <p>${formatDateTime(notification.rdate)}</p>
+                        </div>
+                    `;
+                    notificationContainer.append(notificationElement);
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching notifications: " + error);
+            }
+        });
+    }
+
+    // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
+    $(document).ready(function() {
+        loadNotifications();
+    });
+</script>
+
+<script>
+
+    function logoutAndRedirect() {
+          // 새 창 열기
+       var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+       setTimeout(function() {
+         // 1.5초후 창닫기
+          newWindow.close();
+
+         // 특정 지점으로 리다이렉션
+     window.location.href = '/login';
+   }, 1500);
+
+     }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('searchButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작을 막습니다.
+
+        // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+        var form = document.getElementById('searchForm');
+        var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+        if (selectedOption === 'nickname') {
+            form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+        } else {
+            form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+        }
+            form.submit(); // 폼 제출
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const formData = new FormData();	//폼관련 정보 저장
+
+const uploadBox_el = document.querySelector('.upload-box');
+//dragenter / dragover /dragleave / drop
+
+uploadBox_el.addEventListener('dragenter',function(e){
+    e.preventDefault();
+    console.log("dragenter...");
+});
+uploadBox_el.addEventListener('dragover',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='0.5';
+    console.log("dragover...");
+
+});
+uploadBox_el.addEventListener('dragleave',function(e){
+    e.preventDefault();
+    uploadBox_el.style.opacity='1';
+    console.log("dragleave...");
+
+});
+
+//----------------------------------------------
+//
+//----------------------------------------------
+uploadBox_el.addEventListener('drop',function(e){
+    e.preventDefault();
+    console.log("drop...");
+    console.log(e);
+    console.log(e.dataTransfer);
+    console.log(e.dataTransfer.files[0]);
+
+    //유효성체크(이미지만, 하나씩만 , 용량제한 ...)
+    // 파일 유형 확인 및 이미지 파일만 처리
+    const imageFiles = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    if (imageFiles.length === 0) {
+            alert("이미지 파일만 가능합니다");
+            return;
+    }
+    //총이미지의 개수가 5개 이상이면 return(아직..)
+
+    //미리보기
+    const file = e.dataTransfer.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(event) {
+        const preview = document.getElementById('preview');
+        const img = document.createElement('img')
+        img.setAttribute('src',event.target.result);
+        preview.appendChild(img);
+    };
+    //formData에 저장
+    formData.append('files',file);
+
+});
+
+const add_product_btn_el = document.querySelector('.add_product_btn');
+		add_product_btn_el.addEventListener('click',function(){
+			const contents = document.imageform.contents.value;
+
+			formData.append('contents',contents);
+
+
+			axios.post('/post',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
+			.then(response =>{
+				alert("새 글을 추가했습니다. 짝짝짝");
+				location.href="/list";
+			})
+			.catch(error =>{alert("글쓰기를 실패하였습니다.(이미지파일 필수)");})
+
+
+		})
+</script>
+
+<script>
+    //---------------------------------
+    //소켓 연결
+    //---------------------------------
+    var socket = new WebSocket('ws://localhost:8080/socket');
+
+    //---------------------------------
+    //메세지 수신
+    //---------------------------------
+    let amarmtest = 0;
+    socket.onmessage = function(event) {
+            var message = event.data;
+            console.log('message : ',message);
+            alert("Message : "+message);
+
+            const notificationSpan = document.querySelector('.notification .counter');
+            if (notificationSpan) {
+              notificationSpan.style.display = 'block';
+            }
+   };
+
+</script>
 
 <script>
     // 캔버스 설정
