@@ -118,11 +118,9 @@
 
 
 
-## ▶️ 사용(or 예정) API
+## ▶️ 사용 API
 
 ##### 카카오, 네이버 로그인 API
-##### 다음 주소 API
-##### 결제 API
 ##### Canvas API
 
 <br/>
@@ -210,61 +208,6 @@ https://shields.io/
 <br/>
 
 
-
-
-## ▶️ DevOps 
-
-##### Amazon Web Service EC2(Deploy Server)
-##### Amazon Web Service RDS(Remote Datebase Server)
-##### Git & Github
-##### Docker(Server Image)
-##### Swagger(API Document)
-##### Adobe XD
-<br/>
-
-
-
-## ▶️ 사용(or 예정) API
-
-##### 카카오, 네이버 로그인 API
-##### 다음 주소 API
-##### 결제 API
-##### Canvas API
-
-<br/>
-
-## ▶️ 기술스택
-
-![JAVA](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-![SpringBoot](https://img.shields.io/badge/springboot-8A2BE2)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-
-
-[참고 배지 싸이트] <br/>
-https://badgen.net/ <br/>
-https://shields.io/
-
-
-<br/>
-
-## ▶️ END POINT 
-
-|END POINT|METHOD|DESCRIPTION|
-|------|---|---|
-|/list|GET|sns의 모든 게시물 목록 표시|
-|/post|POST|sns의 게시물 첨부하기|
-|/read|GET|sns의 게시물 1건 보기|
-|/board/update|POST|sns의 게시물 수정하기|
-|/profile/update|POST|내 정보 수정|
-|/profile/leave_auth|GET|회원 탈퇴 페이지|
-|/login|GET|sns로그인|
-|/join|POST|sns회원가입|
-|/mypage|GET|로그인 된 사용자의 마이페이지|
-
-<br/>
 
 
 
