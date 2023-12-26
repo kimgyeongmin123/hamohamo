@@ -426,6 +426,24 @@
             behavior: "smooth" // 부드러운 스크롤 사용
         });
     });
+
+    window.addEventListener("scroll", function() {
+            var scrollPosition = window.scrollY;
+
+            if (scrollPosition > 500) {
+                document.querySelector(".up").style.display = "block";
+            } else {
+                document.querySelector(".up").style.display = "none";
+            }
+        });
+
+        window.addEventListener("load", function() {
+            var scrollPosition = window.scrollY;
+
+            if (scrollPosition > 500) {
+                document.querySelector(".up").style.display = "block";
+            }
+        });
 </script>
 
 <!-- axios -->
