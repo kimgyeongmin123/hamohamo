@@ -404,6 +404,8 @@
             console.log(response);
             // 삭제가 성공하면 알림을 동적으로 삭제
             $("#notification-" + nid).remove();
+            location.reload();
+
         },
         error: function(error) {
             console.error("Error deleting notification: " + error);
