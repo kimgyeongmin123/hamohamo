@@ -7,10 +7,9 @@ import com.example.demo.domain.repository.NotificationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +46,13 @@ public class BoardNotificationController {
         List<BoardNotification> list =  notificationRepository.findAllByNickname(writenickname);
 
         return list.size()>0;
+    }
+
+    @DeleteMapping("/deleteNotification/{nid}")
+    public ResponseEntity<String> deleteNotification(@PathVariable Long nid) {
+        System.out.println("알림을 삭제하는 컨트롤러 진입 nid : "+nid);
+        notificationRepository.deleteById(nid);
+        return ResponseEntity.ok("Deleted successfully");
     }
 
 
