@@ -18,7 +18,7 @@ function formatDateTime(rawDate) {
                     const notificationElement = `
                         <div class="notification">
                             <i class="fas fa-bell"></i>
-                            <div class="nickname">${notification.replynickname}</div>
+                            <div class="nickname">${notification.replynickname}<span>님이 댓글을 남겼습니다.</span></div>
                             <a href="/read/${notification.bid}">
                                 <div>${notification.message}</div>
                             </a>

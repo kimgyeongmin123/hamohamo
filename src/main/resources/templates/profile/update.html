@@ -72,32 +72,28 @@
 
         .notification {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            border-top: 1px solid #ccc;
+            flex-direction: column;
             border-bottom: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding: 10px;
+            margin-bottom: 5px;
+            padding: 5px;
         }
 
-        .notification p {
+        .notification div {
             margin: 0;
         }
 
-        .notification .email {
-            flex: 1;
-            margin-right: 10px;
-            font-weight: bold;
-            width : 50px;
+        .notification>.nickname{
+            font-size : 0.85rem;
+            font-weight: 700;
+        }
+        .notification>.nickname>span{
+            font-size : 0.85rem;
+            font-weight:500;
         }
 
-        .notification .message {
-            flex: 2;
-            margin-right: 10px;
-        }
-
-        .notification .date {
-            flex: 1;
+        .notification>.date{
+            font-size : 0.7rem;
+            color : gray;
         }
 
         .notification>a{
@@ -365,7 +361,68 @@
 <!-- Font Awesome for the bell icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oC5D5N2ZlHv5r5zI3/81s6V5HQHZxTUn1l7/2eXIt2Q01lQQDKqOvSDR8RShm6ZH" crossorigin="anonymous">
 
-<script src="/js/notification.js"></script>
+<script>
+    function formatDateTime(rawDate) {
+        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY.MM.DD HH:mm');
+        return formattedDate;
+    }
+
+   // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
+    function loadNotifications() {
+        $.ajax({
+            url: "/boardnotification/read", // 알림 데이터를 제공하는 엔드포인트
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                // 알림 데이터를 동적으로 렌더링합니다.
+                const notificationContainer = $("#notification-container");
+
+                data.forEach(function(notification) {
+                    // 알림을 동적으로 생성하여 추가합니다.
+                    const notificationElement = `
+                        <div class="notification">
+                            <i class="fas fa-bell"></i>
+                            <div class="nickname">${notification.replynickname}<span>님이 댓글을 남겼습니다.</span></div>
+                            <a href="/read/${notification.bid}">
+                                <div>${notification.message}</div>
+                            </a>
+                            <div class="date">${formatDateTime(notification.rdate)}</div>
+                        </div>
+                    `;
+                    notificationContainer.append(notificationElement);
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching notifications: " + error);
+            }
+        });
+    }
+
+    // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
+    $(document).ready(function() {
+        loadNotifications();
+    });
+
+    //---------------------------------
+        //소켓 연결
+        //---------------------------------
+        var socket = new WebSocket('ws://localhost:8080/socket');
+
+        //---------------------------------
+        //메세지 수신
+        //---------------------------------
+        let amarmtest = 0;
+        socket.onmessage = function(event) {
+                var message = event.data;
+                console.log('message : ',message);
+                alert("Message : "+message);
+
+                const notificationSpan = document.querySelector('.notification .counter');
+                if (notificationSpan) {
+                  notificationSpan.style.display = 'block';
+                }
+       };
+</script>
 
 <script>
     let isNicknameChecked = false;
