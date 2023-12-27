@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.management.Notification;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,9 @@ public class BoardController {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
 
     @GetMapping("/list")
     public void list(Model model, Authentication authentication){
@@ -83,8 +87,14 @@ public class BoardController {
 
         System.out.println("dataList : " + dataList);
 
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+
         model.addAttribute("dataList", dataList);
         model.addAttribute("followList", followList);
+        model.addAttribute("notiCount", notiCount);
+
+        System.out.println("notiCount : " + notiCount);
 
     }
 
