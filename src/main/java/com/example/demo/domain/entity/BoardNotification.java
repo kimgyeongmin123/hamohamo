@@ -29,8 +29,9 @@ public class BoardNotification {
 
     private String message;
 
-    //읽었는지 여부 판단
+    //읽었는지 여부 판단 true=읽었음
     private boolean isread;
+
     private LocalDateTime rdate;
 
 

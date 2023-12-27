@@ -332,14 +332,16 @@
               const notificationContainer = $("#notification-container");
 
               data.forEach(function(notification) {
-                  // 알림을 동적으로 생성하여 추가합니다.
+
+                  const textColor = notification.isread ? 'gray' : 'black';
+
                   const notificationElement = `
                       <div class="notification">
                           <i class="fas fa-bell"></i>
                           <div class="nicknameBox">
-                              <div class="nickname">
+                              <div class="nickname" style="color: ${textColor};">
                                   ${notification.replynickname}
-                                  <span>님이 댓글을 남겼습니다.</span>
+                                  <span style="color: ${textColor};">님이 댓글을 남겼습니다.</span>
                               </div>
                               <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
@@ -349,7 +351,7 @@
                               </a>
                           </div>
                           <a href="/read/${notification.bid}">
-                              <div>${notification.message}</div>
+                              <div style="color: ${textColor};">${notification.message}</div>
                           </a>
                           <div class="date">${formatDateTime(notification.rdate)}</div>
                       </div>
