@@ -135,11 +135,17 @@
             margin: 0;
         }
 
-        .notification>.nickname{
+        .notification>.nicknameBox{
+            display : flex;
+            justify-content: space-between;
+        }
+
+        .notification>.nicknameBox>.nickname{
             font-size : 0.85rem;
             font-weight: 700;
+
         }
-        .notification>.nickname>span{
+        .notification>.nicknameBox>.nickname>span{
             font-size : 0.85rem;
             font-weight:500;
         }
@@ -498,7 +504,18 @@
                     const notificationElement = `
                         <div class="notification">
                             <i class="fas fa-bell"></i>
-                            <div class="nickname">${notification.replynickname}<span>님이 댓글을 남겼습니다.</span></div>
+                            <div class="nicknameBox">
+                                <div class="nickname">
+                                    ${notification.replynickname}
+                                    <span>님이 댓글을 남겼습니다.</span>
+                                </div>
+                                <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </a>
+                            </div>
                             <a href="/read/${notification.bid}">
                                 <div>${notification.message}</div>
                             </a>
@@ -513,6 +530,24 @@
             }
         });
     }
+
+    // 알림삭제 요청
+    function deleteNotification(nid) {
+    $.ajax({
+        url: "/boardnotification/deleteNotification/" + nid,
+        method: "DELETE",
+        success: function(response) {
+            console.log(response);
+            // 삭제가 성공하면 알림을 동적으로 삭제
+            $("#notification-" + nid).remove();
+            location.reload();
+
+        },
+        error: function(error) {
+            console.error("Error deleting notification: " + error);
+        }
+    });
+}
 
     // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
     $(document).ready(function() {
