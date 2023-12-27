@@ -1,5 +1,5 @@
 function formatDateTime(rawDate) {
-        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY년 MM월 DD일 HH:mm:ss');
+        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY.MM.DD HH:mm');
         return formattedDate;
     }
 
@@ -18,11 +18,11 @@ function formatDateTime(rawDate) {
                     const notificationElement = `
                         <div class="notification">
                             <i class="fas fa-bell"></i>
-                            <p>${notification.replynickname}</p>
+                            <div class="nickname">${notification.replynickname}</div>
                             <a href="/read/${notification.bid}">
-                                <p>${notification.message}</p>
+                                <div>${notification.message}</div>
                             </a>
-                            <p>${formatDateTime(notification.rdate)}</p>
+                            <div class="date">${formatDateTime(notification.rdate)}</div>
                         </div>
                     `;
                     notificationContainer.append(notificationElement);
