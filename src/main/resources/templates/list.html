@@ -32,34 +32,44 @@
 
 
         .notification {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
-}
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
 
-.notification p {
-    margin: 0;
-}
+        .notification p {
+            margin: 0;
+        }
 
-.notification .email {
-    flex: 1;
-    margin-right: 10px;
-    font-weight: bold;
-    width : 50px;
-}
+        .notification .email {
+            flex: 1;
+            margin-right: 10px;
+            font-weight: bold;
+            width : 50px;
+        }
 
-.notification .message {
-    flex: 2;
-    margin-right: 10px;
-}
+        .notification .message {
+            flex: 2;
+            margin-right: 10px;
+        }
 
-.notification .date {
-    flex: 1;
-}
+        .notification .date {
+            flex: 1;
+        }
+
+        .notification>a{
+            color : black;
+            text-decoration: none;
+        }
+
+        .notification>a:hover{
+            color : blue;
+            text-decoration: underline;
+        }
 
     </style>
 </head>
