@@ -122,6 +122,46 @@
             background-color: rgb(0, 0, 0);
         }
 
+        .notification {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .notification p {
+            margin: 0;
+        }
+
+        .notification .email {
+            flex: 1;
+            margin-right: 10px;
+            font-weight: bold;
+            width : 50px;
+        }
+
+        .notification .message {
+            flex: 2;
+            margin-right: 10px;
+        }
+
+        .notification .date {
+            flex: 1;
+        }
+
+        .notification>a{
+            color : black;
+            text-decoration: none;
+        }
+
+        .notification>a:hover{
+            color : blue;
+            text-decoration: underline;
+        }
+
     </style>
 
 </head>
@@ -168,7 +208,7 @@
                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
                     </svg>알림
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        <span class="visually-hidden">unread messages</span>
+                        <span class="visually-hidden">messages</span>
                     </span>
                 </button>
 
@@ -440,6 +480,7 @@
 <!-- Font Awesome for the bell icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oC5D5N2ZlHv5r5zI3/81s6V5HQHZxTUn1l7/2eXIt2Q01lQQDKqOvSDR8RShm6ZH" crossorigin="anonymous">
 
+<script src="/js/common.js"></script>
 
 <script>
     function formatDateTime(rawDate) {
@@ -633,6 +674,29 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
 
 		})
+</script>
+
+<script>
+    //---------------------------------
+    //소켓 연결
+    //---------------------------------
+    var socket = new WebSocket('ws://localhost:8080/socket');
+
+    //---------------------------------
+    //메세지 수신
+    //---------------------------------
+    let amarmtest = 0;
+    socket.onmessage = function(event) {
+            var message = event.data;
+            console.log('message : ',message);
+            alert("Message : "+message);
+
+            const notificationSpan = document.querySelector('.notification .counter');
+            if (notificationSpan) {
+              notificationSpan.style.display = 'block';
+            }
+   };
+
 </script>
 
 </body>

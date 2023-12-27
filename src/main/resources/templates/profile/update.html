@@ -68,6 +68,46 @@
             border-top : 1px solid rgb(188, 188, 188);
         }
 
+        .notification {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .notification p {
+            margin: 0;
+        }
+
+        .notification .email {
+            flex: 1;
+            margin-right: 10px;
+            font-weight: bold;
+            width : 50px;
+        }
+
+        .notification .message {
+            flex: 2;
+            margin-right: 10px;
+        }
+
+        .notification .date {
+            flex: 1;
+        }
+
+        .notification>a{
+            color : black;
+            text-decoration: none;
+        }
+
+        .notification>a:hover{
+            color : blue;
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body class="scroll">
@@ -566,6 +606,29 @@ location.reload();
 
 
         }
+</script>
+
+<script>
+    //---------------------------------
+    //소켓 연결
+    //---------------------------------
+    var socket = new WebSocket('ws://localhost:8080/socket');
+
+    //---------------------------------
+    //메세지 수신
+    //---------------------------------
+    let amarmtest = 0;
+    socket.onmessage = function(event) {
+            var message = event.data;
+            console.log('message : ',message);
+            alert("Message : "+message);
+
+            const notificationSpan = document.querySelector('.notification .counter');
+            if (notificationSpan) {
+              notificationSpan.style.display = 'block';
+            }
+   };
+
 </script>
 
 </body>
