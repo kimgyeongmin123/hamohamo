@@ -365,15 +365,18 @@
 
                 data.forEach(function(notification) {
 
-                    const textColor = notification.isread ? 'gray' : 'black';
+
+<!--                    const textColor = notification.isread ? 'gray' : 'black';-->
+<!--style="color: ${textColor};"-->
+
 
                     const notificationElement = `
                       <div class="notification">
                           <i class="fas fa-bell"></i>
                           <div class="nicknameBox">
-                              <div class="nickname" style="color: ${textColor};">
+                              <div class="nickname">
                                   ${notification.replynickname}
-                                  <span style="color: ${textColor};">님이 댓글을 남겼습니다.</span>
+                                  <span>님이 댓글을 남겼습니다.</span>
                               </div>
                               <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
@@ -383,7 +386,7 @@
                               </a>
                           </div>
                           <a href="/read/${notification.bid}">
-                              <div style="color: ${textColor};">${notification.message}</div>
+                              <div>${notification.message}</div>
                           </a>
                           <div class="date">${formatDateTime(notification.rdate)}</div>
                       </div>
