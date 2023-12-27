@@ -455,7 +455,9 @@
                         <div class="notification">
                             <i class="fas fa-bell"></i>
                             <p>${notification.replynickname}</p>
-                            <p>${notification.message}</p>
+                            <a href="/read/${notification.bid}">
+                                <p>${notification.message}</p>
+                            </a>
                             <p>${formatDateTime(notification.rdate)}</p>
                         </div>
                     `;
