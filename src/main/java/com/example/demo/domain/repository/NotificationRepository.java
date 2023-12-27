@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<BoardNotification,Long> {
 
-    @Query("SELECT b FROM BoardNotification b WHERE writenickname = :writenickname and isread=0 ORDER BY nid DESC")
+    @Query("SELECT b FROM BoardNotification b WHERE writenickname = :writenickname AND replynickname != :writenickname ORDER BY nid DESC")
     List<BoardNotification> findAllByNickname(@Param("writenickname") String writenickname);
 
 

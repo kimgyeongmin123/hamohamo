@@ -22,12 +22,14 @@ public class BoardNotification {
     private Long nid;
     private Long bid;
     @Column
-    private String writenickname;
+    private String writenickname; //글쓴사람
     @Column
-    private String replynickname;
+    private String replynickname; //댓글 단 사람
     @Column
 
     private String message;
+
+    //읽었는지 여부 판단
     private boolean isread;
     private LocalDateTime rdate;
 
