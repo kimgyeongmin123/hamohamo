@@ -6,6 +6,7 @@ import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.BoardRepository;
 import com.example.demo.domain.repository.FollowRepository;
+import com.example.demo.domain.repository.NotificationRepository;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.FollowService;
 import com.example.demo.domain.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +59,9 @@ public class UserController {
 
 	@Autowired
 	private FollowService followService;
+
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@PostMapping("/join")
 	public String join_post(UserDto dto, Model model, HttpServletRequest request) {
@@ -126,10 +131,13 @@ public class UserController {
 		// UserRepository를 사용하여 사용자 정보 가져오기
 		User user = userRepository.findByEmail(email);
 
-//		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-//		UserDto dto = principalDetails.getUser();
 
 		model.addAttribute("dto", user);
+
+		PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+		//알림갯수
+		int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+		model.addAttribute("notiCount", notiCount);
 
 		return "profile/update";
 	}
@@ -201,11 +209,20 @@ public class UserController {
 
 		model.addAttribute("followList", followList);
 		model.addAttribute("followerList", followerList);
+
+		//알림갯수
+		int notiCount = notificationRepository.countByMyNickname(principalDetails.getUser().getNickname());
+		model.addAttribute("notiCount", notiCount);
 	}
 
 
 	@GetMapping("/user/withdraw")
-	public String withdrawUser() {
+	public String withdrawUser(Model model, Authentication authentication) {
+
+		PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+		//알림갯수
+		int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+		model.addAttribute("notiCount", notiCount);
 
 		return "/profile/leave_auth";
 	}
@@ -265,6 +282,11 @@ public class UserController {
 		List<User> searchList = userService.search_nickname(keyword,nickname);
 		model.addAttribute("userList",searchList);
 		System.out.println("searchList : "+searchList);
+
+		//알림갯수
+		int notiCount = notificationRepository.countByMyNickname(nickname);
+		model.addAttribute("notiCount", notiCount);
+
 
 		return "search-nickname";
 	}

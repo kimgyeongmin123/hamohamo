@@ -129,6 +129,11 @@ public class BoardController {
         Board board = boardService.getBoardOne(number);
         List<String> files = board.getFiles();
 
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+        model.addAttribute("notiCount", notiCount);
+
         model.addAttribute("files", files);
         model.addAttribute("board", board);
 
@@ -176,7 +181,7 @@ public class BoardController {
     }
 
     @GetMapping("/read/{number}")
-    public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request, HttpServletResponse response){
+    public String read(@PathVariable("number") Long number, Model model, HttpServletRequest request, HttpServletResponse response, Authentication authentication){
         System.out.println("GET /read/"+number);
         Board board = boardService.getBoardOne(number);
         String profile = boardService.getProfileForBoard(number);
@@ -185,6 +190,11 @@ public class BoardController {
 
         List<String> files = board.getFiles();
         System.out.println(files);
+
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+        model.addAttribute("notiCount", notiCount);
         model.addAttribute("board", board);
         model.addAttribute("files", files);
         model.addAttribute("profile", profile);
@@ -310,6 +320,10 @@ public class BoardController {
 
         System.out.println("dataList : "+ dataList);
 
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+        model.addAttribute("notiCount", notiCount);
+
         model.addAttribute("boardList",dataList);
         model.addAttribute("followList", followList);
 
@@ -378,12 +392,11 @@ public class BoardController {
             return "redirect:/nampage?boardEmail=" + boardEmail;
         }
 
-
         return null;
     }
 
     @GetMapping("/nampage")
-    public String nampage(@RequestParam(value = "boardEmail") String boardEmail, Model model) {
+    public String nampage(@RequestParam(value = "boardEmail") String boardEmail, Model model, Authentication authentication) {
         if (boardEmail != null) {
             System.out.println("남페이지 겟매핑 남의이메일 : " + boardEmail);
 
@@ -422,13 +435,18 @@ public class BoardController {
             //팔로우/팔로워 목록 보내기
             model.addAttribute("followList", followList);
             model.addAttribute("followerList", followerList);
+
+            PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+            //알림갯수
+            int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+            model.addAttribute("notiCount", notiCount);
         }
         return "nampage";
     }
 
     //좀 겹치지만 남에페이지로 가는 또다른 메서드...
     @GetMapping("/nampage/{email}")
-    public String nampage2(@PathVariable (value = "email") String email, Model model) {
+    public String nampage2(@PathVariable (value = "email") String email, Model model, Authentication authentication) {
         if (email != null) {
             System.out.println("남페이지 겟매핑 남의이메일 : " + email);
 
@@ -467,6 +485,11 @@ public class BoardController {
             //팔로우/팔로워 목록 보내기
             model.addAttribute("followList", followList);
             model.addAttribute("followerList", followerList);
+
+            PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
+            //알림갯수
+            int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+            model.addAttribute("notiCount", notiCount);
         }
         return "nampage";
     }
@@ -478,7 +501,9 @@ public class BoardController {
 //        // 현재유저정보 가져오기
         PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
 
-        String currentUser = principal.getUser().getEmail();
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+        model.addAttribute("notiCount", notiCount);
 
     }
 
