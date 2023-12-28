@@ -14,6 +14,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
 
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
   <style>
     *{
         font-family: 'Gothic A1', sans-serif;
@@ -23,6 +27,7 @@
         margin: 50px auto;
         overflow: auto;
         margin-top : 10%;
+
 
     }
     header{
@@ -40,43 +45,35 @@
         justify-content: center;
         height: 100%; /* 높이를 화면 높이와 동일하게 설정 */
     }
+
+    .formbox > form > div{
+        width : 350px;
+    }
+
     .formbox > form > div > div{
         margin-bottom : 20px;
-        width : 230px;
+        width : 350px;
+        display : flex;
     }
-    input{
-        height : 25px;
-        width : 200px;
 
-    }
-    .formbox > form > div > div > h5{
-        margin-bottom : 5px;
+
+    input{
+        height : 35px;
+        width : 230px;
+
     }
     .jechul > button{
         margin-top : 30px;
         height : 50px;
         width : 340px;
-        color : #cfd7e0;
-        background-color: #4a596d;
+        color : white;
         border-style: none;
         border-radius: 7px;
-        font-size: 15px;
+        font-size: 0.8rem;
         cursor: pointer;
-    }
-    .search_addr_btn{
-        color : #cfd7e0;
-        background-color: #4a596d;
-        border-style: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width:120px;
-        margin-left:5px;
-        height : 30px;
-        font-size: 11px;
     }
     .jung-btn{
         color : #cfd7e0;
-        background-color: #4a596d;
         border-style: none;
         border-radius: 4px;
         cursor: pointer;
@@ -84,6 +81,10 @@
         margin-left:5px;
         height : 30px;
         font-size: 11px;
+    }
+
+    span{
+        font-size : 0.9rem;
     }
   </style>
 </head>
@@ -99,42 +100,42 @@
 
         <span for="emailInput">이메일</span>
         <div style="display : flex;">
-          <input name="email" id="emailInput">
-          <button class="jung-btn" id="checkDuplicatebtn" onclick="checkDuplicate('emailInput')">회원가입 체크</button>
-          <button class="jung-btn" id="sendEmailbtn" style="display: none;" onclick="sendemailFunction()">메일 보내기</button><br/>
+          <input name="email" id="emailInput" class="form-control">
+          <button class="jung-btn btn btn-secondary btn-lg" id="checkDuplicatebtn" onclick="checkDuplicate('emailInput')" style="width : 200px;height : 35px;color : white;">회원가입 체크</button>
+          <button class="jung-btn btn btn-secondary btn-lg" id="sendEmailbtn" style="display: none;width : 200px;height : 35px;color : white;" onclick="sendemailFunction()">메일 보내기</button><br/>
         </div>
       </div>
     </form>
   </div>
   <div class="formbox">
     <form name="checkcode" method="post" onsubmit="return false">
+
       <div>
+        <span for="codeInput">인증번호</span>
         <div>
-          <span for="codeInput">인증번호</span>
-          <div>
-            <input name="code" id="codeInput">
-            <button class="jung-btn" id="checkcode" onclick="checkcodeFunction()">인증하기</button>
-          </div>
+          <input name="code" id="codeInput" class="form-control">
+          <button class="jung-btn btn btn-secondary btn-lg" id="checkcode" onclick="checkcodeFunction()" style="height : 35px; color : white;">인증하기</button>
         </div>
       </div>
+
     </form>
   </div>
-  <div class="formbox">
+  <div class="formbox" style="">
     <form name="resetpwform" action="/resetpw" method="post" onsubmit="return false">
+
       <div>
+        <span for="passwordInput">새로운 비밀번호</span>
         <div>
-          <span for="passwordInput">새로운 비밀번호</span>
-          <div>
-            <input name="password" id="passwordInput" type="password"><br/>
-          </div>
-        </div>
-        <div>
-          <span for="passwordConfirmInput">비밀번호 확인</span>
-          <div>
-            <input name="passwordConfirm" id="passwordConfirmInput" type="password">
-          </div>
+          <input name="password" id="passwordInput" type="password" class="form-control"><br/>
         </div>
       </div>
+      <div>
+        <span for="passwordConfirmInput">비밀번호 확인</span>
+        <div>
+          <input name="passwordConfirm" id="passwordConfirmInput" type="password" class="form-control">
+        </div>
+      </div>
+
       <div class="jechul">
         <button onclick="resetpw()" class="btn btn-secondary btn-lg">비밀번호 재설정하기</button>
       </div>
