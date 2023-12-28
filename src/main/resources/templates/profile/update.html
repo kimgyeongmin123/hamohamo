@@ -338,22 +338,11 @@
             <br/>
 
             <span>휴대폰</span>
-            <div>
+            <div style="display : flex;">
                 <input name="newPhone" id="phoneInput" maxlength="13" class="form-control" th:value="${dto.phone}">
+                <button class="btn btn-secondary jung-btn" onclick="checkPhoneDuplicate('phoneInput')" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">중복체크</button>
             </div>
             <br/>
-
-            <!-- <span>주소</span>
-            <div>
-                <div style="display : flex;">
-                    <input name="newZipcode" class="form-control zipcode"  th:value="${dto.zipcode}">
-                    <button class="btn btn-secondary search_addr_btn" style="width : 160px; font-size: 0.8rem; margin-left : 17px;">주소검색</button>
-                </div>
-
-                <input name="newAddr1" class="form-control addr1"  th:value="${dto.addr1}" style="width : 330px; margin-top : 5px;">
-                <input name="newAddr2" class="form-control" th:value="${dto.addr2}" style="width : 330px; margin-top : 5px;">
-            </div>
-            <br/> -->
 
             <button onclick="isValid()" class="btn btn-secondary jechul">제출</button>
         </form>
@@ -516,6 +505,32 @@
                     yearRange: "c-100:c+10" // 년도 선택 범위 설정
                 });
             });
+
+</script>
+
+<script>
+    <!--휴대폰번호 중복-->
+        function checkPhoneDuplicate(phoneInput){
+        const inputValue = $("#" + phoneInput).val();
+        $.ajax({
+            url: "/checkPhoneDuplicate",
+            type: "POST",
+            data: { value: inputValue, field: phoneInput},
+            success: function (response) {
+                if (response.duplicate){
+                    alert("이미 존재하는 번호입니다.");
+                    isPhoneChecked = false;
+                } else {
+                    alert("사용 가능한 번호입니다.");
+                    isPhoneChecked = true;
+                }
+        },
+        error: function (xhr, status, error){
+            console.error("오류 발생 : ",error);
+            isPhoneChecked = false;
+        }
+        });
+        }
 
 </script>
 
