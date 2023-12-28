@@ -38,6 +38,8 @@
             padding: 5px;
         }
 
+
+
         .notification div {
             margin: 0;
         }
@@ -45,11 +47,13 @@
         .notification>.nicknameBox{
             display : flex;
             justify-content: space-between;
+            height : 30px;
         }
 
         .notification>.nicknameBox>.nickname{
             font-size : 0.85rem;
             font-weight: 700;
+
 
         }
         .notification>.nicknameBox>.nickname>span{
@@ -62,18 +66,24 @@
             color : gray;
         }
 
-        .notification>a{
+        .notification>div>a{
             color : black;
             text-decoration: none;
         }
 
-        .notification>a:hover{
+        .notification>div>a:hover{
             color : blue;
             text-decoration: underline;
         }
 
         .Notidelete {
             color: gray;
+            display : none;
+            margin-right : 15px;
+        }
+
+        .notification:hover .Notidelete{
+            display : block;
         }
 
     </style>
@@ -315,9 +325,8 @@
 
 
         </div>
-        <div class="followlist" style="width : 500px;
-    margin-left : 150px;
-    margin-top : 50px;">
+
+        <div class="followlist" style="width : 500px;margin-left : 150px;margin-top : 50px;">
             <!--            내정보-->
             <div class="myInfo" style="height : 60px;margin-top : 15px;">
                 <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin-left : 10px;margin-right : 10px;" />
@@ -384,9 +393,9 @@
                                     </svg>
                                 </a>
                             </div>
-                            <a href="/read/${notification.bid}">
-                                <div>${notification.message}</div>
-                            </a>
+
+                                <div><a href="/read/${notification.bid}">${notification.message}</a></div>
+
                             <div class="date">${formatDateTime(notification.rdate)}</div>
                         </div>
                     `;
