@@ -49,6 +49,7 @@
         .notification>.nicknameBox{
             display : flex;
             justify-content: space-between;
+            height : 30px;
         }
 
         .notification>.nicknameBox>.nickname{
@@ -66,18 +67,24 @@
             color : gray;
         }
 
-        .notification>a{
+        .notification>div>a{
             color : black;
             text-decoration: none;
         }
 
-        .notification>a:hover{
+        .notification>div>a:hover{
             color : blue;
             text-decoration: underline;
         }
 
         .Notidelete {
             color: gray;
+            display : none;
+            margin-right : 15px;
+        }
+
+        .notification:hover .Notidelete{
+            display : block;
         }
   </style>
 
@@ -352,9 +359,7 @@
                                   </svg>
                               </a>
                           </div>
-                          <a href="/read/${notification.bid}">
-                              <div>${notification.message}</div>
-                          </a>
+                          <div><a href="/read/${notification.bid}">${notification.message}</a></div>
                           <div class="date">${formatDateTime(notification.rdate)}</div>
                       </div>
                   `;
