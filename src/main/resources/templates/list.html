@@ -72,6 +72,10 @@
             text-decoration: underline;
         }
 
+        .Notidelete {
+            color: gray;
+        }
+
     </style>
 </head>
 <body class="scroll">
@@ -356,40 +360,35 @@
    // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
     function loadNotifications() {
         $.ajax({
-            url: "/boardnotification/read",
+            url: "/boardnotification/read", // 알림 데이터를 제공하는 엔드포인트
             method: "GET",
             dataType: "json",
             success: function(data) {
-
+                // 알림 데이터를 동적으로 렌더링합니다.
                 const notificationContainer = $("#notification-container");
 
                 data.forEach(function(notification) {
-
-
-<!--                    const textColor = notification.isread ? 'gray' : 'black';-->
-<!--style="color: ${textColor};"-->
-
-
+                    // 알림을 동적으로 생성하여 추가합니다.
                     const notificationElement = `
-                      <div class="notification">
-                          <i class="fas fa-bell"></i>
-                          <div class="nicknameBox">
-                              <div class="nickname">
-                                  ${notification.replynickname}
-                                  <span>님이 댓글을 남겼습니다.</span>
-                              </div>
-                              <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                  </svg>
-                              </a>
-                          </div>
-                          <a href="/read/${notification.bid}">
-                              <div>${notification.message}</div>
-                          </a>
-                          <div class="date">${formatDateTime(notification.rdate)}</div>
-                      </div>
+                        <div class="notification">
+                            <i class="fas fa-bell"></i>
+                            <div class="nicknameBox">
+                                <div class="nickname">
+                                    ${notification.replynickname}
+                                    <span>님이 댓글을 남겼습니다.</span>
+                                </div>
+                                <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})" class="Notidelete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <a href="/read/${notification.bid}">
+                                <div>${notification.message}</div>
+                            </a>
+                            <div class="date">${formatDateTime(notification.rdate)}</div>
+                        </div>
                     `;
                     notificationContainer.append(notificationElement);
                 });
@@ -416,7 +415,7 @@
             console.error("Error deleting notification: " + error);
         }
     });
-}
+  }
 
     // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
     $(document).ready(function() {
