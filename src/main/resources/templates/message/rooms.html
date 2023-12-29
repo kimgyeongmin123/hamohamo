@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅</title>
+    <!-- CSS 및 기타 필요한 스타일시트 포함 -->
+</head>
+<body>
+
+<ul id="friend-list" th:each="friend : ${followingList}">
+    <!-- data-nickname 속성을 추가하고 해당 속성에 친구의 nickname을 할당 -->
+    <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}"></li>
+</ul>
+
+<script>
+    document.getElementById("friend-list").addEventListener("click", function (event) {
+        if (event.target && event.target.tagName === "LI") {
+            openChatRoom(event.target.getAttribute("data-nickname"));
+        }
+    });
+
+    // 팔로우한 친구와의 채팅방 열기
+    function openChatRoom(otherNickname) {
+        window.location.href = "/message/chat/" + otherNickname;
+    }
+</script>
+
+</body>
+</html>
