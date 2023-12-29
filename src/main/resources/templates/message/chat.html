@@ -181,7 +181,8 @@
 
     .chatlist{
       overflow-y: auto;
-      max-height: 85%;
+      max-height: 90%;
+      min-height : 90%
     }
 
   </style>
@@ -383,7 +384,7 @@
     <h1>채팅방</h1>
     <span th:text="${#authentication.getPrincipal().getUser().getNickname()}" id="myninkname" style="display : none;">my email</span>
     <div id="chat-container">
-      <div class="chatlist" style="width : 100%;">
+      <div class="chatlist scroll" style="width : 100%;">
         <div id="chat-box" th:each="message : ${list}">
           <div class="message" th:class="${message.send_nick eq send_nick} ? 'message sent' : 'message received'">
             <span class="nickname" th:text="${message.send_nick}" style="font-weight: 700;"></span>
@@ -401,6 +402,14 @@
 
   </section>
 </main>
+
+<script>
+  document.getElementById("content").addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+          sendMessage();
+      }
+  });
+</script>
 
 <script>
   document.querySelectorAll(".friend-list").forEach(function (list) {
