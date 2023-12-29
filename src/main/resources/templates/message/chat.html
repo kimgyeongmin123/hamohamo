@@ -3,29 +3,566 @@
 <head>
   <meta charset="UTF-8">
   <title>채팅</title>
-  <!-- CSS 및 기타 필요한 스타일시트 포함 -->
+
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- 구글폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/board.css">
+
+  <style>
+    .home{
+        font-weight: 800;
+    }
+
+      #preview>img {
+        width: 200px;
+        height: 200px;
+        border: 1px solid gray;
+        margin : 2px;
+    }
+
+    .notification {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+
+
+    .notification div {
+        margin: 0;
+    }
+
+    .notification>.nicknameBox{
+        display : flex;
+        justify-content: space-between;
+        height : 30px;
+    }
+
+    .notification>.nicknameBox>.nickname{
+        font-size : 0.85rem;
+        font-weight: 700;
+
+
+    }
+    .notification>.nicknameBox>.nickname>span{
+        font-size : 0.85rem;
+        font-weight:500;
+    }
+
+    .notification>.date{
+        font-size : 0.7rem;
+        color : gray;
+    }
+
+    .notification>div>a{
+        color : black;
+        text-decoration: none;
+    }
+
+    .notification>div>a:hover{
+        color : blue;
+        text-decoration: underline;
+    }
+
+    .Notidelete {
+        color: gray;
+        display : none;
+        margin-right : 15px;
+    }
+
+    .notification:hover .Notidelete{
+        display : block;
+    }
+
+    body{
+        height : 100vh;
+    }
+
+    main{
+        display : flex;
+        height : 100%;
+    }
+
+    main>.listBox{
+        flex-basis : 380px;
+        height : 100%;
+        border-right : 1px solid gray;
+    }
+
+    main .list{
+        margin-top : 80px;
+
+    }
+
+    main>.messageBox{
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+        justify-content : center;
+        margin : 100px;
+        align-self : center;
+        height : 80%;
+        width : 100%;
+        border : 1px solid gray;
+        border-radius : 15px;
+    }
+
+  </style>
+
 </head>
-<body>
+<body class="scroll">
 
-<h1>채팅방</h1>
+<header>
+  <div class="menu">
+    <div class="top-menu">
 
-<div id="chat-box">
-  <!-- 채팅 내용 표시 -->
-  <div th:each="message : ${list}">
-    <!-- 닉네임과 내용 표시 -->
-    <p th:text="${message.other_nick + ': ' + message.content}"></p>
+      <div class="logo">
+        <a href="/list"> <img src="/images/logo.png" max-width="100%" height="15"/> </a>
+      </div>
+
+      <div class="middle-menu">
+        <a href="/list">
+          <div class="home" style="font-size: 1.2rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+              <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+              <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+            </svg>홈
+          </div>
+        </a>
+
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+          검색
+        </button>
+
+        <a href="#" id="notification-icon" onclick="openMessages()">
+          <div class="message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>메시지
+          </div>
+        </a>
+
+        <script>
+          function openMessages() {
+              // JavaScript를 사용하여 메시지 페이지로 이동
+              window.location.href = "/message/rooms";
+          }
+        </script>
+
+        <button type="button" class="btn btn-primary position-relative bell" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+          </svg>알림
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >[[${notiCount}]]
+                        <span class="visually-hidden">messages</span>
+                    </span>
+        </button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>글쓰기
+        </button>
+
+        <a href="/draw">
+          <div class="draw">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette" viewBox="0 0 16 16">
+              <path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+              <path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
+            </svg>그림그리기
+          </div>
+        </a>
+
+        <a href="/mypage">
+          <div class="mypage">
+            <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />프로필
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+
+    <div class="logout">
+      <form method="post" action="/logout">
+        <button class="logout-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+          </svg>로그아웃
+        </button>
+      </form>
+    </div>
+
+  </div>
+</header>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">검색</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <div class="searchbox">
+      <form id="searchForm" method="GET">
+        <select class="form-select" aria-label="Default select example" id="searchOption">
+          <option value="nickname">닉네임</option>
+          <option value="content">내용</option>
+        </select>
+        <input type="text" name="keyword" class="form-control" id="searchKeyword">
+        <button type="submit" class="btn btn-outline-secondary" id="searchButton">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
   </div>
 </div>
 
-<!-- 메시지 전송 폼 -->
-<form id="messageForm">
-  <!-- 수신자의 닉네임을 hidden 필드로 전달 -->
-  <input type="hidden" id="otherNick" th:value="${sendNickname}" />
-  <!-- 메시지 내용 입력 필드 -->
-  <input type="text" id="content" />
-  <!-- 전송 버튼 -->
-  <button type="button" onclick="sendMessage()">전송</button>
-</form>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">알림</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div id="notification-container">
+      <!-- 알림이 여기에 동적으로 추가될 것입니다. -->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <div class="modal-header" style="height : 40px;">
+        <span class="modal-title" id="exampleModalLabel" style="font-weight: 600;">새 게시물</span>
+      </div>
+
+      <div class="modal-body" style="display : flex; justify-content: center;">
+        <section class="product_img_block" style="display : fixed;width : 10px;">
+          <div class="product_img">
+            <div class="upload-box" style="position : relative;left :10px;top : 0px;width : 500px;height : 500px;z-index:999;">
+              <div class="plus">+</div>
+            </div>
+          </div>
+        </section>
+        <form onsubmit="return false" name="imageform" >
+          <div style="display : flex;">
+            <div class="form-group" style="display : flex; flex-direction: column;">
+              <!--                            <input class="form-control" type="file" id="fileInput" name="files" style="z-index : 80;" multiple>-->
+
+              <div style="width : 500px; height : 500px;">
+                <div id="preview" style="width : 500px;height : 500px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-left : 60px;">
+              <div class="form-group" style="height : 49px;">
+                <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:22px;height:22px;border-radius:50%;" />
+                <label for="nickname"></label>
+                <input type="text" id="nickname" name="nickname" th:value="${#authentication.getPrincipal().getUser().getNickname()}" style="border : 1px solid white;"readonly/>
+              </div>
+
+              <div class="form-group">
+                <textarea name="contents" rows="4" style="width : 300px;height : 300px;" required></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="margin-top : 20px;">
+            <button type="submit" class="btn btn-primary add_product_btn">등록</button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--common 구간------------------------------------------>
+
+<main>
+
+
+
+  <section class="listBox">
+    <div class="list">
+      <ul class="friend-list" th:each="friend : ${followingList}">
+        <!-- data-nickname 속성을 추가하고 해당 속성에 친구의 nickname을 할당 -->
+        <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}"></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="messageBox">
+    
+    <h1>채팅방</h1>
+
+    <div id="chat-box">
+      <!-- 채팅 내용 표시 -->
+      <div th:each="message : ${list}">
+        <!-- 닉네임과 내용 표시 -->
+        <p th:text="${message.other_nick + ': ' + message.content}"></p>
+      </div>
+    </div>
+
+    <!-- 메시지 전송 폼 -->
+    <form id="messageForm">
+      <!-- 수신자의 닉네임을 hidden 필드로 전달 -->
+      <input type="hidden" id="otherNick" th:value="${sendNickname}" />
+      <!-- 메시지 내용 입력 필드 -->
+      <input type="text" id="content" />
+      <!-- 전송 버튼 -->
+      <button type="button" onclick="sendMessage()">전송</button>
+    </form>
+
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll(".friend-list").forEach(function (list) {
+     list.addEventListener("click", function (event) {
+         if (event.target.tagName === "LI") {
+             openChatRoom(event.target.getAttribute("data-nickname"));
+         }
+     });
+ });
+
+
+ // 팔로우한 친구와의 채팅방 열기
+ function openChatRoom(otherNickname) {
+     window.location.href = "/message/chat/" + otherNickname;
+ }
+</script>
+
+
+<!-- Moment.js -->
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<!-- Font Awesome for the bell icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oC5D5N2ZlHv5r5zI3/81s6V5HQHZxTUn1l7/2eXIt2Q01lQQDKqOvSDR8RShm6ZH" crossorigin="anonymous">
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  function formatDateTime(rawDate) {
+      const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY.MM.DD HH:mm');
+      return formattedDate;
+  }
+
+ // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
+  function loadNotifications() {
+      $.ajax({
+          url: "/boardnotification/read", // 알림 데이터를 제공하는 엔드포인트
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+              // 알림 데이터를 동적으로 렌더링합니다.
+              const notificationContainer = $("#notification-container");
+
+              data.forEach(function(notification) {
+                  // 알림을 동적으로 생성하여 추가합니다.
+                  const notificationElement = `
+                      <div class="notification">
+                          <i class="fas fa-bell"></i>
+                          <div class="nicknameBox">
+                              <div class="nickname">
+                                  ${notification.replynickname}
+                                  <span>님이 댓글을 남겼습니다.</span>
+                              </div>
+                              <a href="javascript:void(0);" onclick="deleteNotification(${notification.nid})" class="Notidelete">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                  </svg>
+                              </a>
+                          </div>
+                           <div><a href="/read/${notification.bid}">${notification.message}</a></div>
+                          <div class="date">${formatDateTime(notification.rdate)}</div>
+                      </div>
+                  `;
+                  notificationContainer.append(notificationElement);
+              });
+          },
+          error: function(error) {
+              console.error("Error fetching notifications: " + error);
+          }
+      });
+  }
+
+  // 알림삭제 요청
+  function deleteNotification(nid) {
+  $.ajax({
+      url: "/boardnotification/deleteNotification/" + nid,
+      method: "DELETE",
+      success: function(response) {
+          console.log(response);
+          // 삭제가 성공하면 알림을 동적으로 삭제
+          $("#notification-" + nid).remove();
+          location.reload();
+
+      },
+      error: function(error) {
+          console.error("Error deleting notification: " + error);
+      }
+  });
+}
+
+  // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
+  $(document).ready(function() {
+      loadNotifications();
+  });
+
+  //---------------------------------
+      //소켓 연결
+      //---------------------------------
+      var socket = new WebSocket('ws://localhost:8080/socket');
+
+      //---------------------------------
+      //메세지 수신
+      //---------------------------------
+      let amarmtest = 0;
+      socket.onmessage = function(event) {
+              var message = event.data;
+              console.log('message : ',message);
+              alert("Message : "+message);
+
+              const notificationSpan = document.querySelector('.notification .counter');
+              if (notificationSpan) {
+                notificationSpan.style.display = 'block';
+              }
+     };
+</script>
+
+<script>
+
+  function logoutAndRedirect() {
+        // 새 창 열기
+     var newWindow = window.open('/logout', '_blank','width=450,height=450,top=1,right=100%');
+     setTimeout(function() {
+       // 1.5초후 창닫기
+        newWindow.close();
+
+       // 특정 지점으로 리다이렉션
+   window.location.href = '/login';
+ }, 1500);
+
+   }
+
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('searchButton').addEventListener('click', function(event) {
+      event.preventDefault(); // 기본 동작을 막습니다.
+
+      // 폼을 가져오고, action 속성을 변경한 다음 폼을 제출합니다.
+      var form = document.getElementById('searchForm');
+      var selectedOption = document.getElementById('searchOption').value; // 선택된 검색 옵션 가져오기
+      if (selectedOption === 'nickname') {
+          form.action = '/list/search-nickname'; // 닉네임 검색을 위한 URL로 변경
+      } else {
+          form.action = '/list/search-contents'; // 내용 검색을 위한 URL로 변경
+      }
+          form.submit(); // 폼 제출
+      });
+  });
+</script>
+
+<script>
+  const formData = new FormData();	//폼관련 정보 저장
+
+const uploadBox_el = document.querySelector('.upload-box');
+//dragenter / dragover /dragleave / drop
+
+uploadBox_el.addEventListener('dragenter',function(e){
+  e.preventDefault();
+  console.log("dragenter...");
+});
+uploadBox_el.addEventListener('dragover',function(e){
+  e.preventDefault();
+  uploadBox_el.style.opacity='0.5';
+  console.log("dragover...");
+
+});
+uploadBox_el.addEventListener('dragleave',function(e){
+  e.preventDefault();
+  uploadBox_el.style.opacity='1';
+  console.log("dragleave...");
+
+});
+
+//----------------------------------------------
+//
+//----------------------------------------------
+uploadBox_el.addEventListener('drop',function(e){
+  e.preventDefault();
+  console.log("drop...");
+  console.log(e);
+  console.log(e.dataTransfer);
+  console.log(e.dataTransfer.files[0]);
+
+  //유효성체크(이미지만, 하나씩만 , 용량제한 ...)
+  // 파일 유형 확인 및 이미지 파일만 처리
+  const imageFiles = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+  if (imageFiles.length === 0) {
+          alert("이미지 파일만 가능합니다");
+          return;
+  }
+
+  //미리보기
+  const file = e.dataTransfer.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function(event) {
+      const preview = document.getElementById('preview');
+      const img = document.createElement('img')
+      img.setAttribute('src',event.target.result);
+      preview.appendChild(img);
+  };
+  //formData에 저장
+  formData.append('files',file);
+
+});
+
+const add_product_btn_el = document.querySelector('.add_product_btn');
+      add_product_btn_el.addEventListener('click',function(){
+          const contents = document.imageform.contents.value;
+
+          formData.append('contents',contents);
+
+
+          axios.post('/post',formData,	{headers: {'Content-Type' : 'multipart/form-data' } }   )
+          .then(response =>{
+              alert("새 글을 추가했습니다. 짝짝짝");
+              location.href="/list";
+          })
+          .catch(error =>{alert("글쓰기를 실패하였습니다.(이미지파일 필수)");})
+
+
+      })
+</script>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
