@@ -56,6 +56,29 @@ public class MessageController {
         return "message/rooms";
     }
 
+    @GetMapping("message/chat/{sendNickname}")
+    public String messageList(@PathVariable(name = "sendNickname") String sendNickname,
+                              Authentication authentication,Model model){
+        //현재 유저 정보 가져오기
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+
+        //현재 유저의 이메일 저장
+        String nickname = principal.getNickname();
+
+        //메시지 리스트 가져오기
+        List<Message> list = messageService.getMessageList(nickname,sendNickname);
+
+        if(list==null){
+            list = new ArrayList<>();
+        }
+
+        model.addAttribute("list",list);
+
+        return "message/chat";
+
+
+    }
+
     @PostMapping("/message/send")
     @ResponseBody
     public ResponseEntity<String> sendMessage(
@@ -79,28 +102,7 @@ public class MessageController {
         return ResponseEntity.ok("Message sent successfully");
     }
 
-    @GetMapping("message/chat/{sendNickname}")
-    public String messageList(@PathVariable(name = "sendNickname") String sendNickname,
-                              Authentication authentication,Model model){
-        //현재 유저 정보 가져오기
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
-        //현재 유저의 이메일 저장
-        String nickname = principal.getNickname();
-
-        //메시지 리스트 가져오기
-        List<Message> list = messageService.getMessageList(nickname,sendNickname);
-
-        if(list==null){
-            list = new ArrayList<>();
-        }
-
-        model.addAttribute("list",list);
-
-        return "message/chat";
-
-
-    }
 
 
 }

@@ -84,6 +84,40 @@
         .notification:hover .Notidelete{
             display : block;
         }
+
+        body{
+            height : 100vh;
+        }
+
+        main{
+            display : flex;
+            height : 100%;
+        }
+
+        main>.listBox{
+            flex-basis : 380px;
+            height : 100%;
+            border-right : 1px solid gray;
+        }
+
+        main .list{
+            margin-top : 80px;
+
+        }
+
+        main>.messageBox{
+            display : flex;
+            flex-direction : column;
+            align-items : center;
+            justify-content : center;
+            margin : 100px;
+            align-self : center;
+            height : 80%;
+            width : 100%;
+            border : 1px solid gray;
+            border-radius : 15px;
+        }
+
     </style>
 </head>
 <body class="scroll">
@@ -267,11 +301,21 @@
 <!--common 구간------------------------------------------>
 <main>
 
-    <ul id="friend-list" th:each="friend : ${followingList}">
-        <!-- data-nickname 속성을 추가하고 해당 속성에 친구의 nickname을 할당 -->
-        <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}"></li>
-    </ul>
 
+
+    <section class="listBox">
+        <div class="list">
+            <ul id="friend-list" th:each="friend : ${followingList}">
+                <!-- data-nickname 속성을 추가하고 해당 속성에 친구의 nickname을 할당 -->
+                <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}"></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="messageBox">
+        <div>대화창</div>
+        <div>사용자를 선택하여 대화를 시작해보세요! 하모!</div>
+    </section>
 </main>
 
 <script>
