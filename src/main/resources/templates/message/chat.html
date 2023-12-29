@@ -117,6 +117,72 @@
         border : 1px solid gray;
         border-radius : 15px;
     }
+<!-------------------------------------------------------------------------->
+    h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #chat-container {
+            height : 100%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            width : 100%;
+        }
+
+        #chat-box {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .sent {
+            background-color: #e0f7fa;
+            text-align: right;
+        }
+
+        .received {
+            background-color: #f5f5f5;
+            text-align: left;
+        }
+
+        #messageForm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #eee;
+        }
+
+        #content {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    .chatlist{
+      overflow-y: auto;
+      max-height: 85%;
+    }
 
   </style>
 
@@ -318,23 +384,22 @@
 
     <h1>채팅방</h1>
 
-    <div id="chat-box">
-      <!-- 채팅 내용 표시 -->
-      <div th:each="message : ${list}">
-        <!-- 닉네임과 내용 표시 -->
-        <p th:text="${message.other_nick + ': ' + message.content}"></p>
+    <div id="chat-container">
+      <div class="chatlist" style="width : 100%;">
+        <div id="chat-box" th:each="message : ${list}">
+          <div th:class="${message.send_nick eq send_nick} ? 'message sent' : 'message received'">
+            <span th:text="${message.send_nick}"></span>
+            <span th:text="${message.content}"></span>
+          </div>
+        </div>
       </div>
+      <!-- 메시지 전송 폼 -->
+      <form id="messageForm">
+        <input type="hidden" id="otherNick" th:value="${sendNickname}" />
+        <input type="text" id="content" />
+        <button type="button" onclick="sendMessage()">전송</button>
+      </form>
     </div>
-
-    <!-- 메시지 전송 폼 -->
-    <form id="messageForm">
-      <!-- 수신자의 닉네임을 hidden 필드로 전달 -->
-      <input type="hidden" id="otherNick" th:value="${sendNickname}" />
-      <!-- 메시지 내용 입력 필드 -->
-      <input type="text" id="content" />
-      <!-- 전송 버튼 -->
-      <button type="button" onclick="sendMessage()">전송</button>
-    </form>
 
   </section>
 </main>
@@ -362,6 +427,53 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oC5D5N2ZlHv5r5zI3/81s6V5HQHZxTUn1l7/2eXIt2Q01lQQDKqOvSDR8RShm6ZH" crossorigin="anonymous">
 <!-- axios -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:inline="javascript">
+
+  // 메시지 전송 함수
+  function sendMessage() {
+      var otherNick = /*[[${sendNickname}]]*/ '';
+      var content = document.getElementById('content').value;
+
+      // Ajax를 사용하여 메시지 전송
+      $.ajax({
+          type: 'POST',
+          url: '/message/send',
+          data: { otherNick: otherNick, content: content },
+          success: function () {
+              location.reload();
+          },
+          error: function () {
+              alert('메시지 전송 오류');
+          }
+      });
+
+      // 메시지 입력 필드 초기화
+      document.getElementById('content').value = '';
+  }
+
+
+
+</script>
+
+<script>
+  // 스크롤 위치 저장
+  window.addEventListener("scroll", function () {
+      localStorage.setItem("scrollPosition", window.scrollY);
+  });
+
+  // 페이지 로드 시 스크롤 위치 복원
+  window.addEventListener("load", function () {
+      const scrollPosition = localStorage.getItem("scrollPosition");
+      if (scrollPosition) {
+          window.scroll({
+              top: scrollPosition,
+              behavior: "auto"
+          });
+      }
+  });
+</script>
 
 <script>
   function formatDateTime(rawDate) {
@@ -564,59 +676,7 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
 
-  // 메시지 전송 함수
-  function sendMessage() {
-      var otherNick = document.getElementById('otherNick').value;
-      var content = document.getElementById('content').value;
-
-      // Ajax를 사용하여 메시지 전송
-      $.ajax({
-          type: 'POST',
-          url: '/message/send',
-          data: { otherNick: otherNick, content: content },
-          success: function () {
-              updateChat();
-          },
-          error: function () {
-              alert('메시지 전송 오류');
-          }
-      });
-
-      // 메시지 입력 필드 초기화
-      document.getElementById('content').value = '';
-  }
-
-  // 채팅 내용 갱신 함수
-  function updateChat() {
-      // 현재 선택된 채팅 상대의 닉네임 가져오기
-      var sendNickname = document.getElementById('otherNick').value;
-
-      // Ajax를 사용하여 최근 채팅 메시지를 가져오기
-      $.ajax({
-          type: 'GET',
-          url: '/message/chat/' + sendNickname,
-          success: function (messages) {
-              // 메시지를 화면에 출력하는 로직을 추가
-              var chatBox = document.getElementById('chat-box');
-              chatBox.innerHTML = '';  // 채팅 박스 초기화
-
-              messages.forEach(function (message) {
-                  var messageElement = document.createElement('p');
-                  messageElement.textContent = message.other_nick + ': ' + message.content;
-                  chatBox.appendChild(messageElement);
-              });
-          },
-          error: function () {
-              // 에러 처리
-              alert('채팅 내용 갱신 오류');
-          }
-      });
-  }
-
-</script>
 
 </body>
 </html>
