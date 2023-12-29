@@ -95,7 +95,7 @@
     }
 
     main>.listBox{
-        flex-basis : 380px;
+        flex-basis : 600px;
         height : 100%;
         border-right : 1px solid gray;
     }
@@ -381,12 +381,12 @@
   <section class="messageBox">
 
     <h1>채팅방</h1>
-    내 닉네임 : <span th:text="${#authentication.getPrincipal().getUser().getNickname()}" id="myninkname">my email</span>
+    <span th:text="${#authentication.getPrincipal().getUser().getNickname()}" id="myninkname" style="display : none;">my email</span>
     <div id="chat-container">
       <div class="chatlist" style="width : 100%;">
         <div id="chat-box" th:each="message : ${list}">
-          <div th:class="${message.send_nick eq send_nick} ? 'message sent' : 'message received'">
-            <span th:text="${message.send_nick}" style="font-weight: 700;"></span>
+          <div class="message" th:class="${message.send_nick eq send_nick} ? 'message sent' : 'message received'">
+            <span class="nickname" th:text="${message.send_nick}" style="font-weight: 700;"></span>
             <span th:text="${message.content}"></span>
           </div>
         </div>
@@ -416,6 +416,23 @@
  function openChatRoom(otherNickname) {
      window.location.href = "/message/chat/" + otherNickname;
  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var messages = document.querySelectorAll("#chat-box .message");
+
+      messages.forEach(function(message) {
+          var nicknameElement  = message.querySelector(".nickname");
+          var nickname = message.querySelector(".nickname").innerText;
+          var myNickname = document.getElementById("myninkname").innerText;
+
+          if (nickname === myNickname) {
+              nicknameElement.style.display = "none";
+              message.style.textAlign = "right";
+          }
+      });
+  });
 </script>
 
 
