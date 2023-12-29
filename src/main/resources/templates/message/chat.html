@@ -185,6 +185,13 @@
       min-height : 90%
     }
 
+    .profile-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
   </style>
 
 </head>
@@ -372,9 +379,9 @@
 
   <section class="listBox">
     <div class="list">
-      <ul class="friend-list" th:each="friend : ${followingList}">
-        <!-- data-nickname 속성을 추가하고 해당 속성에 친구의 nickname을 할당 -->
-        <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}"></li>
+      <ul class="friend-list" th:each="friend : ${followingList}" style="display : flex;">
+        <img class="profile-image" th:src="${friend.profile}" alt="Profile Image">
+        <li class="friend-item" th:text="${friend.nickname}" th:attr="data-nickname=${friend.nickname}" style="list-style:none;"></li>
       </ul>
     </div>
   </section>
@@ -483,18 +490,15 @@
 
 <script>
   // 스크롤 위치 저장
-  window.addEventListener("scroll", function () {
-      localStorage.setItem("scrollPosition", window.scrollY);
+  document.querySelector(".chatlist").addEventListener("scroll", function () {
+      localStorage.setItem("scrollPosition", this.scrollTop);
   });
 
   // 페이지 로드 시 스크롤 위치 복원
   window.addEventListener("load", function () {
       const scrollPosition = localStorage.getItem("scrollPosition");
       if (scrollPosition) {
-          window.scroll({
-              top: scrollPosition,
-              behavior: "auto"
-          });
+          document.querySelector(".chatlist").scrollTop = scrollPosition;
       }
   });
 </script>
