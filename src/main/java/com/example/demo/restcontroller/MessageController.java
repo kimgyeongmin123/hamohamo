@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class MessageController {
@@ -81,6 +82,8 @@ public class MessageController {
         }
 
         model.addAttribute("list",list);
+
+        System.out.println("list : "+list);
 
         //알림갯수
         int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
