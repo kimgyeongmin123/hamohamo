@@ -5,6 +5,7 @@ import com.example.demo.domain.dto.MessageDto;
 import com.example.demo.domain.entity.Message;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.repository.FollowRepository;
+import com.example.demo.domain.repository.NotificationRepository;
 import com.example.demo.domain.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,9 @@ public class MessageController {
     @Autowired
     private FollowRepository followRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
     //팔로우 리스트 불러오기
     @GetMapping("/message/rooms")
     public String getRooms(Model model, Authentication authentication){
@@ -43,6 +47,11 @@ public class MessageController {
         System.out.println("followingList : "+followingList);
 
         model.addAttribute("followingList",followingList);
+
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+
+        model.addAttribute("notiCount", notiCount);
 
         return "message/rooms";
     }
