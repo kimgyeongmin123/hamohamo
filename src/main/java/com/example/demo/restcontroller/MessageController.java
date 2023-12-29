@@ -62,7 +62,15 @@ public class MessageController {
         //현재 유저 정보 가져오기
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
-        //현재 유저의 이메일 저장
+        String email = principal.getUsername();
+
+        //팔로우한 사람의 정보 가져오기
+        List<User> followingList = followRepository.findByFollowNickname(email);
+
+        //팔로우한 사람의 정보 모델로 보내기
+        model.addAttribute("followingList",followingList);
+
+        //현재 유저의 닉네임 저장
         String nickname = principal.getNickname();
 
         //메시지 리스트 가져오기
@@ -73,6 +81,11 @@ public class MessageController {
         }
 
         model.addAttribute("list",list);
+
+        //알림갯수
+        int notiCount = notificationRepository.countByMyNickname(principal.getUser().getNickname());
+
+        model.addAttribute("notiCount", notiCount);
 
         return "message/chat";
 
