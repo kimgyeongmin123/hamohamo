@@ -444,7 +444,6 @@ public class BoardController {
         return "nampage";
     }
 
-    //좀 겹치지만 남에페이지로 가는 또다른 메서드...
     @GetMapping("/nampage/{email}")
     public String nampage2(@PathVariable (value = "email") String email, Model model, Authentication authentication) {
         if (email != null) {
@@ -498,7 +497,7 @@ public class BoardController {
     public void draw(Model model, Authentication authentication){
         log.info("GET /draw");
 
-//        // 현재유저정보 가져오기
+//      // 현재유저정보 가져오기
         PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
 
         //알림갯수
@@ -506,8 +505,5 @@ public class BoardController {
         model.addAttribute("notiCount", notiCount);
 
     }
-
-
-
 
 }

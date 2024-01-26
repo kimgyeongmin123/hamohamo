@@ -13,20 +13,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class DataSourceConfig {
-    //오메
-
-	// Spring-jdbc DataSource
-//	@Bean
-//	public DataSource dataSource()
-//	{
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//		dataSource.setUrl("jdbc:mysql://localhost:3306/bookdb");
-//		dataSource.setUsername("root");
-//		dataSource.setPassword("1234");
-//
-//		return dataSource;
-//	}
 
 	//	HikariCP DataSource
     @Bean
